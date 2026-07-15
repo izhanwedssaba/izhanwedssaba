@@ -239,12 +239,45 @@ color:#111;
     color:#555;
 }
 
-.countdown {
-    margin-top: 25px;
-    font-size: 18px;
-    color: #B88A2E;
-    font-weight: 600;
-    text-align: center;
+.countdown{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    max-width:700px;
+    margin:45px auto 0;
+    padding:0 20px;
+}
+
+.count-item{
+    background:#FFFDF8;
+    border:1px solid #E6D6A8;
+    border-radius:18px;
+    padding:18px 10px;
+    box-shadow:0 8px 24px rgba(0,0,0,.05);
+}
+
+.count-number{
+    display:block;
+    font-size:2rem;
+    font-weight:700;
+    color:#0F5A47;
+}
+
+.count-label{
+    display:block;
+    margin-top:8px;
+    font-size:.85rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    color:#B88A2E;
+}
+
+@media(max-width:768px){
+
+.countdown{
+grid-template-columns:repeat(2,1fr);
+}
+
 }
 
 /* ===== Invitation Message ===== */
