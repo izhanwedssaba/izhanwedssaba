@@ -245,3 +245,10 @@ color:#111;
     color:#C6A664;
     font-weight:600;
 }
+.countdown {
+    margin-top: 25px;
+    font-size: 18px;
+    color: #B88A2E;
+    font-weight: 600;
+    text-align: center;
+}
