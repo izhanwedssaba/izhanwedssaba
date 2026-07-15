@@ -1,14 +1,18 @@
-const opening = document.getElementById("opening-screen");
-const enterBtn = document.getElementById("enterBtn");
+document.addEventListener("DOMContentLoaded", () => {
 
-enterBtn.addEventListener("click", () => {
+    const opening = document.getElementById("opening-screen");
+    const enterBtn = document.getElementById("enterBtn");
 
-    opening.style.opacity = "0";
+    if (!opening || !enterBtn) return;
 
-    setTimeout(() => {
+    enterBtn.addEventListener("click", () => {
 
-        opening.style.display = "none";
+        opening.style.opacity = "0";
 
-    },1000);
+        setTimeout(() => {
+            opening.style.display = "none";
+        }, 1000);
+
+    });
 
 });
