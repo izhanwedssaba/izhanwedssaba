@@ -30,11 +30,30 @@ setInterval(() => {
     const countdown = document.getElementById("countdown");
 
     if (countdown) {
-        countdown.innerHTML =
-            `${days} Days • ${hours} Hours • ${minutes} Minutes • ${seconds} Seconds`;
+        countdown.innerHTML = `
+<div class="count-item">
+<span class="count-number">${days}</span>
+<span class="count-label">Days</span>
+</div>
+
+<div class="count-item">
+<span class="count-number">${hours}</span>
+<span class="count-label">Hours</span>
+</div>
+
+<div class="count-item">
+<span class="count-number">${minutes}</span>
+<span class="count-label">Minutes</span>
+</div>
+
+<div class="count-item">
+<span class="count-number">${seconds}</span>
+<span class="count-label">Seconds</span>
+</div>
+`;
     }
 
     if (distance < 0 && countdown) {
-        countdown.innerHTML = "✨ Today is our Wedding Day ✨";
+        countdown.innerHTML = "✨ Alhamdulillah! The countdown has ended. Today we begin our beautiful journey together. Please keep Mohammed Izhan & Bazila Saba in your prayers. 🤍 ✨";
     }
 }, 1000);
