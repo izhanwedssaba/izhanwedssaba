@@ -282,3 +282,71 @@ color:#111;
     color: #B88A2E;
     font-weight: 600;
 }
+/* ===== Event Section ===== */
+
+.event-section{
+    padding:80px 24px;
+}
+
+.event-card{
+    max-width:650px;
+    margin:auto;
+    background:#fffdf8;
+    border:1px solid #e6d6a8;
+    border-radius:20px;
+    padding:40px 30px;
+    text-align:center;
+    box-shadow:0 12px 35px rgba(0,0,0,.06);
+}
+
+.event-label{
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#B88A2E;
+    font-size:12px;
+}
+
+.event-card h2{
+    color:#0F5A47;
+    font-size:36px;
+    margin:18px 0 10px;
+}
+
+.event-card h3{
+    color:#666;
+    font-weight:500;
+    margin-bottom:25px;
+}
+
+.event-time{
+    font-size:28px;
+    color:#B88A2E;
+    font-weight:bold;
+}
+
+.venue{
+    font-size:22px;
+    color:#0F5A47;
+    margin-top:20px;
+    font-weight:600;
+}
+
+.address{
+    color:#666;
+    margin-top:8px;
+    margin-bottom:30px;
+}
+
+.event-button{
+    display:inline-block;
+    padding:14px 28px;
+    background:#B88A2E;
+    color:white;
+    border-radius:40px;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.event-button:hover{
+    background:#9d7420;
+}
