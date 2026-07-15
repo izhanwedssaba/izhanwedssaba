@@ -205,3 +205,43 @@ background:#C6A664;
 color:#111;
 
 }
+
+.hero-content{
+    max-width:800px;
+    margin:auto;
+    text-align:center;
+}
+
+.eyebrow{
+    color:#C6A664;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-size:15px;
+    margin-bottom:30px;
+}
+
+.couple-name{
+    font-family:'Cinzel',serif;
+    color:#0F5132;
+    font-size:64px;
+    margin:15px 0;
+}
+
+.ampersand{
+    color:#C6A664;
+    font-size:42px;
+    margin:10px 0;
+}
+
+.date{
+    margin-top:35px;
+    font-size:24px;
+    color:#555;
+}
+
+#countdown{
+    margin-top:50px;
+    font-size:32px;
+    color:#C6A664;
+    font-weight:600;
+}
