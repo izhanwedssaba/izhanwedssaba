@@ -181,23 +181,19 @@ animation:glow 3s infinite;
 }
 
 #enterBtn{
+    padding:18px 42px;
+    border-radius:40px;
+    background:transparent;
+    border:2px solid #C6A664;
+    color:#C6A664;
+    font-size:18px;
+    cursor:pointer;
+    transition:.4s;
 
-padding:18px 42px;
-
-border-radius:40px;
-
-background:transparent;
-
-border:2px solid #C6A664;
-
-color:#C6A664;
-
-font-size:18px;
-
-cursor:pointer;
-
-transition:.4s;
-
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeUp 1s ease forwards;
+    animation-delay:1.5s;
 }
 
 #enterBtn:hover{
@@ -422,3 +418,13 @@ color:#111;
     color:#888;
     font-size:14px;
    }
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
