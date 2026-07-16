@@ -209,6 +209,95 @@ OPENING SCREEN
     transform:translateY(-3px);
 
 }
+/* ===================================
+INVITATION CARD
+=================================== */
+
+.invite-card{
+
+    width:320px;
+
+    margin:45px auto 0;
+
+    padding:35px 25px;
+
+    border-radius:24px;
+
+    background:white;
+
+    border:1px solid rgba(198,166,100,.35);
+
+    box-shadow:0 25px 60px rgba(0,0,0,.08);
+
+    cursor:pointer;
+
+    transition:.45s;
+
+    opacity:0;
+
+    transform:translateY(30px);
+
+    animation:fadeUp 1s ease forwards;
+
+    animation-delay:1.4s;
+
+}
+
+.invite-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 30px 70px rgba(0,0,0,.12);
+
+}
+
+.invite-small{
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:11px;
+
+    color:#B58A2A;
+
+    margin-bottom:18px;
+
+}
+
+.invite-card h3{
+
+    font-size:28px;
+
+    color:#0F5132;
+
+    margin:10px 0;
+
+}
+
+.invite-card span{
+
+    display:block;
+
+    color:#C6A664;
+
+    font-size:22px;
+
+    margin:10px 0;
+
+}
+
+.tap-text{
+
+    margin-top:30px;
+
+    color:#888;
+
+    font-size:13px;
+
+    letter-spacing:2px;
+
+}
 
 /* ==========================================================
 HERO
