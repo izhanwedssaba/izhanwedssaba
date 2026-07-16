@@ -207,28 +207,26 @@ END:VCALENDAR`;
 
 window.addEventListener("load", () => {
 
-    const heroItems = document.querySelectorAll(
+    const heroItems=document.querySelectorAll(
+".hero-top,.couple-name,.ampersand,.date,.countdown"
+);
 
-        ".hero-top, .couple-name, .ampersand, .date, .countdown"
+heroItems.forEach((item,index)=>{
 
-    );
+    item.style.opacity="0";
+    item.style.transform="translateY(25px)";
 
-    heroItems.forEach((item, index) => {
+    setTimeout(()=>{
 
-        item.style.opacity = "0";
-        item.style.transform = "translateY(20px)";
+        item.style.transition="all .9s ease";
 
-        setTimeout(() => {
+        item.style.opacity="1";
 
-            item.style.transition = "all .8s ease";
+        item.style.transform="translateY(0)";
 
-            item.style.opacity = "1";
+    },400+(index*220));
 
-            item.style.transform = "translateY(0)";
-
-        }, 300 + (index * 180));
-
-    });
+});
 
 });
 
