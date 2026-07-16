@@ -243,16 +243,14 @@ color:#111;
     display:flex;
     justify-content:center;
     align-items:center;
-    gap:12px;
+    gap:10px;
     flex-wrap:nowrap;
-    max-width:100%;
-    margin:45px auto 0;
-    padding:0 12px;
+    padding:0 10px;
 }
 
 .count-item{
-    width:65px;
-    height:65px;
+    width: 78px;
+    height: 78px;
     background:#FFFDF8;
     border:1px solid #E6D6A8;
     border-radius:18px;
@@ -272,9 +270,9 @@ color:#111;
 
 .count-label{
     display:block;
-    margin-top:8px;
-    font-size:.85rem;
-    letter-spacing:2px;
+    margin-top:6px;
+    font-size:0.72rem;
+    letter-spacing:1px;
     text-transform:uppercase;
     color:#B88A2E;
 }
