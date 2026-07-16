@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         );
 
-        daysEl.textContent = String(days).padStart(3, "0");
+        daysEl.textContent = days;
 
         hoursEl.textContent = String(hours).padStart(2, "0");
 
