@@ -79,71 +79,102 @@ OPENING SCREEN
 ========================================================== */
 
 #opening-screen{
-
     position:fixed;
-
     inset:0;
-
-    background:
-    radial-gradient(circle at top,#FFF9EA 0%,#FAF7F2 55%,#F3EEE5 100%);
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-align:center;
-
     z-index:9999;
 
-    opacity:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-    transition:opacity 1s ease;
+    background:
+        radial-gradient(circle at top,#FFF9EA 0%,#FAF7F2 55%,#F3EEE5 100%);
 
+    transition:opacity .9s ease;
 }
+
 
 .opening-content{
 
-    max-width:620px;
+    width:90%;
+    max-width:420px;
 
-    width:92%;
+    text-align:center;
 
-}
-
-.arabic{
-
-    font-size:40px;
-
-    color:var(--gold-dark);
-
-    margin-bottom:20px;
+    animation:fadeUp 1s ease;
 
 }
 
-.translation{
 
-    font-size:18px;
+.opening-bismillah{
+
+    font-family:'Noto Naskh Arabic',serif;
+
+    font-size:38px;
+
+    color:#B58A2A;
 
     line-height:1.8;
 
+}
+
+.opening-translation{
+
+    margin-top:15px;
+
     color:#666;
 
-    margin-bottom:40px;
+    line-height:1.8;
+
+    font-size:16px;
 
 }
 
-.monogram{
+.opening-divider{
+
+    width:70px;
+
+    height:1px;
+
+    background:#D8C29A;
+
+    margin:35px auto;
+
+}
+
+.opening-monogram{
 
     font-family:'Cinzel',serif;
 
-    font-size:54px;
+    font-size:68px;
 
-    color:var(--emerald);
+    color:#C6A664;
 
     margin-bottom:30px;
-    
-    animation:logoPop 1.6s ease;
+
+    animation:logoPop 1.5s ease;
+
+}
+
+.opening-title{
+
+    font-family:'Cinzel',serif;
+
+    color:#0F5132;
+
+    font-size:42px;
+
+    margin:8px 0;
+
+}
+
+.opening-ampersand{
+
+    font-size:34px;
+
+    color:#C6A664;
+
+    margin:10px 0;
 
 }
 
@@ -921,6 +952,39 @@ RESPONSIVE
         opacity:1;
 
         transform:scale(1);
+
+    }
+
+}
+@keyframes logoPop{
+
+    0%{
+        opacity:0;
+        transform:scale(.8);
+    }
+
+    100%{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
 
     }
 
