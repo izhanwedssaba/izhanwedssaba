@@ -1,174 +1,385 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Wedding of Mohammed Izhan &amp; Bazila Saba</title>
 
-  <!-- Elegant typography -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mohammed Izhan &amp; Bazila Saba | Wedding Invitation</title>
+
+<meta name="description"
+content="Wedding Invitation of Mohammed Izhan & Bazila Saba">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
-  <meta name="theme-color" content="#FAF7F2">
-  <link rel="stylesheet" href="css/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+
+<link rel="icon"
+href="assets/favicon/favicon.png">
+
 </head>
+
 <body>
-  <div id="opening-screen">
 
-    <div class="opening-content">
+<!-- ===========================
+OPENING SCREEN
+=========================== -->
 
-        <div class="arabic">
-            بِسْمِ ٱللَّٰهِ الرَّحْمَٰنِ الرَّحِيمِ
-        </div>
+<div id="opening-screen">
 
-        <div class="translation">
-            In the Name of Allah,
-            The Most Gracious,
-            The Most Merciful
-        </div>
-
-        <div class="opening-monogram">
-            I ❦ S
-        </div>
-
-        <button id="enterBtn">
-            Open Invitation
-        </button>
-
-    </div>
-
-</div>
-  <section class="hero">
-
-    <div class="monogram">
-        I ❦ S
-    </div>
-<div class="hero-content">
-
-    <p class="eyebrow">
-        Together with our beloved families
-    </p>
-
-    <h1 class="couple-name">
-        Mohammed Izhan
-    </h1>
-
-    <div class="ampersand">&</div>
-
-    <h1 class="couple-name">
-        Bazila Saba
-    </h1>
-
-    <div class="date">
-        Sunday • 18 October 2026
-    </div>
-<div id="countdown" class="countdown"></div>
-  </section>
-  <section class="invitation-message">
-
-    <h2>Assalamu Alaikum</h2>
+<div class="opening-content">
 
 <p class="arabic">
-السلام عليكم ورحمة الله وبركاته
+
+بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+
 </p>
 
-    <p>
-        With the blessings of Allah ﷻ and the love of our families,
-        we warmly invite you to join us as we celebrate our
-        <strong>Nikah</strong> and <strong>Valima</strong>.
+<p class="translation">
 
-        Your gracious presence and heartfelt duas
-        will be our greatest blessing.
-    </p>
+In the name of Allah,
+the Most Gracious,
+the Most Merciful
+
+</p>
+
+<div class="monogram">
+
+I
+<span>❦</span>
+S
+
+</div>
+
+<h2>
+
+Mohammed Izhan
+
+</h2>
+
+<p class="and-text">&amp;</p>
+
+<h2>
+
+Bazila Saba
+
+</h2>
+
+<button id="enterBtn">
+
+Open Invitation
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===========================
+MAIN WEBSITE
+=========================== -->
+
+<div id="website">
+
+<!-- HERO -->
+
+<header class="hero">
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content reveal">
+
+<p class="hero-top">
+
+Together with our beloved families
+
+</p>
+
+<h1 class="couple-name">
+
+Mohammed Izhan
+
+</h1>
+
+<div class="ampersand">
+
+&
+
+</div>
+
+<h1 class="couple-name">
+
+Bazila Saba
+
+</h1>
+
+<p class="date">
+
+Sunday • 18 October 2026
+
+</p>
+
+<!-- COUNTDOWN -->
+
+<div class="countdown">
+
+<div class="count-item">
+
+<span id="days">000</span>
+
+<small>DAYS</small>
+
+</div>
+
+<div class="count-item">
+
+<span id="hours">00</span>
+
+<small>HOURS</small>
+
+</div>
+
+<div class="count-item">
+
+<span id="minutes">00</span>
+
+<small>MINUTES</small>
+
+</div>
+
+<div class="count-item">
+
+<span id="seconds">00</span>
+
+<small>SECONDS</small>
+
+</div>
+
+</div>
+
+<div id="countdown-message">
+
+</div>
+
+</div>
+
+</header>
+
+<!-- INVITATION -->
+
+<section class="invitation reveal">
+
+<div class="container">
+
+<p class="greeting">
+
+Assalamu Alaikum
+
+</p>
+
+<h2>
+
+You're Invited
+
+</h2>
+
+<p>
+
+With gratitude to Allah (SWT),
+
+together with the blessings of our parents,
+
+we joyfully invite you to grace our Nikah
+
+and Valima with your presence,
+
+love and duas.
+
+</p>
+
+</div>
 
 </section>
-  <section class="event-section">
+<!-- ===========================
+EVENTS
+=========================== -->
 
-    <div class="event-card">
+<section class="events reveal">
 
-        <span class="event-label">Nikah Ceremony</span>
+    <div class="container">
 
-        <h2> Nikah</h2>
+        <h2 class="section-title">
+            Wedding Events
+        </h2>
 
-        <h3>Sunday • 18 October 2026</h3>
+        <!-- Nikah -->
 
-        <p class="event-time">
-            12:15 PM
-        </p>
+        <div class="event-card">
 
-        <p class="venue">
-            Masjid-e-Mitpala
-        </p>
+            <h3>Nikah</h3>
 
-        <p class="address">
-            Vaniyambadi, Tamil Nadu
-        </p>
+            <p class="event-date">
+                Sunday • 18 October 2026
+            </p>
 
-        <a
-            href=https://maps.app.goo.gl/oKHWfYW4edsrLNpL9
-            target="_blank"
-            class="event-button">
+            <p class="event-time">
+                12:15 PM
+            </p>
 
-            View on Google Maps
+            <p class="venue">
+                Masjid-e-Mitpala
+            </p>
 
-        </a>
+            <a
+                class="map-btn"
+                href="YOUR_NIKAH_GOOGLE_MAPS_LINK"
+                target="_blank"
+                rel="noopener">
 
-    </div>
+                View Location
 
-  </section>
-  <section class="event-section">
-
-    <div class="event-card">
-
-        <span class="event-label">Valima Reception</span>
-
-        <h2>Valima</h2>
-
-        <h3>Sunday • 18 October 2026</h3>
-
-        <p class="event-time">
-            2:00 PM
-        </p>
-
-        <p class="venue">
-            VK Mahal
-        </p>
-
-        <p class="address">
-            Vaniyambadi, Tamil Nadu
-        </p>
-
-        <a
-            href=https://maps.app.goo.gl/xBZ5dYJXmHm3WkrL9
-            target="_blank"
-            class="event-button">
-
-            View on Google Maps
-
-        </a>
-
-        <div class="event-actions">
-
-            <a href="#" class="secondary-button">
-                Add to Calendar
             </a>
 
         </div>
 
-        <div class="qr-placeholder">
+        <!-- Valima -->
 
-            QR Code
+        <div class="event-card">
+
+            <h3>Valima</h3>
+
+            <p class="event-date">
+                Sunday • 18 October 2026
+            </p>
+
+            <p class="event-time">
+                2:00 PM
+            </p>
+
+            <p class="venue">
+                VK Mahal, Vaniyambadi
+            </p>
+
+            <a
+                class="map-btn"
+                href="YOUR_VALIMA_GOOGLE_MAPS_LINK"
+                target="_blank"
+                rel="noopener">
+
+                View Location
+
+            </a>
+
+        </div>
+
+        <!-- Add to Calendar -->
+
+        <div class="calendar-wrapper">
+
+            <button id="calendarBtn">
+
+                Add to Calendar
+
+            </button>
 
         </div>
 
     </div>
 
-  </section>
+</section>
+
+<!-- ===========================
+PARENTS
+=========================== -->
+
+<section class="parents reveal">
+
+    <div class="container">
+
+        <h2>
+
+            With the Blessings of
+
+        </h2>
+
+        <div class="parents-grid">
+
+            <div class="parent-card">
+
+                <h3>Groom's Parents</h3>
+
+                <p>Mohammed Fazal</p>
+
+                <p>Farhana Tabassum</p>
+
+            </div>
+
+            <div class="parent-card">
+
+                <h3>Bride's Parents</h3>
+
+                <p>Syed Basha</p>
+
+                <p>Tasleem</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+QURAN VERSE
+=========================== -->
+
+<section class="verse reveal">
+
+    <div class="container">
+
+        <p class="arabic-verse">
+
+            وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+
+        </p>
+
+        <p class="translation">
+
+            "And among His signs is that He created for you spouses from among yourselves so that you may find tranquility in them, and He placed between you affection and mercy."
+
+        </p>
+
+        <p class="reference">
+
+            — Surah Ar-Rum (30:21)
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+FOOTER
+=========================== -->
+
+<footer>
+
+    <p>
+
+        Designed with love for our family and friends.
+
+    </p>
+
+</footer>
+
 </div>
-  
+
 <script src="js/main.js"></script>
-  
+
 </body>
 </html>
