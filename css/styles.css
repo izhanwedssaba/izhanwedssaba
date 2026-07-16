@@ -282,11 +282,11 @@ color:#111;
 
 /* ===== Invitation Message ===== */
 
-.invitation-message {
-    max-width: 720px;
-    margin: 70px auto 0;
-    padding: 0 28px;
-    text-align: center;
+.invitation-message{
+    max-width:720px;
+    margin:20px auto 0;
+    padding:0 28px;
+    text-align:center;
 }
 
 .invitation-message h2 {
