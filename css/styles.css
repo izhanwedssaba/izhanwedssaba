@@ -237,16 +237,16 @@ color:#111;
 }
 
 .date{
-    margin-top:28px;
-    font-size:22px;
-    color:#555;
+    margin-top:25px;
+    font-size:26px;
+    color:#444;
 }
 
 .countdown{
     display:flex;
     justify-content:center;
     align-items:center;
-    margin:28px auto 0;
+    margin:22px auto 0;
     gap:10px;
     flex-wrap:nowrap;
     padding:0 10px;
