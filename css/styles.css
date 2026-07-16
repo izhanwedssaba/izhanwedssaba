@@ -126,6 +126,9 @@ z-index:9999;
 
 transition:1.2s;
 
+opacity: 1;
+transition: opacity 1s ease;
+
 }
 
 .opening-content{
