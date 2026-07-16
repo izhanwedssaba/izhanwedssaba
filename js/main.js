@@ -1,59 +1,265 @@
+/* ==========================================================
+   Mohammed Izhan & Bazila Saba
+   Wedding Invitation
+   Version 3.0
+========================================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
 
+    /* ======================================================
+       OPEN INVITATION
+    ====================================================== */
+
     const opening = document.getElementById("opening-screen");
+    const website = document.getElementById("website");
     const enterBtn = document.getElementById("enterBtn");
 
-    if (!opening || !enterBtn) return;
+    website.style.display = "none";
 
     enterBtn.addEventListener("click", () => {
 
         opening.style.opacity = "0";
 
         setTimeout(() => {
+
             opening.style.display = "none";
+
+            website.style.display = "block";
+
+            window.scrollTo(0, 0);
+
         }, 1000);
 
     });
 
+    /* ======================================================
+       COUNTDOWN
+    ====================================================== */
+
+    const targetDate = new Date("October 18, 2026 12:15:00").getTime();
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    const message = document.getElementById("countdown-message");
+
+    function updateCountdown() {
+
+        const now = new Date().getTime();
+
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+
+            document.querySelector(".countdown").style.display = "none";
+
+            message.innerHTML = `
+
+            <h2 style="color:#0F5132;margin-top:25px;">
+            ✨ Alhamdulillah!
+            </h2>
+
+            <p style="margin-top:15px;font-size:18px;line-height:1.8;">
+            Today marks the beginning of our beautiful journey together.<br>
+            Please keep us in your duas. 🤍
+            </p>
+
+            `;
+
+            return;
+
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+        const hours = Math.floor(
+
+            (distance % (1000 * 60 * 60 * 24))
+
+            / (1000 * 60 * 60)
+
+        );
+
+        const minutes = Math.floor(
+
+            (distance % (1000 * 60 * 60))
+
+            / (1000 * 60)
+
+        );
+
+        const seconds = Math.floor(
+
+            (distance % (1000 * 60))
+
+            / 1000
+
+        );
+
+        daysEl.textContent = String(days).padStart(3, "0");
+
+        hoursEl.textContent = String(hours).padStart(2, "0");
+
+        minutesEl.textContent = String(minutes).padStart(2, "0");
+
+        secondsEl.textContent = String(seconds).padStart(2, "0");
+
+    }
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+
+    /* ======================================================
+       SCROLL REVEAL
+    ====================================================== */
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("active");
+
+                }
+
+            });
+
+        },
+
+        {
+
+            threshold: 0.15
+
+        }
+
+    );
+
+    reveals.forEach(section => observer.observe(section));
+
 });
-const weddingDate = new Date("October 18, 2026 12:15:00").getTime();
 
-setInterval(() => {
-    const now = new Date().getTime();
-    const distance = weddingDate - now;
+/* ==========================================================
+   PART 3B
+   Add to Calendar + Final Enhancements
+========================================================== */
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+/* ======================================================
+   ADD TO CALENDAR
+====================================================== */
 
-    const countdown = document.getElementById("countdown");
+const calendarBtn = document.getElementById("calendarBtn");
 
-    if (countdown) {
-        countdown.innerHTML = `
-<div class="count-item">
-<span class="count-number">${days}</span>
-<span class="count-label">Days</span>
-</div>
+if (calendarBtn) {
 
-<div class="count-item">
-<span class="count-number">${hours}</span>
-<span class="count-label">Hours</span>
-</div>
+    calendarBtn.addEventListener("click", () => {
 
-<div class="count-item">
-<span class="count-number">${minutes}</span>
-<span class="count-label">Minutes</span>
-</div>
+        const start = new Date("2026-10-18T12:15:00");
+        const end = new Date("2026-10-18T15:30:00");
 
-<div class="count-item">
-<span class="count-number">${seconds}</span>
-<span class="count-label">Seconds</span>
-</div>
-`;
-    }
+        function formatDate(date) {
+            return date
+                .toISOString()
+                .replace(/[-:]/g, "")
+                .split(".")[0] + "Z";
+        }
 
-    if (distance < 0 && countdown) {
-        countdown.innerHTML = "✨ Alhamdulillah! The countdown has ended. Today we begin our beautiful journey together. Please keep Mohammed Izhan & Bazila Saba in your prayers. 🤍 ✨";
-    }
-}, 1000);
+        const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Mohammed Izhan & Bazila Saba Wedding
+DTSTART:${formatDate(start)}
+DTEND:${formatDate(end)}
+LOCATION:Masjid-e-Mitpala & VK Mahal, Vaniyambadi
+DESCRIPTION:With the blessings of our parents, we warmly invite you to our Nikah and Valima. Your presence and duas will mean a lot to us.
+END:VEVENT
+END:VCALENDAR`;
+
+        const blob = new Blob([ics], {
+            type: "text/calendar;charset=utf-8"
+        });
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "Mohammed_Izhan_Bazila_Saba_Wedding.ics";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+    });
+
+}
+
+/* ======================================================
+   HERO STAGGER ANIMATION
+====================================================== */
+
+window.addEventListener("load", () => {
+
+    const heroItems = document.querySelectorAll(
+
+        ".hero-top, .couple-name, .ampersand, .date, .countdown"
+
+    );
+
+    heroItems.forEach((item, index) => {
+
+        item.style.opacity = "0";
+        item.style.transform = "translateY(20px)";
+
+        setTimeout(() => {
+
+            item.style.transition = "all .8s ease";
+
+            item.style.opacity = "1";
+
+            item.style.transform = "translateY(0)";
+
+        }, 300 + (index * 180));
+
+    });
+
+});
+
+/* ======================================================
+   SMOOTH BUTTON HOVER
+====================================================== */
+
+document.querySelectorAll("button, .map-btn").forEach(button => {
+
+    button.addEventListener("mouseenter", () => {
+
+        button.style.transform = "translateY(-3px)";
+
+    });
+
+    button.addEventListener("mouseleave", () => {
+
+        button.style.transform = "translateY(0)";
+
+    });
+
+});
+
+/* ======================================================
+   YEAR
+====================================================== */
+
+console.log("Mohammed Izhan & Bazila Saba Wedding Website");
+console.log("Version 3.0");
+console.log("© 2026");
