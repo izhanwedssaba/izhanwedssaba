@@ -22,9 +22,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 setTimeout(()=>{
 
-    opening.style.opacity="0";
+    opening.style.display="none";
 
-},250);
+    website.style.display="block";
+
+    website.animate(
+
+        [
+
+            {
+                opacity:0,
+                transform:"translateY(20px)"
+            },
+
+            {
+                opacity:1,
+                transform:"translateY(0)"
+            }
+
+        ],
+
+        {
+
+            duration:900,
+
+            easing:"ease-out",
+
+            fill:"forwards"
+
+        }
+
+    );
+
+},1000);
 
     });
 
