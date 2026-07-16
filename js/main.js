@@ -18,17 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     enterBtn.addEventListener("click", () => {
 
-        opening.style.opacity = "0";
+        enterBtn.style.transform="scale(.96)";
 
-        setTimeout(() => {
+setTimeout(()=>{
 
-            opening.style.display = "none";
+    opening.style.opacity="0";
 
-            website.style.display = "block";
-
-            window.scrollTo(0, 0);
-
-        }, 1000);
+},250);
 
     });
 
