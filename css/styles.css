@@ -90,7 +90,7 @@ OPENING SCREEN
     background:
         radial-gradient(circle at top,#FFF9EA 0%,#FAF7F2 55%,#F3EEE5 100%);
 
-    transition:opacity .9s ease;
+    transition: opacity 1s ease;
 }
 
 
