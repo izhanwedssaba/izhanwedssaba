@@ -1505,3 +1505,41 @@ RESPONSIVE
     }
 
 }
+
+/* ==========================================================
+   FINAL OVERRIDE - ENVELOPE OPENING
+========================================================== */
+
+.envelope.opening {
+    animation: envelopeFloatAway 2.2s ease forwards !important;
+}
+
+.envelope.opening .envelope-flap {
+    transform: rotateX(180deg) !important;
+    transition: transform 1.2s cubic-bezier(.77,0,.18,1) !important;
+}
+
+.envelope.opening .envelope-paper {
+    z-index: 5 !important;
+    transform: translateY(-145px) !important;
+    transition: transform 1.4s cubic-bezier(.22,.61,.36,1) !important;
+}
+
+@keyframes envelopeFloatAway {
+
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-30px) scale(1.02);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-120px) scale(1.05);
+    }
+
+}
