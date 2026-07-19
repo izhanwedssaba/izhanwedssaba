@@ -18,26 +18,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   enterBtn.addEventListener("click", () => {
 
+    // Prevent multiple clicks
+    if (enterBtn.classList.contains("opening")) return;
+
     // Start envelope opening animation
     enterBtn.classList.add("opening");
 
-    // Wait for the envelope animation
+    // Wait for envelope animation to complete
     setTimeout(() => {
 
+        // Fade out the opening screen
         opening.classList.add("closing");
 
     }, 1200);
 
-    // Reveal invitation after envelope opens
+    // Show the main invitation
     setTimeout(() => {
 
         opening.style.display = "none";
 
         website.style.display = "block";
 
+        // Start floating reveal animation
         website.classList.add("revealing");
 
-    }, 1800);
+    }, 1900);
 
 });
 
