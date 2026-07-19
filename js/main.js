@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     enterBtn.addEventListener("click", () => {
 
-        enterBtn.style.transform="scale(.96)";
+        opening.classList.add("closing");
 
 setTimeout(()=>{
 
