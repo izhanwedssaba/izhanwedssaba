@@ -16,25 +16,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     website.style.display = "none";
 
-    enterBtn.addEventListener("click", () => {
+  enterBtn.addEventListener("click", () => {
 
+    // Start envelope opening animation
     enterBtn.classList.add("opening");
 
+    // Wait for the envelope animation
     setTimeout(() => {
 
         opening.classList.add("closing");
 
-        setTimeout(() => {
+    }, 1200);
 
-            opening.style.display = "none";
+    // Reveal invitation after envelope opens
+    setTimeout(() => {
 
-            website.style.display = "block";
+        opening.style.display = "none";
 
-            website.classList.add("revealing");
+        website.style.display = "block";
 
-        }, 700);
+        website.classList.add("revealing");
 
-    }, 700);
+    }, 1800);
 
 });
 
