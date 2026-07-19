@@ -16,36 +16,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     website.style.display = "none";
 
-  enterBtn.addEventListener("click", () => {
+ enterBtn.addEventListener("click", () => {
 
     if (enterBtn.classList.contains("opening")) return;
 
-    // Start envelope animation
     enterBtn.classList.add("opening");
 
-    // Fade the opening screen after the envelope has visibly opened
-    setTimeout(() => {
+    // Start showing the main invitation behind the envelope
+    website.style.display = "block";
+    website.style.opacity = "0";
+    website.style.transform = "translateY(70px)";
 
+    // Animate the envelope/opening screen away
+    setTimeout(() => {
         opening.classList.add("closing");
 
-    }, 1700);
-
-    // Reveal main invitation after the full animation
-    setTimeout(() => {
-
-        opening.style.display = "none";
-
-        website.style.display = "block";
-
+        // Main invitation floats upward
         website.animate(
             [
                 {
                     opacity: 0,
-                    transform: "translateY(80px)"
-                },
-                {
-                    opacity: 1,
-                    transform: "translateY(-10px)"
+                    transform: "translateY(70px)"
                 },
                 {
                     opacity: 1,
@@ -53,13 +44,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             ],
             {
-                duration: 1400,
+                duration: 1800,
                 easing: "cubic-bezier(.22,.61,.36,1)",
                 fill: "forwards"
             }
         );
 
-    }, 2500);
+    }, 700);
+
+    // Completely remove the opening screen after animation
+    setTimeout(() => {
+        opening.style.display = "none";
+    }, 2300);
 
 });
 
