@@ -22,40 +22,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
     enterBtn.classList.add("opening");
 
-    // Start showing the main invitation behind the envelope
-    website.style.display = "block";
-    website.style.opacity = "0";
-    website.style.transform = "translateY(70px)";
-
-    // Animate the envelope/opening screen away
     setTimeout(() => {
+
         opening.classList.add("closing");
 
-        // Main invitation floats upward
-        website.animate(
-            [
-                {
-                    opacity: 0,
-                    transform: "translateY(70px)"
-                },
-                {
-                    opacity: 1,
-                    transform: "translateY(0)"
-                }
-            ],
-            {
-                duration: 1800,
-                easing: "cubic-bezier(.22,.61,.36,1)",
-                fill: "forwards"
-            }
-        );
+    }, 1200);
 
-    }, 700);
-
-    // Completely remove the opening screen after animation
     setTimeout(() => {
+
         opening.style.display = "none";
-    }, 2300);
+
+        website.style.display = "block";
+
+        website.style.opacity = "0";
+
+        website.style.transform = "translateY(60px)";
+
+        requestAnimationFrame(() => {
+
+            website.style.transition =
+                "opacity 1.4s ease, transform 1.4s cubic-bezier(.22,.61,.36,1)";
+
+            website.style.opacity = "1";
+
+            website.style.transform = "translateY(0)";
+
+        });
+
+    }, 1900);
 
 });
 
