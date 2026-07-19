@@ -18,45 +18,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     enterBtn.addEventListener("click", () => {
 
+    enterBtn.classList.add("opening");
+
+    setTimeout(() => {
+
         opening.classList.add("closing");
 
-setTimeout(()=>{
+        setTimeout(() => {
 
-    opening.style.display="none";
+            opening.style.display = "none";
+            website.style.display = "block";
 
-    website.style.display="block";
+            website.animate(
+                [
+                    {
+                        opacity: 0,
+                        transform: "translateY(20px)"
+                    },
+                    {
+                        opacity: 1,
+                        transform: "translateY(0)"
+                    }
+                ],
+                {
+                    duration: 1000,
+                    easing: "ease"
+                }
+            );
 
-    website.animate(
+        }, 1000);
 
-        [
+    }, 250);
 
-            {
-                opacity:0,
-                transform:"translateY(20px)"
-            },
-
-            {
-                opacity:1,
-                transform:"translateY(0)"
-            }
-
-        ],
-
-        {
-
-            duration:900,
-
-            easing:"ease-out",
-
-            fill:"forwards"
-
-        }
-
-    );
-
-},1000);
-
-    });
+});
 
     /* ======================================================
        COUNTDOWN
