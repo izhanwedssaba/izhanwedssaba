@@ -1463,55 +1463,80 @@ RESPONSIVE
     transform: translateY(-4px);
 }
 
-/* Open animation */
+/* ==========================================================
+   ENVELOPE OPENING + FLOATING REVEAL
+========================================================== */
 
 .envelope.opening .envelope-flap {
     transform: rotateX(180deg);
 }
 
+/* Invitation card rises out of envelope */
+
 .envelope.opening .envelope-paper {
-    transform: translateY(-55px);
+    transform: translateY(-125px);
+    transition:
+        transform 1.4s cubic-bezier(.22, .61, .36, 1);
 }
 
-/* Envelope disappears after opening */
+/* Envelope gently rises while opening */
 
 .envelope.opening {
     animation:
-        envelopeExit 1.2s ease 1.3s forwards;
+        envelopeFloatAway 1.8s ease forwards;
 }
 
-/* Entrance */
+/* Main website floating reveal */
 
-@keyframes envelopeReveal {
+#website.revealing {
+    animation:
+        websiteFloatReveal 1.5s cubic-bezier(.22, .61, .36, 1) forwards;
+}
 
-    from {
-        opacity: 0;
+/* Envelope opening movement */
 
-        transform:
-            translateY(30px)
-            scale(0.94);
-    }
+@keyframes envelopeFloatAway {
 
-    to {
-        opacity: 1;
-
+    0% {
         transform:
             translateY(0)
             scale(1);
+        opacity: 1;
+    }
+
+    55% {
+        transform:
+            translateY(-35px)
+            scale(1.02);
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-100px)
+            scale(1.05);
+        opacity: 0;
     }
 
 }
 
-/* Exit */
+/* Main invitation rises into view */
 
-@keyframes envelopeExit {
+@keyframes websiteFloatReveal {
 
-    to {
+    0% {
         opacity: 0;
+        transform: translateY(70px);
+    }
 
-        transform:
-            translateY(-25px)
-            scale(1.05);
+    60% {
+        opacity: 1;
+        transform: translateY(-8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 
 }
