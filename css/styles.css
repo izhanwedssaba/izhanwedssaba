@@ -1037,3 +1037,130 @@ RESPONSIVE
     }
 
 }
+
+/* =========================================
+   MOBILE LANDING PAGE FIX
+========================================= */
+
+@media (max-width: 768px) {
+
+    /* Opening screen */
+    #opening-screen {
+        min-height: 100svh;
+        padding: 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .opening-content {
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+    }
+
+    .opening-content .arabic {
+        font-size: 24px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+
+    .opening-content .translation {
+        font-size: 17px;
+        line-height: 1.8;
+        margin: 20px auto;
+    }
+
+    .opening-monogram {
+        font-size: 58px;
+        margin: 28px 0;
+    }
+
+    #enterBtn {
+        margin-top: 28px;
+        padding: 16px 38px;
+        font-size: 16px;
+    }
+
+    /* Main hero section */
+    .hero {
+        padding: 60px 20px 50px;
+        min-height: auto;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .hero-top {
+        font-size: 14px;
+        letter-spacing: 3px;
+        line-height: 1.8;
+        margin-bottom: 40px;
+    }
+
+    .couple-name {
+        font-size: 48px;
+        line-height: 1.2;
+        margin: 18px 0;
+        word-break: normal;
+    }
+
+    .ampersand {
+        font-size: 38px;
+        margin: 22px 0;
+    }
+
+    .date {
+        margin-top: 35px;
+        font-size: 20px;
+        line-height: 1.5;
+    }
+
+    /* Countdown: single row on mobile */
+    .countdown {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+        width: 100%;
+        max-width: 100%;
+        margin: 42px auto 0;
+        padding: 0;
+    }
+
+    .count-item {
+        padding: 8px 2px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        min-width: 0;
+    }
+
+    .count-number {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .count-label {
+        font-size: 0.65rem;
+        letter-spacing: 1px;
+        margin-top: 8px;
+    }
+
+    /* Reduce empty space before Assalamu Alaikum */
+    .hero + section {
+        margin-top: 0;
+        padding-top: 50px;
+    }
+
+    /* Invitation card */
+    .invite-card {
+        width: calc(100% - 32px);
+        max-width: 380px;
+        margin: 20px auto;
+        padding: 22px 18px;
+    }
+}
