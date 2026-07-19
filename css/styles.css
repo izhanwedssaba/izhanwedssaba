@@ -1396,47 +1396,8 @@ RESPONSIVE
 }
 
 /* ==========================
-   OPENING
-========================== */
-
-/* Flap opens */
-.envelope.opening .envelope-flap {
-    transform: rotateX(180deg);
-}
-
-/* Paper rises above the envelope */
-.envelope.opening .envelope-paper {
-    z-index: 5;
-    transform: translateY(-145px);
-}
-
-/* Envelope floats upward */
-.envelope.opening {
-    animation: envelopeExit 2.4s ease forwards;
-}
-
-/* ==========================
    ANIMATIONS
 ========================== */
-
-@keyframes envelopeExit {
-
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-
-    45% {
-        transform: translateY(-25px) scale(1.02);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(-140px) scale(1.05);
-        opacity: 0;
-    }
-
-}
 
 @keyframes envelopeReveal {
 
@@ -1455,27 +1416,6 @@ RESPONSIVE
 /* ==========================================================
    FINAL CLEAN ENVELOPE OPENING
 ========================================================== */
-
-.envelope {
-    perspective: 1200px;
-    transform-style: preserve-3d;
-}
-
-/* Flap opens */
-.envelope.opening .envelope-flap {
-    transform: rotateX(180deg);
-}
-
-/* Invitation paper floats out */
-.envelope.opening .envelope-paper {
-    z-index: 5;
-    transform: translateY(-145px);
-}
-
-/* Envelope itself floats away */
-.envelope.opening {
-    animation: envelopeFloatAway 1.9s ease forwards;
-}
 
 /* Opening screen fades */
 #opening-screen.closing {
@@ -1510,21 +1450,6 @@ RESPONSIVE
    FINAL OVERRIDE - ENVELOPE OPENING
 ========================================================== */
 
-.envelope.opening {
-    animation: envelopeFloatAway 2.2s ease forwards !important;
-}
-
-.envelope.opening .envelope-flap {
-    transform: rotateX(180deg) !important;
-    transition: transform 1.2s cubic-bezier(.77,0,.18,1) !important;
-}
-
-.envelope.opening .envelope-paper {
-    z-index: 5 !important;
-    transform: translateY(-145px) !important;
-    transition: transform 1.4s cubic-bezier(.22,.61,.36,1) !important;
-}
-
 @keyframes envelopeFloatAway {
 
     0% {
@@ -1540,6 +1465,42 @@ RESPONSIVE
     100% {
         opacity: 0;
         transform: translateY(-120px) scale(1.05);
+    }
+
+}
+
+/* FINAL ENVELOPE OPENING */
+
+.envelope.opening {
+    animation: envelopeExit 2.4s ease forwards;
+}
+
+.envelope.opening .envelope-flap {
+    transform: rotateX(180deg);
+    transition: transform 1.2s ease;
+}
+
+.envelope.opening .envelope-paper {
+    z-index: 5;
+    transform: translateY(-145px);
+    transition: transform 1.4s ease;
+}
+
+@keyframes envelopeExit {
+
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-40px) scale(1.03);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-160px) scale(1.08);
+        opacity: 0;
     }
 
 }
