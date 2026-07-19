@@ -1540,3 +1540,85 @@ RESPONSIVE
     }
 
 }
+
+/* ==========================================================
+   FINAL ENVELOPE OPENING ANIMATION
+========================================================== */
+
+.envelope {
+    perspective: 1000px;
+}
+
+/* Envelope flap opens upward */
+
+.envelope.opening .envelope-flap {
+    transform: rotateX(180deg);
+}
+
+/* Invitation paper rises from inside */
+
+.envelope.opening .envelope-paper {
+    transform: translateY(-150px);
+    transition:
+        transform 1.4s cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Whole envelope gently floats upward */
+
+.envelope.opening {
+    animation: envelopeFloatAway 1.8s ease forwards;
+}
+
+/* Main invitation floats upward */
+
+#website.revealing {
+    animation: websiteFloatReveal 1.5s cubic-bezier(.22, .61, .36, 1) forwards;
+}
+
+
+/* ==========================================================
+   ENVELOPE FLOAT AWAY
+========================================================== */
+
+@keyframes envelopeFloatAway {
+
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    55% {
+        transform: translateY(-35px) scale(1.02);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100px) scale(1.05);
+        opacity: 0;
+    }
+
+}
+
+
+/* ==========================================================
+   WEBSITE FLOATING REVEAL
+========================================================== */
+
+@keyframes websiteFloatReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(80px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
