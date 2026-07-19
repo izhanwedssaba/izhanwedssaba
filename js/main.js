@@ -27,28 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
 
             opening.style.display = "none";
+
             website.style.display = "block";
 
-            website.animate(
-                [
-                    {
-                        opacity: 0,
-                        transform: "translateY(20px)"
-                    },
-                    {
-                        opacity: 1,
-                        transform: "translateY(0)"
-                    }
-                ],
-                {
-                    duration: 1000,
-                    easing: "ease"
-                }
-            );
+            website.classList.add("revealing");
 
-        }, 1000);
+        }, 700);
 
-    }, 250);
+    }, 700);
 
 });
 
