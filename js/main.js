@@ -18,31 +18,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
   enterBtn.addEventListener("click", () => {
 
-    // Prevent multiple clicks
     if (enterBtn.classList.contains("opening")) return;
 
-    // Start envelope opening animation
+    // Start envelope animation
     enterBtn.classList.add("opening");
 
-    // Wait for envelope animation to complete
+    // Fade the opening screen after the envelope has visibly opened
     setTimeout(() => {
 
-        // Fade out the opening screen
         opening.classList.add("closing");
 
-    }, 1200);
+    }, 1700);
 
-    // Show the main invitation
+    // Reveal main invitation after the full animation
     setTimeout(() => {
 
         opening.style.display = "none";
 
         website.style.display = "block";
 
-        // Start floating reveal animation
-        website.classList.add("revealing");
+        website.animate(
+            [
+                {
+                    opacity: 0,
+                    transform: "translateY(80px)"
+                },
+                {
+                    opacity: 1,
+                    transform: "translateY(-10px)"
+                },
+                {
+                    opacity: 1,
+                    transform: "translateY(0)"
+                }
+            ],
+            {
+                duration: 1400,
+                easing: "cubic-bezier(.22,.61,.36,1)",
+                fill: "forwards"
+            }
+        );
 
-    }, 1900);
+    }, 2500);
 
 });
 
