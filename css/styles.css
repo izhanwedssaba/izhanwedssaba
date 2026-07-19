@@ -209,35 +209,6 @@ OPENING SCREEN
 
 }
 
-#enterBtn{
-
-    margin-top:45px;
-
-    padding:18px 44px;
-
-    border:none;
-
-    border-radius:60px;
-
-    background:var(--gold);
-
-    color: #FFFDF8;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    transition:.35s;
-
-    opacity:0;
-
-    transform:translateY(25px);
-
-    animation:fadeUp 1s ease forwards;
-
-    animation-delay:1.4s;
-
-}
 
 #enterBtn:hover{
 
@@ -252,39 +223,7 @@ OPENING SCREEN
    INVITATION CARD
 =========================== */
 
-.invite-card {
 
-    position: relative;
-
-    width: min(320px, 85vw);
-
-    margin: 22px auto 0;
-
-    padding: 18px 20px;
-
-    box-sizing: border-box;
-
-    background: rgba(255, 253, 248, 0.9);
-
-    border: 1px solid rgba(198, 166, 100, 0.55);
-
-    border-radius: 18px;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.08);
-
-    cursor: pointer;
-
-    overflow: hidden;
-
-    transition:
-        transform 0.35s ease,
-        box-shadow 0.35s ease;
-
-    animation:
-        cardFadeUp 1s ease 1.2s both;
-
-}
 .invite-card:hover {
 
     transform: translateY(-4px);
@@ -955,25 +894,7 @@ RESPONSIVE
     }
 
 }
-@keyframes logoPop{
 
-    0%{
-
-        opacity:0;
-
-        transform:scale(.8);
-
-    }
-
-    100%{
-
-        opacity:1;
-
-        transform:scale(1);
-
-    }
-
-}
 @keyframes logoPop{
 
     0%{
@@ -988,25 +909,6 @@ RESPONSIVE
 
 }
 
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
 
 @keyframes invitationShine {
 
