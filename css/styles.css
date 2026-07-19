@@ -93,6 +93,9 @@ OPENING SCREEN
     transition: opacity 1s ease;
 }
 
+#opening-screen.closing {
+    opacity: 0;
+}
 
 .opening-content{
 
