@@ -16,50 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     website.style.display = "none";
 
- enterBtn.addEventListener("click", () => {
+enterBtn.addEventListener("click", () => {
 
-    if (enterBtn.classList.contains("opening")) return;
+    console.log("ENVELOPE CLICKED");
 
-    // 1. Start envelope opening
     enterBtn.classList.add("opening");
-
-    // 2. Wait while the flap opens and paper rises
-    setTimeout(() => {
-
-        opening.classList.add("closing");
-
-    }, 1400);
-
-    // 3. Reveal the main invitation
-    setTimeout(() => {
-
-        opening.style.display = "none";
-
-        website.style.display = "block";
-
-        website.animate(
-            [
-                {
-                    opacity: 0,
-                    transform: "translateY(80px)"
-                },
-                {
-                    opacity: 1,
-                    transform: "translateY(-10px)"
-                },
-                {
-                    opacity: 1,
-                    transform: "translateY(0)"
-                }
-            ],
-            {
-                duration: 1400,
-                easing: "cubic-bezier(.22,.61,.36,1)",
-                fill: "forwards"
-            }
-        );
-
-    }, 2200);
 
 });
 
