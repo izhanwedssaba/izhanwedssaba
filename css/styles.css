@@ -1388,9 +1388,9 @@ RESPONSIVE
 
     background:
         linear-gradient(
-            135deg,
-            rgba(255,255,255,.98),
-            rgba(250,244,228,.98)
+            180deg,
+        #fffdf8 0%,
+        #f8f2e6 100%
         );
 
     border:
@@ -1464,9 +1464,9 @@ RESPONSIVE
     background:
         linear-gradient(
             145deg,
-        #f8f3e8 0%,
-        #eadabd 52%,
-        #d7b978 100%
+        #f8f4ea 0%,
+        #eee2cb 50%,
+        #dfc99a 100%
         );
 
     border-radius: 5px;
@@ -1584,9 +1584,9 @@ RESPONSIVE
     background:
         linear-gradient(
             145deg,
-        #fbf8f0 0%,
-        #eee0c4 52%,
-        #d9bd80 100%
+        #fcfaf4 0%,
+        #f2e8d5 52%,
+        #e2cda0 100%
         );
 
     clip-path:
