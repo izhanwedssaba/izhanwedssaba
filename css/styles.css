@@ -1312,12 +1312,13 @@ RESPONSIVE
             circle at 50% 15%,
             rgba(255,255,255,.72),
             transparent 34%
+           
         ),
         linear-gradient(
             145deg,
-            #f5e8c7 0%,
-            #d8b76f 48%,
-            #c69e50 100%
+        #faf7ef 0%,
+        #eee2ca 52%,
+        #d9bd82 100%
         );
 
     border:
@@ -1463,9 +1464,9 @@ RESPONSIVE
     background:
         linear-gradient(
             145deg,
-            #ecd69f 0%,
-            #d4ae61 52%,
-            #bd9348 100%
+        #f8f3e8 0%,
+        #eadabd 52%,
+        #d7b978 100%
         );
 
     border-radius: 5px;
@@ -1583,9 +1584,9 @@ RESPONSIVE
     background:
         linear-gradient(
             145deg,
-            #f2dfad 0%,
-            #d6ae5e 55%,
-            #bd9145 100%
+        #fbf8f0 0%,
+        #eee0c4 52%,
+        #d9bd80 100%
         );
 
     clip-path:
