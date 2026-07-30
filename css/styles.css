@@ -1504,3 +1504,93 @@ RESPONSIVE
     }
 
 }
+
+/* ==========================================================
+   FINAL WORKING OPENING SEQUENCE
+========================================================== */
+
+/* Envelope floats upward after opening */
+
+.envelope.opening {
+    animation: envelopeExit 2.4s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+/* Open the top flap */
+
+.envelope.opening .envelope-flap {
+    transform: rotateX(180deg);
+    transition: transform 1.1s cubic-bezier(.77,0,.18,1);
+}
+
+/* Invitation paper rises out */
+
+.envelope.opening .envelope-paper {
+    z-index: 6;
+    transform: translateY(-145px);
+    transition: transform 1.35s cubic-bezier(.22,.61,.36,1);
+}
+
+/* Envelope moves upward and disappears */
+
+@keyframes envelopeExit {
+
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    40% {
+        transform: translateY(-10px) scale(1);
+        opacity: 1;
+    }
+
+    70% {
+        transform: translateY(-55px) scale(1.03);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-150px) scale(1.06);
+        opacity: 0;
+    }
+
+}
+
+/* Opening page fades away */
+
+#opening-screen.closing {
+    opacity: 0;
+    transform: scale(1.02);
+    pointer-events: none;
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+}
+
+/* Main invitation floats upward */
+
+#website.website-visible {
+    display: block;
+    opacity: 0;
+    transform: translateY(65px);
+    animation: websiteFloatReveal 1.3s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+@keyframes websiteFloatReveal {
+
+    0% {
+        opacity: 0;
+        transform: translateY(65px);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateY(-8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
