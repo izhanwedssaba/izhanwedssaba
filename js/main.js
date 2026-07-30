@@ -18,9 +18,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
 enterBtn.addEventListener("click", () => {
 
-    console.log("ENVELOPE CLICKED");
+    // Prevent the animation from running twice
+    if (enterBtn.classList.contains("opening")) return;
 
+    // Start the envelope opening animation
     enterBtn.classList.add("opening");
+
+    // Start fading the opening page after the envelope opens
+    setTimeout(() => {
+
+        opening.classList.add("closing");
+
+    }, 1500);
+
+    // Show the main invitation after the envelope animation
+    setTimeout(() => {
+
+        opening.style.display = "none";
+
+        website.style.display = "block";
+
+        website.classList.add("website-visible");
+
+        window.scrollTo({
+            top: 0,
+            behavior: "instant"
+        });
+
+    }, 2400);
 
 });
 
