@@ -1924,3 +1924,79 @@ RESPONSIVE
         transform: translateY(-96px) !important;
     }
 }
+
+/* =====================================================
+   DESKTOP ENVELOPE COLOR + SEAL FINAL FIX
+===================================================== */
+
+/* Keep the envelope close to the Luxury Ivory background */
+.envelope {
+    background:
+        linear-gradient(
+            135deg,
+            #f8f2e6 0%,
+            #eee2cb 48%,
+            #e2c98f 100%
+        ) !important;
+
+    border: 1px solid rgba(184, 140, 55, 0.38) !important;
+}
+
+/* Back flap — soft ivory, matching the envelope */
+.envelope-flap {
+    background:
+        linear-gradient(
+            145deg,
+            #f9f4ea 0%,
+            #efe2c8 58%,
+            #dfc27f 100%
+        ) !important;
+
+    transform-origin: top center;
+}
+
+/* Front envelope section */
+.envelope-front {
+    background:
+        linear-gradient(
+            145deg,
+            #f7f0e2 0%,
+            #ead9b8 52%,
+            #d8b66c 100%
+        ) !important;
+}
+
+/* Fix the wax seal position */
+.envelope-flap::after {
+    left: 50% !important;
+    top: 54% !important;
+
+    transform:
+        translate(-50%, -50%) !important;
+
+    z-index: 20 !important;
+
+    width: 58px !important;
+    height: 58px !important;
+
+    display: grid !important;
+    place-items: center !important;
+}
+
+/* Keep the seal visible above the envelope */
+.envelope {
+    isolation: isolate;
+}
+
+.envelope-flap {
+    z-index: 12 !important;
+}
+
+.envelope-front {
+    z-index: 8 !important;
+}
+
+/* During opening, the flap moves behind the invitation */
+.envelope.opening .envelope-flap {
+    z-index: 4 !important;
+}
