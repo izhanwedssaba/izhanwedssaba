@@ -1745,12 +1745,6 @@ RESPONSIVE
     transition: transform 1.2s ease;
 }
 
-.envelope.opening .envelope-paper {
-    z-index: 5;
-    transform: translateY(-125px) !important;
-    transition: transform 1.4s ease;
-}
-
 @keyframes envelopeExit {
 
     0% {
@@ -1788,12 +1782,6 @@ RESPONSIVE
 }
 
 /* Invitation paper rises out */
-
-.envelope.opening .envelope-paper {
-    z-index: 6;
-    transform: translateY(-145px);
-    transition: transform 1.35s cubic-bezier(.22,.61,.36,1);
-}
 
 /* Envelope moves upward and disappears */
 
@@ -1892,7 +1880,7 @@ RESPONSIVE
 .envelope.opening .envelope-paper{
     z-index:10 !important;
     transform:translateY(-118px) !important;
-    transition:transform 1.15s cubic-bezier(.22,.61,.36,1) .18s !important;
+    transition:transform 1.25s cubic-bezier(.22,.61,.36,1) .18s !important;
 }
 
 @keyframes envelopeDesignOneExit{
@@ -1931,8 +1919,8 @@ RESPONSIVE
     100%{opacity:1;transform:translateY(0)}
 }
 
-@media (max-width:600px){
-    .envelope.opening .envelope-paper{
-        transform:translateY(-102px) !important;
+@media (max-width:600px) {
+    .envelope.opening .envelope-paper {
+        transform: translateY(-96px) !important;
     }
 }
