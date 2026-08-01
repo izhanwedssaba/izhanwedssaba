@@ -1859,3 +1859,80 @@ RESPONSIVE
     }
 
 }
+
+
+/* ==========================================================
+   FINAL DESIGN 1 MOTION FIX — KEEP THIS LAST
+========================================================== */
+
+/* The wax seal is the only logo on the envelope */
+.envelope-front .envelope-monogram{
+    display:none !important;
+}
+
+/* Smaller, refined wax seal */
+.envelope-flap::after{
+    width:52px !important;
+    height:52px !important;
+    top:58% !important;
+    font-size:23px !important;
+    z-index:12 !important;
+}
+
+/* Coordinated opening: flap first, paper second, envelope last */
+.envelope.opening{
+    animation: envelopeDesignOneExit 2.65s cubic-bezier(.22,.61,.36,1) forwards !important;
+}
+
+.envelope.opening .envelope-flap{
+    transform:rotateX(180deg) !important;
+    transition:transform .95s cubic-bezier(.77,0,.18,1) !important;
+}
+
+.envelope.opening .envelope-paper{
+    z-index:10 !important;
+    transform:translateY(-118px) !important;
+    transition:transform 1.15s cubic-bezier(.22,.61,.36,1) .18s !important;
+}
+
+@keyframes envelopeDesignOneExit{
+    0%,42%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    64%{
+        opacity:1;
+        transform:translateY(-22px) scale(1.015);
+    }
+    100%{
+        opacity:0;
+        transform:translateY(-135px) scale(1.04);
+    }
+}
+
+/* Opening screen leaves gently after the card has risen */
+#opening-screen.closing{
+    opacity:0 !important;
+    transform:translateY(-18px) scale(1.015) !important;
+    transition:opacity .75s ease, transform .75s cubic-bezier(.22,.61,.36,1) !important;
+}
+
+/* Main invitation enters as one smooth floating layer */
+#website.website-visible{
+    display:block !important;
+    opacity:0;
+    transform:translateY(72px);
+    animation:designOneWebsiteFloat 1.15s cubic-bezier(.22,.61,.36,1) forwards !important;
+}
+
+@keyframes designOneWebsiteFloat{
+    0%{opacity:0;transform:translateY(72px)}
+    72%{opacity:1;transform:translateY(-7px)}
+    100%{opacity:1;transform:translateY(0)}
+}
+
+@media (max-width:600px){
+    .envelope.opening .envelope-paper{
+        transform:translateY(-102px) !important;
+    }
+}
