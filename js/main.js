@@ -16,6 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     website.style.display = "none";
 
+    // Keep the envelope hidden until the monogram and both names finish revealing.
+    setTimeout(() => {
+        enterBtn.classList.add("envelope-ready");
+    }, 3300);
+
     enterBtn.addEventListener("click", () => {
 
         if (enterBtn.classList.contains("opening")) return;
