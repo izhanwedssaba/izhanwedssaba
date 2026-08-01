@@ -16,38 +16,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     website.style.display = "none";
 
-enterBtn.addEventListener("click", () => {
+    enterBtn.addEventListener("click", () => {
 
-    // Prevent the animation from running twice
-    if (enterBtn.classList.contains("opening")) return;
+        if (enterBtn.classList.contains("opening")) return;
 
-    // Start the envelope opening animation
-    enterBtn.classList.add("opening");
+        // 1. Flap opens immediately; the paper rises with the CSS delay.
+        enterBtn.classList.add("opening");
 
-    // Start fading the opening page after the envelope opens
-    setTimeout(() => {
+        // 2. Bring in the real invitation while the envelope is floating away.
+        setTimeout(() => {
+            website.style.display = "block";
+            website.classList.add("website-visible");
+            window.scrollTo({ top: 0, behavior: "instant" });
+        }, 1850);
 
-        opening.classList.add("closing");
+        // 3. Fade the opening scene only after the main invitation has started floating in.
+        setTimeout(() => {
+            opening.classList.add("closing");
+        }, 2050);
 
-    }, 1500);
+        // 4. Remove the opening layer after all motion is complete.
+        setTimeout(() => {
+            opening.style.display = "none";
+        }, 2850);
 
-    // Show the main invitation after the envelope animation
-    setTimeout(() => {
-
-        opening.style.display = "none";
-
-        website.style.display = "block";
-
-        website.classList.add("website-visible");
-
-        window.scrollTo({
-            top: 0,
-            behavior: "instant"
-        });
-
-    }, 2400);
-
-});
+    });
 
     /* ======================================================
        COUNTDOWN
