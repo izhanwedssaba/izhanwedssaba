@@ -970,10 +970,13 @@ RESPONSIVE
     z-index: 9999;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
 
-    padding: 24px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 24px 24px 48px;
 
     background:
         radial-gradient(
@@ -1236,6 +1239,94 @@ RESPONSIVE
 
 }
 
+
+
+/* ==========================================================
+   OPENING SCREEN + ENVELOPE VISIBILITY FIX
+   Keeps the existing transition and envelope design unchanged.
+========================================================== */
+
+#opening-screen .opening-content {
+    flex: 0 0 auto;
+    width: min(420px, 100%);
+    margin: 0 auto;
+    padding: 8px 0 28px;
+}
+
+/* The envelope is a fixed-size component, so the old generic
+   #enterBtn padding must not be applied to it. */
+#enterBtn.envelope {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+}
+
+/* Ensure the envelope becomes visible after the name animation. */
+.envelope {
+    flex: 0 0 auto;
+}
+
+/* Compact opening layout for short laptop screens and phones. */
+@media (max-height: 850px) {
+    #opening-screen .opening-content {
+        transform-origin: top center;
+    }
+
+    .opening-bismillah {
+        font-size: clamp(20px, 5vw, 28px);
+        line-height: 1.45;
+    }
+
+    .opening-divider {
+        margin: 14px auto;
+    }
+
+    .opening-monogram {
+        font-size: clamp(44px, 11vw, 62px);
+        margin-bottom: 8px;
+    }
+
+    .opening-names {
+        margin-top: 8px;
+    }
+
+    .opening-title {
+        font-size: clamp(22px, 6vw, 30px);
+        line-height: 1.15;
+    }
+
+    .opening-ampersand {
+        margin: 2px 0;
+        font-size: 22px;
+    }
+
+    .envelope {
+        margin-top: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    #opening-screen {
+        align-items: flex-start;
+        padding: 20px 14px 34px;
+    }
+
+    #opening-screen .opening-content {
+        max-width: 420px;
+        padding-top: 0;
+    }
+
+    /* This replaces the earlier generic #enterBtn rule only for
+       the envelope; it does not change the envelope animation. */
+    #enterBtn.envelope {
+        margin-top: 20px;
+        padding: 0;
+        font-size: inherit;
+    }
+}
 
 /* ==========================================================
    CLEAN DESIGN 1 ENVELOPE — SINGLE SOURCE OF TRUTH
