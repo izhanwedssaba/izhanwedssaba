@@ -1241,97 +1241,32 @@ RESPONSIVE
 
 
 
+
 /* ==========================================================
-   OPENING SCREEN + ENVELOPE VISIBILITY FIX
-   Keeps the existing transition and envelope design unchanged.
+   FINAL CLEAN OPENING ENVELOPE
+   Single source of truth — no duplicate envelope rules below.
 ========================================================== */
 
+/* Keep the opening content above the envelope and preserve the
+   existing Bismillah, monogram and name animations. */
 #opening-screen .opening-content {
     flex: 0 0 auto;
     width: min(420px, 100%);
     margin: 0 auto;
-    padding: 8px 0 28px;
+    padding: 8px 0 24px;
+    position: relative;
+    z-index: 2;
 }
 
-/* The envelope is a fixed-size component, so the old generic
-   #enterBtn padding must not be applied to it. */
+/* The envelope is a separate, delayed reveal. It cannot appear before
+   the final name animation has completed. */
 #enterBtn.envelope {
     padding: 0;
     border: 0;
-    background: transparent;
     color: inherit;
     font: inherit;
     line-height: normal;
 }
-
-/* Ensure the envelope becomes visible after the name animation. */
-.envelope {
-    flex: 0 0 auto;
-}
-
-/* Compact opening layout for short laptop screens and phones. */
-@media (max-height: 850px) {
-    #opening-screen .opening-content {
-        transform-origin: top center;
-    }
-
-    .opening-bismillah {
-        font-size: clamp(20px, 5vw, 28px);
-        line-height: 1.45;
-    }
-
-    .opening-divider {
-        margin: 14px auto;
-    }
-
-    .opening-monogram {
-        font-size: clamp(44px, 11vw, 62px);
-        margin-bottom: 8px;
-    }
-
-    .opening-names {
-        margin-top: 8px;
-    }
-
-    .opening-title {
-        font-size: clamp(22px, 6vw, 30px);
-        line-height: 1.15;
-    }
-
-    .opening-ampersand {
-        margin: 2px 0;
-        font-size: 22px;
-    }
-
-    .envelope {
-        margin-top: 16px;
-    }
-}
-
-@media (max-width: 768px) {
-    #opening-screen {
-        align-items: flex-start;
-        padding: 20px 14px 34px;
-    }
-
-    #opening-screen .opening-content {
-        max-width: 420px;
-        padding-top: 0;
-    }
-
-    /* This replaces the earlier generic #enterBtn rule only for
-       the envelope; it does not change the envelope animation. */
-    #enterBtn.envelope {
-        margin-top: 20px;
-        padding: 0;
-        font-size: inherit;
-    }
-}
-
-/* ==========================================================
-   CLEAN DESIGN 1 ENVELOPE — SINGLE SOURCE OF TRUTH
-   This section replaces every old/duplicate envelope rule.
-========================================================== */
 
 @keyframes envelopeReveal {
     from {
@@ -1346,594 +1281,246 @@ RESPONSIVE
 
 @keyframes envelopeFloatAway {
     0% {
+        opacity: 1;
         transform: translateY(0) scale(1);
-        opacity: 1;
     }
-    45% {
-        transform: translateY(-22px) scale(1.01);
+    55% {
         opacity: 1;
+        transform: translateY(-24px) scale(1.015);
     }
     100% {
-        transform: translateY(-100px) scale(1.045);
         opacity: 0;
+        transform: translateY(-85px) scale(.94);
     }
 }
 
-/* =========================================================
-   DESIGN 1 — FINAL ENVELOPE
-   Replace every old .envelope-related CSS block with this
-   ========================================================= */
+/* DESIGN 1 proportions: smaller than the previous 560px envelope. */
 .envelope {
-  position: relative;
-  width: min(86vw, 560px);
-  aspect-ratio: 1.72 / 1;
-  margin: 38px auto 0;
-  cursor: pointer;
-
-  perspective: 1500px;
-  isolation: isolate;
-
-  overflow: visible;
-
-  border: 1px solid rgba(184, 138, 53, .45);
-  border-radius: 7px;
-
-  background:
-    radial-gradient(
-      circle at 50% 18%,
-      rgba(255, 255, 255, .92),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      #fffdf7 0%,
-      #f6ebcc 52%,
-      #e7c77f 100%
-    );
-
-  box-shadow:
-    0 18px 45px rgba(95, 67, 19, .18);
-
-  transition:
-    transform .6s ease,
-    filter .6s ease;
+    position: relative;
+    width: min(78vw, 500px);
+    aspect-ratio: 1.72 / 1;
+    margin: 30px auto 0;
+    cursor: pointer;
+    perspective: 1500px;
+    isolation: isolate;
+    overflow: visible;
+    flex: 0 0 auto;
+    opacity: 0;
+    pointer-events: none;
+    animation: envelopeReveal .8s cubic-bezier(.22,.61,.36,1) 3.1s forwards;
+    border: 1px solid rgba(184,138,53,.42);
+    border-radius: 7px;
+    background:
+        radial-gradient(circle at 50% 18%, rgba(255,255,255,.92), transparent 35%),
+        linear-gradient(135deg,#fffdf7 0%,#f6ebcc 52%,#e7c77f 100%);
+    box-shadow: 0 16px 38px rgba(95,67,19,.16);
+    transition: transform .6s ease, filter .6s ease;
 }
 
-.envelope:hover {
-  transform: translateY(-3px);
-}
+.envelope.envelope-ready { pointer-events: auto; }
+.envelope:hover { transform: translateY(-3px); }
 
-/* =========================================================
-   ENVELOPE BACK
-   ========================================================= */
 .envelope-back {
-  position: absolute;
-  inset: 0;
-
-  z-index: 1;
-
-  overflow: hidden;
-
-  border-radius: 6px;
-
-  background:
-    linear-gradient(
-      135deg,
-      transparent 49.7%,
-      rgba(184, 138, 53, .25) 50%,
-      transparent 50.3%
-    ),
-    linear-gradient(
-      225deg,
-      transparent 49.7%,
-      rgba(184, 138, 53, .22) 50%,
-      transparent 50.3%
-    ),
-    linear-gradient(
-      135deg,
-      #fffef9 0%,
-      #f3e4bd 100%
-    );
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    border-radius: 6px;
+    background:
+        linear-gradient(135deg,transparent 49.7%,rgba(184,138,53,.25) 50%,transparent 50.3%),
+        linear-gradient(225deg,transparent 49.7%,rgba(184,138,53,.22) 50%,transparent 50.3%),
+        linear-gradient(135deg,#fffef9 0%,#f3e4bd 100%);
 }
-
 .envelope-back::before {
-  content: "";
-
-  position: absolute;
-  inset: 7px;
-
-  border:
-    1px solid rgba(184, 138, 53, .17);
-
-  pointer-events: none;
+    content:"";
+    position:absolute;
+    inset:7px;
+    border:1px solid rgba(184,138,53,.17);
+    pointer-events:none;
 }
 
-/* =========================================================
-   INVITATION PAPER
-   ========================================================= */
 .envelope-paper {
-  position: absolute;
-
-  left: 8%;
-  bottom: 5%;
-
-  width: 84%;
-  height: 84%;
-
-  z-index: 2;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 8px;
-
-  padding: 20px;
-
-  color: #174b3b;
-
-  text-align: center;
-
-  background:
-    radial-gradient(
-      circle at 50% 0,
-      rgba(232, 200, 120, .20),
-      transparent 35%
-    ),
-    linear-gradient(
-      135deg,
-      #fffefb 0%,
-      #f9f0dc 100%
-    );
-
-  border:
-    1px solid rgba(184, 138, 53, .38);
-
-  border-radius: 4px;
-
-  box-shadow:
-    0 8px 20px rgba(80, 55, 15, .13);
-
-  transition:
-    transform 1.35s cubic-bezier(.22, .61, .36, 1);
+    position:absolute;
+    left:8%;
+    bottom:5%;
+    width:84%;
+    height:84%;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:20px;
+    box-sizing:border-box;
+    color:#174b3b;
+    text-align:center;
+    background:
+        radial-gradient(circle at 50% 0,rgba(232,200,120,.20),transparent 35%),
+        linear-gradient(135deg,#fffefb 0%,#f9f0dc 100%);
+    border:1px solid rgba(184,138,53,.38);
+    border-radius:4px;
+    box-shadow:0 8px 20px rgba(80,55,15,.13);
+    transition:transform 1.35s cubic-bezier(.22,.61,.36,1);
 }
-
 .envelope-paper span {
-  font-family:
-    "Cinzel",
-    Georgia,
-    serif;
-
-  font-size: clamp(12px, 2.2vw, 17px);
-
-  letter-spacing: .08em;
-
-  font-weight: 500;
+    font-family:"Cinzel",Georgia,serif;
+    font-size:clamp(12px,2.2vw,17px);
+    letter-spacing:.08em;
+    font-weight:500;
 }
+.envelope-paper small { color:#b78b38; font-size:20px; }
 
-.envelope-paper small {
-  color: #b78b38;
-
-  font-size: 20px;
-}
-
-/* =========================================================
-   FRONT POCKET
-   ========================================================= */
 .envelope-front {
-  position: absolute;
-  inset: 0;
-
-  z-index: 5;
-
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: flex-end;
-
-  padding: 0 18px 19px;
-
-  box-sizing: border-box;
-
-  color: #fffdf8;
-
-  border-radius: 6px;
-
-  clip-path: polygon(
-    0 0,
-    30% 0,
-    50% 34%,
-    70% 0,
-    100% 0,
-    100% 100%,
-    0 100%
-  );
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, .52),
-      transparent 42%
-    ),
-    linear-gradient(
-      145deg,
-      #fffdf8 0%,
-      #f3e5c4 52%,
-      #e4bd68 100%
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .65);
+    position:absolute;
+    inset:0;
+    z-index:5;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    padding:0 18px 19px;
+    box-sizing:border-box;
+    color:#fffdf8;
+    border-radius:6px;
+    clip-path:polygon(0 0,30% 0,50% 34%,70% 0,100% 0,100% 100%,0 100%);
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.52),transparent 42%),
+        linear-gradient(145deg,#fffdf8 0%,#f3e5c4 52%,#e4bd68 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.65);
 }
-
-/* =========================================================
-   FRONT FOLD LINES
-   ========================================================= */
-.envelope-front::before,
-.envelope-front::after {
-  content: "";
-
-  position: absolute;
-
-  top: 26%;
-
-  width: 72%;
-  height: 1px;
-
-  background:
-    rgba(184, 138, 53, .36);
-
-  pointer-events: none;
+.envelope-front::before,.envelope-front::after {
+    content:"";
+    position:absolute;
+    top:26%;
+    width:72%;
+    height:1px;
+    background:rgba(184,138,53,.36);
+    pointer-events:none;
 }
-
-.envelope-front::before {
-  left: -18%;
-
-  transform:
-    rotate(38deg);
-}
-
-.envelope-front::after {
-  right: -18%;
-
-  transform:
-    rotate(-38deg);
-}
-
-/* =========================================================
-   ENVELOPE TEXT
-   ========================================================= */
+.envelope-front::before { left:-18%; transform:rotate(38deg); }
+.envelope-front::after { right:-18%; transform:rotate(-38deg); }
 
 .envelope-label {
-  position: relative;
-
-  z-index: 7;
-
-  margin-bottom: 9px;
-
-  color: #fffdf8;
-
-  font-family:
-    "Cinzel",
-    Georgia,
-    serif;
-
-  font-size: 12px;
-
-  font-weight: 500;
-
-  letter-spacing: .32em;
-
-  text-align: center;
-
-  text-shadow:
-    0 1px 8px rgba(73, 48, 9, .25);
+    position:relative;
+    z-index:7;
+    margin-bottom:9px;
+    color:#fffdf8;
+    font-family:"Cinzel",Georgia,serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.32em;
+    text-align:center;
+    text-shadow:0 1px 8px rgba(73,48,9,.35);
 }
-
 .envelope-monogram {
-  position: relative;
-
-  z-index: 7;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 13px;
-
-  margin-bottom: 10px;
-
-  color: #fff8e5;
-
-  font-family:
-    "Cinzel",
-    Georgia,
-    serif;
-
-  font-size: 29px;
-
-  line-height: 1;
-
-  text-shadow:
-    0 2px 8px rgba(76, 48, 6, .25);
+    position:relative;
+    z-index:7;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:13px;
+    margin-bottom:10px;
+    color:#fff8e5;
+    font-family:"Cinzel",Georgia,serif;
+    font-size:29px;
+    line-height:1;
+    text-shadow:0 2px 8px rgba(76,48,6,.25);
 }
-
-.envelope-monogram span {
-  color: #fff4cf;
-
-  font-size: 18px;
-}
-
+.envelope-monogram span { color:#fff4cf; font-size:18px; }
 .envelope-tap {
-  position: relative;
-
-  z-index: 7;
-
-  color: #fffdf7;
-
-  font-size: 12px;
-
-  font-weight: 500;
-
-  letter-spacing: .34em;
-
-  text-align: center;
-
-  text-shadow:
-    0 1px 8px rgba(73, 48, 9, .25);
+    position:relative;
+    z-index:7;
+    color:#fffdf7;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.34em;
+    text-align:center;
+    text-shadow:0 1px 8px rgba(73,48,9,.35);
 }
-
-/* =========================================================
-   TOP FLAP
-   ========================================================= */
 
 .envelope-flap {
-  position: absolute;
-  inset: 0;
-
-  z-index: 8;
-
-  transform-origin:
-    50% 0;
-
-  transform:
-    rotateX(0deg);
-
-  transform-style:
-    preserve-3d;
-
-  backface-visibility:
-    hidden;
-
-  border-radius:
-    6px 6px 0 0;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, .48),
-      transparent 44%
-    ),
-    linear-gradient(
-      145deg,
-      #fffdf7 0%,
-      #f4dfae 55%,
-      #d8ad59 100%
-    );
-
-  clip-path:
-    polygon(
-      0 0,
-      100% 0,
-      50% 58%
-    );
-
-  filter:
-    drop-shadow(
-      0 4px 5px
-      rgba(91, 59, 10, .10)
-    );
-
-  transition:
-    transform 1.05s cubic-bezier(.22, .61, .36, 1);
+    position:absolute;
+    inset:0;
+    z-index:8;
+    transform-origin:50% 0;
+    transform:rotateX(0deg);
+    transform-style:preserve-3d;
+    backface-visibility:hidden;
+    border-radius:6px 6px 0 0;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.48),transparent 44%),
+        linear-gradient(145deg,#fffdf7 0%,#f4dfae 55%,#d8ad59 100%);
+    clip-path:polygon(0 0,100% 0,50% 58%);
+    filter:drop-shadow(0 4px 5px rgba(91,59,10,.10));
+    transition:transform 1.05s cubic-bezier(.22,.61,.36,1);
 }
 
-/* =========================================================
-   COMPLETE GOLD WAX SEAL
-   ========================================================= */
-
+/* Smaller seal, placed at the flap point rather than high on the flap. */
 .envelope-flap::after {
-  content: "";
-
-  position: absolute;
-
-  z-index: 20;
-
-  left: 50%;
-  top: 27%;
-
-  width: 58px;
-  height: 58px;
-
-  transform:
-    translateX(-50%);
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 35% 28%,
-      #ffe9a8 0 4%,
-      #d9a83f 24%,
-      #a56812 65%,
-      #70400a 100%
-    );
-
-  border:
-    3px solid #e8c46b;
-
-  box-shadow:
-    0 0 0 3px rgba(126, 83, 20, .25),
-    0 7px 15px rgba(78, 48, 7, .28),
-    inset 0 0 0 2px rgba(255, 244, 202, .52);
-
-  pointer-events: none;
+    content:"";
+    position:absolute;
+    z-index:20;
+    left:50%;
+    top:52%;
+    width:42px;
+    height:42px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 28%,#ffe9a8 0 4%,#d9a83f 24%,#a56812 65%,#70400a 100%);
+    border:2px solid #e8c46b;
+    box-shadow:0 0 0 2px rgba(126,83,20,.22),0 5px 11px rgba(78,48,7,.25),inset 0 0 0 2px rgba(255,244,202,.52);
+    pointer-events:none;
 }
-
 .envelope-flap::before {
-  content: "❦";
-
-  position: absolute;
-
-  z-index: 21;
-
-  left: 50%;
-  top: 38%;
-
-  transform:
-    translate(-50%, -50%);
-
-  color:
-    #fff4cf;
-
-  font-family:
-    "Cormorant Garamond",
-    Georgia,
-    serif;
-
-  font-size: 25px;
-
-  line-height: 1;
-
-  text-shadow:
-    0 1px 2px rgba(83, 49, 4, .30);
-
-  pointer-events: none;
+    content:"❦";
+    position:absolute;
+    z-index:21;
+    left:50%;
+    top:52%;
+    transform:translate(-50%,-50%);
+    color:#fff4cf;
+    font-family:"Cormorant Garamond",Georgia,serif;
+    font-size:19px;
+    line-height:1;
+    text-shadow:0 1px 2px rgba(83,49,4,.30);
+    pointer-events:none;
 }
 
-/* =========================================================
-   KEEP THE EXISTING SMOOTH OPENING TRANSITION
-   ========================================================= */
-
+/* Existing smooth click transition retained. */
 .envelope.opening {
-  pointer-events: none;
+    pointer-events:none;
+    animation:envelopeFloatAway 1.75s cubic-bezier(.22,.61,.36,1) forwards;
+}
+.envelope.opening .envelope-flap { transform:rotateX(178deg); z-index:0; }
+.envelope.opening .envelope-paper { z-index:10; transform:translateY(-118px) scale(1.015); }
+.envelope.opening .envelope-front { opacity:.96; }
 
-  animation:
-    envelopeFloatAway
-    1.75s
-    cubic-bezier(.22, .61, .36, 1)
-    forwards;
+@media (max-height:850px) {
+    #opening-screen .opening-content { transform-origin:top center; }
+    .opening-bismillah { font-size:clamp(20px,5vw,28px); line-height:1.45; }
+    .opening-divider { margin:14px auto; }
+    .opening-monogram { font-size:clamp(44px,11vw,62px); margin-bottom:8px; }
+    .opening-names { margin-top:8px; }
+    .opening-title { font-size:clamp(22px,6vw,30px); line-height:1.15; }
+    .opening-ampersand { margin:2px 0; font-size:22px; }
+    .envelope { margin-top:22px; }
 }
 
-.envelope.opening .envelope-flap {
-  transform:
-    rotateX(178deg);
-
-  z-index: 0;
+@media (max-width:768px) {
+    #opening-screen { align-items:flex-start; padding:20px 14px 34px; }
+    #opening-screen .opening-content { max-width:420px; padding-top:0; }
+    .envelope { width:min(88vw,460px); margin-top:26px; }
 }
 
-.envelope.opening .envelope-paper {
-  z-index: 10;
-
-  transform:
-    translateY(-118px)
-    scale(1.015);
-}
-
-.envelope.opening .envelope-front {
-  opacity: .96;
-}
-
-@keyframes envelopeFloatAway {
-
-  0% {
-    opacity: 1;
-
-    transform:
-      translateY(0)
-      scale(1);
-  }
-
-  55% {
-    opacity: 1;
-
-    transform:
-      translateY(-24px)
-      scale(1.015);
-  }
-
-  100% {
-    opacity: 0;
-
-    transform:
-      translateY(-85px)
-      scale(.94);
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 650px) {
-
-  .envelope {
-    width:
-      min(92vw, 520px);
-
-    margin-top:
-      34px;
-  }
-
-  .envelope-paper span {
-    font-size:
-      13px;
-  }
-
-  .envelope-label {
-    font-size:
-      10px;
-
-    letter-spacing:
-      .28em;
-  }
-
-  .envelope-tap {
-    font-size:
-      10px;
-
-    letter-spacing:
-      .30em;
-  }
-
-  .envelope-monogram {
-    font-size:
-      25px;
-  }
-
-  .envelope-flap::after {
-    width:
-      54px;
-
-    height:
-      54px;
-  }
-
-  .envelope-flap::before {
-    font-size:
-      23px;
-  }
-
-  .envelope.opening .envelope-paper {
-    transform:
-      translateY(-88px)
-      scale(1.01);
-  }
+@media (max-width:650px) {
+    .envelope { width:min(90vw,430px); margin-top:24px; }
+    .envelope-paper span { font-size:13px; }
+    .envelope-label { font-size:10px; letter-spacing:.28em; }
+    .envelope-tap { font-size:10px; letter-spacing:.30em; }
+    .envelope-monogram { font-size:25px; }
+    .envelope-flap::after { width:38px; height:38px; }
+    .envelope-flap::before { font-size:18px; }
+    .envelope.opening .envelope-paper { transform:translateY(-88px) scale(1.01); }
 }
