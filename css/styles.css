@@ -1995,3 +1995,148 @@ RESPONSIVE
     transform: translateY(-98px) !important;
   }
 }
+
+/* ==========================================================
+   FINAL VISUAL ENVELOPE REFINEMENT
+   Keeps the existing smooth animation unchanged
+   ========================================================== */
+
+/* Keep the envelope close to the ivory opening background */
+.envelope {
+    background:
+        linear-gradient(
+            145deg,
+            #fbf8f0 0%,
+            #f1e7d4 52%,
+            #dfc99a 100%
+        ) !important;
+
+    border-color:
+        rgba(184, 140, 55, .34) !important;
+}
+
+/* Light ivory back */
+.envelope-back {
+    background:
+        linear-gradient(
+            145deg,
+            #fbf8f0 0%,
+            #f1e7d4 52%,
+            #dfc99a 100%
+        ) !important;
+}
+
+/* Light ivory front pocket */
+.envelope-front {
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf7 0%,
+            #f3ead9 54%,
+            #e1c990 100%
+        ) !important;
+
+    overflow: visible !important;
+}
+
+/* Light ivory top flap */
+.envelope-flap {
+    background:
+        linear-gradient(
+            145deg,
+            #fffdf8 0%,
+            #f4ead7 55%,
+            #e0c58d 100%
+        ) !important;
+}
+
+/* Use only the seal attached to the flap */
+.envelope-front::before {
+    content: none !important;
+    display: none !important;
+}
+
+.envelope-front::after {
+    display: block !important;
+}
+
+/* Restore and refine the flap seal */
+.envelope-flap::after {
+    content: "❦" !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 60.5% !important;
+
+    width: 60px !important;
+    height: 60px !important;
+
+    transform:
+        translate(-50%, -50%) !important;
+
+    border-radius: 50% !important;
+
+    color: #fff1c9 !important;
+
+    font-family:
+        "Cormorant Garamond",
+        Georgia,
+        serif !important;
+
+    font-size: 29px !important;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #f7dc91 0%,
+            #c58a2d 45%,
+            #9a6518 70%,
+            #70430d 100%
+        ) !important;
+
+    border:
+        3px solid #e8c56c !important;
+
+    box-shadow:
+        0 5px 10px rgba(80,50,5,.30),
+        0 0 0 2px rgba(117,73,13,.34),
+        inset 0 0 0 2px rgba(255,241,190,.42),
+        inset 0 2px 5px rgba(255,255,255,.34) !important;
+
+    z-index: 50 !important;
+
+    pointer-events: none !important;
+}
+
+/* Keep the existing smooth timing and paper movement */
+.envelope.opening .envelope-flap {
+    transform:
+        rotateX(180deg) !important;
+}
+
+.envelope.opening .envelope-paper {
+    transform:
+        translateY(-118px) !important;
+}
+
+/* Mobile seal refinement */
+@media (max-width: 600px) {
+
+    .envelope-flap::after {
+        width: 54px !important;
+        height: 54px !important;
+
+        font-size: 26px !important;
+
+        top: 60.5% !important;
+    }
+
+    .envelope.opening .envelope-paper {
+        transform:
+            translateY(-96px) !important;
+    }
+}
