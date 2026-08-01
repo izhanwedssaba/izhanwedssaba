@@ -1388,9 +1388,9 @@ RESPONSIVE
 
     background:
         linear-gradient(
-            180deg,
-        #fffdf8 0%,
-        #f8f2e6 100%
+            145deg,
+    #fffdf8 0%,
+    #f5ead5 100%
         );
 
     border:
@@ -1403,7 +1403,7 @@ RESPONSIVE
 
     color: var(--emerald);
 
-    transform: translateY(-22px);
+    transform: translateY(-12px);
 
     transition:
         transform 1.35s cubic-bezier(.22,.61,.36,1);
@@ -1454,13 +1454,13 @@ RESPONSIVE
     overflow: hidden;
 
     clip-path: polygon(
-    0 0,
-    30% 0,
-    50% 34%,
-    70% 0,
-    100% 0,
-    100% 100%,
-    0 100%
+  0 0,
+  28% 0,
+  50% 27%,
+  72% 0,
+  100% 0,
+  100% 100%,
+  0 100%
 );
 
     background:
