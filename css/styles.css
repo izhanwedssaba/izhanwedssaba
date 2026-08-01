@@ -1,1997 +1,632 @@
-/* ==========================================================
-   Mohammed Izhan & Bazila Saba
-   Luxury Wedding Invitation
-   Version 3.0
-========================================================== */
-
-/* ---------------- GOOGLE FONTS ---------------- */
-
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
-
-/* ---------------- VARIABLES ---------------- */
+/* =========================================================
+   MOHAMMED IZHAN & BAZILA SABA — WEDDING WEBSITE
+   CLEAN MASTER STYLESHEET
+   Replace the entire css/styles.css file with this file.
+   ========================================================= */
 
 :root{
-
-    --ivory:#FAF7F2;
-    --white:#FFFFFF;
-    --gold:#C6A664;
-    --gold-dark:#A88236;
-    --emerald:#0F5132;
-    --text:#444444;
-    --border:#E9DDB7;
-
-    --shadow:0 18px 45px rgba(0,0,0,.08);
-
-    --radius:22px;
-
+  --ivory:#fffdf7;
+  --ivory-deep:#f7efd9;
+  --ivory-warm:#f1e3bd;
+  --gold:#b88a35;
+  --gold-light:#e8c878;
+  --gold-dark:#7e5314;
+  --emerald:#174b3b;
+  --ink:#3e4b47;
+  --muted:#6f746f;
+  --line:rgba(184,138,53,.35);
+  --shadow:0 18px 55px rgba(93,66,21,.14);
 }
 
-/* ---------------- RESET ---------------- */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-
-    background:var(--ivory);
-
-    color:var(--text);
-
-    font-family:'Poppins',sans-serif;
-
-    overflow-x:hidden;
-
+  margin:0;
+  min-width:320px;
+  overflow-x:hidden;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 50% 10%,rgba(232,200,120,.18),transparent 28%),
+    linear-gradient(135deg,#fffefb 0%,#fbf5e8 48%,#fffdf8 100%);
+  font-family:"Poppins",sans-serif;
 }
-
-/* ---------------- CONTAINER ---------------- */
-
-.container{
-
-    width:min(1100px,92%);
-    margin:auto;
-
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background:
+    radial-gradient(circle at 12% 30%,rgba(232,200,120,.10),transparent 25%),
+    radial-gradient(circle at 88% 70%,rgba(232,200,120,.10),transparent 25%);
 }
+h1,h2,h3,p{margin-top:0}
+a{text-decoration:none}
+button{font:inherit}
 
-/* ---------------- HEADINGS ---------------- */
+/* =========================================================
+   OPENING SCREEN
+   ========================================================= */
 
-h1,h2,h3{
-
-    font-family:'Cinzel',serif;
-    font-weight:600;
-
+#opening-screen{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  min-height:100svh;
+  overflow:auto;
+  display:grid;
+  place-items:center;
+  padding:28px 18px;
+  background:
+    radial-gradient(circle at 50% 26%,rgba(237,206,132,.28),transparent 30%),
+    linear-gradient(135deg,#fffefb 0%,#f8f0df 48%,#fffdf8 100%);
+  transition:opacity .75s ease,visibility .75s ease;
 }
-
-section{
-
-    padding:90px 0;
-
+#opening-screen.closing{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
 }
-
-/* ==========================================================
-OPENING SCREEN
-========================================================== */
-
-#opening-screen.closing {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1.5s ease;
-}
-
 .opening-content{
-
-    width:90%;
-    max-width:420px;
-
-    text-align:center;
-
-    animation:fadeUp 1s ease;
-
+  width:min(100%,620px);
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  padding:10px 8px 26px;
 }
-
-
 .opening-bismillah{
-
-    font-family:'Noto Naskh Arabic',serif;
-
-    font-size: 24px;
-
-    color:#B58A2A;
-
-    line-height: 1.5;
-
+  color:#a77a2c;
+  font-family:serif;
+  font-size:clamp(31px,5vw,48px);
+  line-height:1.35;
+  letter-spacing:.02em;
+  text-shadow:0 2px 16px rgba(184,138,53,.13);
 }
-
 .opening-translation{
-
-    margin-top: 8px;
-
-    color:#666;
-
-    line-height: 1.5;
-
-    font-size: 13px;
-
+  margin-top:14px;
+  color:#666c6b;
+  font-size:15px;
+  line-height:1.7;
+  letter-spacing:.04em;
 }
-
 .opening-divider{
-
-    width:70px;
-
-    height:1px;
-
-    background:#D8C29A;
-
-    margin: 18px auto;
-
+  width:88px;
+  height:1px;
+  margin:24px auto 0;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
-
 .opening-monogram{
-
-    font-family:'Cinzel',serif;
-
-    font-size: 48px;
-
-    color:#C6A664;
-
-    margin-bottom: 16px;
-
-    animation:logoPop 1.5s ease;
-
+  margin-top:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:22px;
+  color:var(--emerald);
+  font-family:"Cinzel",serif;
+  font-size:clamp(58px,10vw,82px);
+  line-height:1;
 }
-
+.opening-monogram span{
+  color:var(--gold);
+  font-size:.78em;
+  filter:drop-shadow(0 4px 8px rgba(126,83,20,.16));
+}
+.opening-names{margin-top:30px}
 .opening-title{
-
-    font-family:'Cinzel',serif;
-
-    color:#0F5132;
-
-    font-size: 30px;
-
-    margin: 4px 0;
-
+  color:var(--emerald);
+  font-family:"Cinzel",serif;
+  font-size:clamp(30px,5vw,48px);
+  font-weight:500;
+  letter-spacing:.035em;
+  line-height:1.25;
 }
-
 .opening-ampersand{
-
-    font-size: 25px;
-
-    color:#C6A664;
-
-    margin:5px 0;
-
+  margin:7px 0;
+  color:var(--gold);
+  font-family:"Cinzel",serif;
+  font-size:30px;
 }
 
-.monogram span{
+/* =========================================================
+   DESIGN 1 ENVELOPE — CLEAN SINGLE SOURCE OF TRUTH
+   ========================================================= */
 
-    color:var(--gold);
-
-    padding:0 8px;
-
+.envelope{
+  position:relative;
+  width:min(86vw,560px);
+  aspect-ratio:1.72/1;
+  margin:38px auto 0;
+  cursor:pointer;
+  perspective:1500px;
+  isolation:isolate;
+  border:1px solid rgba(184,138,53,.45);
+  border-radius:7px;
+  background:
+    radial-gradient(circle at 50% 20%,rgba(255,255,255,.9),transparent 34%),
+    linear-gradient(135deg,#fffdf7 0%,#f7edcf 52%,#ead09a 100%);
+  box-shadow:0 18px 45px rgba(95,67,19,.18);
+  overflow:visible;
+  transition:transform .6s ease,filter .6s ease;
+}
+.envelope:hover{transform:translateY(-3px)}
+.envelope-back{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  overflow:hidden;
+  border-radius:6px;
+  background:
+    linear-gradient(135deg,transparent 49.7%,rgba(184,138,53,.28) 50%,transparent 50.3%),
+    linear-gradient(225deg,transparent 49.7%,rgba(184,138,53,.25) 50%,transparent 50.3%),
+    linear-gradient(135deg,#fffef9,#f3e4bd);
+}
+.envelope-back::before{
+  content:"";
+  position:absolute;
+  inset:7px;
+  border:1px solid rgba(184,138,53,.17);
+  pointer-events:none;
+}
+.envelope-paper{
+  position:absolute;
+  left:8%;
+  bottom:5%;
+  width:84%;
+  height:84%;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:20px;
+  color:var(--emerald);
+  background:
+    radial-gradient(circle at 50% 0,rgba(232,200,120,.18),transparent 35%),
+    linear-gradient(135deg,#fffefb,#f9f0dc);
+  border:1px solid rgba(184,138,53,.38);
+  border-radius:4px;
+  box-shadow:0 10px 25px rgba(84,59,18,.12);
+  transform:translateY(0);
+  transition:transform 1.15s cubic-bezier(.22,.61,.36,1) .18s,
+             opacity .45s ease .75s;
+}
+.envelope-paper span{
+  font-family:"Cinzel",serif;
+  font-size:clamp(15px,2.5vw,24px);
+  letter-spacing:.08em;
+}
+.envelope-paper small{
+  color:var(--gold);
+  font-family:"Cinzel",serif;
+  font-size:22px;
+}
+.envelope-front{
+  position:absolute;
+  inset:0;
+  z-index:5;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-end;
+  padding:0 18px 23px;
+  border-radius:6px;
+  color:#fffdf7;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.35),transparent 38%),
+    linear-gradient(145deg,#fffdf7 0%,#f7e8bf 53%,#e4c47e 100%);
+  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
+}
+.envelope-front::before,
+.envelope-front::after{
+  content:"";
+  position:absolute;
+  top:0;
+  width:51%;
+  height:100%;
+  z-index:-1;
+  border-top:1px solid rgba(184,138,53,.45);
+}
+.envelope-front::before{
+  left:0;
+  background:linear-gradient(135deg,#fffdf7 0%,#f5e4b8 100%);
+  clip-path:polygon(0 0,100% 55%,0 100%);
+}
+.envelope-front::after{
+  right:0;
+  background:linear-gradient(225deg,#fffdf7 0%,#e9cc8d 100%);
+  clip-path:polygon(100% 0,0 55%,100% 100%);
+}
+.envelope-label{
+  position:relative;
+  z-index:7;
+  margin-bottom:7px;
+  color:#fffdf7;
+  font-size:clamp(12px,1.8vw,16px);
+  font-weight:500;
+  letter-spacing:.34em;
+  text-shadow:0 1px 8px rgba(73,48,9,.25);
+}
+.envelope-monogram{
+  position:absolute;
+  z-index:9;
+  left:50%;
+  top:55%;
+  width:72px;
+  height:72px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  color:#fff8e7;
+  font-family:"Cinzel",serif;
+  font-size:19px;
+  background:
+    radial-gradient(circle at 35% 28%,#ffe9a8 0 4%,#d9a83f 24%,#a56812 65%,#70400a 100%);
+  border:3px solid #e8c46b;
+  box-shadow:
+    0 0 0 3px rgba(126,83,20,.25),
+    0 7px 15px rgba(78,48,7,.28),
+    inset 0 0 0 2px rgba(255,244,202,.52);
+}
+.envelope-monogram span{
+  font-size:18px;
+  color:#fff4cf;
+}
+.envelope-tap{
+  position:relative;
+  z-index:7;
+  color:#fffdf7;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.34em;
+  text-shadow:0 1px 8px rgba(73,48,9,.25);
+}
+.envelope-flap{
+  position:absolute;
+  inset:0;
+  z-index:8;
+  transform-origin:50% 0;
+  transform:rotateX(0deg);
+  backface-visibility:hidden;
+  border-radius:6px 6px 0 0;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.45),transparent 44%),
+    linear-gradient(145deg,#fffdf7 0%,#f4dfae 55%,#d8ad59 100%);
+  clip-path:polygon(0 0,100% 0,50% 58%);
+  filter:drop-shadow(0 4px 5px rgba(91,59,10,.10));
+  transition:transform 1.05s cubic-bezier(.22,.61,.36,1);
+}
+.envelope-flap::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:28%;
+  width:58px;
+  height:58px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 28%,#ffe9a8 0 4%,#d9a83f 24%,#a56812 65%,#70400a 100%);
+  border:3px solid #e8c46b;
+  box-shadow:0 0 0 3px rgba(126,83,20,.25),0 7px 15px rgba(78,48,7,.25);
+}
+.envelope-flap::before{
+  content:"❦";
+  position:absolute;
+  z-index:2;
+  left:50%;
+  top:39%;
+  transform:translate(-50%,-50%);
+  color:#fff4cf;
+  font-size:25px;
+  text-shadow:0 1px 2px rgba(83,49,4,.3);
 }
 
-.opening-content h2{
-
-    font-size:42px;
-
-    color:var(--emerald);
-
-    margin-bottom:12px;
-
+/* Opening motion */
+.envelope.opening{
+  pointer-events:none;
+  animation:envelopeFloatAway 1.75s cubic-bezier(.22,.61,.36,1) forwards;
+}
+.envelope.opening .envelope-flap{
+  transform:rotateX(178deg);
+  z-index:0;
+}
+.envelope.opening .envelope-paper{
+  z-index:10;
+  transform:translateY(-118px) scale(1.015);
+}
+.envelope.opening .envelope-front{
+  opacity:.96;
+}
+@keyframes envelopeFloatAway{
+  0%{opacity:1;transform:translateY(0) scale(1)}
+  55%{opacity:1;transform:translateY(-24px) scale(1.015)}
+  100%{opacity:0;transform:translateY(-85px) scale(.94)}
 }
 
-.and-text{
+/* =========================================================
+   MAIN WEBSITE
+   ========================================================= */
 
-    color:var(--gold);
-
-    font-size:24px;
-
-    margin:10px 0;
-
+#website{display:none;opacity:0}
+#website.website-visible{
+  display:block;
+  animation:websiteRise 1.05s cubic-bezier(.22,.61,.36,1) both;
 }
-
-
-#enterBtn:hover{
-
-    background:var(--gold-dark);
-
-    transform:translateY(-3px);
-  
-    color: #111;
-
+@keyframes websiteRise{
+  from{opacity:0;transform:translateY(45px)}
+  to{opacity:1;transform:translateY(0)}
 }
-
-
-/* ==========================================================
-HERO
-========================================================== */
+.container{width:min(92%,980px);margin:0 auto}
 
 .hero{
-
-    position:relative;
-
-    min-height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-align:center;
-
-    padding:90px 20px 60px;
-
+  position:relative;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  padding:110px 20px 75px;
+  background:
+    radial-gradient(circle at 50% 25%,rgba(234,202,124,.27),transparent 30%),
+    linear-gradient(135deg,#fffefb 0%,#f8f0df 50%,#fffdf8 100%);
 }
-
+.hero::before{
+  content:"";
+  position:absolute; inset:20px;
+  border:1px solid rgba(184,138,53,.22);
+  pointer-events:none;
+}
+.hero-overlay{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(90deg,rgba(255,255,255,.3),transparent 20%,transparent 80%,rgba(255,255,255,.3)),
+    radial-gradient(circle at 50% 50%,transparent 55%,rgba(184,138,53,.07));
+}
 .hero-content{
-
-    max-width:900px;
-
-    width:100%;
-
+  position:relative;
+  z-index:1;
+  width:min(100%,760px);
+  text-align:center;
 }
-
 .hero-top{
-
-    letter-spacing:3px;
-
-    font-size:15px;
-
-    color:#777;
-
-    text-transform:uppercase;
-
-    margin-bottom:35px;
-
+  color:var(--gold-dark);
+  font-size:13px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
 }
-
 .couple-name{
-
-    font-size:54px;
-
-    color:var(--emerald);
-
-    line-height:1.15;
-
+  margin:8px 0;
+  color:var(--emerald);
+  font-family:"Cinzel",serif;
+  font-size:clamp(39px,7vw,74px);
+  font-weight:500;
+  line-height:1.12;
+  letter-spacing:.04em;
 }
-
 .ampersand{
-
-    font-family:'Cinzel',serif;
-
-    font-size:38px;
-
-    color:var(--gold);
-
-    margin:12px 0;
-
+  margin:7px 0;
+  color:var(--gold);
+  font-family:"Cinzel",serif;
+  font-size:clamp(30px,5vw,46px);
 }
-
-.date{
-
-    margin-top:26px;
-
-    font-size:24px;
-
-    color:#666;
-
-}
-
-/* ==========================================================
-COUNTDOWN
-========================================================== */
+/* Date intentionally hidden: date belongs only in scratch reveal/event details */
+.hero .date{display:none!important}
 
 .countdown{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:12px;
-
-    flex-wrap:nowrap;
-
-    margin:26px auto 0;
-
+  display:grid;
+  grid-template-columns:repeat(4,minmax(72px,1fr));
+  gap:14px;
+  width:min(100%,570px);
+  margin:42px auto 0;
 }
-
 .count-item{
-
-    width:82px;
-
-    height:82px;
-
-    border-radius:20px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    box-shadow:var(--shadow);
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
+  padding:20px 8px 16px;
+  border:1px solid var(--line);
+  background:rgba(255,253,247,.7);
+  box-shadow:0 10px 25px rgba(93,66,21,.08);
 }
-
 .count-item span{
-
-    font-size:30px;
-
-    font-weight:700;
-
-    color:var(--emerald);
-
+  display:block;
+  color:var(--emerald);
+  font-family:"Cinzel",serif;
+  font-size:clamp(26px,4vw,42px);
 }
-
 .count-item small{
-
-    margin-top:6px;
-
-    font-size:10px;
-
-    letter-spacing:1.2px;
-
-    color:var(--gold-dark);
-
+  display:block;
+  margin-top:8px;
+  color:var(--gold-dark);
+  font-size:10px;
+  letter-spacing:.22em;
 }
-/* ==========================================================
-INVITATION
-========================================================== */
+#countdown-message{max-width:650px;margin:0 auto}
 
-.invitation{
-    text-align:center;
-    padding-top:60px;
-}
-
-.invitation h2{
-    font-size:38px;
-    color:var(--emerald);
-    margin-bottom:18px;
-}
-
+/* Sections */
+section{padding:95px 20px;text-align:center}
+.invitation{background:rgba(255,253,247,.68)}
 .greeting{
-    color:var(--gold-dark);
-    letter-spacing:2px;
-    text-transform:uppercase;
-    font-size:14px;
-    margin-bottom:18px;
+  color:var(--gold-dark);
+  font-family:"Cinzel",serif;
+  font-size:20px;
+  letter-spacing:.12em;
 }
-
-.invitation p{
-    max-width:760px;
-    margin:0 auto;
-    font-size:18px;
-    line-height:1.9;
-    color:#555;
+.invitation h2,.section-title,.parents h2{
+  margin-bottom:22px;
+  color:var(--emerald);
+  font-family:"Cinzel",serif;
+  font-size:clamp(31px,5vw,48px);
+  font-weight:500;
 }
-
-/* ==========================================================
-EVENTS
-========================================================== */
-
+.invitation .container>p:last-child{
+  max-width:700px;
+  margin:0 auto;
+  color:var(--muted);
+  line-height:2;
+  font-size:16px;
+}
 .events{
-    text-align:center;
+  background:
+    radial-gradient(circle at 50% 0,rgba(232,200,120,.16),transparent 35%),
+    linear-gradient(135deg,#fbf4e5,#fffdf8);
 }
-
-.section-title{
-    font-size:42px;
-    color:var(--emerald);
-    margin-bottom:50px;
-}
-
 .event-card{
-
-    background:var(--white);
-
-    border:1px solid var(--border);
-
-    border-radius:var(--radius);
-
-    padding:45px;
-
-    box-shadow:var(--shadow);
-
-    max-width:650px;
-
-    margin:0 auto 35px;
-
+  position:relative;
+  max-width:690px;
+  margin:28px auto;
+  padding:42px 25px;
+  border:1px solid var(--line);
+  background:rgba(255,253,247,.78);
+  box-shadow:var(--shadow);
 }
-
+.event-card::before{
+  content:"";
+  position:absolute; inset:8px;
+  border:1px solid rgba(184,138,53,.14);
+  pointer-events:none;
+}
 .event-card h3{
-
-    color:var(--emerald);
-
-    font-size:34px;
-
-    margin-bottom:20px;
-
+  color:var(--gold-dark);
+  font-family:"Cinzel",serif;
+  font-size:34px;
+  font-weight:500;
 }
-
-.event-date,
-.event-time,
-.venue{
-
-    font-size:18px;
-
-    margin-bottom:12px;
-
+.event-card p{margin-bottom:10px}
+.event-date{color:var(--muted);font-size:14px;letter-spacing:.08em}
+.event-time{color:var(--emerald);font-family:"Cinzel",serif;font-size:25px}
+.venue{color:var(--ink);font-size:16px}
+.map-btn,#calendarBtn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:48px;
+  margin-top:14px;
+  padding:12px 27px;
+  color:#fffaf0;
+  background:linear-gradient(135deg,#c59a45,#8b5c18);
+  border:1px solid #e4c26c;
+  border-radius:0;
+  box-shadow:0 8px 20px rgba(102,67,13,.18);
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:transform .25s ease,box-shadow .25s ease;
 }
-
-.map-btn,
-#calendarBtn{
-
-    display:inline-block;
-
-    margin-top:20px;
-
-    padding:14px 34px;
-
-    border-radius:40px;
-
-    background:var(--gold);
-
-    color:#fff;
-
-    text-decoration:none;
-
-    border:none;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.map-btn:hover,
-#calendarBtn:hover{
-
-    background:var(--gold-dark);
-
-    transform:translateY(-2px);
-
-}
-
-.calendar-wrapper{
-
-    margin-top:20px;
-
-}
-
-/* ==========================================================
-PARENTS
-========================================================== */
+.map-btn:hover,#calendarBtn:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(102,67,13,.24)}
+.calendar-wrapper{margin-top:45px}
 
 .parents{
-
-    text-align:center;
-
+  background:#fffdf8;
 }
-
-.parents h2{
-
-    color:var(--emerald);
-
-    font-size:36px;
-
-    margin-bottom:45px;
-
-}
-
 .parents-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:30px;
-
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px;
+  max-width:850px;
+  margin:38px auto 0;
 }
-
 .parent-card{
-
-    background:#fff;
-
-    border-radius:var(--radius);
-
-    border:1px solid var(--border);
-
-    padding:35px;
-
-    box-shadow:var(--shadow);
-
+  padding:34px 22px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,#fffefb,#f8edcf);
+  box-shadow:0 12px 30px rgba(93,66,21,.08);
 }
-
 .parent-card h3{
-
-    color:var(--gold-dark);
-
-    margin-bottom:18px;
-
+  color:var(--gold-dark);
+  font-family:"Cinzel",serif;
+  font-size:19px;
+  font-weight:500;
 }
-
-.parent-card p{
-
-    margin:8px 0;
-
-}
-
-/* ==========================================================
-VERSE
-========================================================== */
+.parent-card p{margin:8px 0;color:var(--emerald)}
 
 .verse{
-
-    text-align:center;
-
-    background:#fffdf9;
-
+  background:
+    radial-gradient(circle at 50% 50%,rgba(232,200,120,.17),transparent 40%),
+    linear-gradient(135deg,#f7eed9,#fffdf8);
 }
-
 .arabic-verse{
-
-    font-size:32px;
-
-    line-height:2;
-
-    color:var(--gold-dark);
-
-    margin-bottom:25px;
-
+  max-width:900px;
+  margin:0 auto 28px;
+  color:var(--gold-dark);
+  font-family:serif;
+  font-size:clamp(25px,4vw,40px);
+  line-height:1.9;
 }
-
+.translation{
+  max-width:800px;
+  margin:0 auto;
+  color:var(--muted);
+  font-size:16px;
+  line-height:2;
+  font-style:italic;
+}
 .reference{
-
-    margin-top:18px;
-
-    color:#777;
-
-    font-style:italic;
-
+  margin:25px 0 0;
+  color:var(--emerald);
+  font-family:"Cinzel",serif;
+  font-size:14px;
 }
-
-/* ==========================================================
-FOOTER
-========================================================== */
-
 footer{
-
-    text-align:center;
-
-    padding:35px 20px;
-
-    color:#777;
-
-    font-size:15px;
-
+  padding:30px 20px;
+  text-align:center;
+  color:#f9efd8;
+  background:var(--emerald);
 }
+footer p{margin:0;font-size:13px;letter-spacing:.05em}
 
-/* ==========================================================
-SCROLL REVEAL
-========================================================== */
-
+/* Scroll reveal */
 .reveal{
-
-    opacity:0;
-
-    transform:translateY(40px);
-
-    transition:all .9s ease;
-
-}
-
-.reveal.active{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-/* ==========================================================
-KEYFRAMES
-========================================================== */
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-/* ==========================================================
-RESPONSIVE
-========================================================== */
-
-@media(max-width:768px){
-
-.hero{
-
-    padding:80px 18px 50px;
-
-}
-
-.couple-name{
-
-    font-size:38px;
-
-}
-
-.ampersand{
-
-    font-size:28px;
-
-}
-
-.date{
-
-    font-size:20px;
-
-}
-
-.hero-top{
-
-    font-size:12px;
-
-    letter-spacing:2px;
-
-}
-
-.count-item{
-
-    width:68px;
-
-    height:68px;
-
-}
-
-.count-item span{
-
-    font-size:24px;
-
-}
-
-.count-item small{
-
-    font-size:9px;
-
-}
-
-.section-title,
-.invitation h2,
-.parents h2{
-
-    font-size:30px;
-
-}
-
-.parents-grid{
-
-    grid-template-columns:1fr;
-
-}
-
-.event-card{
-
-    padding:30px 22px;
-
-}
-
-.arabic{
-
-    font-size:30px;
-
-}
-
-.opening-content h2{
-
-    font-size:32px;
-
-}
-
-.monogram{
-
-    font-size:42px;
-
-}
-
-}
-
-@media(max-width:420px){
-
-.countdown{
-
-    gap:8px;
-
-}
-
-.count-item{
-
-    width:62px;
-
-    height:62px;
-
-}
-
-.count-item span{
-
-    font-size:21px;
-
-}
-
-.count-item small{
-
-    font-size:8px;
-
-    letter-spacing:.8px;
-
-}
-
-.couple-name{
-
-    font-size:34px;
-
-}
-
-.date{
-
-    font-size:18px;
-
-}
-
-}
-
-@keyframes shine{
-
-    0%{
-        left:-120%;
-    }
-
-    60%{
-        left:140%;
-    }
-
-    100%{
-        left:140%;
-    }
-
-}
-
-@keyframes logoPop{
-
-    0%{
-        opacity:0;
-        transform:scale(.8);
-    }
-
-    100%{
-        opacity:1;
-        transform:scale(1);
-    }
-
-}
-
-
-@keyframes invitationShine {
-
-    0% {
-        left: -120%;
-    }
-
-    45% {
-        left: 140%;
-    }
-
-    100% {
-        left: 140%;
-    }
-
-}
-@keyframes cardFadeUp {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(25px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
-
-}
-
-/* =========================================
-   MOBILE LANDING PAGE FIX
-========================================= */
-
-@media (max-width: 768px) {
-
-    /* Opening screen */
-    #opening-screen {
-        min-height: 100svh;
-        padding: 40px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .opening-content {
-        width: 100%;
-        max-width: 420px;
-        text-align: center;
-    }
-
-    .opening-content .arabic {
-        font-size: 24px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
-
-    .opening-content .translation {
-        font-size: 17px;
-        line-height: 1.8;
-        margin: 20px auto;
-    }
-
-    .opening-monogram {
-        font-size: 58px;
-        margin: 28px 0;
-    }
-
-    #enterBtn {
-        margin-top: 28px;
-        padding: 16px 38px;
-        font-size: 16px;
-    }
-
-    /* Main hero section */
-    .hero {
-        padding: 60px 20px 50px;
-        min-height: auto;
-    }
-
-    .hero-content {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-    }
-
-    .hero-top {
-        font-size: 14px;
-        letter-spacing: 3px;
-        line-height: 1.8;
-        margin-bottom: 40px;
-    }
-
-    .couple-name {
-        font-size: 48px;
-        line-height: 1.2;
-        margin: 18px 0;
-        word-break: normal;
-    }
-
-    .ampersand {
-        font-size: 38px;
-        margin: 22px 0;
-    }
-
-    .date {
-        margin-top: 35px;
-        font-size: 20px;
-        line-height: 1.5;
-    }
-
-    /* Countdown: single row on mobile */
-    .countdown {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-        width: 100%;
-        max-width: 100%;
-        margin: 42px auto 0;
-        padding: 0;
-    }
-
-    .count-item {
-        padding: 8px 2px;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        border-radius: 0;
-        min-width: 0;
-    }
-
-    .count-number {
-        font-size: 2rem;
-        line-height: 1.2;
-    }
-
-    .count-label {
-        font-size: 0.65rem;
-        letter-spacing: 1px;
-        margin-top: 8px;
-    }
-
-    /* Reduce empty space before Assalamu Alaikum */
-    .hero + section {
-        margin-top: 0;
-        padding-top: 50px;
-    }
-
-    /* Invitation card */
-    .invite-card {
-        width: calc(100% - 32px);
-        max-width: 380px;
-        margin: 20px auto;
-        padding: 22px 18px;
-    }
-}
-/* ==========================================================
-   CINEMATIC OPENING SCREEN
-========================================================== */
-
-#opening-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 24px;
-
-    background:
-        radial-gradient(
-            circle at 50% 20%,
-            rgba(255, 250, 235, 0.95),
-            #FAF7F2 55%,
-            #F0E9DC 100%
-        );
-
-    opacity: 1;
-
-    transition:
-        opacity 1.2s ease,
-        transform 1.2s ease;
-}
-
-/* Main content */
-
-.opening-content {
-    width: 100%;
-    max-width: 420px;
-
-    text-align: center;
-
-    animation: cinematicEntrance 1.4s ease both;
-}
-
-/* Bismillah */
-
-.opening-bismillah {
-    font-family: serif;
-
-    font-size: clamp(22px, 6vw, 32px);
-
-    line-height: 1.7;
-
-    color: var(--gold-dark);
-
-    opacity: 0;
-
-    animation:
-        fadeInSoft 1.2s ease 0.2s forwards;
-}
-
-/* Translation */
-
-.opening-translation {
-    margin-top: 8px;
-
-    font-size: 12px;
-
-    line-height: 1.6;
-
-    letter-spacing: 0.5px;
-
-    color: #777;
-
-    opacity: 0;
-
-    animation:
-        fadeInSoft 1.2s ease 0.5s forwards;
-}
-
-/* Divider */
-
-.opening-divider {
-    width: 70px;
-
-    height: 1px;
-
-    margin: 22px auto;
-
-    background: var(--gold);
-
-    opacity: 0;
-
-    animation:
-        expandDivider 1s ease 0.8s forwards;
-}
-
-/* Monogram */
-
-.opening-monogram {
-    font-family: 'Cinzel', serif;
-
-    font-size: clamp(48px, 13vw, 70px);
-
-    letter-spacing: 4px;
-
-    color: var(--emerald);
-
-    opacity: 0;
-
-    animation:
-        monogramReveal 1.4s ease 1s forwards;
-}
-
-.opening-monogram span {
-    color: var(--gold);
-
-    display: inline-block;
-
-    margin: 0 4px;
-
-    animation:
-        heartGlow 2.5s ease-in-out 2s infinite;
-}
-
-/* Names */
-
-.opening-names {
-    margin-top: 16px;
-}
-
-.opening-title {
-    font-family: 'Cinzel', serif;
-
-    font-size: clamp(24px, 7vw, 34px);
-
-    line-height: 1.25;
-
-    color: var(--emerald);
-
-    opacity: 0;
-
-    animation:
-        nameReveal 1s ease forwards;
-}
-
-.opening-title:first-child {
-    animation-delay: 1.5s;
-}
-
-.opening-title:last-child {
-    animation-delay: 2s;
-}
-
-.opening-ampersand {
-    margin: 5px 0;
-
-    font-family: 'Cinzel', serif;
-
-    font-size: 24px;
-
-    color: var(--gold);
-
-    opacity: 0;
-
-    animation:
-        fadeInSoft 1s ease 1.75s forwards;
-}
-
-
-/* ==========================================================
-   ANIMATIONS
-========================================================== */
-
-@keyframes cinematicEntrance {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInSoft {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes expandDivider {
-    from {
-        opacity: 0;
-        transform: scaleX(0);
-    }
-
-    to {
-        opacity: 1;
-        transform: scaleX(1);
-    }
-}
-
-@keyframes monogramReveal {
-    from {
-        opacity: 0;
-        transform: scale(0.75);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes nameReveal {
-    from {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-@keyframes heartGlow {
-    0%, 100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.12);
-    }
-}
-
-@keyframes cardShimmer {
-    0% {
-        left: -120%;
-    }
-
-    45% {
-        left: 140%;
-    }
-
-    100% {
-        left: 140%;
-    }
-}
-
-/* Mobile refinement */
-
-@media (max-width: 420px) {
-
-    #opening-screen {
-        padding: 18px;
-    }
-
-    .opening-translation {
-        font-size: 11px;
-    }
-
-    .opening-divider {
-        margin: 16px auto;
-    }
-
-    .opening-names {
-        margin-top: 10px;
-    }
-
-}
-
-
-/* ==========================================================
-   ENVELOPE FLOAT AWAY
-========================================================== */
-
-@keyframes envelopeFloatAway {
-
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-
-    55% {
-        transform: translateY(-35px) scale(1.02);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateY(-100px) scale(1.05);
-        opacity: 0;
-    }
-
-}
-
-
-/* ==========================================================
-   WEBSITE FLOATING REVEAL
-========================================================== */
-
-@keyframes websiteFloatReveal {
-
-    0% {
-        opacity: 0;
-        transform: translateY(80px);
-    }
-
-    60% {
-        opacity: 1;
-        transform: translateY(-10px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-}
-
-/* ==========================================================
-   CLEAN DESIGN 1 ENVELOPE
-   ========================================================== */
-
-.envelope {
-    position: relative;
-    width: min(390px, 90vw);
-    height: 255px;
-    margin: 28px auto 0;
-
-    cursor: pointer;
-    opacity: 0;
-
-    perspective: 1400px;
-    transform-style: preserve-3d;
-
-    animation: envelopeReveal 1.2s ease 2.5s forwards;
-
-    isolation: isolate;
-}
-
-/* ==========================================================
-   ENVELOPE BACK
-   ========================================================== */
-
-.envelope-back {
-    position: absolute;
-    inset: 0;
-
-    overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 50% 12%,
-            rgba(255,255,255,.70),
-            transparent 36%
-        ),
-        linear-gradient(
-            145deg,
-            #faf7ef 0%,
-            #eee2ca 52%,
-            #d9bd82 100%
-        );
-
-    border: 1px solid rgba(159,116,38,.55);
-
-    border-radius: 6px;
-
-    box-shadow:
-        0 20px 45px rgba(91,65,20,.18),
-        inset 0 0 25px rgba(255,255,255,.42);
-}
-
-/* ==========================================================
-   INVITATION PAPER
-   ========================================================== */
-
-.envelope-paper {
-    position: absolute;
-
-    z-index: 2;
-
-    left: 9%;
-    bottom: 0;
-
-    width: 82%;
-    height: 88%;
-
-    box-sizing: border-box;
-
-    padding: 24px 12px;
-
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 9px;
-
-    text-align: center;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fffdf8 0%,
-            #f5ead5 100%
-        );
-
-    border:
-        1px solid rgba(184,140,55,.60);
-
-    border-radius: 3px;
-
-    box-shadow:
-        0 8px 20px rgba(80,55,15,.13);
-
-    color: var(--emerald);
-
-    transform: translateY(-12px);
-
-    transition:
-        transform 1.35s cubic-bezier(.22,.61,.36,1);
-}
-
-.envelope-paper::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 8px;
-
-    border:
-        1px solid rgba(190,145,57,.28);
-
-    pointer-events: none;
-}
-
-.envelope-paper span {
-    position: relative;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 18px;
-
-    letter-spacing: 2px;
-}
-
-.envelope-paper small {
-    position: relative;
-
-    color: var(--gold);
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 25px;
-}
-
-/* ==========================================================
-   LOWER FRONT POCKET
-   ========================================================== */
-
-.envelope-front {
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 5;
-
-    overflow: hidden;
-
-    clip-path:
-        polygon(
-            0 0,
-            28% 0,
-            50% 29%,
-            72% 0,
-            100% 0,
-            100% 100%,
-            0 100%
-        );
-
-    background:
-        linear-gradient(
-            145deg,
-            #fffdf7 0%,
-            #f3ead9 54%,
-            #e1c990 100%
-        );
-
-    border-radius: 6px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: flex-end;
-
-    padding: 0 15px 19px;
-
-    box-sizing: border-box;
-
-    color: #fffdf8;
-
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.62);
-}
-
-/* Fold lines */
-
-.envelope-front::before,
-.envelope-front::after {
-    content: "";
-
-    position: absolute;
-
-    top: 29%;
-
-    width: 70%;
-
-    height: 1px;
-
-    background:
-        rgba(255,255,255,.72);
-
-    pointer-events: none;
-}
-
-.envelope-front::before {
-    left: -17%;
-
-    transform:
-        rotate(38deg);
-}
-
-.envelope-front::after {
-    right: -17%;
-
-    transform:
-        rotate(-38deg);
-}
-
-/* ==========================================================
-   ENVELOPE TEXT
-   ========================================================== */
-
-.envelope-label {
-    font-size: 13px;
-
-    letter-spacing: 4px;
-
-    color:
-        rgba(255,255,255,.94);
-
-    margin-bottom: 8px;
-}
-
-.envelope-monogram {
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 31px;
-
-    letter-spacing: 7px;
-
-    margin-bottom: 4px;
-}
-
-.envelope-monogram span {
-    color: #fff7df;
-
-    font-size: 28px;
-}
-
-.envelope-date {
-    display: none !important;
-}
-
-.envelope-tap {
-    font-size: 11px;
-
-    letter-spacing: 4px;
-
-    color:
-        rgba(255,255,255,.90);
-}
-
-/* ==========================================================
-   TOP ENVELOPE FLAP
-   ========================================================== */
-
-.envelope-flap {
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 8;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fffdf8 0%,
-            #f4ead7 55%,
-            #e0c58d 100%
-        );
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            50% 61%
-        );
-
-    transform-origin:
-        top center;
-
-    transform-style:
-        preserve-3d;
-
-    backface-visibility:
-        hidden;
-
-    filter:
-        drop-shadow(
-            0 3px 2px rgba(90,60,15,.12)
-        );
-
-    transition:
-        transform 1.1s cubic-bezier(.77,0,.18,1);
-}
-
-/* ==========================================================
-   WAX SEAL — ATTACHED TO THE FLAP
-   ========================================================== */
-
-.envelope-flap::after {
-    content: "❦";
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 61%;
-
-    width: 62px;
-
-    height: 62px;
-
-    transform:
-        translate(-50%, -50%);
-
-    display: grid;
-
-    place-items: center;
-
-    border-radius: 50%;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size: 30px;
-
-    line-height: 1;
-
-    color: #fff1c9;
-
-    background:
-        radial-gradient(
-            circle at 32% 27%,
-            #ffe6a1 0%,
-            #e3b24f 20%,
-            #bd7b1f 52%,
-            #8b510e 78%,
-            #633707 100%
-        );
-
-    border:
-        3px solid #f1d17b;
-
-    box-shadow:
-        0 5px 12px rgba(76,43,5,.34),
-        0 0 0 2px rgba(133,79,11,.55),
-        inset 0 0 0 2px rgba(255,239,181,.42),
-        inset 0 3px 7px rgba(255,255,255,.30);
-
-    text-shadow:
-        0 1px 1px rgba(91,50,4,.55);
-
-    pointer-events: none;
-}
-
-/* ==========================================================
-   OPENING ANIMATION
-   ========================================================== */
-
-.envelope.opening {
-    animation:
-        envelopeFloatAway 2.1s
-        cubic-bezier(.22,.61,.36,1)
-        forwards;
-}
-
-.envelope.opening .envelope-flap {
-    transform:
-        rotateX(180deg);
-}
-
-.envelope.opening .envelope-paper {
-    z-index: 7;
-
-    transform:
-        translateY(-145px);
-}
-
-/* ==========================================================
-   ENVELOPE FLOATS AWAY
-   ========================================================== */
-
-@keyframes envelopeFloatAway {
-
-    0% {
-        transform:
-            translateY(0)
-            scale(1);
-
-        opacity: 1;
-    }
-
-    48% {
-        transform:
-            translateY(-35px)
-            scale(1.02);
-
-        opacity: 1;
-    }
-
-    100% {
-        transform:
-            translateY(-125px)
-            scale(1.05);
-
-        opacity: 0;
-    }
-}
-
-/* ==========================================================
-   RESPONSIVE
-   ========================================================== */
-
-@media (min-width: 768px) {
-
-    .envelope {
-        width: 460px;
-        height: 300px;
-    }
-
-    .envelope-flap::after {
-        width: 68px;
-        height: 68px;
-
-        font-size: 33px;
-    }
-
-    .envelope.opening .envelope-paper {
-        transform:
-            translateY(-175px);
-    }
-}
-
-@media (max-width: 420px) {
-
-    .envelope {
-        width: min(330px, 88vw);
-        height: 220px;
-    }
-
-    .envelope-flap::after {
-        width: 54px;
-        height: 54px;
-
-        font-size: 26px;
-    }
-
-    .envelope.opening .envelope-paper {
-        transform:
-            translateY(-135px);
-    }
-}
-
-/* ==========================================================
-   FINAL ENVELOPE FIX
-   ========================================================== */
-
-.envelope {
-  position: relative !important;
-  width: min(92vw, 520px) !important;
-  aspect-ratio: 1.55 / 1 !important;
-  margin: 0 auto !important;
-  overflow: hidden !important;
-  border: 1px solid rgba(184, 140, 55, 0.55) !important;
-  border-radius: 6px !important;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fffdf7 0%,
-      #f8efd9 48%,
-      #e8c87f 100%
-    ) !important;
-
-  box-shadow:
-    0 18px 38px rgba(88, 62, 18, 0.18),
-    inset 0 0 30px rgba(255, 255, 255, 0.75) !important;
-}
-
-/* Main envelope body */
-.envelope-front {
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 4 !important;
-  overflow: hidden !important;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fffdf7 0%,
-      #f7e7bf 52%,
-      #dfbb68 100%
-    ) !important;
-
-  clip-path: polygon(
-    0 0,
-    30% 34%,
-    50% 55%,
-    70% 34%,
-    100% 0,
-    100% 100%,
-    0 100%
-  ) !important;
-}
-
-/* Left envelope fold */
-.envelope-front::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.96) 0%,
-      rgba(248, 231, 190, 0.9) 100%
-    ) !important;
-
-  clip-path: polygon(
-    0 0,
-    50% 55%,
-    0 100%
-  ) !important;
-
-  border: none !important;
-}
-
-/* Right envelope fold */
-.envelope-front::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-
-  background:
-    linear-gradient(
-      225deg,
-      rgba(225, 187, 105, 0.96) 0%,
-      rgba(248, 226, 174, 0.88) 100%
-    ) !important;
-
-  clip-path: polygon(
-    100% 0,
-    50% 55%,
-    100% 100%
-  ) !important;
-
-  border: none !important;
-}
-
-/* Top triangular flap */
-.envelope-flap {
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 7 !important;
-
-  background:
-    linear-gradient(
-      145deg,
-      #fffdf8 0%,
-      #f7e4b3 58%,
-      #dfb85f 100%
-    ) !important;
-
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    50% 55%
-  ) !important;
-
-  transform-origin: top center !important;
-
-  transition:
-    transform 1.2s cubic-bezier(.22,.61,.36,1) !important;
-
-  backface-visibility: hidden !important;
-}
-
-/* Correct gold wax seal */
-.envelope-flap::after {
-  content: "❧" !important;
-
-  position: absolute !important;
-  left: 50% !important;
-  top: 55% !important;
-
-  width: 64px !important;
-  height: 64px !important;
-
-  transform: translate(-50%, -50%) !important;
-
-  display: grid !important;
-  place-items: center !important;
-
-  border-radius: 50% !important;
-
-  font-family: Georgia, serif !important;
-  font-size: 30px !important;
-  line-height: 1 !important;
-
-  color: #fff7dd !important;
-
-  background:
-    radial-gradient(
-      circle at 34% 28%,
-      #ffe7a3 0%,
-      #e9b94d 24%,
-      #bd7914 62%,
-      #74400b 100%
-    ) !important;
-
-  border: 3px solid #e8bd61 !important;
-
-  box-shadow:
-    0 8px 15px rgba(82, 48, 8, 0.3),
-    inset 0 0 0 2px rgba(255, 241, 193, 0.55),
-    inset 0 3px 7px rgba(255, 255, 255, 0.5) !important;
-
-  z-index: 10 !important;
-}
-
-/* Invitation paper */
-.envelope-paper {
-  position: absolute !important;
-
-  left: 7% !important;
-  bottom: 5% !important;
-
-  width: 86% !important;
-  height: 86% !important;
-
-  z-index: 2 !important;
-
-  background:
-    linear-gradient(
-      135deg,
-      #fffdf8 0%,
-      #f9efda 100%
-    ) !important;
-
-  border: 1px solid rgba(184, 140, 55, 0.42) !important;
-
-  box-shadow:
-    0 8px 22px rgba(83, 58, 15, 0.14) !important;
-
-  transform: translateY(0) !important;
-
-  transition:
-    transform 1.4s cubic-bezier(.22,.61,.36,1) !important;
-}
-
-/* Opening animation */
-.envelope.opening .envelope-flap {
-  transform: rotateX(180deg) !important;
-}
-
-/* Paper rises upward after opening */
-.envelope.opening .envelope-paper {
-  z-index: 9 !important;
-  transform: translateY(-118px) !important;
-}
-
-/* Keep the seal visible during opening */
-.envelope.opening .envelope-flap::after {
-  opacity: 0 !important;
-  transition: opacity 0.2s ease !important;
-}
-
-/* Mobile correction */
-@media (max-width: 600px) {
-  .envelope {
-    width: 88vw !important;
-  }
-
-  .envelope-flap::after {
-    width: 58px !important;
-    height: 58px !important;
-    font-size: 27px !important;
-  }
-
-  .envelope.opening .envelope-paper {
-    transform: translateY(-98px) !important;
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity .8s ease,transform .8s cubic-bezier(.22,.61,.36,1);
+}
+.reveal.active{opacity:1;transform:translateY(0)}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width:650px){
+  #opening-screen{padding:22px 14px}
+  .opening-content{padding-top:5px}
+  .opening-bismillah{font-size:30px}
+  .opening-translation{font-size:14px}
+  .opening-monogram{margin-top:32px;font-size:62px;gap:17px}
+  .opening-names{margin-top:25px}
+  .opening-title{font-size:31px}
+  .envelope{width:min(92vw,520px);margin-top:34px}
+  .envelope-paper span{font-size:13px}
+  .envelope-label{font-size:10px;letter-spacing:.28em}
+  .envelope-tap{font-size:10px;letter-spacing:.3em}
+  .envelope-monogram{width:58px;height:58px;font-size:16px}
+  .envelope-flap::after{width:48px;height:48px}
+  .envelope-flap::before{font-size:21px}
+  .envelope.opening .envelope-paper{transform:translateY(-88px) scale(1.01)}
+  .hero{padding:90px 16px 60px}
+  .hero::before{inset:10px}
+  .couple-name{font-size:38px}
+  .countdown{grid-template-columns:repeat(2,1fr);max-width:350px}
+  section{padding:72px 16px}
+  .parents-grid{grid-template-columns:1fr}
+  .event-card{padding:35px 18px}
+}
+
+@media (max-width:380px){
+  .opening-bismillah{font-size:27px}
+  .opening-title{font-size:27px}
+  .opening-monogram{font-size:54px}
+  .envelope-label{letter-spacing:.2em}
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
   }
 }
