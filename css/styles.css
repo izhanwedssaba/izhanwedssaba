@@ -2259,7 +2259,151 @@ RESPONSIVE
         transform: translateY(-135px) !important;
     }
 }
-/* During opening, the flap moves behind the invitation */
+
+
+/* ==========================================================
+   MASTER ENVELOPE FIX — replaces conflicting seal styling
+   ========================================================== */
+
+/* The old seal was attached to the moving flap. Hide every old
+   flap seal and create one fixed seal on the front pocket instead. */
+.envelope-flap::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Reset old fold-line pseudo elements because ::before is now
+   used for the wax seal. */
+.envelope-front::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Correct Design-1 wax seal: centered on the envelope overlap */
+.envelope-front::before {
+    content: "❦" !important;
+    position: absolute !important;
+
+    left: 50% !important;
+    top: 43% !important;
+
+    width: 62px !important;
+    height: 62px !important;
+
+    transform: translate(-50%, -50%) !important;
+
+    display: grid !important;
+    place-items: center !important;
+
+    border-radius: 50% !important;
+
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: 29px !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+
+    color: #fff0c4 !important;
+
+    background:
+        radial-gradient(circle at 32% 27%,
+            #ffe6a1 0%,
+            #e3b24f 20%,
+            #bd7b1f 52%,
+            #8b510e 78%,
+            #633707 100%) !important;
+
+    border: 3px solid #f1d17b !important;
+
+    box-shadow:
+        0 5px 12px rgba(76, 43, 5, .34),
+        0 0 0 2px rgba(133, 79, 11, .55),
+        inset 0 0 0 2px rgba(255, 239, 181, .42),
+        inset 0 3px 7px rgba(255, 255, 255, .30) !important;
+
+    text-shadow: 0 1px 1px rgba(91, 50, 4, .55) !important;
+
+    z-index: 50 !important;
+    pointer-events: none !important;
+}
+
+/* Put the front pocket above the paper and keep the seal visible */
+.envelope-front {
+    z-index: 20 !important;
+    overflow: visible !important;
+}
+
+/* The flap remains behind the fixed seal during opening */
+.envelope-flap {
+    z-index: 15 !important;
+}
+
+/* Restore the envelope's light ivory Design-1 palette */
+.envelope-back {
+    background: linear-gradient(
+        145deg,
+        #fbf8f0 0%,
+        #f1e7d4 52%,
+        #dfc99a 100%
+    ) !important;
+}
+
+.envelope-front {
+    background: linear-gradient(
+        145deg,
+        #fffdf7 0%,
+        #f3ead9 54%,
+        #e1c990 100%
+    ) !important;
+}
+
+/* Keep the flap light instead of dark gold */
+.envelope-flap {
+    background: linear-gradient(
+        145deg,
+        #fffdf8 0%,
+        #f4ead7 55%,
+        #e0c58d 100%
+    ) !important;
+}
+
+/* Opening order: flap opens, paper rises, envelope floats away */
 .envelope.opening .envelope-flap {
-    z-index: 4 !important;
+    transform: rotateX(180deg) !important;
+    z-index: 10 !important;
+}
+
+.envelope.opening .envelope-paper {
+    z-index: 30 !important;
+    transform: translateY(-145px) !important;
+}
+
+/* Keep the seal attached visually to the envelope while it exits */
+.envelope.opening .envelope-front::before {
+    opacity: 1 !important;
+}
+
+@media (min-width: 768px) {
+    .envelope-front::before {
+        width: 68px !important;
+        height: 68px !important;
+        font-size: 32px !important;
+        top: 43% !important;
+    }
+
+    .envelope.opening .envelope-paper {
+        transform: translateY(-175px) !important;
+    }
+}
+
+@media (max-width: 420px) {
+    .envelope-front::before {
+        width: 56px !important;
+        height: 56px !important;
+        font-size: 26px !important;
+        top: 43% !important;
+    }
+
+    .envelope.opening .envelope-paper {
+        transform: translateY(-135px) !important;
+    }
 }
