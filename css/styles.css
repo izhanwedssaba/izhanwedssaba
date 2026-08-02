@@ -1455,6 +1455,7 @@ RESPONSIVE
     transform-style:preserve-3d;
     backface-visibility:hidden;
     border-radius:6px 6px 0 0;
+    overflow: visible;
     background:
         linear-gradient(145deg,rgba(255,255,255,.48),transparent 44%),
         linear-gradient(145deg,#fffdf7 0%,#f4dfae 55%,#d8ad59 100%);
@@ -1465,22 +1466,45 @@ RESPONSIVE
 
 /* Smaller seal, placed at the flap point rather than high on the flap. */
 .envelope-flap::after {
-    content:"";
-    position:absolute;
-    z-index:20;
-    left:50%;
-    top:58%;
-    width:44px;
-    height:44px;
-    font-size: 20px;
-    transform:translate(-50%,-50%);
-    border-radius:50%;
-    background:radial-gradient(circle at 35% 28%,#ffe9a8 0 4%,#d9a83f 24%,#a56812 65%,#70400a 100%);
-    border: 2px solid #d9aa45;
-    box-shadow:
-    0 4px 10px rgba(101, 65, 12, 0.22),
-    inset 0 0 0 2px rgba(255, 239, 190, 0.45);
-    pointer-events:none;
+   content: "❧";
+
+  position: absolute;
+
+  left: 50%;
+  top: 61%;
+
+  width: 46px;
+  height: 46px;
+
+  transform: translate(-50%, -50%);
+
+  display: grid;
+  place-items: center;
+
+  z-index: 12;
+
+  border-radius: 50%;
+
+  font-size: 20px;
+  line-height: 1;
+
+  color: #fff1c9;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      #f6d98b 0%,
+      #c98b20 48%,
+      #8d5510 100%
+    );
+
+  border: 2px solid #e8bd5c;
+
+  box-shadow:
+    0 5px 12px rgba(80, 50, 10, 0.28),
+    inset 0 0 0 2px rgba(255, 240, 190, 0.45);
+
+  pointer-events: none;
 }
 .envelope-flap::before {
     content:"❦";
