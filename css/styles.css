@@ -1447,21 +1447,21 @@ RESPONSIVE
 }
 
 .envelope-flap {
-    position:absolute;
-    inset:0;
-    z-index:8;
-    transform-origin:50% 0;
-    transform:rotateX(0deg);
-    transform-style:preserve-3d;
-    backface-visibility:hidden;
-    border-radius:6px 6px 0 0;
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    transform-origin: 50% 0;
+    transform: rotateX(0deg);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    border-radius: 6px 6px 0 0;
     overflow: visible;
     background:
-        linear-gradient(145deg,rgba(255,255,255,.48),transparent 44%),
-        linear-gradient(145deg,#fffdf7 0%,#f4dfae 55%,#d8ad59 100%);
-    clip-path:polygon(0 0,100% 0,50% 58%);
-    filter:drop-shadow(0 4px 5px rgba(91,59,10,.10));
-    transition:transform 1.05s cubic-bezier(.22,.61,.36,1);
+        linear-gradient(145deg, rgba(255, 255, 255, 0.6), transparent 44%),
+        linear-gradient(145deg, #fffdf7 0%, #f4dfae 55%, #d8ad59 100%);
+    clip-path: polygon(0 0, 100% 0, 50% 50%); /* V-tip stops exactly at 50% height */
+    filter: drop-shadow(0 4px 6px rgba(91, 59, 10, 0.15));
+    transition: transform 1.05s cubic-bezier(.22, .61, .36, 1);
 }
 
 /* Single wax seal — centered at the flap point */
@@ -1469,24 +1469,29 @@ RESPONSIVE
     content: "❦";
     position: absolute;
     left: 50%;
-    top: 58%;
-    width: 42px;
-    height: 42px;
-    transform: translate(-50%, -50%);
-    display: grid;
-    place-items: center;
+    top: 50%; /* Positioned directly at the tip of clip-path (50%) */
+    width: 46px;
+    height: 46px;
+    transform: translate(-50%, -50%); /* Keeps seal centered on the tip */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 20;
     border-radius: 50%;
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: 19px;
-    line-height: 1;
-    color: #fff3cf;
-    background:
-        radial-gradient(circle at 35% 28%, #f8dfa0 0%, #d39a2b 42%, #9a6013 100%);
-    border: 2px solid #e7bd62;
-    box-shadow:
-        0 4px 10px rgba(80, 50, 10, .26),
-        inset 0 0 0 2px rgba(255, 241, 198, .42);
+    
+    /* Typography for the inner icon */
+    font-family: "Cinzel", Georgia, serif;
+    font-size: 20px;
+    color: #5c3e06;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
+
+    /* Rich 3D Gold Wax Finish */
+    background: radial-gradient(circle at 35% 30%, #ffe89e 0%, #d49f37 50%, #8a580c 100%);
+    border: 3px solid #fce08b;
+    box-shadow: 
+        0 6px 14px rgba(60, 38, 5, 0.35),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.4);
     pointer-events: none;
 }
 .envelope-front .envelope-label,
@@ -1531,8 +1536,8 @@ RESPONSIVE
     .envelope-flap::after {
         width: 38px;
         height: 38px;
-        font-size: 17px;
-        top: 58%;
+        font-size: 16px;
+        top: 50%;
     }
     .envelope.opening .envelope-paper { transform:translateY(-88px) scale(1.01); }
 }
