@@ -1297,9 +1297,9 @@ RESPONSIVE
 /* DESIGN 1 proportions: smaller than the previous 560px envelope. */
 .envelope {
     position: relative;
-    width: min(78vw, 500px);
-    aspect-ratio: 1.72 / 1;
-    margin: 30px auto 0;
+    width: min(88vw, 500px);
+  aspect-ratio: 1.58 / 1;
+  margin: 42px auto 0;
     cursor: pointer;
     perspective: 1500px;
     isolation: isolate;
@@ -1380,7 +1380,8 @@ RESPONSIVE
     flex-direction:column;
     align-items:center;
     justify-content:flex-end;
-    padding:0 18px 19px;
+    padding:0 18px 20px;
+    padding-bottom: 18px;
     box-sizing:border-box;
     color:#fffdf8;
     border-radius:6px;
@@ -1390,6 +1391,10 @@ RESPONSIVE
         linear-gradient(145deg,#fffdf8 0%,#f3e5c4 52%,#e4bd68 100%);
     box-shadow:inset 0 1px 0 rgba(255,255,255,.65);
 }
+.envelope-front .invite-label {
+  margin-top: 25px;
+}
+
 .envelope-front::before,.envelope-front::after {
     content:"";
     position:absolute;
@@ -1397,6 +1402,7 @@ RESPONSIVE
     width:72%;
     height:1px;
     background:rgba(184,138,53,.36);
+    border-color: rgba(170, 122, 35, 0.38);
     pointer-events:none;
 }
 .envelope-front::before { left:-18%; transform:rotate(38deg); }
@@ -1463,14 +1469,17 @@ RESPONSIVE
     position:absolute;
     z-index:20;
     left:50%;
-    top:52%;
-    width:42px;
-    height:42px;
+    top:58%;
+    width:44px;
+    height:44px;
+    font-size: 20px;
     transform:translate(-50%,-50%);
     border-radius:50%;
     background:radial-gradient(circle at 35% 28%,#ffe9a8 0 4%,#d9a83f 24%,#a56812 65%,#70400a 100%);
-    border:2px solid #e8c46b;
-    box-shadow:0 0 0 2px rgba(126,83,20,.22),0 5px 11px rgba(78,48,7,.25),inset 0 0 0 2px rgba(255,244,202,.52);
+    border: 2px solid #d9aa45;
+    box-shadow:
+    0 4px 10px rgba(101, 65, 12, 0.22),
+    inset 0 0 0 2px rgba(255, 239, 190, 0.45);
     pointer-events:none;
 }
 .envelope-flap::before {
@@ -1487,7 +1496,11 @@ RESPONSIVE
     text-shadow:0 1px 2px rgba(83,49,4,.30);
     pointer-events:none;
 }
-
+.envelope-front .invite-label,
+.envelope-front .tap-text {
+  color: #fffaf0;
+  text-shadow: 0 1px 4px rgba(91, 59, 12, 0.22);
+}
 /* Existing smooth click transition retained. */
 .envelope.opening {
     pointer-events:none;
@@ -1511,7 +1524,9 @@ RESPONSIVE
 @media (max-width:768px) {
     #opening-screen { align-items:flex-start; padding:20px 14px 34px; }
     #opening-screen .opening-content { max-width:420px; padding-top:0; }
-    .envelope { width:min(88vw,460px); margin-top:26px; }
+    .envelope { width: min(90vw, 470px);
+    aspect-ratio: 1.62 / 1;
+    margin-top: 34px; }
 }
 
 @media (max-width:650px) {
@@ -1520,7 +1535,11 @@ RESPONSIVE
     .envelope-label { font-size:10px; letter-spacing:.28em; }
     .envelope-tap { font-size:10px; letter-spacing:.30em; }
     .envelope-monogram { font-size:25px; }
-    .envelope-flap::after { width:38px; height:38px; }
+    .envelope-flap::after { width: 40px;
+    height: 40px;
+    font-size: 18px;
+    top: 57%;
+ }
     .envelope-flap::before { font-size:18px; }
     .envelope.opening .envelope-paper { transform:translateY(-88px) scale(1.01); }
 }
