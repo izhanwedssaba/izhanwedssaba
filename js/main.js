@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const website = document.getElementById("website");
     const enterBtn = document.getElementById("enterBtn");
 
+    if (!opening || !website || !enterBtn) return;
+
     website.style.display = "none";
 
     // Keep the envelope hidden until the monogram and both names finish revealing.
