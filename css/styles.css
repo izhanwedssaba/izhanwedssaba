@@ -1243,310 +1243,202 @@ RESPONSIVE
 
 
 /* ==========================================================
-   FINAL CLEAN OPENING ENVELOPE
-   Single source of truth — no duplicate envelope rules below.
+   SVG ENVELOPE — CLEAN SINGLE SOURCE
+   Replaces the old CSS envelope implementation only.
+   Existing opening/name animations remain unchanged.
 ========================================================== */
 
-/* Keep the opening content above the envelope and preserve the
-   existing Bismillah, monogram and name animations. */
-#opening-screen .opening-content {
-    flex: 0 0 auto;
-    width: min(420px, 100%);
-    margin: 0 auto;
-    padding: 8px 0 24px;
-    position: relative;
-    z-index: 2;
-}
-
-/* The envelope is a separate, delayed reveal. It cannot appear before
-   the final name animation has completed. */
-#enterBtn.envelope {
-    padding: 0;
-    border: 0;
-    color: inherit;
-    font: inherit;
-    line-height: normal;
-}
-
-@keyframes envelopeReveal {
-    from {
-        opacity: 0;
-        transform: translateY(18px) scale(.985);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes envelopeFloatAway {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    55% {
-        opacity: 1;
-        transform: translateY(-24px) scale(1.015);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-85px) scale(.94);
-    }
-}
-
-/* DESIGN 1 proportions: smaller than the previous 560px envelope. */
-.envelope {
-    position: relative;
-    width: min(86vw, 470px);
-    aspect-ratio: 1.62 / 1;
-    margin: 38px auto 0;
-    cursor: pointer;
-    perspective: 1500px;
-    isolation: isolate;
-    overflow: visible;
-    flex: 0 0 auto;
-    opacity: 0;
-    pointer-events: none;
-    animation: envelopeReveal .8s cubic-bezier(.22,.61,.36,1) 3.35s forwards;
-    border: 1px solid rgba(184,138,53,.42);
-    border-radius: 7px;
-    background:
-        radial-gradient(circle at 50% 18%, rgba(255,255,255,.92), transparent 35%),
-        linear-gradient(135deg,#fffdf7 0%,#f6ebcc 52%,#e7c77f 100%);
-    box-shadow: 0 16px 38px rgba(95,67,19,.16);
-    transition: transform .6s ease, filter .6s ease;
-}
-
-.envelope.envelope-ready { pointer-events: auto; }
-.envelope:hover { transform: translateY(-3px); }
-
-.envelope-back {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    overflow: hidden;
-    border-radius: 6px;
-    background:
-        linear-gradient(135deg,transparent 49.7%,rgba(184,138,53,.25) 50%,transparent 50.3%),
-        linear-gradient(225deg,transparent 49.7%,rgba(184,138,53,.22) 50%,transparent 50.3%),
-        linear-gradient(135deg,#fffef9 0%,#f3e4bd 100%);
-}
-.envelope-back::before {
-    content:"";
-    position:absolute;
-    inset:7px;
-    border:1px solid rgba(184,138,53,.17);
-    pointer-events:none;
-}
-
-.envelope-paper {
-    position:absolute;
-    left:8%;
-    bottom:5%;
-    width:84%;
-    height:84%;
+#opening-screen .opening-content{
+    flex:0 0 auto;
+    position:relative;
     z-index:2;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    padding:20px;
-    box-sizing:border-box;
-    color:#174b3b;
-    text-align:center;
-    background:
-        radial-gradient(circle at 50% 0,rgba(232,200,120,.20),transparent 35%),
-        linear-gradient(135deg,#fffefb 0%,#f9f0dc 100%);
-    border:1px solid rgba(184,138,53,.38);
-    border-radius:4px;
-    box-shadow:0 8px 20px rgba(80,55,15,.13);
-    transition:transform 1.35s cubic-bezier(.22,.61,.36,1);
-}
-.envelope-paper span {
-    font-family:"Cinzel",Georgia,serif;
-    font-size:clamp(12px,2.2vw,17px);
-    letter-spacing:.08em;
-    font-weight:500;
-}
-.envelope-paper small { color:#b78b38; font-size:20px; }
-
-.envelope-front {
-    position:absolute;
-    inset:0;
-    z-index:5;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-end;
-    padding:0 18px 20px;
-    padding-bottom: 18px;
-    box-sizing:border-box;
-    color:#fffdf8;
-    border-radius:6px;
-    clip-path:polygon(0 0,30% 0,50% 34%,70% 0,100% 0,100% 100%,0 100%);
-    background:
-        linear-gradient(145deg,rgba(255,255,255,.52),transparent 42%),
-        linear-gradient(145deg,#fffdf8 0%,#f3e5c4 52%,#e4bd68 100%);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.65);
-}
-.envelope-front .invite-label {
-  margin-top: 25px;
+    width:min(420px,100%);
+    margin:0 auto;
+    padding:8px 0 24px;
 }
 
-.envelope-front::before,.envelope-front::after {
-    content:"";
-    position:absolute;
-    top:26%;
-    width:72%;
-    height:1px;
-    background:rgba(184,138,53,.36);
-    border-color: rgba(170, 122, 35, 0.38);
+#enterBtn.envelope{
+    appearance:none;
+    -webkit-appearance:none;
+    display:block;
+    width:min(86vw,470px);
+    margin:38px auto 0;
+    padding:0;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:inherit;
+    font:inherit;
+    line-height:0;
+    cursor:pointer;
+    position:relative;
+    isolation:isolate;
+    overflow:visible;
+    opacity:0;
     pointer-events:none;
-}
-.envelope-front::before { left:-18%; transform:rotate(38deg); }
-.envelope-front::after { right:-18%; transform:rotate(-38deg); }
-
-.envelope-label {
-    position:relative;
-    z-index:7;
-    margin-bottom:9px;
-    color:#fffdf8;
-    font-family:"Cinzel",Georgia,serif;
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:.32em;
-    text-align:center;
-    text-shadow:0 1px 8px rgba(73,48,9,.35);
-}
-.envelope-monogram {
-    position:relative;
-    z-index:7;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:13px;
-    margin-bottom:10px;
-    color:#fff8e5;
-    font-family:"Cinzel",Georgia,serif;
-    font-size:29px;
-    line-height:1;
-    text-shadow:0 2px 8px rgba(76,48,6,.25);
-}
-.envelope-monogram span { color:#fff4cf; font-size:18px; }
-.envelope-tap {
-    position:relative;
-    z-index:7;
-    color:#fffdf7;
-    font-size:12px;
-    font-weight:600;
-    letter-spacing:.34em;
-    text-align:center;
-    text-shadow:0 1px 8px rgba(73,48,9,.35);
+    animation:envelopeReveal .8s cubic-bezier(.22,.61,.36,1) 3.35s forwards;
+    transform:translateZ(0);
+    transition:transform .45s ease,filter .45s ease;
 }
 
-.envelope-flap {
-    position: absolute;
-    inset: 0;
-    z-index: 10;
-    transform-origin: 50% 0;
-    transform: rotateX(0deg);
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    border-radius: 6px 6px 0 0;
-    overflow: visible;
-    /* background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.6), transparent 44%),
-        linear-gradient(145deg, #fffdf7 0%, #f4dfae 55%, #d8ad59 100%);
-    clip-path: polygon(0 0, 100% 0, 50% 50%); /* V-tip stops exactly at 50% height */ */
-    filter: drop-shadow(0 6px 8px rgba(91, 59, 10, 0.18));
-    transition: transform 1.05s cubic-bezier(.22, .61, .36, 1);
+#enterBtn.envelope.envelope-ready{
+    pointer-events:auto;
 }
 
-.envelope-flap::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-        linear-gradient(145deg, rgba(255, 255, 255, 0.5), transparent 44%),
-        linear-gradient(145deg, #fffdf7 0%, #f4dfae 55%, #d8ad59 100%);
-    clip-path: polygon(0 0, 100% 0, 50% 58%);
+#enterBtn.envelope:hover{
+    transform:translateY(-3px);
 }
-/* Single wax seal — centered at the flap point */
-.envelope-flap::after {
-    content: "❦";
-    position: absolute;
-    left: 50%;
-    top: 50%; /* Positioned directly at the tip of clip-path (50%) */
-    width: 44px;
-    height: 44px;
-    transform: translate(-50%, -50%); /* Keeps seal centered on the tip */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-    border-radius: 50%;
-    
-    /* Typography for the inner icon */
-    font-family: "Cinzel", Georgia, serif;
-    font-size: 19px;
-    color: #5c3e06;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.4);
 
-    /* Rich 3D Gold Wax Finish */
-    background: radial-gradient(circle at 35% 30%, #ffe89e 0%, #d49f37 50%, #8a580c 100%);
-    border: 3px solid #fce08b;
-    box-shadow: 
-        0 6px 14px rgba(60, 38, 5, 0.35),
-        inset 0 2px 4px rgba(255, 255, 255, 0.8),
-        inset 0 -2px 5px rgba(0, 0, 0, 0.4);
-    pointer-events: none;
+#enterBtn.envelope:focus-visible{
+    outline:2px solid var(--gold);
+    outline-offset:7px;
+    border-radius:10px;
 }
-.envelope-front .envelope-label,
-.envelope-front .envelope-tap {
-  color: #fffaf0;
-  text-shadow: 0 1px 4px rgba(91, 59, 12, 0.22);
+
+.envelope-svg{
+    display:block;
+    width:100%;
+    height:auto;
+    overflow:visible;
 }
-/* Existing smooth click transition retained. */
-.envelope.opening {
+
+.envelope-art{
+    transform-origin:center;
+}
+
+.envelope-flap-svg{
+    transform-box:fill-box;
+    transform-origin:50% 0%;
+    transform-style:preserve-3d;
+    backface-visibility:hidden;
+    transition:transform 1.05s cubic-bezier(.22,.61,.36,1);
+}
+
+.envelope-seal-svg{
+    transform-box:fill-box;
+    transform-origin:center;
+}
+
+.envelope-copy{
+    transition:opacity .35s ease,transform .6s ease;
+}
+
+/* Preserve the existing cinematic timing: flap first, then envelope floats away. */
+@keyframes envelopeReveal{
+    from{
+        opacity:0;
+        transform:translateY(18px) scale(.985);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+@keyframes envelopeFloatAway{
+    0%{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+    55%{
+        opacity:1;
+        transform:translateY(-24px) scale(1.015);
+    }
+    100%{
+        opacity:0;
+        transform:translateY(-85px) scale(.94);
+    }
+}
+
+#enterBtn.envelope.opening{
     pointer-events:none;
     animation:envelopeFloatAway 1.75s cubic-bezier(.22,.61,.36,1) forwards;
 }
-.envelope.opening .envelope-flap { transform:rotateX(178deg); z-index:0; }
-.envelope.opening .envelope-paper { z-index:10; transform:translateY(-96px) scale(1.01); }
-.envelope.opening .envelope-front { opacity:.96; }
 
-@media (max-height:850px) {
-    #opening-screen .opening-content { transform-origin:top center; }
-    .opening-bismillah { font-size:clamp(20px,5vw,28px); line-height:1.45; }
-    .opening-divider { margin:14px auto; }
-    .opening-monogram { font-size:clamp(44px,11vw,62px); margin-bottom:8px; }
-    .opening-names { margin-top:8px; }
-    .opening-title { font-size:clamp(22px,6vw,30px); line-height:1.15; }
-    .opening-ampersand { margin:2px 0; font-size:22px; }
-    .envelope { margin-top:22px; }
+#enterBtn.envelope.opening .envelope-flap-svg{
+    transform:rotateX(178deg);
 }
 
-@media (max-width:768px) {
-    #opening-screen { align-items:flex-start; padding:20px 14px 34px; }
-    #opening-screen .opening-content { max-width:420px; padding-top:0; }
-    .envelope { width: min(90vw, 470px);
-    aspect-ratio: 1.62 / 1;
-    margin-top: 34px; }
+#enterBtn.envelope.opening .envelope-copy{
+    opacity:.15;
+    transform:translateY(8px);
 }
 
-@media (max-width:650px) {
-    .envelope { width:min(90vw,430px); margin-top:24px; }
-    .envelope-paper span { font-size:13px; }
-    .envelope-label { font-size:10px; letter-spacing:.28em; }
-    .envelope-tap { font-size:10px; letter-spacing:.30em; }
-    .envelope-monogram { font-size:25px; }
-    .envelope-flap::after {
-        width: 38px;
-        height: 38px;
-        font-size: 16px;
-        top: 58%;
+@media(max-height:850px){
+    #opening-screen .opening-content{
+        transform-origin:top center;
     }
-    .envelope.opening .envelope-paper { transform:translateY(-88px) scale(1.01); }
+
+    .opening-bismillah{
+        font-size:clamp(20px,5vw,28px);
+        line-height:1.45;
+    }
+
+    .opening-divider{
+        margin:14px auto;
+    }
+
+    .opening-monogram{
+        font-size:clamp(44px,11vw,62px);
+        margin-bottom:8px;
+    }
+
+    .opening-names{
+        margin-top:8px;
+    }
+
+    .opening-title{
+        font-size:clamp(22px,6vw,30px);
+        line-height:1.15;
+    }
+
+    .opening-ampersand{
+        margin:2px 0;
+        font-size:22px;
+    }
+
+    #enterBtn.envelope{
+        margin-top:22px;
+    }
+}
+
+@media(max-width:768px){
+    #opening-screen{
+        align-items:flex-start;
+        padding:20px 14px 34px;
+    }
+
+    #opening-screen .opening-content{
+        max-width:420px;
+        padding-top:0;
+    }
+
+    #enterBtn.envelope{
+        width:min(90vw,430px);
+        margin-top:28px;
+    }
+}
+
+@media(max-width:650px){
+    #enterBtn.envelope{
+        width:min(90vw,410px);
+        margin-top:24px;
+    }
+
+    .envelope-copy text{
+        font-size:inherit;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    #enterBtn.envelope,
+    #enterBtn.envelope.opening{
+        animation:none;
+        opacity:1;
+    }
+
+    .envelope-flap-svg,
+    .envelope-copy{
+        transition:none;
+    }
 }
