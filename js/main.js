@@ -1,278 +1,99 @@
-/* ==========================================================
-   Mohammed Izhan & Bazila Saba
-   Wedding Invitation
-   Version 3.0
-========================================================== */
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    /* ======================================================
-       OPEN INVITATION
-    ====================================================== */
-
-    const opening = document.getElementById("opening-screen");
-    const website = document.getElementById("website");
-    const enterBtn = document.getElementById("enterBtn");
-
-    website.style.display = "none";
-
-    // Keep the envelope hidden until the monogram and both names finish revealing.
-    setTimeout(() => {
-        enterBtn.classList.add("envelope-ready");
-    }, 3300);
-
-    enterBtn.addEventListener("click", () => {
-
-        if (enterBtn.classList.contains("opening")) return;
-
-        // 1. Flap opens immediately; the paper rises with the CSS delay.
-        enterBtn.classList.add("opening");
-
-        // 2. Bring in the real invitation while the envelope is floating away.
-        setTimeout(() => {
-            website.style.display = "block";
-            website.classList.add("website-visible");
-            window.scrollTo({ top: 0, behavior: "instant" });
-        }, 1850);
-
-        // 3. Fade the opening scene only after the main invitation has started floating in.
-        setTimeout(() => {
-            opening.classList.add("closing");
-        }, 2050);
-
-        // 4. Remove the opening layer after all motion is complete.
-        setTimeout(() => {
-            opening.style.display = "none";
-        }, 2850);
-
-    });
-
-    /* ======================================================
-       COUNTDOWN
-    ====================================================== */
-
-    const targetDate = new Date("October 18, 2026 12:15:00").getTime();
-
-    const daysEl = document.getElementById("days");
-    const hoursEl = document.getElementById("hours");
-    const minutesEl = document.getElementById("minutes");
-    const secondsEl = document.getElementById("seconds");
-
-    const message = document.getElementById("countdown-message");
-
-    function updateCountdown() {
-
-        const now = new Date().getTime();
-
-        const distance = targetDate - now;
-
-        if (distance <= 0) {
-
-            document.querySelector(".countdown").style.display = "none";
-
-            message.innerHTML = `
-
-            <h2 style="color:#0F5132;margin-top:25px;">
-            ✨ Alhamdulillah!
-            </h2>
-
-            <p style="margin-top:15px;font-size:18px;line-height:1.8;">
-            Today marks the beginning of our beautiful journey together.<br>
-            Please keep us in your duas. 🤍
-            </p>
-
-            `;
-
-            return;
-
-        }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-
-        const hours = Math.floor(
-
-            (distance % (1000 * 60 * 60 * 24))
-
-            / (1000 * 60 * 60)
-
-        );
-
-        const minutes = Math.floor(
-
-            (distance % (1000 * 60 * 60))
-
-            / (1000 * 60)
-
-        );
-
-        const seconds = Math.floor(
-
-            (distance % (1000 * 60))
-
-            / 1000
-
-        );
-
-        daysEl.textContent = days;
-
-        hoursEl.textContent = String(hours).padStart(2, "0");
-
-        minutesEl.textContent = String(minutes).padStart(2, "0");
-
-        secondsEl.textContent = String(seconds).padStart(2, "0");
-
+// ====== OVERLAY ANIMATION CONTROLLERS ======
+document.getElementById('waxSeal').addEventListener('click', function() {
+    document.getElementById('envelopeWrapper').classList.add('dismiss-envelope');
+    document.getElementById('mainContent').classList.add('display-website');
+    
+    // Play audio under browser user action verification rules
+    const audioTrack = document.getElementById('bg-music');
+    if (audioTrack.paused) {
+        audioTrack.play().catch(() => console.log("Audio browser security initialization blocked automatic track playback"));
     }
-
-    updateCountdown();
-
-    setInterval(updateCountdown, 1000);
-
-    /* ======================================================
-       SCROLL REVEAL
-    ====================================================== */
-
-    const reveals = document.querySelectorAll(".reveal");
-
-    const observer = new IntersectionObserver(
-
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-
-                    entry.target.classList.add("active");
-
-                }
-
-            });
-
-        },
-
-        {
-
-            threshold: 0.15
-
-        }
-
-    );
-
-    reveals.forEach(section => observer.observe(section));
-
+    
+    // Core canvas needs accurate layout geometry execution after tracking transition completes
+    initScratchCard();
 });
 
-/* ==========================================================
-   PART 3B
-   Add to Calendar + Final Enhancements
-========================================================== */
-
-/* ======================================================
-   ADD TO CALENDAR
-====================================================== */
-
-const calendarBtn = document.getElementById("calendarBtn");
-
-if (calendarBtn) {
-
-    calendarBtn.addEventListener("click", () => {
-
-        const start = new Date("2026-10-18T12:15:00");
-        const end = new Date("2026-10-18T15:30:00");
-
-        function formatDate(date) {
-            return date
-                .toISOString()
-                .replace(/[-:]/g, "")
-                .split(".")[0] + "Z";
-        }
-
-        const ics = `BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:Mohammed Izhan & Bazila Saba Wedding
-DTSTART:${formatDate(start)}
-DTEND:${formatDate(end)}
-LOCATION:Masjid-e-Mitpala & VK Mahal, Vaniyambadi
-DESCRIPTION:With the blessings of our parents, we warmly invite you to our Nikah and Valima. Your presence and duas will mean a lot to us.
-END:VEVENT
-END:VCALENDAR`;
-
-        const blob = new Blob([ics], {
-            type: "text/calendar;charset=utf-8"
-        });
-
-        const url = URL.createObjectURL(blob);
-
-        const link = document.createElement("a");
-
-        link.href = url;
-        link.download = "Mohammed_Izhan_Bazila_Saba_Wedding.ics";
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        document.body.removeChild(link);
-
-        URL.revokeObjectURL(url);
-
-    });
-
+function toggleMusic() {
+    const audioTrack = document.getElementById('bg-music');
+    const button = document.querySelector('.audio-control');
+    if (audioTrack.paused) {
+        audioTrack.play();
+        button.innerText = "🔊";
+    } else {
+        audioTrack.pause();
+        button.innerText = "🔇";
+    }
 }
 
-/* ======================================================
-   HERO STAGGER ANIMATION
-====================================================== */
+// ====== HTML5 CANVAS LAYER MASK CONTROLLER ======
+function initScratchCard() {
+    const canvas = document.getElementById('scratchCanvas');
+    const ctx = canvas.getContext('2d');
+    const container = document.getElementById('scratchContainer');
+    
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+    
+    // Gold Scratchable Fill Cover Mask Paint
+    ctx.fillStyle = '#ebdcb9'; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    // Text instructions placement layout parameters
+    ctx.font = 'bold 12px Montserrat';
+    ctx.fillStyle = '#8a651a';
+    ctx.textAlign = 'center';
+    ctx.fillText('SCRATCH WITH FINGER', canvas.width / 2, canvas.height / 2 + 4);
 
-window.addEventListener("load", () => {
+    let isDrawing = false;
 
-    const heroItems=document.querySelectorAll(
-".hero-top,.couple-name,.ampersand,.date,.countdown"
-);
+    function scratch(e) {
+        if (!isDrawing) return;
+        
+        const rect = canvas.getBoundingClientRect();
+        // Fallback checks mapping mouse or mobile touch coordinate variants
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        
+        // Use composite blending to clear tracking paths
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+    }
 
-heroItems.forEach((item,index)=>{
+    // Touch Context Bindings
+    canvas.addEventListener('mousedown', () => isDrawing = true);
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mousemove', scratch);
+    
+    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); });
+    canvas.addEventListener('touchend', () => isDrawing = false);
+    canvas.addEventListener('touchmove', (e) => { e.preventDefault(); scratch(e); });
+}
 
-    item.style.opacity="0";
-    item.style.transform="translateY(25px)";
+// ====== LIVE COUNTDOWN DATA CONFIGURATION ======
+// Explicit configuration targeting requested date parameter variant: October 18, 2026
+const targetDate = new Date('Oct 18, 2026 16:00:00').getTime();
 
-    setTimeout(()=>{
+const countdownInterval = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
 
-        item.style.transition="all .9s ease";
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        item.style.opacity="1";
+    document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+    document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+    document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+    document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
 
-        item.style.transform="translateY(0)";
-
-    },400+(index*220));
-
-});
-
-});
-
-/* ======================================================
-   SMOOTH BUTTON HOVER
-====================================================== */
-
-document.querySelectorAll("button, .map-btn").forEach(button => {
-
-    button.addEventListener("mouseenter", () => {
-
-        button.style.transform = "translateY(-3px)";
-
-    });
-
-    button.addEventListener("mouseleave", () => {
-
-        button.style.transform = "translateY(0)";
-
-    });
-
-});
-
-/* ======================================================
-   YEAR
-====================================================== */
-
-console.log("Mohammed Izhan & Bazila Saba Wedding Website");
-console.log("Version 3.0");
-console.log("© 2026");
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.querySelector('.countdown-section').innerHTML = "<h3 class='section-heading'>OUR JOURNEY HAS BEGUN!</h3>";
+    }
+}, 1000);
