@@ -1458,6 +1458,37 @@ RESPONSIVE
     opacity: .96;
 }
 
+
+/* Envelope visibility + existing cinematic exit animation */
+@keyframes envelopeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes envelopeFloatAway {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    55% {
+        opacity: 1;
+        transform: translateY(-34px) scale(1.01);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-145px) scale(.97);
+    }
+}
+
 @media (max-height:850px) {
     #opening-screen .opening-content { transform-origin: top center; }
     .opening-bismillah { font-size: clamp(20px,5vw,28px); line-height: 1.45; }
