@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation | F. Mohammed Izhan & S. Bazila Saba</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg-color: #fce4ec;
-      --primary-pink: #c87284;
-      --button-pink: #bc6c7a;
-      --gold-seal: #d4af37;
-      --card-white: #ffffff;
-      --text-dark: #333333;
+      --page-bg: #f5c8d3;
+      --card-bg: #ffffff;
+      --text-pink: #bf5b70;
+      --gold-accent: #c6a052;
+      --btn-pink: #b86073;
       --text-muted: #666666;
+      --text-dark: #2c2c2c;
     }
 
     * {
@@ -25,19 +25,18 @@
 
     body {
       font-family: 'Montserrat', sans-serif;
-      background-color: var(--bg-color);
+      background-color: var(--page-bg);
       color: var(--text-dark);
       display: flex;
       justify-content: center;
       align-items: flex-start;
       min-height: 100vh;
-      padding: 30px 15px;
+      padding: 25px 15px;
     }
 
-    /* Outer Wrapper Container */
     .container {
       width: 100%;
-      max-width: 480px;
+      max-width: 440px;
       margin: 0 auto;
     }
 
@@ -47,73 +46,70 @@
 
     /* Envelope Landing Screen */
     .envelope-card {
-      background: var(--card-white);
+      background: var(--card-bg);
       border-radius: 12px;
-      height: 580px;
+      height: 520px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-      transition: opacity 0.6s ease;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
 
     .stamp-seal {
-      width: 100px;
-      height: 100px;
-      background: var(--gold-seal);
+      width: 90px;
+      height: 90px;
+      background: #caa647;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       border: 2px dashed #ffffff;
       text-align: center;
-      margin-bottom: 40px;
-    }
-
-    .stamp-seal span {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: 1px;
-      line-height: 1.3;
-    }
-
-    .envelope-title {
-      font-family: 'Cinzel', serif;
-      letter-spacing: 3px;
-      color: var(--primary-pink);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    /* Main Content Styling */
-    /* Hero Arch Card */
-    .hero-card {
-      background: var(--card-white);
-      border-radius: 200px 200px 16px 16px;
-      padding: 60px 25px 40px 25px;
-      text-align: center;
-      border: 1px solid #f8bbd0;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
       margin-bottom: 30px;
     }
 
-    .sub-title {
-      font-size: 0.8rem;
-      color: var(--text-dark);
+    .stamp-seal span {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+
+    .envelope-title {
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 2px;
+      color: var(--text-pink);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Hero Arch Card */
+    .hero-card {
+      background: var(--card-bg);
+      border-radius: 180px 180px 16px 16px;
+      padding: 55px 20px 35px 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
       margin-bottom: 25px;
-      line-height: 1.5;
+    }
+
+    .sub-title {
+      font-size: 0.75rem;
+      color: #555555;
+      margin-bottom: 20px;
+      line-height: 1.4;
     }
 
     .groom-name, .bride-name {
       font-family: 'Cinzel', serif;
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       letter-spacing: 1.5px;
-      color: var(--primary-pink);
+      color: var(--text-pink);
       font-weight: 700;
     }
 
@@ -121,33 +117,33 @@
       font-family: 'Great Vibes', cursive;
       font-size: 2.8rem;
       display: block;
-      margin: 8px 0;
-      color: var(--gold-seal);
+      margin: 4px 0;
+      color: var(--gold-accent);
     }
 
-    /* Section Headers */
+    /* Script Headers */
     .section-title {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
-      color: var(--primary-pink);
+      font-size: 2.3rem;
+      color: var(--text-pink);
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
+      font-weight: normal;
     }
 
-    /* Scratch Card */
+    /* Scratch Card Section */
     .scratch-container {
-      margin-bottom: 35px;
+      margin-bottom: 25px;
       text-align: center;
     }
 
     .scratch-card {
-      width: 240px;
-      height: 130px;
+      width: 220px;
+      height: 120px;
       margin: 0 auto;
       position: relative;
-      border-radius: 16px;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     }
 
     .scratch-cover {
@@ -156,62 +152,59 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: var(--button-pink);
+      background-color: var(--btn-pink);
       color: #ffffff;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 500;
-      transition: opacity 0.5s ease;
+      border-radius: 12px;
       z-index: 2;
     }
 
     .scratch-reveal {
-      background: var(--card-white);
+      background: var(--card-bg);
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      border: 1px solid #f8bbd0;
-      border-radius: 16px;
+      border-radius: 12px;
+      border: 1px solid #f2cfd7;
     }
 
     .forever-text {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .reveal-date {
       font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
-      color: var(--primary-pink);
+      color: var(--text-pink);
       letter-spacing: 1px;
     }
 
     .reveal-day {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       margin-top: 2px;
     }
 
-    /* Countdown Timer */
+    /* Countdown Grid */
     .countdown-container {
-      margin-bottom: 35px;
+      margin-bottom: 25px;
     }
 
     .timer-grid {
       display: flex;
       justify-content: space-around;
-      background: var(--card-white);
-      padding: 18px 10px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      padding: 10px 5px;
     }
 
     .time-box {
@@ -219,90 +212,91 @@
     }
 
     .time-box span {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      color: var(--primary-pink);
+      color: var(--text-pink);
       display: block;
     }
 
     .time-box p {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       letter-spacing: 1px;
       color: var(--text-muted);
-      margin-top: 4px;
-      font-weight: 500;
+      margin-top: 2px;
+      font-weight: 600;
     }
 
-    /* Program Timeline */
+    /* Event Timeline Cards */
     .timeline-container {
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
 
     .event-card {
-      background: var(--card-white);
-      padding: 20px 22px;
+      background: var(--card-bg);
+      padding: 18px 20px;
       border-radius: 12px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       text-align: left;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
 
     .event-card h3 {
       font-family: 'Cinzel', serif;
-      color: var(--primary-pink);
-      font-size: 1.1rem;
+      color: var(--text-pink);
+      font-size: 1.05rem;
       letter-spacing: 1px;
       margin-bottom: 6px;
+      font-weight: 700;
     }
 
     .event-time {
-      font-weight: 600;
-      font-size: 0.85rem;
+      font-weight: 700;
+      font-size: 0.8rem;
       margin-bottom: 6px;
       color: var(--text-dark);
     }
 
     .venue-name {
-      font-weight: 600;
-      font-size: 0.9rem;
+      font-weight: 700;
+      font-size: 0.85rem;
       color: var(--text-dark);
     }
 
     .venue-address {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 14px;
+      font-size: 0.75rem;
+      color: #008080;
+      margin-bottom: 12px;
     }
 
-    /* Buttons */
     .btn-map {
       display: inline-block;
-      padding: 8px 16px;
-      background-color: var(--button-pink);
+      padding: 7px 14px;
+      background-color: var(--btn-pink);
       color: #ffffff;
       text-decoration: none;
-      border-radius: 8px;
-      font-size: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.7rem;
       font-weight: 500;
     }
 
+    /* Calendar Button */
     .calendar-container {
       text-align: center;
-      margin-top: 20px;
-      margin-bottom: 40px;
+      margin-top: 15px;
+      margin-bottom: 25px;
     }
 
     .btn-calendar {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background-color: #2b2b2b;
+      gap: 6px;
+      background-color: #2b2c30;
       color: #ffffff;
       text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 0.85rem;
+      padding: 9px 18px;
+      border-radius: 6px;
+      font-size: 0.8rem;
       font-weight: 500;
     }
   </style>
@@ -310,7 +304,7 @@
 <body>
 
   <div class="container">
-    <!-- Overlay Landing Screen -->
+    <!-- Envelope Screen -->
     <div id="envelope-overlay" class="envelope-card">
       <div class="stamp-seal" id="open-btn">
         <span>TAP TO<br>OPEN</span>
@@ -318,10 +312,10 @@
       <p class="envelope-title">YOU ARE INVITED</p>
     </div>
 
-    <!-- Main Website Content -->
+    <!-- Main Content -->
     <main id="main-content" class="hidden">
       
-      <!-- Hero Arch Header -->
+      <!-- Names Card -->
       <section class="hero-card">
         <p class="sub-title">We are honored to welcome you to the Wedding ceremony of</p>
         <h1 class="groom-name">F. MOHAMMED IZHAN</h1>
@@ -329,7 +323,7 @@
         <h1 class="bride-name">S. BAZILA SABA</h1>
       </section>
 
-      <!-- Scratch Card Section -->
+      <!-- Scratch Card -->
       <section class="scratch-container">
         <h2 class="section-title">Blessed Occasion</h2>
         <div class="scratch-card">
@@ -355,7 +349,7 @@
         </div>
       </section>
 
-      <!-- Program Timeline Section -->
+      <!-- Program Timeline -->
       <section class="timeline-container">
         <h2 class="section-title">Program Timeline</h2>
         
@@ -387,38 +381,29 @@
   </div>
 
   <script>
-    // Reveal main content on envelope seal tap
+    // Reveal main page
     document.getElementById('open-btn').addEventListener('click', function() {
-      const overlay = document.getElementById('envelope-overlay');
-      const mainContent = document.getElementById('main-content');
-      
-      overlay.style.opacity = '0';
-      setTimeout(() => {
-        overlay.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-      }, 500);
+      document.getElementById('envelope-overlay').classList.add('hidden');
+      document.getElementById('main-content').classList.remove('hidden');
     });
 
-    // Tap/Scratch interaction
+    // Tap/Scratch reveal
     document.getElementById('scratch-cover').addEventListener('click', function() {
-      this.style.opacity = '0';
-      setTimeout(() => {
-        this.style.display = 'none';
-      }, 500);
+      this.style.display = 'none';
     });
 
-    // Real-time Countdown Timer logic
-    const weddingDate = new Date('October 18, 2026 12:15:00').getTime();
+    // Real-time Countdown calculation to Oct 18, 2026 12:15 PM
+    const targetDate = new Date('October 18, 2026 12:15:00').getTime();
 
-    function updateTimer() {
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
+    function runTimer() {
+      const current = new Date().getTime();
+      const distance = targetDate - current;
 
-      if (diff > 0) {
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
+      if (distance > 0) {
+        const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((distance % (1000 * 60)) / 1000);
 
         document.getElementById('days').innerText = d < 10 ? '0' + d : d;
         document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
@@ -427,8 +412,8 @@
       }
     }
 
-    setInterval(updateTimer, 1000);
-    updateTimer();
+    setInterval(runTimer, 1000);
+    runTimer();
   </script>
 </body>
 </html>
