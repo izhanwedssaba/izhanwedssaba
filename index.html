@@ -4,8 +4,286 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wedding Invitation | F. Mohammed Izhan & S. Bazila Saba</title>
-  <link rel="stylesheet" href="styles.css">
-  <link href="[https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap](https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap)" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --pink-bg: #f8e1e7;
+      --dark-pink: #c97c8d;
+      --gold-accent: #d4af37;
+      --dark-text: #2c2c2c;
+      --card-bg: rgba(255, 255, 255, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: var(--pink-bg);
+      color: var(--dark-text);
+      text-align: center;
+    }
+
+    /* Envelope Overlay Screen */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #f2c2ce, #e29fb0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+
+    .envelope-card {
+      width: 85%;
+      max-width: 380px;
+      height: 480px;
+      background: #fdf5f7;
+      border: 2px solid var(--dark-pink);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .stamp-seal {
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle, #e6ca65, var(--gold-accent));
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      border: 3px dashed #b8911c;
+    }
+
+    .stamp-seal span {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .envelope-title {
+      margin-top: 30px;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 2px;
+      color: var(--dark-pink);
+      font-weight: 600;
+    }
+
+    /* Main Website Layout */
+    .hidden {
+      display: none !important;
+    }
+
+    main {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 15px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 30px 10px;
+    }
+
+    .arch-border {
+      border: 2px solid var(--dark-pink);
+      border-radius: 150px 150px 0 0;
+      padding: 50px 20px;
+      background: var(--card-bg);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .sub-title {
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .groom-name, .bride-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      color: var(--dark-pink);
+    }
+
+    .ampersand {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.8rem;
+      display: block;
+      margin: 10px 0;
+      color: var(--gold-accent);
+    }
+
+    /* Scratch Section */
+    .scratch-section {
+      margin: 30px 0;
+    }
+
+    .blessed-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.2rem;
+      color: var(--dark-pink);
+    }
+
+    .scratch-card {
+      width: 260px;
+      height: 140px;
+      margin: 15px auto;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid var(--dark-pink);
+    }
+
+    .scratch-cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark-pink);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: opacity 0.5s ease;
+      font-weight: bold;
+    }
+
+    .scratch-reveal {
+      background: #fff;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .forever-text {
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+    }
+
+    .reveal-date {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark-pink);
+    }
+
+    .reveal-day {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Countdown Timer */
+    .countdown-section h2, .timeline-section h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.4rem;
+      color: var(--dark-pink);
+      margin-bottom: 15px;
+    }
+
+    .timer {
+      display: flex;
+      justify-content: space-around;
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .time-box span {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--dark-pink);
+    }
+
+    .time-box p {
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    /* Program Timeline */
+    .timeline-section {
+      margin-top: 30px;
+    }
+
+    .timeline-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      border-left: 4px solid var(--dark-pink);
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .timeline-card h3 {
+      font-family: 'Cinzel', serif;
+      color: var(--dark-pink);
+      margin-bottom: 6px;
+    }
+
+    .event-time {
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .venue-name {
+      font-weight: 600;
+    }
+
+    .venue-address {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    /* Buttons */
+    .btn-map, .btn-calendar {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: var(--dark-pink);
+      color: white;
+      text-decoration: none;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+
+    .calendar-section {
+      margin: 25px 0 40px 0;
+    }
+
+    .btn-calendar {
+      background-color: #2c2c2c;
+      font-size: 0.9rem;
+      padding: 12px 24px;
+    }
+  </style>
 </head>
 <body>
 
@@ -35,7 +313,7 @@
     <!-- Scratch to Reveal Card -->
     <section class="scratch-section">
       <p class="blessed-text">Blessed Occasion</p>
-      <div class="scratch-card" id="scratch-card">
+      <div class="scratch-card">
         <div class="scratch-cover" id="scratch-cover">
           <p>Tap / Scratch to Reveal</p>
         </div>
@@ -67,7 +345,7 @@
         <p class="event-time">October 18, 2026 at 12:15 PM</p>
         <p class="venue-name">Masjid-e-Mitpala</p>
         <p class="venue-address">Jaffarabad, Vaniyambadi</p>
-        <a href="[https://maps.app.goo.gl/s5nFdaEY8dw2s4Cw9](https://maps.app.goo.gl/s5nFdaEY8dw2s4Cw9)" target="_blank" class="btn-map">View on Google Maps</a>
+        <a href="https://maps.app.goo.gl/s5nFdaEY8dw2s4Cw9" target="_blank" class="btn-map">View on Google Maps</a>
       </div>
 
       <div class="timeline-card">
@@ -75,19 +353,62 @@
         <p class="event-time">October 18, 2026 at 2:00 PM</p>
         <p class="venue-name">VK Mahal</p>
         <p class="venue-address">Mettupalayam, Vaniyambadi</p>
-        <a href="[https://maps.app.goo.gl/MPZLQX6ZtGPg5Riq7](https://maps.app.goo.gl/MPZLQX6ZtGPg5Riq7)" target="_blank" class="btn-map">View on Google Maps</a>
+        <a href="https://maps.app.goo.gl/MPZLQX6ZtGPg5Riq7" target="_blank" class="btn-map">View on Google Maps</a>
       </div>
     </section>
 
     <!-- Add to Calendar Section -->
     <section class="calendar-section">
-      <a href="[https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding:+F.+Mohammed+Izhan+%26+S.+Bazila+Saba&dates=20261018T064500Z/20261018T123000Z&details=Nikah+at+12:15+PM+(Masjid-e-Mitpala)+and+Valima+at+2:00+PM+(VK+Mahal).&location=Vaniyambadi&sf=true&output=xml](https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding:+F.+Mohammed+Izhan+%26+S.+Bazila+Saba&dates=20261018T064500Z/20261018T123000Z&details=Nikah+at+12:15+PM+(Masjid-e-Mitpala)+and+Valima+at+2:00+PM+(VK+Mahal).&location=Vaniyambadi&sf=true&output=xml)" target="_blank" class="btn-calendar">
+      <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding:+F.+Mohammed+Izhan+%26+S.+Bazila+Saba&dates=20261018T064500Z/20261018T123000Z&details=Nikah+at+12:15+PM+(Masjid-e-Mitpala)+and+Valima+at+2:00+PM+(VK+Mahal).&location=Vaniyambadi&sf=true&output=xml" target="_blank" class="btn-calendar">
         📅 Add to Google Calendar
       </a>
     </section>
 
   </main>
 
-  <script src="script.js"></script>
+  <script>
+    // Open Envelope
+    document.getElementById('open-btn').addEventListener('click', function() {
+      const overlay = document.getElementById('envelope-overlay');
+      const mainContent = document.getElementById('main-content');
+      
+      overlay.style.opacity = '0';
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+      }, 800);
+    });
+
+    // Scratch card reveal interaction
+    document.getElementById('scratch-cover').addEventListener('click', function() {
+      this.style.opacity = '0';
+      setTimeout(() => {
+        this.style.display = 'none';
+      }, 500);
+    });
+
+    // Countdown Timer Logic
+    const targetDate = new Date('October 18, 2026 12:15:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+        document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+        document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+        document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
