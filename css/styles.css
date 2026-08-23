@@ -1,1530 +1,317 @@
-/* ==========================================================
-   Mohammed Izhan & Bazila Saba
-   Luxury Wedding Invitation
-   Version 3.0
-========================================================== */
-
-/* ---------------- GOOGLE FONTS ---------------- */
-
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
-
-/* ---------------- VARIABLES ---------------- */
-
-:root{
-
-    --ivory:#FAF7F2;
-    --white:#FFFFFF;
-    --gold:#C6A664;
-    --gold-dark:#A88236;
-    --emerald:#0F5132;
-    --text:#444444;
-    --border:#E9DDB7;
-
-    --shadow:0 18px 45px rgba(0,0,0,.08);
-
-    --radius:22px;
-
-}
-
-/* ---------------- RESET ---------------- */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-
-    background:var(--ivory);
-
-    color:var(--text);
-
-    font-family:'Poppins',sans-serif;
-
-    overflow-x:hidden;
-
-}
-
-/* ---------------- CONTAINER ---------------- */
-
-.container{
-
-    width:min(1100px,92%);
-    margin:auto;
-
-}
-
-/* ---------------- HEADINGS ---------------- */
-
-h1,h2,h3{
-
-    font-family:'Cinzel',serif;
-    font-weight:600;
-
-}
-
-section{
-
-    padding:90px 0;
-
-}
-
-/* ==========================================================
-OPENING SCREEN
-========================================================== */
-
-#opening-screen.closing {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 1.5s ease;
-}
-
-.opening-content{
-
-    width:90%;
-    max-width:420px;
-
-    text-align:center;
-
-    animation:fadeUp 1s ease;
-
-}
-
-
-.opening-bismillah{
-
-    font-family:'Noto Naskh Arabic',serif;
-
-    font-size: 24px;
-
-    color:#B58A2A;
-
-    line-height: 1.5;
-
-}
-
-.opening-translation{
-
-    margin-top: 8px;
-
-    color:#666;
-
-    line-height: 1.5;
-
-    font-size: 13px;
-
-}
-
-.opening-divider{
-
-    width:70px;
-
-    height:1px;
-
-    background:#D8C29A;
-
-    margin: 18px auto;
-
-}
-
-.opening-monogram{
-
-    font-family:'Cinzel',serif;
-
-    font-size: 48px;
-
-    color:#C6A664;
-
-    margin-bottom: 16px;
-
-    animation:logoPop 1.5s ease;
-
-}
-
-.opening-title{
-
-    font-family:'Cinzel',serif;
-
-    color:#0F5132;
-
-    font-size: 30px;
-
-    margin: 4px 0;
-
-}
-
-.opening-ampersand{
-
-    font-size: 25px;
-
-    color:#C6A664;
-
-    margin:5px 0;
-
-}
-
-.monogram span{
-
-    color:var(--gold);
-
-    padding:0 8px;
-
-}
-
-.opening-content h2{
-
-    font-size:42px;
-
-    color:var(--emerald);
-
-    margin-bottom:12px;
-
-}
-
-.and-text{
-
-    color:var(--gold);
-
-    font-size:24px;
-
-    margin:10px 0;
-
-}
-
-
-#enterBtn:hover{
-
-    background:var(--gold-dark);
-
-    transform:translateY(-3px);
-  
-    color: #111;
-
-}
-
-
-/* ==========================================================
-HERO
-========================================================== */
-
-.hero{
-
-    position:relative;
-
-    min-height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-align:center;
-
-    padding:90px 20px 60px;
-
-}
-
-.hero-content{
-
-    max-width:900px;
-
-    width:100%;
-
-}
-
-.hero-top{
-
-    letter-spacing:3px;
-
-    font-size:15px;
-
-    color:#777;
-
-    text-transform:uppercase;
-
-    margin-bottom:35px;
-
-}
-
-.couple-name{
-
-    font-size:54px;
-
-    color:var(--emerald);
-
-    line-height:1.15;
-
-}
-
-.ampersand{
-
-    font-family:'Cinzel',serif;
-
-    font-size:38px;
-
-    color:var(--gold);
-
-    margin:12px 0;
-
-}
-
-.date{
-
-    margin-top:26px;
-
-    font-size:24px;
-
-    color:#666;
-
-}
-
-/* ==========================================================
-COUNTDOWN
-========================================================== */
-
-.countdown{
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:12px;
-
-    flex-wrap:nowrap;
-
-    margin:26px auto 0;
-
-}
-
-.count-item{
-
-    width:82px;
-
-    height:82px;
-
-    border-radius:20px;
-
-    background:white;
-
-    border:1px solid var(--border);
-
-    box-shadow:var(--shadow);
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-}
-
-.count-item span{
-
-    font-size:30px;
-
-    font-weight:700;
-
-    color:var(--emerald);
-
-}
-
-.count-item small{
-
-    margin-top:6px;
-
-    font-size:10px;
-
-    letter-spacing:1.2px;
-
-    color:var(--gold-dark);
-
-}
-/* ==========================================================
-INVITATION
-========================================================== */
-
-.invitation{
-    text-align:center;
-    padding-top:60px;
-}
-
-.invitation h2{
-    font-size:38px;
-    color:var(--emerald);
-    margin-bottom:18px;
-}
-
-.greeting{
-    color:var(--gold-dark);
-    letter-spacing:2px;
-    text-transform:uppercase;
-    font-size:14px;
-    margin-bottom:18px;
-}
-
-.invitation p{
-    max-width:760px;
-    margin:0 auto;
-    font-size:18px;
-    line-height:1.9;
-    color:#555;
-}
-
-/* ==========================================================
-EVENTS
-========================================================== */
-
-.events{
-    text-align:center;
-}
-
-.section-title{
-    font-size:42px;
-    color:var(--emerald);
-    margin-bottom:50px;
-}
-
-.event-card{
-
-    background:var(--white);
-
-    border:1px solid var(--border);
-
-    border-radius:var(--radius);
-
-    padding:45px;
-
-    box-shadow:var(--shadow);
-
-    max-width:650px;
-
-    margin:0 auto 35px;
-
-}
-
-.event-card h3{
-
-    color:var(--emerald);
-
-    font-size:34px;
-
-    margin-bottom:20px;
-
-}
-
-.event-date,
-.event-time,
-.venue{
-
-    font-size:18px;
-
-    margin-bottom:12px;
-
-}
-
-.map-btn,
-#calendarBtn{
-
-    display:inline-block;
-
-    margin-top:20px;
-
-    padding:14px 34px;
-
-    border-radius:40px;
-
-    background:var(--gold);
-
-    color:#fff;
-
-    text-decoration:none;
-
-    border:none;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.map-btn:hover,
-#calendarBtn:hover{
-
-    background:var(--gold-dark);
-
-    transform:translateY(-2px);
-
-}
-
-.calendar-wrapper{
-
-    margin-top:20px;
-
-}
-
-/* ==========================================================
-PARENTS
-========================================================== */
-
-.parents{
-
-    text-align:center;
-
-}
-
-.parents h2{
-
-    color:var(--emerald);
-
-    font-size:36px;
-
-    margin-bottom:45px;
-
-}
-
-.parents-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(2,1fr);
-
-    gap:30px;
-
-}
-
-.parent-card{
-
-    background:#fff;
-
-    border-radius:var(--radius);
-
-    border:1px solid var(--border);
-
-    padding:35px;
-
-    box-shadow:var(--shadow);
-
-}
-
-.parent-card h3{
-
-    color:var(--gold-dark);
-
-    margin-bottom:18px;
-
-}
-
-.parent-card p{
-
-    margin:8px 0;
-
-}
-
-/* ==========================================================
-VERSE
-========================================================== */
-
-.verse{
-
-    text-align:center;
-
-    background:#fffdf9;
-
-}
-
-.arabic-verse{
-
-    font-size:32px;
-
-    line-height:2;
-
-    color:var(--gold-dark);
-
-    margin-bottom:25px;
-
-}
-
-.reference{
-
-    margin-top:18px;
-
-    color:#777;
-
-    font-style:italic;
-
-}
-
-/* ==========================================================
-FOOTER
-========================================================== */
-
-footer{
-
-    text-align:center;
-
-    padding:35px 20px;
-
-    color:#777;
-
-    font-size:15px;
-
-}
-
-/* ==========================================================
-SCROLL REVEAL
-========================================================== */
-
-.reveal{
-
-    opacity:0;
-
-    transform:translateY(40px);
-
-    transition:all .9s ease;
-
-}
-
-.reveal.active{
-
-    opacity:1;
-
-    transform:translateY(0);
-
-}
-
-/* ==========================================================
-KEYFRAMES
-========================================================== */
-
-@keyframes fadeUp{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(25px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-/* ==========================================================
-RESPONSIVE
-========================================================== */
-
-@media(max-width:768px){
-
-.hero{
-
-    padding:80px 18px 50px;
-
-}
-
-.couple-name{
-
-    font-size:38px;
-
-}
-
-.ampersand{
-
-    font-size:28px;
-
-}
-
-.date{
-
-    font-size:20px;
-
-}
-
-.hero-top{
-
-    font-size:12px;
-
-    letter-spacing:2px;
-
-}
-
-.count-item{
-
-    width:68px;
-
-    height:68px;
-
-}
-
-.count-item span{
-
-    font-size:24px;
-
-}
-
-.count-item small{
-
-    font-size:9px;
-
-}
-
-.section-title,
-.invitation h2,
-.parents h2{
-
-    font-size:30px;
-
-}
-
-.parents-grid{
-
-    grid-template-columns:1fr;
-
-}
-
-.event-card{
-
-    padding:30px 22px;
-
-}
-
-.arabic{
-
-    font-size:30px;
-
-}
-
-.opening-content h2{
-
-    font-size:32px;
-
-}
-
-.monogram{
-
-    font-size:42px;
-
-}
-
-}
-
-@media(max-width:420px){
-
-.countdown{
-
-    gap:8px;
-
-}
-
-.count-item{
-
-    width:62px;
-
-    height:62px;
-
-}
-
-.count-item span{
-
-    font-size:21px;
-
-}
-
-.count-item small{
-
-    font-size:8px;
-
-    letter-spacing:.8px;
-
-}
-
-.couple-name{
-
-    font-size:34px;
-
-}
-
-.date{
-
-    font-size:18px;
-
-}
-
-}
-
-@keyframes shine{
-
-    0%{
-        left:-120%;
-    }
-
-    60%{
-        left:140%;
-    }
-
-    100%{
-        left:140%;
-    }
-
-}
-
-@keyframes logoPop{
-
-    0%{
-        opacity:0;
-        transform:scale(.8);
-    }
-
-    100%{
-        opacity:1;
-        transform:scale(1);
-    }
-
-}
-
-
-@keyframes invitationShine {
-
-    0% {
-        left: -120%;
-    }
-
-    45% {
-        left: 140%;
-    }
-
-    100% {
-        left: 140%;
-    }
-
-}
-@keyframes cardFadeUp {
-
-    from {
-
-        opacity: 0;
-
-        transform: translateY(25px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform: translateY(0);
-
-    }
-
-}
-
-/* =========================================
-   MOBILE LANDING PAGE FIX
-========================================= */
-
-@media (max-width: 768px) {
-
-    /* Opening screen */
-    #opening-screen {
-        min-height: 100svh;
-        padding: 40px 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .opening-content {
-        width: 100%;
-        max-width: 420px;
-        text-align: center;
-    }
-
-    .opening-content .arabic {
-        font-size: 24px;
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
-
-    .opening-content .translation {
-        font-size: 17px;
-        line-height: 1.8;
-        margin: 20px auto;
-    }
-
-    .opening-monogram {
-        font-size: 58px;
-        margin: 28px 0;
-    }
-
-    #enterBtn {
-        margin-top: 28px;
-        padding: 16px 38px;
-        font-size: 16px;
-    }
-
-    /* Main hero section */
-    .hero {
-        padding: 60px 20px 50px;
-        min-height: auto;
-    }
-
-    .hero-content {
-        width: 100%;
-        max-width: 100%;
-        padding: 0;
-    }
-
-    .hero-top {
-        font-size: 14px;
-        letter-spacing: 3px;
-        line-height: 1.8;
-        margin-bottom: 40px;
-    }
-
-    .couple-name {
-        font-size: 48px;
-        line-height: 1.2;
-        margin: 18px 0;
-        word-break: normal;
-    }
-
-    .ampersand {
-        font-size: 38px;
-        margin: 22px 0;
-    }
-
-    .date {
-        margin-top: 35px;
-        font-size: 20px;
-        line-height: 1.5;
-    }
-
-    /* Countdown: single row on mobile */
-    .countdown {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-        width: 100%;
-        max-width: 100%;
-        margin: 42px auto 0;
-        padding: 0;
-    }
-
-    .count-item {
-        padding: 8px 2px;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        border-radius: 0;
-        min-width: 0;
-    }
-
-    .count-number {
-        font-size: 2rem;
-        line-height: 1.2;
-    }
-
-    .count-label {
-        font-size: 0.65rem;
-        letter-spacing: 1px;
-        margin-top: 8px;
-    }
-
-    /* Reduce empty space before Assalamu Alaikum */
-    .hero + section {
-        margin-top: 0;
-        padding-top: 50px;
-    }
-
-    /* Invitation card */
-    .invite-card {
-        width: calc(100% - 32px);
-        max-width: 380px;
-        margin: 20px auto;
-        padding: 22px 18px;
-    }
-}
-/* ==========================================================
-   CINEMATIC OPENING SCREEN
-========================================================== */
-
-#opening-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    padding: 24px 24px 48px;
-
-    background:
-        radial-gradient(
-            circle at 50% 20%,
-            rgba(255, 250, 235, 0.95),
-            #FAF7F2 55%,
-            #F0E9DC 100%
-        );
-
-    opacity: 1;
-
-    transition:
-        opacity 1.2s ease,
-        transform 1.2s ease;
-}
-
-/* Main content */
-
-.opening-content {
-    width: 100%;
-    max-width: 420px;
-
-    text-align: center;
-
-    animation: cinematicEntrance 1.4s ease both;
-}
-
-/* Bismillah */
-
-.opening-bismillah {
-    font-family: serif;
-
-    font-size: clamp(22px, 6vw, 32px);
-
-    line-height: 1.7;
-
-    color: var(--gold-dark);
-
-    opacity: 0;
-
-    animation:
-        fadeInSoft 1.2s ease 0.2s forwards;
-}
-
-/* Translation */
-
-.opening-translation {
-    margin-top: 8px;
-
-    font-size: 12px;
-
-    line-height: 1.6;
-
-    letter-spacing: 0.5px;
-
-    color: #777;
-
-    opacity: 0;
-
-    animation:
-        fadeInSoft 1.2s ease 0.5s forwards;
-}
-
-/* Divider */
-
-.opening-divider {
-    width: 70px;
-
-    height: 1px;
-
-    margin: 22px auto;
-
-    background: var(--gold);
-
-    opacity: 0;
-
-    animation:
-        expandDivider 1s ease 0.8s forwards;
-}
-
-/* Monogram */
-
-.opening-monogram {
-    font-family: 'Cinzel', serif;
-
-    font-size: clamp(48px, 13vw, 70px);
-
-    letter-spacing: 4px;
-
-    color: var(--emerald);
-
-    opacity: 0;
-
-    animation:
-        monogramReveal 1.4s ease 1s forwards;
-}
-
-.opening-monogram span {
-    color: var(--gold);
-
-    display: inline-block;
-
-    margin: 0 4px;
-
-    animation:
-        heartGlow 2.5s ease-in-out 2s infinite;
-}
-
-/* Names */
-
-.opening-names {
-    margin-top: 16px;
-}
-
-.opening-title {
-    font-family: 'Cinzel', serif;
-
-    font-size: clamp(24px, 7vw, 34px);
-
-    line-height: 1.25;
-
-    color: var(--emerald);
-
-    opacity: 0;
-
-    animation:
-        nameReveal 1s ease forwards;
-}
-
-.opening-title:first-child {
-    animation-delay: 1.5s;
-}
-
-.opening-title:last-child {
-    animation-delay: 2s;
-}
-
-.opening-ampersand {
-    margin: 5px 0;
-
-    font-family: 'Cinzel', serif;
-
-    font-size: 24px;
-
-    color: var(--gold);
-
-    opacity: 0;
-
-    animation:
-        fadeInSoft 1s ease 1.75s forwards;
-}
-
-
-/* ==========================================================
-   ANIMATIONS
-========================================================== */
-
-@keyframes cinematicEntrance {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInSoft {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes expandDivider {
-    from {
-        opacity: 0;
-        transform: scaleX(0);
-    }
-
-    to {
-        opacity: 1;
-        transform: scaleX(1);
-    }
-}
-
-@keyframes monogramReveal {
-    from {
-        opacity: 0;
-        transform: scale(0.75);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-@keyframes nameReveal {
-    from {
-        opacity: 0;
-        transform: translateY(18px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-@keyframes heartGlow {
-    0%, 100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.12);
-    }
-}
-
-@keyframes cardShimmer {
-    0% {
-        left: -120%;
-    }
-
-    45% {
-        left: 140%;
-    }
-
-    100% {
-        left: 140%;
-    }
-}
-
-/* Mobile refinement */
-
-@media (max-width: 420px) {
-
-    #opening-screen {
-        padding: 18px;
-    }
-
-    .opening-translation {
-        font-size: 11px;
-    }
-
-    .opening-divider {
-        margin: 16px auto;
-    }
-
-    .opening-names {
-        margin-top: 10px;
-    }
-
-}
-
-
-
-
-
-/* ==========================================================
-   SVG ENVELOPE — SINGLE SOURCE OF TRUTH
-   The existing opening/website transition is preserved.
-========================================================== */
-
-#enterBtn.envelope {
-    position: relative;
-    display: block;
-    width: min(86vw, 470px);
-    aspect-ratio: 680 / 360;
-    margin: 38px auto 0;
+* {
+    margin: 0;
     padding: 0;
-    border: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    line-height: normal;
-    cursor: pointer;
-    perspective: 1500px;
-    isolation: isolate;
-    overflow: visible;
-    flex: 0 0 auto;
-    opacity: 0;
-    pointer-events: none;
-    animation: envelopeReveal .8s cubic-bezier(.22,.61,.36,1) 3.35s forwards;
-    transition: transform .6s ease, filter .6s ease;
-    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
 }
 
-#enterBtn.envelope.envelope-ready {
-    pointer-events: auto;
+body {
+    background: #0f0f11;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #444;
 }
 
-#enterBtn.envelope:hover {
-    transform: translateY(-3px);
+/* Simulated Mobile Viewport Framework Box */
+.phone-container {
+    width: 100%;
+    max-width: 412px;
+    height: 90vh;
+    background: #fffcf7;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    border-radius: 16px;
+    overflow: hidden;
 }
 
-#enterBtn.envelope:focus-visible {
-    outline: 2px solid #c49a48;
-    outline-offset: 7px;
-    border-radius: 10px;
-}
-
-.envelope-svg {
+/* Luxurious Damascus Textured Backdrop Muted Tone Layer */
+.damask-pattern {
     position: absolute;
-    inset: 0;
     width: 100%;
     height: 100%;
-    display: block;
-    overflow: visible;
+    background-color: #dfa4aa;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0),
+                      linear-gradient(45deg, rgba(240,180,187,0.2) 25%, transparent 25%, transparent 75%, rgba(240,180,187,0.2) 75%),
+                      linear-gradient(45deg, rgba(240,180,187,0.2) 25%, transparent 25%, transparent 75%, rgba(240,180,187,0.2) 75%);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px, 15px 15px;
+}
+
+/* Overlay Covering Page Elements Until User Interaction Triggered */
+.envelope-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 1.4s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 1s ease;
+}
+
+.envelope {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 120px;
+    position: relative;
+}
+
+/* Animated Interactive 3D Finished Gold Wax Seal Graphic */
+.wax-seal {
+    width: 96px;
+    height: 96px;
+    background: radial-gradient(circle, #e2b45c 10%, #c18e31 80%);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 105;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35), inset 0 2px 4px rgba(255,255,255,0.4);
+    border: 3px dashed #9e7121;
+    animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+.seal-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    color: #3d2905;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.envelope-text {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    letter-spacing: 5px;
+    font-size: 13px;
+    opacity: 0.9;
+    z-index: 101;
+}
+
+/* SCROLLABLE CENTRAL LAYOUT INNER SECTIONS */
+.main-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    padding: 30px 24px;
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 1s ease 0.6s, transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Completely strip scrollbar tracking line graphics layout to mimic standalone app views */
+.main-content::-webkit-scrollbar {
+    display: none;
+}
+
+section {
+    margin-bottom: 45px;
+    text-align: center;
+}
+
+.section-heading {
+    font-family: 'Cinzel', serif;
+    color: #a87c24;
+    font-size: 13px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+/* Hero Invitation Box Borders Structure */
+.card-hero {
+    margin-top: 20px;
+    border: 1px solid #e0d0b0;
+    padding: 35px 15px;
+    background: #fffdfb;
+}
+
+.hero-title {
+    font-family: 'Cinzel', serif;
+    color: #a87c24;
+    font-size: 24px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+.hero-subtitle {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.gold-tassel {
+    color: #c18e31;
+    margin-bottom: 15px;
+}
+
+.hero-request {
+    font-size: 11px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+}
+
+/* SCRATCH CARD HTML5 OVERLAY RULES CONTAINER */
+.scratch-container {
+    position: relative;
+    width: 280px;
+    height: 110px;
+    margin: 0 auto;
+    background: #fcf6eb;
+    border: 1px dashed #c18e31;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.secret-date-info {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     z-index: 1;
 }
 
-.envelope-art {
-    transform-box: fill-box;
-}
-
-.envelope-flap {
-    transform-box: fill-box;
-    transform-origin: 50% 0%;
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    transition: transform 1.05s cubic-bezier(.22,.61,.36,1);
-}
-
-.envelope-paper {
-    position: absolute;
-    left: 8%;
-    bottom: 5%;
-    width: 84%;
-    height: 84%;
-    /*
-       Closed state: the invitation paper sits behind the envelope artwork.
-       This prevents the white card from appearing on top of the closed envelope.
-    */
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 20px;
-    box-sizing: border-box;
-    color: #174b3b;
-    text-align: center;
-    background:
-        radial-gradient(circle at 50% 0, rgba(232,200,120,.20), transparent 35%),
-        linear-gradient(135deg,#fffefb 0%,#f9f0dc 100%);
-    border: 1px solid rgba(184,138,53,.38);
-    border-radius: 4px;
-    box-shadow: 0 8px 20px rgba(80,55,15,.13);
-    transition:
-        transform 1.35s cubic-bezier(.22,.61,.36,1),
-        opacity .35s ease;
-    transform: translateY(14px);
-    opacity: 0;
-}
-
-.envelope-paper span {
-    font-family: "Cinzel", Georgia, serif;
-    font-size: clamp(12px,2.2vw,17px);
-    letter-spacing: .08em;
-    font-weight: 500;
-}
-
-.envelope-paper small {
-    color: #b78b38;
-    font-size: 20px;
-}
-
-.envelope-front {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 18px 18px;
-    box-sizing: border-box;
-    pointer-events: none;
-}
-
-.envelope-label,
-.envelope-monogram,
-.envelope-tap {
-    position: relative;
-    z-index: 6;
-    color: #fffaf0;
-    text-align: center;
-    text-shadow: 0 1px 5px rgba(91,59,12,.25);
-}
-
-.envelope-label {
-    margin-bottom: 9px;
-    font-family: "Cinzel", Georgia, serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .32em;
-}
-
-.envelope-monogram {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    margin-bottom: 10px;
-    font-family: "Cinzel", Georgia, serif;
-    font-size: 29px;
-    line-height: 1;
-}
-
-.envelope-monogram span {
-    color: #fff4cf;
+.secret-date-info h2 {
+    font-family: 'Cinzel', serif;
+    color: #a87c24;
     font-size: 18px;
 }
 
-.envelope-tap {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .34em;
+.secret-date-info p {
+    font-size: 11px;
+    margin-top: 4px;
+    color: #666;
 }
 
-/* The seal is a real HTML element, not ::before/::after. */
-.envelope-seal {
+#scratchCanvas {
     position: absolute;
-    /* SVG flap point = x:340/680, y:202/360 */
-    left: 50%;
-    top: 56.1%;
-    z-index: 12;
-    width: 44px;
-    height: 44px;
-    transform: translate(-50%,-50%);
-    pointer-events: none;
-    transition: transform .45s ease, opacity .45s ease;
-}
-
-.seal-ring {
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    display: grid;
-    place-items: center;
-    box-sizing: border-box;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* TIMER DIGIT BLOCKS */
+.timer-grid {
+    display: flex;
+    justify-content: space-around;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.timer-box {
+    background: #fff;
+    border: 1px solid #eee;
+    width: 65px;
+    padding: 10px 0;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.timer-box span {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: #a87c24;
+    font-weight: 600;
+}
+
+.timer-box label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #999;
+}
+
+/* VERTICAL LINE LINEAR PROGRAM SCHEDULER */
+.timeline-section {
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: 1px solid #ebdcb9;
+    padding-left: 20px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 4px;
+    width: 9px;
+    height: 9px;
+    background: #a87c24;
     border-radius: 50%;
-    background: radial-gradient(circle at 34% 28%,#ffe89e 0%,#d49f37 52%,#8a580c 100%);
-    border: 3px solid #fce08b;
-    box-shadow:
-        0 6px 14px rgba(60,38,5,.30),
-        inset 0 2px 4px rgba(255,255,255,.72),
-        inset 0 -2px 5px rgba(0,0,0,.34);
 }
 
-.seal-ring span {
-    color: #5c3e06;
-    font-family: "Cinzel", Georgia, serif;
-    font-size: 19px;
-    line-height: 1;
-    text-shadow: 0 1px 1px rgba(255,255,255,.4);
+.timeline-item h4 {
+    font-family: 'Cinzel', serif;
+    color: #a87c24;
+    font-size: 13px;
+    margin-bottom: 3px;
 }
 
-/* Existing cinematic transition retained exactly in concept:
-   flap -> paper rise -> envelope floats away -> website appears. */
-.envelope.opening {
-    pointer-events: none;
-    animation: envelopeFloatAway 1.75s cubic-bezier(.22,.61,.36,1) forwards;
+.timeline-item p {
+    font-size: 11px;
+    color: #666;
 }
 
-.envelope.opening .envelope-flap {
-    transform: rotateX(178deg);
-}
-
-.envelope.opening .envelope-paper {
-    z-index: 10;
-    opacity: 1;
-    transition-delay: .22s;
-    transform: translateY(-96px) scale(1.01);
-}
-
-.envelope.opening .envelope-seal {
-    transform: translate(-50%,-50%) scale(.78);
+/* TRANSITION TRIGGERS MANAGED VIA SCRIPT INTERACTION RUNTIME */
+.envelope-wrapper.dismiss-envelope {
+    transform: translateY(-105%);
     opacity: 0;
-    transition-delay: .08s;
+    pointer-events: none;
 }
 
-.envelope.opening .envelope-front {
-    opacity: .96;
+.main-content.display-website {
+    opacity: 1;
+    transform: scale(1);
 }
 
-
-/* Envelope visibility + existing cinematic exit animation */
-@keyframes envelopeReveal {
-    from {
-        opacity: 0;
-        transform: translateY(18px) scale(.985);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+@keyframes pulseGlow {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
+    50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 20px rgba(226,180,92,0.6); }
 }
 
-@keyframes envelopeFloatAway {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-
-    55% {
-        opacity: 1;
-        transform: translateY(-34px) scale(1.01);
-    }
-
-    100% {
-        opacity: 0;
-        transform: translateY(-145px) scale(.97);
-    }
-}
-
-@media (max-height:850px) {
-    #opening-screen .opening-content { transform-origin: top center; }
-    .opening-bismillah { font-size: clamp(20px,5vw,28px); line-height: 1.45; }
-    .opening-divider { margin: 14px auto; }
-    .opening-monogram { font-size: clamp(44px,11vw,62px); margin-bottom: 8px; }
-    .opening-names { margin-top: 8px; }
-    .opening-title { font-size: clamp(22px,6vw,30px); line-height: 1.15; }
-    .opening-ampersand { margin: 2px 0; font-size: 22px; }
-    #enterBtn.envelope { margin-top: 22px; }
-}
-
-@media (max-width:768px) {
-    #opening-screen { align-items: flex-start; padding: 20px 14px 34px; }
-    #opening-screen .opening-content { max-width: 420px; padding-top: 0; }
-    #enterBtn.envelope { width: min(90vw,470px); margin-top: 34px; }
-}
-
-@media (max-width:650px) {
-    #enterBtn.envelope { width: min(90vw,430px); margin-top: 24px; }
-    .envelope-paper span { font-size: 13px; }
-    .envelope-label { font-size: 10px; letter-spacing: .28em; }
-    .envelope-tap { font-size: 10px; letter-spacing: .30em; }
-    .envelope-monogram { font-size: 25px; }
-    .envelope-seal { width: 38px; height: 38px; top: 56.1%; }
-    .seal-ring span { font-size: 16px; }
-    .envelope.opening .envelope-paper { transform: translateY(-88px) scale(1.01); }
+.audio-control {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.9);
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
