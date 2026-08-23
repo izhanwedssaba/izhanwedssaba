@@ -1,317 +1,237 @@
+:root {
+  --pink-bg: #f8e1e7;
+  --dark-pink: #c97c8d;
+  --gold-accent: #d4af37;
+  --dark-text: #2c2c2c;
+  --card-bg: rgba(255, 255, 255, 0.85);
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #0f0f11;
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    color: #444;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--pink-bg);
+  color: var(--dark-text);
+  text-align: center;
 }
 
-/* Simulated Mobile Viewport Framework Box */
-.phone-container {
-    width: 100%;
-    max-width: 412px;
-    height: 90vh;
-    background: #fffcf7;
-    position: relative;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
-    border-radius: 16px;
-    overflow: hidden;
+/* Envelope Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #f2c2ce, #e29fb0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.8s ease, visibility 0.8s;
 }
 
-/* Luxurious Damascus Textured Backdrop Muted Tone Layer */
-.damask-pattern {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #dfa4aa;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 0),
-                      linear-gradient(45deg, rgba(240,180,187,0.2) 25%, transparent 25%, transparent 75%, rgba(240,180,187,0.2) 75%),
-                      linear-gradient(45deg, rgba(240,180,187,0.2) 25%, transparent 25%, transparent 75%, rgba(240,180,187,0.2) 75%);
-    background-size: 30px 30px;
-    background-position: 0 0, 15px 15px, 15px 15px;
+.envelope-card {
+  width: 85%;
+  max-width: 380px;
+  height: 500px;
+  background: #fdf5f7;
+  border: 2px solid var(--dark-pink);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  position: relative;
 }
 
-/* Overlay Covering Page Elements Until User Interaction Triggered */
-.envelope-wrapper {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 1.4s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 1s ease;
+.stamp-seal {
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, #e6ca65, var(--gold-accent));
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  border: 3px dashed #b8911c;
 }
 
-.envelope {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    padding-bottom: 120px;
-    position: relative;
+.stamp-seal span {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
 }
 
-/* Animated Interactive 3D Finished Gold Wax Seal Graphic */
-.wax-seal {
-    width: 96px;
-    height: 96px;
-    background: radial-gradient(circle, #e2b45c 10%, #c18e31 80%);
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 105;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.35), inset 0 2px 4px rgba(255,255,255,0.4);
-    border: 3px dashed #9e7121;
-    animation: pulseGlow 2.5s infinite ease-in-out;
+.envelope-title {
+  margin-top: 30px;
+  font-family: 'Cinzel', serif;
+  letter-spacing: 2px;
+  color: var(--dark-pink);
 }
 
-.seal-inner {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    color: #3d2905;
-    font-weight: 600;
-    line-height: 1.3;
+/* Main Layout */
+.hidden {
+  display: none;
 }
 
-.envelope-text {
-    font-family: 'Cinzel', serif;
-    color: #fff;
-    letter-spacing: 5px;
-    font-size: 13px;
-    opacity: 0.9;
-    z-index: 101;
+main {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px 15px;
 }
 
-/* SCROLLABLE CENTRAL LAYOUT INNER SECTIONS */
-.main-content {
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-    padding: 30px 24px;
-    opacity: 0;
-    transform: scale(0.96);
-    transition: opacity 1s ease 0.6s, transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s;
-    -webkit-overflow-scrolling: touch;
+/* Hero Section */
+.hero {
+  padding: 40px 10px;
 }
 
-/* Completely strip scrollbar tracking line graphics layout to mimic standalone app views */
-.main-content::-webkit-scrollbar {
-    display: none;
+.arch-border {
+  border: 2px solid var(--dark-pink);
+  border-radius: 150px 150px 0 0;
+  padding: 50px 20px;
+  background: var(--card-bg);
 }
 
-section {
-    margin-bottom: 45px;
-    text-align: center;
+.sub-title {
+  font-size: 0.85rem;
+  margin-bottom: 20px;
 }
 
-.section-heading {
-    font-family: 'Cinzel', serif;
-    color: #a87c24;
-    font-size: 13px;
-    letter-spacing: 3px;
-    margin-bottom: 20px;
+.groom-name, .bride-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: var(--dark-pink);
 }
 
-/* Hero Invitation Box Borders Structure */
-.card-hero {
-    margin-top: 20px;
-    border: 1px solid #e0d0b0;
-    padding: 35px 15px;
-    background: #fffdfb;
+.ampersand {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  display: block;
+  margin: 10px 0;
 }
 
-.hero-title {
-    font-family: 'Cinzel', serif;
-    color: #a87c24;
-    font-size: 24px;
-    line-height: 1.4;
-    margin-bottom: 12px;
+/* Scratch Card */
+.scratch-section {
+  margin: 30px 0;
 }
 
-.hero-subtitle {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #888;
-    margin-bottom: 15px;
+.blessed-text {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: var(--dark-pink);
 }
 
-.gold-tassel {
-    color: #c18e31;
-    margin-bottom: 15px;
+.scratch-card {
+  width: 250px;
+  height: 150px;
+  margin: 15px auto;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.hero-request {
-    font-size: 11px;
-    line-height: 1.8;
-    letter-spacing: 1px;
+.scratch-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--dark-pink);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.5s ease;
+  font-weight: bold;
 }
 
-/* SCRATCH CARD HTML5 OVERLAY RULES CONTAINER */
-.scratch-container {
-    position: relative;
-    width: 280px;
-    height: 110px;
-    margin: 0 auto;
-    background: #fcf6eb;
-    border: 1px dashed #c18e31;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+.scratch-reveal {
+  background: #fff;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.secret-date-info {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
+.reveal-date {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--dark-pink);
 }
 
-.secret-date-info h2 {
-    font-family: 'Cinzel', serif;
-    color: #a87c24;
-    font-size: 18px;
+/* Countdown */
+.countdown-section h2, .timeline-section h2 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.2rem;
+  color: var(--dark-pink);
+  margin-bottom: 15px;
 }
 
-.secret-date-info p {
-    font-size: 11px;
-    margin-top: 4px;
-    color: #666;
+.timer {
+  display: flex;
+  justify-content: space-around;
+  background: var(--card-bg);
+  padding: 15px;
+  border-radius: 10px;
 }
 
-#scratchCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    cursor: pointer;
+.time-box span {
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
-/* TIMER DIGIT BLOCKS */
-.timer-grid {
-    display: flex;
-    justify-content: space-around;
-    max-width: 320px;
-    margin: 0 auto;
+.time-box p {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
 }
 
-.timer-box {
-    background: #fff;
-    border: 1px solid #eee;
-    width: 65px;
-    padding: 10px 0;
-    border-radius: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+/* Timeline */
+.timeline-card {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  border-left: 4px solid var(--dark-pink);
 }
 
-.timer-box span {
-    display: block;
-    font-family: 'Cinzel', serif;
-    font-size: 20px;
-    color: #a87c24;
-    font-weight: 600;
+.timeline-card h3 {
+  font-family: 'Cinzel', serif;
+  color: var(--dark-pink);
+  margin-bottom: 5px;
 }
 
-.timer-box label {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #999;
+.event-time {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
 }
 
-/* VERTICAL LINE LINEAR PROGRAM SCHEDULER */
-.timeline-section {
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    border-left: 1px solid #ebdcb9;
-    padding-left: 20px;
-    text-align: left;
-    margin-bottom: 20px;
+.btn-map, .btn-calendar {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: var(--dark-pink);
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  transition: background 0.3s;
 }
 
-.timeline-item {
-    position: relative;
-    margin-bottom: 25px;
-}
-
-.timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -25px;
-    top: 4px;
-    width: 9px;
-    height: 9px;
-    background: #a87c24;
-    border-radius: 50%;
-}
-
-.timeline-item h4 {
-    font-family: 'Cinzel', serif;
-    color: #a87c24;
-    font-size: 13px;
-    margin-bottom: 3px;
-}
-
-.timeline-item p {
-    font-size: 11px;
-    color: #666;
-}
-
-/* TRANSITION TRIGGERS MANAGED VIA SCRIPT INTERACTION RUNTIME */
-.envelope-wrapper.dismiss-envelope {
-    transform: translateY(-105%);
-    opacity: 0;
-    pointer-events: none;
-}
-
-.main-content.display-website {
-    opacity: 1;
-    transform: scale(1);
-}
-
-@keyframes pulseGlow {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.35); }
-    50% { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 20px rgba(226,180,92,0.6); }
-}
-
-.audio-control {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: rgba(255,255,255,0.9);
-    width: 44px;
-    height: 44px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+.btn-calendar {
+  background-color: #2c2c2c;
+  font-size: 0.9rem;
+  padding: 12px 24px;
 }
