@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // The envelope is interactive immediately after it is visible.
     if (enterBtn) {
+        enterBtn.classList.add("envelope-ready");
         let invitationOpening = false;
 
         const openInvitation = () => {
@@ -26,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             enterBtn.classList.add("opening");
 
-            // Preserve the existing website and all its features; only the opening template changes.
+            // Let the user clearly see the flap open first.
             window.setTimeout(() => {
                 if (website) {
                     website.style.display = "block";
@@ -34,14 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 if (opening) opening.classList.add("closing");
                 window.scrollTo({ top: 0, behavior: "auto" });
-            }, 1080);
+            }, 1050);
 
             window.setTimeout(() => {
                 if (opening) opening.style.display = "none";
             }, 1900);
         };
 
-        enterBtn.addEventListener("click", openInvitation, { once: true });
+        enterBtn.addEventListener("click", openInvitation);
+        enterBtn.addEventListener("touchend", (event) => {
+            event.preventDefault();
+            openInvitation();
+        }, { passive: false });
     }
 
 
