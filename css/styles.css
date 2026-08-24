@@ -1543,3 +1543,58 @@ RESPONSIVE
     .seal-ring span { font-size: 16px; }
     .envelope.opening .envelope-paper { transform: translateY(-88px) scale(1.01); }
 }
+
+
+/* =========================================================
+   CINEMATIC PREMIUM BACKGROUND
+   Inspired by the soft, editorial texture from the reference:
+   warm ivory + muted blush + antique-gold glow.
+   This changes only the visual background layer.
+   ========================================================= */
+
+:root {
+    --cinematic-ivory: #f7f3ea;
+    --cinematic-cream: #eee7da;
+    --cinematic-blush: rgba(186, 145, 122, .14);
+    --cinematic-gold: rgba(198, 150, 61, .16);
+    --cinematic-shadow: rgba(78, 58, 42, .10);
+}
+
+html,
+body {
+    background:
+        radial-gradient(circle at 50% 16%, rgba(255,255,255,.88) 0%, rgba(255,255,255,.42) 23%, transparent 48%),
+        radial-gradient(circle at 84% 34%, var(--cinematic-gold) 0%, transparent 33%),
+        radial-gradient(circle at 8% 72%, var(--cinematic-blush) 0%, transparent 34%),
+        radial-gradient(circle at 58% 92%, rgba(181,137,69,.10) 0%, transparent 38%),
+        linear-gradient(135deg, var(--cinematic-ivory) 0%, #f4efe5 45%, var(--cinematic-cream) 100%);
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -12%;
+    z-index: -2;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 20% 18%, rgba(255,255,255,.72) 0%, transparent 28%),
+        radial-gradient(ellipse at 76% 26%, rgba(220,183,112,.13) 0%, transparent 30%),
+        radial-gradient(ellipse at 44% 78%, rgba(196,148,128,.09) 0%, transparent 34%),
+        radial-gradient(ellipse at 90% 86%, rgba(146,109,74,.08) 0%, transparent 26%);
+    filter: blur(34px);
+    opacity: .92;
+    transform: translateZ(0);
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        linear-gradient(115deg, rgba(255,255,255,.13), transparent 42%, rgba(177,132,61,.05)),
+        radial-gradient(ellipse at center, transparent 48%, rgba(65,50,35,.06) 100%);
+    mix-blend-mode: multiply;
+}
