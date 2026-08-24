@@ -1,111 +1,150 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mohammed Izhan & Bazila Saba | Wedding Invitation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Marcellus&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mohammed Izhan & Bazila Saba</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Great+Vibes&family=Marcellus&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<div id="openingScreen" class="opening-screen">
-  <div class="ambient"></div>
-  <div class="opening-card">
-    <p class="opening-kicker">TOGETHER WITH OUR BELOVED FAMILIES</p>
-    <div class="opening-ornament">❦ <span>♥</span> ❦</div>
-    <h1>Mohammed Izhan</h1>
-    <div class="opening-amp">&</div>
-    <h1>Bazila Saba</h1>
+<!-- OPENING SCREEN -->
+<section id="openingScreen" class="opening-screen">
+  <div class="opening-bg"></div>
 
-    <button id="enterBtn" class="reference-envelope" aria-label="Tap to open invitation">
-      <div class="env-base"></div>
-      <div class="env-side env-left"></div>
-      <div class="env-side env-right"></div>
-      <div class="env-bottom"></div>
-      <div class="env-letter">
-        <p>TOGETHER WITH OUR BELOVED FAMILIES</p>
-        <div class="letter-monogram">I<span>♥</span>S</div>
-        <h2>Mohammed Izhan</h2>
-        <b>&</b>
-        <h2>Bazila Saba</h2>
+  <div class="opening-content">
+    <p class="opening-kicker">TOGETHER WITH OUR BELOVED FAMILIES</p>
+
+    <h1 class="opening-name">Mohammed Izhan</h1>
+    <div class="opening-and">&amp;</div>
+    <h1 class="opening-name">Bazila Saba</h1>
+
+    <button id="openInvitation" class="envelope-wrap" type="button" aria-label="Tap to open invitation">
+      <div class="envelope-shadow"></div>
+
+      <div class="envelope">
+        <div class="envelope-back"></div>
+
+        <div class="envelope-letter">
+          <span class="letter-small">WEDDING INVITATION</span>
+          <div class="letter-monogram">I <span>♥</span> S</div>
+          <span class="letter-small">18 OCTOBER 2026</span>
+        </div>
+
+        <div class="envelope-left"></div>
+        <div class="envelope-right"></div>
+        <div class="envelope-bottom"></div>
+
+        <div class="envelope-flap"></div>
+
+        <div class="wax-seal">
+          <span>I</span><b>♥</b><span>S</span>
+        </div>
       </div>
-      <div class="env-flap"></div>
-      <div class="wax-seal"><span>I♥S</span></div>
-      <div class="tap-copy">TAP TO OPEN<br><small>✦</small></div>
+
+      <div class="tap-label">
+        <span>TAP TO OPEN</span>
+        <small>✦</small>
+      </div>
     </button>
   </div>
-</div>
+</section>
 
+<!-- MAIN WEBSITE -->
 <main id="website" class="website" aria-hidden="true">
-  <section class="hero section-shell">
-    <div class="hero-copy">
-      <p class="eyebrow">TOGETHER WITH OUR BELOVED FAMILIES</p>
-      <h1>Mohammed Izhan</h1>
-      <div class="gold-amp">&</div>
-      <h1>Bazila Saba</h1>
-      <p class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-      <p class="translation">IN THE NAME OF ALLAH,<br>THE MOST GRACIOUS, THE MOST MERCIFUL</p>
-      <div class="mini-line">✦</div>
-    </div>
+
+  <section class="hero-section section">
+    <p class="arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+    <p class="translation">In the name of Allah,<br>The Most Gracious,<br>The Most Merciful</p>
+    <div class="gold-line"></div>
+
+    <div class="hero-monogram">I <span>♥</span> S</div>
+
+    <h1 class="couple-name">Mohammed Izhan</h1>
+    <div class="hero-and">&amp;</div>
+    <h1 class="couple-name">Bazila Saba</h1>
   </section>
 
-  <section class="scratch-section section-shell">
-    <p class="eyebrow">OUR SPECIAL DAY</p>
+  <section class="scratch-section section">
+    <p class="section-label">OUR SPECIAL DAY</p>
+
     <div id="heartScratch" class="heart-scratch">
-      <div class="heart-under">
-        <div class="heart-date">SUNDAY<br><strong>18 OCTOBER 2026</strong><br><span>♥</span></div>
+      <div class="heart-shape heart-date-card">
+        <div class="date-reveal">
+          <span>SUNDAY</span>
+          <strong>18 OCTOBER</strong>
+          <span>2026</span>
+          <b>♥</b>
+        </div>
       </div>
+
       <canvas id="scratchCanvas"></canvas>
-      <div id="scratchHint" class="scratch-hint">SCRATCH<br>TO REVEAL</div>
+
+      <div id="scratchHint" class="scratch-hint">
+        <span>SCRATCH</span>
+        <small>TO REVEAL</small>
+      </div>
     </div>
   </section>
 
-  <section class="save-date section-shell">
-    <div class="save-card">
-      <p class="eyebrow">SAVE THE DATE</p>
+  <section class="save-date-section section">
+    <div class="save-date-card">
+      <p class="section-label">SAVE THE DATE</p>
       <div class="save-heart">♥</div>
-      <p class="day">SUNDAY</p>
+      <p class="save-day">SUNDAY</p>
       <h2>18 October 2026</h2>
-      <div class="save-ornament">❦ ♥ ❦</div>
+      <p class="save-ornament">❦ &nbsp; ♥ &nbsp; ❦</p>
     </div>
   </section>
 
-  <section class="countdown-section section-shell">
-    <p class="eyebrow">COUNTDOWN TO OUR BIG DAY</p>
+  <section class="countdown-section section">
+    <p class="section-label">COUNTDOWN TO OUR BIG DAY</p>
+
     <div class="countdown">
-      <div><strong id="days">--</strong><span>DAYS</span></div>
-      <div><strong id="hours">--</strong><span>HOURS</span></div>
-      <div><strong id="minutes">--</strong><span>MINUTES</span></div>
-      <div><strong id="seconds">--</strong><span>SECONDS</span></div>
+      <div class="time-box"><strong id="days">00</strong><span>DAYS</span></div>
+      <div class="time-box"><strong id="hours">00</strong><span>HOURS</span></div>
+      <div class="time-box"><strong id="minutes">00</strong><span>MINUTES</span></div>
+      <div class="time-box"><strong id="seconds">00</strong><span>SECONDS</span></div>
     </div>
   </section>
 
-  <section class="calendar-section section-shell">
-    <div>
-      <p class="eyebrow">SAVE THE DATE</p>
-      <p class="script">We can't wait to celebrate<br>with you!</p>
+  <section class="calendar-section section">
+    <div class="calendar-copy">
+      <p class="section-label">SAVE THE DATE</p>
+      <p class="script-text">We can't wait to celebrate<br>with you!</p>
     </div>
+
     <div class="calendar-divider"></div>
-    <div>
-      <p class="eyebrow">ADD TO CALENDAR</p>
-      <a class="calendar-btn" target="_blank" rel="noopener"
+
+    <div class="calendar-action">
+      <p class="section-label">ADD TO CALENDAR</p>
+      <a class="calendar-button"
+         target="_blank"
+         rel="noopener noreferrer"
          href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mohammed%20Izhan%20%26%20Bazila%20Saba%20Wedding&dates=20261018T061500Z/20261018T120000Z&details=Wedding%20celebration%20of%20Mohammed%20Izhan%20and%20Bazila%20Saba&location=Vaniyambadi%2C%20Tamil%20Nadu">
-        ▣ &nbsp; SAVE THE DATE<br><small>GOOGLE CALENDAR</small>
+        <span>✦ &nbsp; SAVE THE DATE</span>
+        <small>OPEN IN GOOGLE CALENDAR</small>
       </a>
     </div>
   </section>
 
-  <section class="events section-shell">
-    <p class="eyebrow">OUR CELEBRATION</p>
-    <div class="event-grid">
-      <article>
-        <h2>Nikah</h2><p>18 October 2026 · 12:15 PM</p><p>Masjid-e-Mitpala</p>
+  <section class="events-section section">
+    <p class="section-label">OUR CELEBRATION</p>
+
+    <div class="events-grid">
+      <article class="event-card">
+        <p class="event-type">NIKAH</p>
+        <h2>12:15 PM</h2>
+        <p>Masjid-e-Mitpala</p>
       </article>
-      <article>
-        <h2>Valima</h2><p>18 October 2026 · 2:00 PM</p><p>VK Mahal, Vaniyambadi</p>
+
+      <article class="event-card">
+        <p class="event-type">VALIMA</p>
+        <h2>2:00 PM</h2>
+        <p>VK Mahal, Vaniyambadi</p>
       </article>
     </div>
   </section>
@@ -113,7 +152,8 @@
   <footer>DESIGNED WITH LOVE FOR OUR FAMILY AND FRIENDS.</footer>
 </main>
 
-<div id="celebrationLayer" aria-hidden="true"></div>
+<div id="celebrationLayer" class="celebration-layer" aria-hidden="true"></div>
+
 <script src="js/main.js"></script>
 </body>
 </html>
