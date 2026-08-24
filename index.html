@@ -1,516 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Wedding Invitation | F. Mohammed Izhan & S. Bazila Saba</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    :root {
-      --page-bg: #d896a7;
-      --card-bg: #fcf4f5;
-      --deep-rose: #b85b71;
-      --text-muted: #777777;
-      --text-dark: #2a2a2a;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+<title>Mohammed Izhan &amp; Bazila Saba | Wedding Invitation</title>
 
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: var(--page-bg);
-      color: var(--text-dark);
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+<meta name="description"
+content="Wedding Invitation of Mohammed Izhan & Bazila Saba">
 
-    .container {
-      width: 100%;
-      max-width: 420px;
-      min-height: 100vh;
-      background-color: var(--page-bg);
-      position: relative;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    .hidden {
-      display: none !important;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    /* ---------------- ENVELOPE SCREEN ---------------- */
-    #envelope-screen {
-      position: fixed;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100%;
-      max-width: 420px;
-      height: 100vh;
-      background-color: var(--page-bg);
-      z-index: 1000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+<link rel="stylesheet" href="css/styles.css">
 
-    .envelope-box {
-      width: 86%;
-      height: 540px;
-      background-color: #ce8194;
-      border-radius: 16px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      padding-bottom: 40px;
-    }
+<link rel="icon"
+href="assets/favicon/favicon.png">
 
-    .envelope-flap {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 180px solid transparent;
-      border-right: 180px solid transparent;
-      border-top: 230px solid #d98ca0;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-      z-index: 2;
-    }
-
-    .gold-seal {
-      position: absolute;
-      top: 185px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 90px;
-      height: 90px;
-      background: radial-gradient(circle at 35% 35%, #fceabb, #d4af37, #8a6d14);
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.35), inset 0 2px 4px rgba(255,255,255,0.7);
-      border: 2px dashed #fff3a8;
-      z-index: 3;
-      transition: transform 0.2s ease;
-    }
-
-    .gold-seal:active {
-      transform: translateX(-50%) scale(0.93);
-    }
-
-    .gold-seal span {
-      font-family: 'Cinzel', serif;
-      font-size: 0.68rem;
-      color: #ffffff;
-      font-weight: 700;
-      text-align: center;
-      line-height: 1.25;
-      letter-spacing: 0.5px;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
-
-    .envelope-title {
-      font-family: 'Cinzel', serif;
-      letter-spacing: 3px;
-      color: #ffffff;
-      font-size: 0.85rem;
-      font-weight: 600;
-      z-index: 1;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-
-    /* ---------------- MAIN CONTENT ---------------- */
-    .main-wrapper {
-      padding: 20px 16px 40px 16px;
-    }
-
-    /* Dark Hero Card */
-    .hero-card {
-      background: linear-gradient(180deg, #121c2b 0%, #1e2d40 100%);
-      border-radius: 180px 180px 20px 20px;
-      padding: 55px 20px 35px 20px;
-      text-align: center;
-      color: #ffffff;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      margin-bottom: 25px;
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      position: relative;
-    }
-
-    .intro-text {
-      font-size: 0.75rem;
-      color: #d1d5db;
-      margin-bottom: 22px;
-      line-height: 1.4;
-    }
-
-    .groom-name, .bride-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.45rem;
-      color: #ffffff;
-      letter-spacing: 1.5px;
-      font-weight: 600;
-    }
-
-    .ampersand {
-      font-family: 'Alex Brush', cursive;
-      font-size: 3rem;
-      color: #d4af37;
-      display: block;
-      margin: 4px 0;
-    }
-
-    .section-heading {
-      font-family: 'Alex Brush', cursive;
-      font-size: 2.8rem;
-      color: #ffffff;
-      text-align: center;
-      margin: 25px 0 15px 0;
-    }
-
-    /* Canvas Scratch Card Section */
-    .scratch-card-box {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 25px 20px;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .scratch-container {
-      position: relative;
-      width: 220px;
-      height: 130px;
-      margin: 15px auto;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    }
-
-    .scratch-underlayer {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #ffffff;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid #f2d4dc;
-      border-radius: 12px;
-    }
-
-    .scratch-underlayer p.forever-msg {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-    }
-
-    .scratch-underlayer p.date-msg {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--deep-rose);
-      margin: 4px 0;
-    }
-
-    .scratch-underlayer p.day-msg {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    canvas#scratch-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      cursor: pointer;
-      touch-action: none;
-    }
-
-    /* Countdown Section */
-    .timer-grid {
-      display: flex;
-      justify-content: space-around;
-      background: var(--card-bg);
-      padding: 20px 10px;
-      border-radius: 16px;
-      margin-bottom: 25px;
-    }
-
-    .circle-unit {
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 2px solid var(--deep-rose);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .circle-unit span {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--deep-rose);
-      line-height: 1;
-    }
-
-    .circle-unit p {
-      font-size: 0.55rem;
-      color: var(--text-muted);
-      margin-top: 3px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    /* Program Timeline */
-    .timeline-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 15px;
-      text-align: left;
-    }
-
-    .event-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: var(--deep-rose);
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .event-time {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 4px;
-    }
-
-    .venue-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-dark);
-    }
-
-    .venue-location {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
-
-    .btn-map {
-      display: inline-block;
-      padding: 8px 16px;
-      background: var(--deep-rose);
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    /* Calendar Button */
-    .calendar-wrapper {
-      text-align: center;
-      margin-top: 25px;
-    }
-
-    .btn-calendar {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: #1e2d40;
-      color: #ffffff;
-      text-decoration: none;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
-  </style>
 </head>
+
 <body>
 
-  <div class="container">
-    
-    <!-- ENVELOPE OVERLAY -->
-    <div id="envelope-screen">
-      <div class="envelope-box">
-        <div class="envelope-flap"></div>
-        <div class="gold-seal" id="seal-btn">
-          <span>TAP TO<br>OPEN</span>
+<!-- ===========================
+OPENING SCREEN
+=========================== -->
+
+<div id="opening-screen">
+
+    <div class="opening-content">
+
+        <div class="opening-bismillah">
+            بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
         </div>
-        <p class="envelope-title">YOU ARE INVITED</p>
-      </div>
+
+        <div class="opening-translation">
+            In the name of Allah,<br>
+            The Most Gracious,<br>
+            The Most Merciful
+        </div>
+
+        <div class="opening-divider"></div>
+
+        <div class="opening-monogram">
+            I <span>❦</span> S
+        </div>
+
+        <div class="opening-names">
+
+            <div class="opening-title">
+                Mohammed Izhan
+            </div>
+
+            <div class="opening-ampersand">
+                &
+            </div>
+
+            <div class="opening-title">
+                Bazila Saba
+            </div>
+
+        </div>
+
+        <!-- CINEMATIC INVITATION CARD -->
+
+<button id="enterBtn" class="envelope" type="button" aria-label="Open wedding invitation">
+
+    <svg class="envelope-svg" viewBox="0 0 680 360" aria-hidden="true">
+        <defs>
+            <linearGradient id="envBody" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#fffdf7"/>
+                <stop offset="52%" stop-color="#f8edcf"/>
+                <stop offset="100%" stop-color="#e7c77f"/>
+            </linearGradient>
+            <linearGradient id="envFlap" x1="0" y1="0" x2=".9" y2="1">
+                <stop offset="0%" stop-color="#fffdf8"/>
+                <stop offset="100%" stop-color="#f1dcae"/>
+            </linearGradient>
+            <linearGradient id="sealGold" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#f5d77c"/>
+                <stop offset="48%" stop-color="#c8942e"/>
+                <stop offset="100%" stop-color="#9b6510"/>
+            </linearGradient>
+            <filter id="envShadow" x="-20%" y="-20%" width="140%" height="160%">
+                <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="#80601f" flood-opacity=".20"/>
+            </filter>
+        </defs>
+
+        <g class="envelope-art" filter="url(#envShadow)">
+            <rect x="18" y="18" width="644" height="324" rx="10"
+                  fill="url(#envBody)" stroke="#cba65a" stroke-width="1.4"/>
+
+            <path d="M20 22L340 180L20 338Z"
+                  fill="#fffaf0" fill-opacity=".68"
+                  stroke="#d9bd7b" stroke-width="1"/>
+            <path d="M660 22L340 180L660 338Z"
+                  fill="#f4dfae" fill-opacity=".72"
+                  stroke="#d4b56d" stroke-width="1"/>
+            <path d="M20 338L340 180L660 338Z"
+                  fill="#f6dfad" fill-opacity=".84"
+                  stroke="#d7b66d" stroke-width="1"/>
+
+            <!-- Only one flap -->
+            <g class="envelope-flap">
+                <path d="M20 22Q20 18 28 18H652Q660 18 660 22L340 202Z"
+                      fill="url(#envFlap)" stroke="#d5b66e" stroke-width="1.2"/>
+                <path d="M22 23L340 201L658 23"
+                      fill="none" stroke="#e2c88d" stroke-width="1"/>
+            </g>
+        </g>
+    </svg>
+
+    <div class="envelope-paper">
+        <span>MOHAMMED IZHAN</span>
+        <small>&amp;</small>
+        <span>BAZILA SABA</span>
     </div>
 
-    <!-- MAIN INVITATION CONTENT -->
-    <main id="main-content" class="main-wrapper hidden">
-      
-      <!-- Hero Arch Card -->
-      <section class="hero-card">
-        <p class="intro-text">We are honored to welcome you to the Wedding ceremony of</p>
-        <h1 class="groom-name">F. MOHAMMED IZHAN</h1>
-        <span class="ampersand">&</span>
-        <h1 class="bride-name">S. BAZILA SABA</h1>
-      </section>
+    <div class="envelope-front" aria-hidden="true">
+        <div class="envelope-label">WEDDING INVITATION</div>
+        <div class="envelope-monogram">I <span>❦</span> S</div>
+        <div class="envelope-tap">TAP TO OPEN</div>
+    </div>
 
-      <!-- Interactive Canvas Scratch Card -->
-      <section class="scratch-card-box">
-        <h2 class="section-heading" style="color: var(--deep-rose); margin-top:0;">Blessed Occasion</h2>
-        <div class="scratch-container">
-          <div class="scratch-underlayer">
-            <p class="forever-msg">Our forever begins</p>
-            <p class="date-msg">OCTOBER 18, 2026</p>
-            <p class="day-msg">Sunday</p>
-          </div>
-          <canvas id="scratch-canvas" width="220" height="130"></canvas>
+    <!-- One real seal. No pseudo-element seal. -->
+    <div class="envelope-seal" aria-hidden="true">
+        <div class="seal-ring">
+            <span>❦</span>
         </div>
-      </section>
+    </div>
 
-      <!-- Live Countdown -->
-      <section>
-        <h2 class="section-heading">Counting Down to Forever</h2>
-        <div class="timer-grid">
-          <div class="circle-unit"><span id="days">00</span><p>DAYS</p></div>
-          <div class="circle-unit"><span id="hours">00</span><p>HOURS</p></div>
-          <div class="circle-unit"><span id="minutes">00</span><p>MINUTES</p></div>
-          <div class="circle-unit"><span id="seconds">00</span><p>SECONDS</p></div>
+</button>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+MAIN WEBSITE
+=========================== -->
+
+<div id="website">
+
+<!-- HERO -->
+
+<header class="hero">
+
+<div class="hero-overlay"></div>
+
+<div class="hero-content reveal">
+
+<p class="hero-top">
+
+Together with our beloved families
+
+</p>
+
+<h1 class="couple-name">
+
+Mohammed Izhan
+
+</h1>
+
+<div class="ampersand">
+
+&
+
+</div>
+
+<h1 class="couple-name">
+
+Bazila Saba
+
+</h1>
+
+<p class="date">
+
+Sunday • 18 October 2026
+
+</p>
+
+<!-- COUNTDOWN -->
+
+<div class="countdown">
+
+<div class="count-item">
+
+<span id="days">000</span>
+
+<small>DAYS</small>
+
+</div>
+
+<div class="count-item">
+
+<span id="hours">00</span>
+
+<small>HOURS</small>
+
+</div>
+
+<div class="count-item">
+
+<span id="minutes">00</span>
+
+<small>MINUTES</small>
+
+</div>
+
+<div class="count-item">
+
+<span id="seconds">00</span>
+
+<small>SECONDS</small>
+
+</div>
+
+</div>
+
+<div id="countdown-message">
+
+</div>
+
+</div>
+
+</header>
+
+<!-- INVITATION -->
+
+<section class="invitation reveal">
+
+<div class="container">
+
+<p class="greeting">
+
+Assalamu Alaikum
+
+</p>
+
+<h2>
+
+You're Invited
+
+</h2>
+
+<p>
+
+With gratitude to Allah (SWT),
+
+together with the blessings of our parents,
+
+we joyfully invite you to grace our Nikah
+
+and Valima with your presence,
+
+love and duas.
+
+</p>
+
+</div>
+
+</section>
+<!-- ===========================
+EVENTS
+=========================== -->
+
+<section class="events reveal">
+
+    <div class="container">
+
+        <h2 class="section-title">
+            Wedding Events
+        </h2>
+
+        <!-- Nikah -->
+
+        <div class="event-card">
+
+            <h3>Nikah</h3>
+
+            <p class="event-date">
+                Sunday • 18 October 2026
+            </p>
+
+            <p class="event-time">
+                12:15 PM
+            </p>
+
+            <p class="venue">
+                Masjid-e-Mitpala
+            </p>
+
+            <a
+                class="map-btn"
+                href=https://maps.app.goo.gl/tH7WtC68wuNwDcLm6
+                target="_blank"
+                rel="noopener">
+
+                View Location
+
+            </a>
+
         </div>
-      </section>
 
-      <!-- Program Timeline -->
-      <section>
-        <h2 class="section-heading">Program Timeline</h2>
-        
-        <div class="timeline-card">
-          <h3 class="event-name">NIKAH</h3>
-          <p class="event-time">October 18, 2026 at 12:15 PM</p>
-          <p class="venue-title">Masjid-e-Mitpala</p>
-          <p class="venue-location">Jaffarabad, Vaniyambadi</p>
-          <a href="https://maps.app.goo.gl/s5nFdaEY8dw2s4Cw9" target="_blank" class="btn-map">View on Google Maps</a>
+        <!-- Valima -->
+
+        <div class="event-card">
+
+            <h3>Valima</h3>
+
+            <p class="event-date">
+                Sunday • 18 October 2026
+            </p>
+
+            <p class="event-time">
+                2:00 PM
+            </p>
+
+            <p class="venue">
+                VK Mahal, Vaniyambadi
+            </p>
+
+            <a
+                class="map-btn"
+                href=https://maps.app.goo.gl/3rG1X55F6ND94DCo6
+                target="_blank"
+                rel="noopener">
+
+                View Location
+
+            </a>
+
         </div>
 
-        <div class="timeline-card">
-          <h3 class="event-name">VALIMA</h3>
-          <p class="event-time">October 18, 2026 at 2:00 PM</p>
-          <p class="venue-title">VK Mahal</p>
-          <p class="venue-location">Mettupalayam, Vaniyambadi</p>
-          <a href="https://maps.app.goo.gl/MPZLQX6ZtGPg5Riq7" target="_blank" class="btn-map">View on Google Maps</a>
+        <!-- Add to Calendar -->
+
+        <div class="calendar-wrapper">
+
+            <button id="calendarBtn">
+
+                Add to Calendar
+
+            </button>
+
         </div>
-      </section>
 
-      <!-- Calendar Button -->
-      <div class="calendar-wrapper">
-        <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Wedding:+F.+Mohammed+Izhan+%26+S.+Bazila+Saba&dates=20261018T064500Z/20261018T123000Z&details=Nikah+at+12:15+PM+(Masjid-e-Mitpala)+and+Valima+at+2:00+PM+(VK+Mahal).&location=Vaniyambadi&sf=true&output=xml" target="_blank" class="btn-calendar">
-          📅 Add to Google Calendar
-        </a>
-      </div>
+    </div>
 
-    </main>
-  </div>
+</section>
 
-  <script>
-    // Envelope Open Handler
-    document.getElementById('seal-btn').addEventListener('click', function() {
-      const envelope = document.getElementById('envelope-screen');
-      const mainContent = document.getElementById('main-content');
-      
-      envelope.style.opacity = '0';
-      envelope.style.transform = 'translate(-50%, -100%)';
-      
-      setTimeout(() => {
-        envelope.classList.add('hidden');
-        mainContent.classList.remove('hidden');
-        initScratchCard();
-      }, 500);
-    });
+<!-- ===========================
+PARENTS
+=========================== -->
 
-    // Canvas Scratch Off Implementation
-    function initScratchCard() {
-      const canvas = document.getElementById('scratch-canvas');
-      const ctx = canvas.getContext('2d');
-      let isDrawing = false;
+<section class="parents reveal">
 
-      // Fill canvas with Rose Pink Cover
-      ctx.fillStyle = '#b85b71';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    <div class="container">
 
-      // Add text label on top of cover canvas
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '500 13px Montserrat';
-      ctx.textAlign = 'center';
-      ctx.fillText('Tap / Scratch to Reveal', canvas.width / 2, canvas.height / 2 + 4);
+        <h2>
 
-      function scratch(e) {
-        if (!isDrawing) return;
-        const rect = canvas.getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
+            With the Blessings of
 
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.beginPath();
-        ctx.arc(x, y, 18, 0, Math.PI * 2);
-        ctx.fill();
-      }
+        </h2>
 
-      canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
-      canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); });
-      window.addEventListener('mouseup', () => isDrawing = false);
-      window.addEventListener('touchend', () => isDrawing = false);
-      canvas.addEventListener('mousemove', scratch);
-      canvas.addEventListener('touchmove', scratch);
-    }
+        <div class="parents-grid">
 
-    // Live Countdown Timer logic to Oct 18, 2026
-    const weddingDate = new Date('October 18, 2026 12:15:00').getTime();
+            <div class="parent-card">
 
-    function updateTimer() {
-      const now = new Date().getTime();
-      const diff = weddingDate - now;
+                <h3>Groom's Parents</h3>
 
-      if (diff > 0) {
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
+                <p>Mohammed Fazal</p>
 
-        document.getElementById('days').innerText = d < 10 ? '0' + d : d;
-        document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-        document.getElementById('minutes').innerText = m < 10 ? '0' + m : m;
-        document.getElementById('seconds').innerText = s < 10 ? '0' + s : s;
-      }
-    }
+                <p>Farhana Tabassum</p>
 
-    setInterval(updateTimer, 1000);
-    updateTimer();
-  </script>
+            </div>
+
+            <div class="parent-card">
+
+                <h3>Bride's Parents</h3>
+
+                <p>Syed Basha</p>
+
+                <p>Tasneem Ara</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+QURAN VERSE
+=========================== -->
+
+<section class="verse reveal">
+
+    <div class="container">
+
+        <p class="arabic-verse">
+
+            وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+
+        </p>
+
+        <p class="translation">
+
+            "And among His signs is that He created for you spouses from among yourselves so that you may find tranquility in them, and He placed between you affection and mercy."
+
+        </p>
+
+        <p class="reference">
+
+            — Surah Ar-Rum (30:21)
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+FOOTER
+=========================== -->
+
+<footer>
+
+    <p>
+
+        Designed with love for our family and friends.
+
+    </p>
+
+</footer>
+
+</div>
+
+<script src="js/main.js"></script>
+
 </body>
 </html>
