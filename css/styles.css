@@ -2970,3 +2970,42 @@ body {
         letter-spacing: .17em !important;
     }
 }
+
+
+/* ==========================================================
+   VISIBILITY FIX — required because the old envelope CSS
+   kept opacity:0 for a delayed reveal animation.
+   ========================================================== */
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    animation: envelopeSoftFloat 5.5s ease-in-out infinite !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening {
+    opacity: 1 !important;
+    animation: envV2ExitSoft .9s cubic-bezier(.22,.72,.2,1) 1.05s forwards !important;
+}
+
+/* Keep enough room below the names so the envelope cannot collapse out of view. */
+#opening-screen .opening-content {
+    min-height: 0 !important;
+}
+
+@media (max-width: 650px) {
+    #opening-screen #enterBtn.envelope-reference-v2 {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: min(92vw, 520px) !important;
+        margin-top: 24px !important;
+    }
+}
