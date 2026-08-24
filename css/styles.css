@@ -1857,3 +1857,202 @@ body::after {
         font-size: .76rem;
     }
 }
+
+
+/* =========================================================
+   FINAL FIXES
+   ========================================================= */
+
+/* Reliable animated cinematic background */
+html {
+    background: #f6f2e9;
+}
+
+body {
+    background: transparent !important;
+    position: relative;
+    isolation: isolate;
+    overflow-x: hidden;
+}
+
+.cinematic-bg {
+    position: fixed;
+    inset: -18%;
+    z-index: -10;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+        linear-gradient(115deg, #f8f5ee 0%, #f1ece3 48%, #f8f2e8 100%);
+    transform: translateZ(0);
+}
+
+.bg-orb {
+    position: absolute;
+    display: block;
+    border-radius: 50%;
+    filter: blur(72px);
+    opacity: .7;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+.bg-orb-1 {
+    width: 52vw;
+    height: 52vw;
+    min-width: 420px;
+    min-height: 420px;
+    left: -12%;
+    top: 8%;
+    background: radial-gradient(circle, rgba(255,255,255,.98) 0%, rgba(255,248,223,.56) 42%, rgba(255,255,255,0) 72%);
+    animation: bgFloatOne 18s ease-in-out infinite alternate;
+}
+
+.bg-orb-2 {
+    width: 58vw;
+    height: 58vw;
+    min-width: 460px;
+    min-height: 460px;
+    right: -18%;
+    top: 12%;
+    background: radial-gradient(circle, rgba(233,194,103,.42) 0%, rgba(245,217,151,.26) 42%, rgba(255,255,255,0) 74%);
+    animation: bgFloatTwo 22s ease-in-out infinite alternate;
+}
+
+.bg-orb-3 {
+    width: 46vw;
+    height: 46vw;
+    min-width: 360px;
+    min-height: 360px;
+    left: 18%;
+    bottom: -12%;
+    background: radial-gradient(circle, rgba(255,255,255,.78) 0%, rgba(231,211,177,.26) 48%, rgba(255,255,255,0) 75%);
+    animation: bgFloatThree 20s ease-in-out infinite alternate;
+}
+
+.bg-orb-4 {
+    width: 34vw;
+    height: 70vh;
+    min-width: 250px;
+    right: 16%;
+    bottom: 4%;
+    border-radius: 46%;
+    background: radial-gradient(ellipse, rgba(220,176,82,.18) 0%, rgba(241,214,158,.12) 46%, rgba(255,255,255,0) 78%);
+    animation: bgFloatFour 16s ease-in-out infinite alternate;
+}
+
+@keyframes bgFloatOne {
+    0%   { transform: translate3d(-6%, -5%, 0) scale(1); }
+    50%  { transform: translate3d(10%, 7%, 0) scale(1.13); }
+    100% { transform: translate3d(2%, 16%, 0) scale(1.05); }
+}
+
+@keyframes bgFloatTwo {
+    0%   { transform: translate3d(8%, -8%, 0) scale(1.02); }
+    50%  { transform: translate3d(-12%, 10%, 0) scale(1.16); }
+    100% { transform: translate3d(-2%, 20%, 0) scale(1.06); }
+}
+
+@keyframes bgFloatThree {
+    0%   { transform: translate3d(-8%, 10%, 0) scale(.96); }
+    50%  { transform: translate3d(14%, -8%, 0) scale(1.14); }
+    100% { transform: translate3d(6%, -18%, 0) scale(1.03); }
+}
+
+@keyframes bgFloatFour {
+    0%   { transform: translate3d(8%, 8%, 0) scale(1); }
+    50%  { transform: translate3d(-18%, -8%, 0) scale(1.2); }
+    100% { transform: translate3d(-4%, -18%, 0) scale(1.08); }
+}
+
+/* Keep all invitation content above the animated background */
+#opening-screen,
+#website {
+    position: relative;
+    z-index: 1;
+    background: transparent !important;
+}
+
+/* Closed envelope: clean monogram + visible seal + tap text */
+.envelope-front {
+    z-index: 8 !important;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+}
+
+.envelope-label {
+    display: none !important;
+}
+
+.envelope-monogram {
+    position: relative;
+    z-index: 9;
+    margin-bottom: 10px;
+}
+
+.envelope-tap {
+    position: relative;
+    z-index: 9;
+}
+
+.envelope-seal {
+    z-index: 20 !important;
+    top: 50% !important;
+    width: 34px !important;
+    height: 34px !important;
+    transform: translate(-50%, -50%) !important;
+}
+
+.seal-ring {
+    border-width: 2px;
+    box-shadow:
+        0 4px 10px rgba(60,38,5,.30),
+        inset 0 1px 3px rgba(255,255,255,.72),
+        inset 0 -2px 4px rgba(0,0,0,.28);
+}
+
+.seal-ring span {
+    font-size: 14px;
+    color: #fff6d7;
+    text-shadow: 0 1px 2px rgba(84,49,4,.35);
+}
+
+@media (max-width: 650px) {
+    .envelope-seal {
+        width: 30px !important;
+        height: 30px !important;
+        top: 50% !important;
+    }
+    .seal-ring span {
+        font-size: 12px;
+    }
+}
+
+/* Scratch coating must fully hide the date before scratching */
+#scratchCanvas {
+    background: #c99532 !important;
+    z-index: 5 !important;
+}
+
+.scratch-hint {
+    z-index: 6 !important;
+}
+
+.scratch-card {
+    isolation: isolate;
+}
+
+.scratch-reveal-content {
+    z-index: 1;
+}
+
+/* Remove any accidental pre-reveal visibility through the hint */
+.scratch-hint {
+    background: rgba(255, 253, 246, .94);
+}
+
+/* Preserve reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .bg-orb {
+        animation: none !important;
+    }
+}
