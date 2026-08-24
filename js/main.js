@@ -66,33 +66,38 @@ document.addEventListener("DOMContentLoaded", () => {
         let resizeObserver;
 
         function paintScratchCoating() {
-            const rect = scratchCanvas.getBoundingClientRect();
+            const rect = scratchCard.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
 
             const dpr = Math.max(1, window.devicePixelRatio || 1);
             scratchCanvas.width = Math.round(rect.width * dpr);
             scratchCanvas.height = Math.round(rect.height * dpr);
+            scratchCanvas.style.width = rect.width + "px";
+            scratchCanvas.style.height = rect.height + "px";
+
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
             ctx.globalCompositeOperation = "source-over";
             ctx.clearRect(0, 0, rect.width, rect.height);
 
-            const foil = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-            foil.addColorStop(0, "#9a5c0d");
-            foil.addColorStop(.22, "#efc96b");
-            foil.addColorStop(.48, "#b97914");
-            foil.addColorStop(.72, "#ffe09a");
-            foil.addColorStop(1, "#8b5208");
-            ctx.fillStyle = foil;
+            /* Fully opaque antique-gold foil */
+            const base = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+            base.addColorStop(0, "#b97c1c");
+            base.addColorStop(.24, "#d9a94b");
+            base.addColorStop(.5, "#b67918");
+            base.addColorStop(.76, "#e4bc62");
+            base.addColorStop(1, "#9b6214");
+            ctx.fillStyle = base;
             ctx.fillRect(0, 0, rect.width, rect.height);
 
-            const shine = ctx.createRadialGradient(
-                rect.width * .35, rect.height * .2, 4,
-                rect.width * .5, rect.height * .5, rect.width
+            /* Opaque center glow, still covering the reveal text */
+            const glow = ctx.createRadialGradient(
+                rect.width * .52, rect.height * .42, 4,
+                rect.width * .52, rect.height * .42, Math.max(rect.width, rect.height) * .72
             );
-            shine.addColorStop(0, "rgba(255,255,255,.68)");
-            shine.addColorStop(.3, "rgba(255,240,181,.25)");
-            shine.addColorStop(1, "rgba(121,68,7,.10)");
-            ctx.fillStyle = shine;
+            glow.addColorStop(0, "rgba(255,241,190,.52)");
+            glow.addColorStop(.38, "rgba(239,191,91,.20)");
+            glow.addColorStop(1, "rgba(145,89,13,.08)");
+            ctx.fillStyle = glow;
             ctx.fillRect(0, 0, rect.width, rect.height);
 
             lastPoint = null;
@@ -152,12 +157,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 scratchCanvas.style.opacity = "0";
                 scratchCanvas.style.pointerEvents = "none";
                 if (scratchHint) scratchHint.style.display = "none";
-                scratchCard.classList.add("is-revealed");
-                launchWeddingCelebration();
 
                 // Cinematic celebration immediately after the wedding date is revealed.
                 if (typeof window.launchWeddingCelebration === "function") {
-                    launchWeddingCelebration();
+                    window.launchWeddingCelebration();
                 }
             }
         }
@@ -400,54 +403,3 @@ document.querySelectorAll("button, .map-btn").forEach(button => {
 console.log("Mohammed Izhan & Bazila Saba Wedding Website");
 console.log("Version 3.0");
 console.log("© 2026");
-
-
-/* ======================================================
-   CINEMATIC CELEBRATION — HEARTS + GOLD SPARKLES
-====================================================== */
-function launchWeddingCelebration() {
-    const layer = document.getElementById("celebrationLayer");
-    if (!layer || layer.dataset.played === "true") return;
-    layer.dataset.played = "true";
-
-    const colors = ["#c04d63", "#e97d90", "#f6b0bb", "#c7902d", "#f0c86b", "#ffffff"];
-    const total = window.innerWidth < 650 ? 58 : 88;
-
-    for (let i = 0; i < total; i++) {
-        const el = document.createElement("span");
-        const heart = Math.random() < .62;
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 120 + Math.random() * (window.innerWidth < 650 ? 280 : 520);
-        const x = Math.cos(angle) * distance;
-        const y = Math.sin(angle) * distance + 80 + Math.random() * 240;
-
-        el.className = "celebration-particle" + (heart ? " heart" : "");
-        if (heart) el.textContent = Math.random() < .8 ? "♥" : "✦";
-
-        el.style.setProperty("--x", x + "px");
-        el.style.setProperty("--y", y + "px");
-        el.style.setProperty("--size", (heart ? 14 + Math.random() * 20 : 5 + Math.random() * 9) + "px");
-        el.style.setProperty("--rotate", (Math.random() * 720 - 360) + "deg");
-        el.style.setProperty("--duration", (1.7 + Math.random() * 1.5) + "s");
-        el.style.setProperty("--particle-color", colors[Math.floor(Math.random() * colors.length)]);
-        el.style.animationDelay = (Math.random() * .18) + "s";
-        layer.appendChild(el);
-        setTimeout(() => el.remove(), 3800);
-    }
-
-    setTimeout(() => {
-        for (let i = 0; i < 22; i++) {
-            const el = document.createElement("span");
-            el.className = "celebration-particle heart";
-            el.textContent = Math.random() < .65 ? "♥" : "✦";
-            el.style.setProperty("--x", ((Math.random() - .5) * window.innerWidth * .9) + "px");
-            el.style.setProperty("--y", (120 + Math.random() * window.innerHeight * .7) + "px");
-            el.style.setProperty("--size", (10 + Math.random() * 18) + "px");
-            el.style.setProperty("--rotate", (Math.random() * 540 - 270) + "deg");
-            el.style.setProperty("--duration", (1.8 + Math.random() * 1.2) + "s");
-            el.style.setProperty("--particle-color", colors[Math.floor(Math.random() * colors.length)]);
-            layer.appendChild(el);
-            setTimeout(() => el.remove(), 3500);
-        }
-    }, 260);
-}
