@@ -1598,3 +1598,99 @@ body::after {
         radial-gradient(ellipse at center, transparent 48%, rgba(65,50,35,.06) 100%);
     mix-blend-mode: multiply;
 }
+
+
+/* =========================================================
+   CINEMATIC AMBIENT BACKGROUND ANIMATION
+   Subtle drifting light and warm colour movement.
+   Independent from the envelope and intro animations.
+   ========================================================= */
+
+@keyframes cinematicBackgroundDrift {
+    0% {
+        background-position:
+            50% 16%,
+            84% 34%,
+            8% 72%,
+            58% 92%,
+            0% 0%;
+    }
+
+    50% {
+        background-position:
+            46% 22%,
+            76% 42%,
+            17% 63%,
+            49% 84%,
+            100% 100%;
+    }
+
+    100% {
+        background-position:
+            50% 16%,
+            84% 34%,
+            8% 72%,
+            58% 92%,
+            0% 0%;
+    }
+}
+
+@keyframes cinematicGlowDrift {
+    0% {
+        transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+    }
+
+    33% {
+        transform: translate3d(2%, 1.5%, 0) scale(1.06);
+    }
+
+    66% {
+        transform: translate3d(-1%, 2.5%, 0) scale(1.03);
+    }
+
+    100% {
+        transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+    }
+}
+
+@keyframes cinematicVignetteShift {
+    0%, 100% {
+        opacity: .55;
+    }
+
+    50% {
+        opacity: .82;
+    }
+}
+
+html,
+body {
+    background-size:
+        135% 135%,
+        150% 150%,
+        150% 150%,
+        150% 150%,
+        120% 120%;
+    animation: cinematicBackgroundDrift 22s ease-in-out infinite;
+    will-change: background-position;
+}
+
+body::before {
+    animation: cinematicGlowDrift 26s ease-in-out infinite;
+    will-change: transform;
+}
+
+body::after {
+    animation: cinematicVignetteShift 18s ease-in-out infinite;
+    will-change: opacity;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    html,
+    body,
+    body::before,
+    body::after {
+        animation: none !important;
+    }
+}
