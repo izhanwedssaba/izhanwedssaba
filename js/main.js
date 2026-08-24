@@ -14,38 +14,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const website = document.getElementById("website");
     const enterBtn = document.getElementById("enterBtn");
 
-    website.style.display = "none";
+    if (website) website.style.display = "none";
 
-    // Keep the envelope hidden until the monogram and both names finish revealing.
-    setTimeout(() => {
+    // The envelope is interactive immediately after it is visible.
+    if (enterBtn) {
         enterBtn.classList.add("envelope-ready");
-    }, 3300);
+        let invitationOpening = false;
 
-    enterBtn.addEventListener("click", () => {
+        const openInvitation = () => {
+            if (invitationOpening) return;
+            invitationOpening = true;
 
-        if (enterBtn.classList.contains("opening")) return;
+            enterBtn.classList.add("opening");
 
-        // 1. Flap opens immediately; the paper rises with the CSS delay.
-        enterBtn.classList.add("opening");
+            // Bring in the main invitation while the envelope completes its opening motion.
+            window.setTimeout(() => {
+                if (website) {
+                    website.style.display = "block";
+                    requestAnimationFrame(() => website.classList.add("website-visible"));
+                }
+                window.scrollTo({ top: 0, behavior: "auto" });
+            }, 1550);
 
-        // 2. Bring in the real invitation while the envelope is floating away.
-        setTimeout(() => {
-            website.style.display = "block";
-            website.classList.add("website-visible");
-            window.scrollTo({ top: 0, behavior: "instant" });
-        }, 1850);
+            window.setTimeout(() => {
+                if (opening) opening.classList.add("closing");
+            }, 1850);
 
-        // 3. Fade the opening scene only after the main invitation has started floating in.
-        setTimeout(() => {
-            opening.classList.add("closing");
-        }, 2050);
+            window.setTimeout(() => {
+                if (opening) opening.style.display = "none";
+            }, 2850);
+        };
 
-        // 4. Remove the opening layer after all motion is complete.
-        setTimeout(() => {
-            opening.style.display = "none";
-        }, 2850);
-
-    });
+        enterBtn.addEventListener("click", openInvitation);
+        enterBtn.addEventListener("touchend", (event) => {
+            event.preventDefault();
+            openInvitation();
+        }, { passive: false });
+    }
 
 
     /* ======================================================
