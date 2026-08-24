@@ -27,22 +27,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             enterBtn.classList.add("opening");
 
-            // Bring in the main invitation while the envelope completes its opening motion.
+            // Let the user clearly see the flap open first.
             window.setTimeout(() => {
                 if (website) {
                     website.style.display = "block";
                     requestAnimationFrame(() => website.classList.add("website-visible"));
                 }
-                window.scrollTo({ top: 0, behavior: "auto" });
-            }, 1550);
-
-            window.setTimeout(() => {
                 if (opening) opening.classList.add("closing");
-            }, 1850);
+                window.scrollTo({ top: 0, behavior: "auto" });
+            }, 1050);
 
             window.setTimeout(() => {
                 if (opening) opening.style.display = "none";
-            }, 2850);
+            }, 1900);
         };
 
         enterBtn.addEventListener("click", openInvitation);
