@@ -1600,92 +1600,104 @@ body::after {
 }
 
 
+
+
 /* =========================================================
-   CINEMATIC AMBIENT BACKGROUND ANIMATION
-   Subtle drifting light and warm colour movement.
-   Independent from the envelope and intro animations.
+   ENHANCED CINEMATIC AMBIENT BACKGROUND
+   More visible movement while remaining elegant and slow.
    ========================================================= */
 
 @keyframes cinematicBackgroundDrift {
     0% {
         background-position:
-            50% 16%,
-            84% 34%,
-            8% 72%,
-            58% 92%,
+            46% 12%,
+            96% 24%,
+            0% 82%,
+            72% 100%,
             0% 0%;
     }
-
+    25% {
+        background-position:
+            58% 22%,
+            76% 46%,
+            14% 66%,
+            54% 86%,
+            25% 20%;
+    }
     50% {
         background-position:
-            46% 22%,
-            76% 42%,
-            17% 63%,
-            49% 84%,
-            100% 100%;
+            42% 30%,
+            58% 34%,
+            28% 58%,
+            38% 72%,
+            50% 50%;
     }
-
+    75% {
+        background-position:
+            52% 18%,
+            84% 58%,
+            10% 74%,
+            62% 92%,
+            75% 80%;
+    }
     100% {
         background-position:
-            50% 16%,
-            84% 34%,
-            8% 72%,
-            58% 92%,
+            46% 12%,
+            96% 24%,
+            0% 82%,
+            72% 100%,
             0% 0%;
     }
 }
 
 @keyframes cinematicGlowDrift {
     0% {
-        transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+        transform: translate3d(-5%, -4%, 0) scale(1.08) rotate(-1deg);
     }
-
     33% {
-        transform: translate3d(2%, 1.5%, 0) scale(1.06);
+        transform: translate3d(6%, 3%, 0) scale(1.15) rotate(1deg);
     }
-
     66% {
-        transform: translate3d(-1%, 2.5%, 0) scale(1.03);
+        transform: translate3d(-2%, 7%, 0) scale(1.10) rotate(-.5deg);
     }
-
     100% {
-        transform: translate3d(-1.5%, -1%, 0) scale(1.02);
+        transform: translate3d(-5%, -4%, 0) scale(1.08) rotate(-1deg);
     }
 }
 
 @keyframes cinematicVignetteShift {
     0%, 100% {
-        opacity: .55;
+        opacity: .48;
+        transform: scale(1);
     }
-
     50% {
-        opacity: .82;
+        opacity: .88;
+        transform: scale(1.035);
     }
 }
 
 html,
 body {
     background-size:
-        135% 135%,
-        150% 150%,
-        150% 150%,
-        150% 150%,
-        120% 120%;
-    animation: cinematicBackgroundDrift 22s ease-in-out infinite;
+        170% 170%,
+        190% 190%,
+        190% 190%,
+        180% 180%,
+        150% 150%;
+    animation: cinematicBackgroundDrift 16s ease-in-out infinite;
     will-change: background-position;
 }
 
 body::before {
-    animation: cinematicGlowDrift 26s ease-in-out infinite;
+    animation: cinematicGlowDrift 19s ease-in-out infinite;
     will-change: transform;
 }
 
 body::after {
-    animation: cinematicVignetteShift 18s ease-in-out infinite;
-    will-change: opacity;
+    animation: cinematicVignetteShift 12s ease-in-out infinite;
+    will-change: opacity, transform;
 }
 
-/* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
     html,
     body,
