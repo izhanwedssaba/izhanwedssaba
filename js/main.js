@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* ======================================================
        SCRATCH TO REVEAL — WEDDING DATE
+       Opaque coating: date cannot be seen before scratching.
     ====================================================== */
 
     const scratchCard = document.getElementById("scratchCard");
@@ -62,40 +63,46 @@ document.addEventListener("DOMContentLoaded", () => {
         let lastPoint = null;
         let hintHidden = false;
         let revealed = false;
+        let resizeObserver;
 
-        function resizeScratchCanvas() {
+        function paintScratchCoating() {
             const rect = scratchCard.getBoundingClientRect();
-            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            if (!rect.width || !rect.height) return;
 
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
             scratchCanvas.width = Math.round(rect.width * dpr);
             scratchCanvas.height = Math.round(rect.height * dpr);
             scratchCanvas.style.width = rect.width + "px";
             scratchCanvas.style.height = rect.height + "px";
 
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-            // Premium antique-gold foil effect.
-            const gradient = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-            gradient.addColorStop(0, "#b67d21");
-            gradient.addColorStop(.22, "#e5bd67");
-            gradient.addColorStop(.5, "#b77b20");
-            gradient.addColorStop(.78, "#e8c66f");
-            gradient.addColorStop(1, "#9d6517");
-
             ctx.globalCompositeOperation = "source-over";
-            ctx.fillStyle = gradient;
+            ctx.clearRect(0, 0, rect.width, rect.height);
+
+            /* Fully opaque antique-gold foil */
+            const base = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+            base.addColorStop(0, "#b97c1c");
+            base.addColorStop(.24, "#d9a94b");
+            base.addColorStop(.5, "#b67918");
+            base.addColorStop(.76, "#e4bc62");
+            base.addColorStop(1, "#9b6214");
+            ctx.fillStyle = base;
             ctx.fillRect(0, 0, rect.width, rect.height);
 
-            // Soft foil highlights.
-            const shine = ctx.createLinearGradient(0, 0, rect.width, 0);
-            shine.addColorStop(0, "rgba(255,255,255,0)");
-            shine.addColorStop(.45, "rgba(255,255,255,.28)");
-            shine.addColorStop(.62, "rgba(255,255,255,.08)");
-            shine.addColorStop(1, "rgba(255,255,255,0)");
-            ctx.fillStyle = shine;
+            /* Opaque center glow, still covering the reveal text */
+            const glow = ctx.createRadialGradient(
+                rect.width * .52, rect.height * .42, 4,
+                rect.width * .52, rect.height * .42, Math.max(rect.width, rect.height) * .72
+            );
+            glow.addColorStop(0, "rgba(255,241,190,.52)");
+            glow.addColorStop(.38, "rgba(239,191,91,.20)");
+            glow.addColorStop(1, "rgba(145,89,13,.08)");
+            ctx.fillStyle = glow;
             ctx.fillRect(0, 0, rect.width, rect.height);
 
             lastPoint = null;
+            scratchCanvas.style.opacity = "1";
+            scratchCanvas.style.pointerEvents = "auto";
         }
 
         function getPoint(event) {
@@ -107,8 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function erase(point, fromPoint) {
-            const radius = Math.max(24, Math.min(scratchCard.clientWidth * .065, 46));
-
+            const radius = Math.max(24, Math.min(scratchCard.clientWidth * .07, 48));
             ctx.save();
             ctx.globalCompositeOperation = "destination-out";
             ctx.lineCap = "round";
@@ -138,14 +144,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const image = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
             let transparent = 0;
-            const sampleStep = 64;
+            let samples = 0;
 
-            for (let i = 3; i < image.length; i += sampleStep) {
-                if (image[i] < 40) transparent++;
+            for (let i = 3; i < image.length; i += 128) {
+                samples++;
+                if (image[i] < 35) transparent++;
             }
 
-            const sampled = Math.ceil(image.length / sampleStep);
-            if (transparent / sampled > .46) {
+            if (samples && transparent / samples > .42) {
                 revealed = true;
                 scratchCanvas.style.transition = "opacity .65s ease";
                 scratchCanvas.style.opacity = "0";
@@ -179,15 +185,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         scratchCanvas.addEventListener("pointerup", stopDrawing);
         scratchCanvas.addEventListener("pointercancel", stopDrawing);
-        scratchCanvas.addEventListener("pointerleave", () => {
-            if (drawing) stopDrawing();
+
+        requestAnimationFrame(() => {
+            requestAnimationFrame(paintScratchCoating);
         });
 
-        resizeScratchCanvas();
-
-        window.addEventListener("resize", () => {
-            if (!revealed) resizeScratchCanvas();
-        });
+        if ("ResizeObserver" in window) {
+            resizeObserver = new ResizeObserver(() => {
+                if (!revealed) paintScratchCoating();
+            });
+            resizeObserver.observe(scratchCard);
+        } else {
+            window.addEventListener("resize", () => {
+                if (!revealed) paintScratchCoating();
+            });
+        }
     }
 
     /* ======================================================
@@ -316,51 +328,18 @@ document.addEventListener("DOMContentLoaded", () => {
 const calendarBtn = document.getElementById("calendarBtn");
 
 if (calendarBtn) {
-
     calendarBtn.addEventListener("click", () => {
-
-        const start = new Date("2026-10-18T12:15:00");
-        const end = new Date("2026-10-18T15:30:00");
-
-        function formatDate(date) {
-            return date
-                .toISOString()
-                .replace(/[-:]/g, "")
-                .split(".")[0] + "Z";
-        }
-
-        const ics = `BEGIN:VCALENDAR
-VERSION:2.0
-BEGIN:VEVENT
-SUMMARY:Mohammed Izhan & Bazila Saba Wedding
-DTSTART:${formatDate(start)}
-DTEND:${formatDate(end)}
-LOCATION:Masjid-e-Mitpala & VK Mahal, Vaniyambadi
-DESCRIPTION:With the blessings of our parents, we warmly invite you to our Nikah and Valima. Your presence and duas will mean a lot to us.
-END:VEVENT
-END:VCALENDAR`;
-
-        const blob = new Blob([ics], {
-            type: "text/calendar;charset=utf-8"
+        const params = new URLSearchParams({
+            action: "TEMPLATE",
+            text: "Mohammed Izhan & Bazila Saba Wedding",
+            dates: "20261018T064500Z/20261018T100000Z",
+            ctz: "Asia/Kolkata",
+            details: "Nikah at 12:15 PM followed by Valima at 2:00 PM. We warmly invite you to celebrate our special day with us.",
+            location: "Masjid-e-Mitpala & VK Mahal, Vaniyambadi"
         });
 
-        const url = URL.createObjectURL(blob);
-
-        const link = document.createElement("a");
-
-        link.href = url;
-        link.download = "Mohammed_Izhan_Bazila_Saba_Wedding.ics";
-
-        document.body.appendChild(link);
-
-        link.click();
-
-        document.body.removeChild(link);
-
-        URL.revokeObjectURL(url);
-
+        window.location.href = "https://calendar.google.com/calendar/render?" + params.toString();
     });
-
 }
 
 /* ======================================================
