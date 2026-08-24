@@ -1,311 +1,453 @@
-/* =========================
-   OPEN ENVELOPE
-========================= */
-const openButton = document.getElementById("openInvitation");
-const openingScreen = document.getElementById("openingScreen");
-const website = document.getElementById("website");
+/* ==========================================================
+   Mohammed Izhan & Bazila Saba
+   Wedding Invitation
+   Version 3.0
+========================================================== */
 
-let openingStarted = false;
+document.addEventListener("DOMContentLoaded", () => {
 
-openButton.addEventListener("click", () => {
-  if (openingStarted) return;
-  openingStarted = true;
+    /* ======================================================
+       OPEN INVITATION
+    ====================================================== */
 
-  openButton.classList.add("is-open");
+    const opening = document.getElementById("opening-screen");
+    const website = document.getElementById("website");
+    const enterBtn = document.getElementById("enterBtn");
 
-  setTimeout(() => {
-    openingScreen.classList.add("is-leaving");
-    website.setAttribute("aria-hidden", "false");
-    website.classList.add("is-visible");
+    website.style.display = "none";
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
+    // Keep the envelope hidden until the monogram and both names finish revealing.
+    setTimeout(() => {
+        enterBtn.classList.add("envelope-ready");
+    }, 3300);
+
+    enterBtn.addEventListener("click", () => {
+
+        if (enterBtn.classList.contains("opening")) return;
+
+        // 1. Flap opens immediately; the paper rises with the CSS delay.
+        enterBtn.classList.add("opening");
+
+        // 2. Bring in the real invitation while the envelope is floating away.
+        setTimeout(() => {
+            website.style.display = "block";
+            website.classList.add("website-visible");
+            window.scrollTo({ top: 0, behavior: "instant" });
+        }, 1850);
+
+        // 3. Fade the opening scene only after the main invitation has started floating in.
+        setTimeout(() => {
+            opening.classList.add("closing");
+        }, 2050);
+
+        // 4. Remove the opening layer after all motion is complete.
+        setTimeout(() => {
+            opening.style.display = "none";
+        }, 2850);
+
     });
-  }, 1250);
-});
 
 
-/* =========================
-   HEART SCRATCH TO REVEAL
-========================= */
-const canvas = document.getElementById("scratchCanvas");
-const context = canvas.getContext("2d", { willReadFrequently: true });
-const scratchHint = document.getElementById("scratchHint");
+    /* ======================================================
+       SCRATCH TO REVEAL — WEDDING DATE
+       Opaque coating: date cannot be seen before scratching.
+    ====================================================== */
 
-let isDrawing = false;
-let hasRevealed = false;
-let lastPoint = null;
+    const scratchCard = document.getElementById("scratchCard");
+    const scratchCanvas = document.getElementById("scratchCanvas");
+    const scratchHint = document.getElementById("scratchHint");
 
-function setupScratchCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    if (scratchCard && scratchCanvas) {
+        const ctx = scratchCanvas.getContext("2d", { willReadFrequently: true });
+        let drawing = false;
+        let lastPoint = null;
+        let hintHidden = false;
+        let revealed = false;
+        let resizeObserver;
 
-  canvas.width = Math.round(rect.width * ratio);
-  canvas.height = Math.round(rect.height * ratio);
+        function paintScratchCoating() {
+            const rect = scratchCanvas.getBoundingClientRect();
+            if (!rect.width || !rect.height) return;
 
-  context.setTransform(ratio, 0, 0, ratio, 0, 0);
+            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            scratchCanvas.width = Math.round(rect.width * dpr);
+            scratchCanvas.height = Math.round(rect.height * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.globalCompositeOperation = "source-over";
+            ctx.clearRect(0, 0, rect.width, rect.height);
 
-  const gradient = context.createLinearGradient(0, 0, rect.width, rect.height);
-  gradient.addColorStop(0, "#7c4b0b");
-  gradient.addColorStop(0.20, "#f0cf78");
-  gradient.addColorStop(0.48, "#b87818");
-  gradient.addColorStop(0.76, "#ffe3a0");
-  gradient.addColorStop(1, "#87500b");
+            const foil = ctx.createLinearGradient(0, 0, rect.width, rect.height);
+            foil.addColorStop(0, "#9a5c0d");
+            foil.addColorStop(.22, "#efc96b");
+            foil.addColorStop(.48, "#b97914");
+            foil.addColorStop(.72, "#ffe09a");
+            foil.addColorStop(1, "#8b5208");
+            ctx.fillStyle = foil;
+            ctx.fillRect(0, 0, rect.width, rect.height);
 
-  context.globalCompositeOperation = "source-over";
-  context.fillStyle = gradient;
-  context.fillRect(0, 0, rect.width, rect.height);
+            const shine = ctx.createRadialGradient(
+                rect.width * .35, rect.height * .2, 4,
+                rect.width * .5, rect.height * .5, rect.width
+            );
+            shine.addColorStop(0, "rgba(255,255,255,.68)");
+            shine.addColorStop(.3, "rgba(255,240,181,.25)");
+            shine.addColorStop(1, "rgba(121,68,7,.10)");
+            ctx.fillStyle = shine;
+            ctx.fillRect(0, 0, rect.width, rect.height);
 
-  // subtle foil texture
-  for (let i = 0; i < 900; i++) {
-    context.fillStyle = `rgba(255,255,255,${Math.random() * 0.09})`;
-    context.fillRect(
-      Math.random() * rect.width,
-      Math.random() * rect.height,
-      1,
-      1
-    );
-  }
+            lastPoint = null;
+            scratchCanvas.style.opacity = "1";
+            scratchCanvas.style.pointerEvents = "auto";
+        }
 
-  context.globalCompositeOperation = "destination-out";
-}
+        function getPoint(event) {
+            const rect = scratchCanvas.getBoundingClientRect();
+            return {
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            };
+        }
 
-function getPoint(event) {
-  const rect = canvas.getBoundingClientRect();
-  return {
-    x: event.clientX - rect.left,
-    y: event.clientY - rect.top
-  };
-}
+        function erase(point, fromPoint) {
+            const radius = Math.max(24, Math.min(scratchCard.clientWidth * .07, 48));
+            ctx.save();
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.lineWidth = radius * 2;
 
-function eraseAt(event) {
-  if (!isDrawing || hasRevealed) return;
+            ctx.beginPath();
+            if (fromPoint) {
+                ctx.moveTo(fromPoint.x, fromPoint.y);
+                ctx.lineTo(point.x, point.y);
+            } else {
+                ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+            }
+            ctx.stroke();
+            ctx.restore();
+        }
 
-  event.preventDefault();
+        function hideHint() {
+            if (!hintHidden && scratchHint) {
+                hintHidden = true;
+                scratchHint.classList.add("is-hidden");
+            }
+        }
 
-  const point = getPoint(event);
+        function revealIfNeeded() {
+            if (revealed) return;
 
-  context.lineWidth = 36;
-  context.lineCap = "round";
-  context.lineJoin = "round";
+            const image = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
+            let transparent = 0;
+            let samples = 0;
 
-  context.beginPath();
+            for (let i = 3; i < image.length; i += 128) {
+                samples++;
+                if (image[i] < 35) transparent++;
+            }
 
-  if (lastPoint) {
-    context.moveTo(lastPoint.x, lastPoint.y);
-    context.lineTo(point.x, point.y);
-  } else {
-    context.arc(point.x, point.y, 18, 0, Math.PI * 2);
-  }
+            if (samples && transparent / samples > .42) {
+                revealed = true;
+                scratchCanvas.style.transition = "opacity .65s ease";
+                scratchCanvas.style.opacity = "0";
+                scratchCanvas.style.pointerEvents = "none";
+                if (scratchHint) scratchHint.style.display = "none";
+                scratchCard.classList.add("is-revealed");
+                launchWeddingCelebration();
 
-  context.stroke();
+                // Cinematic celebration immediately after the wedding date is revealed.
+                if (typeof window.launchWeddingCelebration === "function") {
+                    launchWeddingCelebration();
+                }
+            }
+        }
 
-  lastPoint = point;
+        scratchCanvas.addEventListener("pointerdown", (event) => {
+            if (revealed) return;
+            drawing = true;
+            scratchCanvas.setPointerCapture(event.pointerId);
+            lastPoint = getPoint(event);
+            hideHint();
+            erase(lastPoint);
+        });
 
-  scratchHint.style.opacity = "0";
+        scratchCanvas.addEventListener("pointermove", (event) => {
+            if (!drawing || revealed) return;
+            const point = getPoint(event);
+            erase(point, lastPoint);
+            lastPoint = point;
+        });
 
-  checkScratchProgress();
-}
+        function stopDrawing() {
+            if (!drawing) return;
+            drawing = false;
+            lastPoint = null;
+            revealIfNeeded();
+        }
 
-function checkScratchProgress() {
-  const imageData = context.getImageData(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  ).data;
+        scratchCanvas.addEventListener("pointerup", stopDrawing);
+        scratchCanvas.addEventListener("pointercancel", stopDrawing);
 
-  let transparentPixels = 0;
-  let sampledPixels = 0;
+        requestAnimationFrame(() => {
+            requestAnimationFrame(paintScratchCoating);
+        });
 
-  // Sample instead of checking every pixel for better mobile performance.
-  for (let i = 3; i < imageData.length; i += 64) {
-    sampledPixels++;
-
-    if (imageData[i] < 20) {
-      transparentPixels++;
+        if ("ResizeObserver" in window) {
+            resizeObserver = new ResizeObserver(() => {
+                if (!revealed) paintScratchCoating();
+            });
+            resizeObserver.observe(scratchCard);
+        } else {
+            window.addEventListener("resize", () => {
+                if (!revealed) paintScratchCoating();
+            });
+        }
     }
-  }
 
-  const clearedPercentage = transparentPixels / sampledPixels;
+    /* ======================================================
+       COUNTDOWN
+    ====================================================== */
 
-  if (clearedPercentage > 0.30) {
-    revealDate();
-  }
+    const targetDate = new Date("October 18, 2026 12:15:00").getTime();
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    const message = document.getElementById("countdown-message");
+
+    function updateCountdown() {
+
+        const now = new Date().getTime();
+
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+
+            document.querySelector(".countdown").style.display = "none";
+
+            message.innerHTML = `
+
+            <h2 style="color:#0F5132;margin-top:25px;">
+            ✨ Alhamdulillah!
+            </h2>
+
+            <p style="margin-top:15px;font-size:18px;line-height:1.8;">
+            Today marks the beginning of our beautiful journey together.<br>
+            Please keep us in your duas. 🤍
+            </p>
+
+            `;
+
+            return;
+
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+        const hours = Math.floor(
+
+            (distance % (1000 * 60 * 60 * 24))
+
+            / (1000 * 60 * 60)
+
+        );
+
+        const minutes = Math.floor(
+
+            (distance % (1000 * 60 * 60))
+
+            / (1000 * 60)
+
+        );
+
+        const seconds = Math.floor(
+
+            (distance % (1000 * 60))
+
+            / 1000
+
+        );
+
+        daysEl.textContent = days;
+
+        hoursEl.textContent = String(hours).padStart(2, "0");
+
+        minutesEl.textContent = String(minutes).padStart(2, "0");
+
+        secondsEl.textContent = String(seconds).padStart(2, "0");
+
+    }
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+
+    /* ======================================================
+       SCROLL REVEAL
+    ====================================================== */
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("active");
+
+                }
+
+            });
+
+        },
+
+        {
+
+            threshold: 0.15
+
+        }
+
+    );
+
+    reveals.forEach(section => observer.observe(section));
+
+});
+
+/* ==========================================================
+   PART 3B
+   Add to Calendar + Final Enhancements
+========================================================== */
+
+/* ======================================================
+   ADD TO CALENDAR
+====================================================== */
+
+const calendarBtn = document.getElementById("calendarBtn");
+
+if (calendarBtn) {
+    calendarBtn.addEventListener("click", () => {
+        const params = new URLSearchParams({
+            action: "TEMPLATE",
+            text: "Mohammed Izhan & Bazila Saba Wedding",
+            dates: "20261018T064500Z/20261018T100000Z",
+            ctz: "Asia/Kolkata",
+            details: "Nikah at 12:15 PM followed by Valima at 2:00 PM. We warmly invite you to celebrate our special day with us.",
+            location: "Masjid-e-Mitpala & VK Mahal, Vaniyambadi"
+        });
+
+        window.location.href = "https://calendar.google.com/calendar/render?" + params.toString();
+    });
 }
 
-function revealDate() {
-  if (hasRevealed) return;
+/* ======================================================
+   HERO STAGGER ANIMATION
+====================================================== */
 
-  hasRevealed = true;
+window.addEventListener("load", () => {
 
-  scratchHint.style.display = "none";
+    const heroItems=document.querySelectorAll(
+".hero-top,.couple-name,.ampersand,.date,.countdown"
+);
 
-  canvas.style.transition = "opacity .65s ease";
-  canvas.style.opacity = "0";
+heroItems.forEach((item,index)=>{
 
-  triggerCelebration();
+    item.style.opacity="0";
+    item.style.transform="translateY(25px)";
 
-  setTimeout(() => {
-    canvas.style.pointerEvents = "none";
-  }, 700);
-}
+    setTimeout(()=>{
 
-canvas.addEventListener("pointerdown", (event) => {
-  isDrawing = true;
-  lastPoint = getPoint(event);
-  canvas.setPointerCapture(event.pointerId);
-  eraseAt(event);
+        item.style.transition="all .9s ease";
+
+        item.style.opacity="1";
+
+        item.style.transform="translateY(0)";
+
+    },400+(index*220));
+
 });
 
-canvas.addEventListener("pointermove", eraseAt);
-
-canvas.addEventListener("pointerup", () => {
-  isDrawing = false;
-  lastPoint = null;
 });
 
-canvas.addEventListener("pointercancel", () => {
-  isDrawing = false;
-  lastPoint = null;
+/* ======================================================
+   SMOOTH BUTTON HOVER
+====================================================== */
+
+document.querySelectorAll("button, .map-btn").forEach(button => {
+
+    button.addEventListener("mouseenter", () => {
+
+        button.style.transform = "translateY(-3px)";
+
+    });
+
+    button.addEventListener("mouseleave", () => {
+
+        button.style.transform = "translateY(0)";
+
+    });
+
 });
 
-canvas.addEventListener("pointerleave", () => {
-  if (isDrawing) {
-    isDrawing = false;
-    lastPoint = null;
-  }
-});
+/* ======================================================
+   YEAR
+====================================================== */
 
-setupScratchCanvas();
-
-window.addEventListener("resize", () => {
-  if (!hasRevealed) {
-    setupScratchCanvas();
-  }
-});
+console.log("Mohammed Izhan & Bazila Saba Wedding Website");
+console.log("Version 3.0");
+console.log("© 2026");
 
 
-/* =========================
-   CINEMATIC CELEBRATION
-========================= */
-function triggerCelebration() {
-  const layer = document.getElementById("celebrationLayer");
+/* ======================================================
+   CINEMATIC CELEBRATION — HEARTS + GOLD SPARKLES
+====================================================== */
+function launchWeddingCelebration() {
+    const layer = document.getElementById("celebrationLayer");
+    if (!layer || layer.dataset.played === "true") return;
+    layer.dataset.played = "true";
 
-  const icons = ["♥", "♥", "✦", "✧", "❦", "•"];
-  const colors = [
-    "#c95f70",
-    "#e98e9b",
-    "#bf8b31",
-    "#f3cf72",
-    "#fff7e7"
-  ];
+    const colors = ["#c04d63", "#e97d90", "#f6b0bb", "#c7902d", "#f0c86b", "#ffffff"];
+    const total = window.innerWidth < 650 ? 58 : 88;
 
-  const count = 110;
+    for (let i = 0; i < total; i++) {
+        const el = document.createElement("span");
+        const heart = Math.random() < .62;
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 120 + Math.random() * (window.innerWidth < 650 ? 280 : 520);
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance + 80 + Math.random() * 240;
 
-  for (let index = 0; index < count; index++) {
-    const particle = document.createElement("span");
+        el.className = "celebration-particle" + (heart ? " heart" : "");
+        if (heart) el.textContent = Math.random() < .8 ? "♥" : "✦";
 
-    particle.className = "particle";
-    particle.textContent =
-      icons[Math.floor(Math.random() * icons.length)];
-
-    const xDistance =
-      (Math.random() - 0.5) * Math.min(window.innerWidth, 1000);
-
-    const yDistance =
-      (Math.random() * window.innerHeight * 0.78) - 120;
-
-    particle.style.setProperty(
-      "--particle-color",
-      colors[Math.floor(Math.random() * colors.length)]
-    );
-
-    particle.style.setProperty(
-      "--particle-size",
-      `${8 + Math.random() * 22}px`
-    );
-
-    particle.style.setProperty(
-      "--particle-x",
-      `${xDistance}px`
-    );
-
-    particle.style.setProperty(
-      "--particle-y",
-      `${yDistance}px`
-    );
-
-    particle.style.setProperty(
-      "--particle-rotate",
-      `${-360 + Math.random() * 720}deg`
-    );
-
-    particle.style.setProperty(
-      "--particle-duration",
-      `${1.8 + Math.random() * 1.9}s`
-    );
-
-    layer.appendChild(particle);
+        el.style.setProperty("--x", x + "px");
+        el.style.setProperty("--y", y + "px");
+        el.style.setProperty("--size", (heart ? 14 + Math.random() * 20 : 5 + Math.random() * 9) + "px");
+        el.style.setProperty("--rotate", (Math.random() * 720 - 360) + "deg");
+        el.style.setProperty("--duration", (1.7 + Math.random() * 1.5) + "s");
+        el.style.setProperty("--particle-color", colors[Math.floor(Math.random() * colors.length)]);
+        el.style.animationDelay = (Math.random() * .18) + "s";
+        layer.appendChild(el);
+        setTimeout(() => el.remove(), 3800);
+    }
 
     setTimeout(() => {
-      particle.remove();
-    }, 4200);
-  }
+        for (let i = 0; i < 22; i++) {
+            const el = document.createElement("span");
+            el.className = "celebration-particle heart";
+            el.textContent = Math.random() < .65 ? "♥" : "✦";
+            el.style.setProperty("--x", ((Math.random() - .5) * window.innerWidth * .9) + "px");
+            el.style.setProperty("--y", (120 + Math.random() * window.innerHeight * .7) + "px");
+            el.style.setProperty("--size", (10 + Math.random() * 18) + "px");
+            el.style.setProperty("--rotate", (Math.random() * 540 - 270) + "deg");
+            el.style.setProperty("--duration", (1.8 + Math.random() * 1.2) + "s");
+            el.style.setProperty("--particle-color", colors[Math.floor(Math.random() * colors.length)]);
+            layer.appendChild(el);
+            setTimeout(() => el.remove(), 3500);
+        }
+    }, 260);
 }
-
-
-/* =========================
-   COUNTDOWN
-========================= */
-const weddingDate = new Date("2026-10-18T00:00:00+05:30").getTime();
-
-const daysElement = document.getElementById("days");
-const hoursElement = document.getElementById("hours");
-const minutesElement = document.getElementById("minutes");
-const secondsElement = document.getElementById("seconds");
-
-function updateCountdown() {
-  let remainingTime = Math.max(
-    0,
-    weddingDate - Date.now()
-  );
-
-  const days = Math.floor(
-    remainingTime / (1000 * 60 * 60 * 24)
-  );
-
-  remainingTime %= (1000 * 60 * 60 * 24);
-
-  const hours = Math.floor(
-    remainingTime / (1000 * 60 * 60)
-  );
-
-  remainingTime %= (1000 * 60 * 60);
-
-  const minutes = Math.floor(
-    remainingTime / (1000 * 60)
-  );
-
-  remainingTime %= (1000 * 60);
-
-  const seconds = Math.floor(
-    remainingTime / 1000
-  );
-
-  daysElement.textContent =
-    String(days).padStart(2, "0");
-
-  hoursElement.textContent =
-    String(hours).padStart(2, "0");
-
-  minutesElement.textContent =
-    String(minutes).padStart(2, "0");
-
-  secondsElement.textContent =
-    String(seconds).padStart(2, "0");
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
