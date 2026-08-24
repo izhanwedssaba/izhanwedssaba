@@ -157,6 +157,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 scratchCanvas.style.opacity = "0";
                 scratchCanvas.style.pointerEvents = "none";
                 if (scratchHint) scratchHint.style.display = "none";
+
+                // Cinematic celebration immediately after the wedding date is revealed.
+                if (typeof window.launchWeddingCelebration === "function") {
+                    window.launchWeddingCelebration();
+                }
             }
         }
 
