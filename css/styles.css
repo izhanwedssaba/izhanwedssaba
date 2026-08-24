@@ -2056,3 +2056,233 @@ body {
         animation: none !important;
     }
 }
+
+
+/* =========================================================
+   PREMIUM CINEMATIC BACKGROUND + CELEBRATION UPDATE
+   ========================================================= */
+
+.cinematic-bg {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: -10 !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+    background:
+        radial-gradient(circle at 18% 12%, rgba(255,255,255,.95) 0 7%, transparent 24%),
+        radial-gradient(circle at 78% 22%, rgba(234,198,111,.34) 0 5%, transparent 27%),
+        radial-gradient(circle at 48% 76%, rgba(247,224,170,.24) 0 7%, transparent 31%),
+        linear-gradient(135deg, #f7f3ea 0%, #eee8dd 45%, #f7f0e4 100%) !important;
+}
+
+.cinematic-bg::before,
+.cinematic-bg::after {
+    content: "";
+    position: absolute;
+    inset: -25%;
+    pointer-events: none;
+    will-change: transform, opacity;
+}
+
+.cinematic-bg::before {
+    background:
+        radial-gradient(ellipse at 22% 30%, rgba(255,255,255,.90) 0 8%, rgba(255,255,255,.28) 23%, transparent 44%),
+        radial-gradient(ellipse at 74% 18%, rgba(238,193,92,.32) 0 7%, rgba(255,229,170,.15) 28%, transparent 49%),
+        radial-gradient(ellipse at 52% 80%, rgba(255,255,255,.74) 0 10%, transparent 43%);
+    filter: blur(18px);
+    animation: cinematicSweepOne 18s ease-in-out infinite alternate;
+}
+
+.cinematic-bg::after {
+    background:
+        radial-gradient(ellipse at 80% 68%, rgba(225,176,67,.19) 0 6%, transparent 30%),
+        radial-gradient(ellipse at 10% 74%, rgba(255,255,255,.74) 0 8%, transparent 36%),
+        linear-gradient(118deg, transparent 20%, rgba(255,255,255,.20) 42%, transparent 63%);
+    filter: blur(26px);
+    animation: cinematicSweepTwo 24s ease-in-out infinite alternate;
+}
+
+.bg-orb {
+    filter: blur(82px) !important;
+    opacity: .72 !important;
+    mix-blend-mode: screen;
+}
+
+.bg-orb-1 { animation: premiumDriftOne 15s ease-in-out infinite alternate !important; }
+.bg-orb-2 { animation: premiumDriftTwo 19s ease-in-out infinite alternate !important; }
+.bg-orb-3 { animation: premiumDriftThree 17s ease-in-out infinite alternate !important; }
+.bg-orb-4 { animation: premiumDriftFour 21s ease-in-out infinite alternate !important; }
+
+@keyframes cinematicSweepOne {
+    0%   { transform: translate3d(-4%, -2%, 0) rotate(-4deg) scale(1.02); opacity: .72; }
+    50%  { transform: translate3d(8%, 5%, 0) rotate(3deg) scale(1.10); opacity: 1; }
+    100% { transform: translate3d(2%, 12%, 0) rotate(-1deg) scale(1.05); opacity: .80; }
+}
+
+@keyframes cinematicSweepTwo {
+    0%   { transform: translate3d(7%, 4%, 0) rotate(5deg) scale(1.08); opacity: .52; }
+    50%  { transform: translate3d(-8%, -6%, 0) rotate(-3deg) scale(1.16); opacity: .90; }
+    100% { transform: translate3d(-2%, 8%, 0) rotate(2deg) scale(1.06); opacity: .66; }
+}
+
+@keyframes premiumDriftOne {
+    0% { transform: translate3d(-10%, -8%, 0) scale(1); }
+    100% { transform: translate3d(16%, 18%, 0) scale(1.18); }
+}
+@keyframes premiumDriftTwo {
+    0% { transform: translate3d(12%, -10%, 0) scale(1.02); }
+    100% { transform: translate3d(-18%, 20%, 0) scale(1.20); }
+}
+@keyframes premiumDriftThree {
+    0% { transform: translate3d(-12%, 12%, 0) scale(.98); }
+    100% { transform: translate3d(15%, -18%, 0) scale(1.16); }
+}
+@keyframes premiumDriftFour {
+    0% { transform: translate3d(10%, 8%, 0) scale(1); }
+    100% { transform: translate3d(-14%, -16%, 0) scale(1.18); }
+}
+
+/* Make the envelope seal clearly visible but elegant */
+.envelope-seal {
+    width: 40px !important;
+    height: 40px !important;
+    z-index: 50 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    box-shadow:
+        0 0 0 4px rgba(255,244,208,.78),
+        0 10px 24px rgba(105,65,7,.30) !important;
+}
+
+.seal-ring {
+    background:
+        radial-gradient(circle at 32% 26%, #f8d982 0 5%, #d39a2e 23%, #9f6513 68%, #6e4208 100%) !important;
+    border-color: rgba(255,240,190,.94) !important;
+}
+
+.seal-ring span {
+    color: #fff9e9 !important;
+    font-size: 17px !important;
+}
+
+/* Cinematic celebration burst after scratch reveal */
+#celebrationLayer {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.celebration-particle {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    width: var(--size);
+    height: var(--size);
+    background: var(--particle-color);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.4) rotate(0deg);
+    animation: celebrationBurst var(--duration) cubic-bezier(.16,.75,.25,1) forwards;
+}
+
+.celebration-particle.heart {
+    background: transparent;
+    width: auto;
+    height: auto;
+    font-size: var(--size);
+    color: var(--particle-color);
+    line-height: 1;
+    text-shadow: 0 4px 14px rgba(120,50,55,.18);
+}
+
+@keyframes celebrationBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.25) rotate(0deg);
+    }
+    10% {
+        opacity: 1;
+    }
+    72% {
+        opacity: .92;
+    }
+    100% {
+        opacity: 0;
+        transform:
+            translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+            scale(1)
+            rotate(var(--rotate));
+    }
+}
+
+/* Save the Date before Google Calendar */
+.save-the-date {
+    width: min(100%, 430px);
+    margin: 46px auto 22px;
+    padding: 28px 28px 25px;
+    text-align: center;
+    border: 1px solid rgba(188,142,48,.36);
+    border-radius: 26px;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255,248,225,.84), transparent 55%),
+        rgba(255,255,255,.42);
+    box-shadow:
+        0 20px 45px rgba(109,79,30,.10),
+        inset 0 1px 0 rgba(255,255,255,.84);
+    backdrop-filter: blur(12px);
+}
+
+.save-kicker {
+    display: block;
+    font-size: .72rem;
+    letter-spacing: .34em;
+    color: #9a742f;
+    margin-bottom: 8px;
+}
+
+.save-heart {
+    font-size: 2rem;
+    color: #b37a27;
+    line-height: 1;
+    margin: 6px 0 10px;
+}
+
+.save-the-date strong {
+    display: block;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(1.45rem, 4vw, 2rem);
+    font-weight: 500;
+    color: #204f40;
+    letter-spacing: .03em;
+}
+
+.save-note {
+    display: block;
+    margin-top: 10px;
+    color: #6f6a62;
+    font-size: .9rem;
+    line-height: 1.6;
+}
+
+/* Keep Google Calendar CTA clearly separate */
+.calendar-wrapper {
+    margin-top: 18px !important;
+}
+
+@media (max-width: 650px) {
+    .envelope-seal {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .seal-ring span {
+        font-size: 15px !important;
+    }
+
+    .save-the-date {
+        margin-top: 34px;
+        border-radius: 22px;
+        padding: 24px 20px 22px;
+    }
+}
