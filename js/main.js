@@ -1,72 +1,278 @@
-// Function to handle opening the envelope
-function openEnvelope() {
-  const overlay = document.getElementById('envelope-overlay');
-  const mainContent = document.getElementById('main-content');
-  
-  overlay.classList.add('fade-out');
-  
-  setTimeout(() => {
-    overlay.classList.add('hidden');
-    mainContent.classList.remove('hidden');
-  }, 800);
-}
+/* ==========================================================
+   Mohammed Izhan & Bazila Saba
+   Wedding Invitation
+   Version 3.0
+========================================================== */
 
-// Countdown Timer logic
-const weddingDate = new Date('October 18, 2026 12:15:00').getTime();
+document.addEventListener("DOMContentLoaded", () => {
 
-function updateCountdown() {
-  const now = new Date().getTime();
-  const distance = weddingDate - now;
+    /* ======================================================
+       OPEN INVITATION
+    ====================================================== */
 
-  if (distance < 0) {
-    document.querySelector('.countdown-container').innerHTML = "<h3>The Wedding Day is Here!</h3>";
-    return;
-  }
+    const opening = document.getElementById("opening-screen");
+    const website = document.getElementById("website");
+    const enterBtn = document.getElementById("enterBtn");
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000To create and host this website completely free using GitHub Pages, you will create a single-page HTML application with integrated CSS styling and JavaScript functionality. 
+    website.style.display = "none";
 
-      // Open Envelope
-document.getElementById('open-btn').addEventListener('click', function() {
-  const overlay = document.getElementById('envelope-overlay');
-  const mainContent = document.getElementById('main-content');
-  
-  overlay.style.opacity = '0';
-  setTimeout(() => {
-    overlay.style.display = 'none';
-    mainContent.classList.remove('hidden');
-  }, 800);
+    // Keep the envelope hidden until the monogram and both names finish revealing.
+    setTimeout(() => {
+        enterBtn.classList.add("envelope-ready");
+    }, 3300);
+
+    enterBtn.addEventListener("click", () => {
+
+        if (enterBtn.classList.contains("opening")) return;
+
+        // 1. Flap opens immediately; the paper rises with the CSS delay.
+        enterBtn.classList.add("opening");
+
+        // 2. Bring in the real invitation while the envelope is floating away.
+        setTimeout(() => {
+            website.style.display = "block";
+            website.classList.add("website-visible");
+            window.scrollTo({ top: 0, behavior: "instant" });
+        }, 1850);
+
+        // 3. Fade the opening scene only after the main invitation has started floating in.
+        setTimeout(() => {
+            opening.classList.add("closing");
+        }, 2050);
+
+        // 4. Remove the opening layer after all motion is complete.
+        setTimeout(() => {
+            opening.style.display = "none";
+        }, 2850);
+
+    });
+
+    /* ======================================================
+       COUNTDOWN
+    ====================================================== */
+
+    const targetDate = new Date("October 18, 2026 12:15:00").getTime();
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    const message = document.getElementById("countdown-message");
+
+    function updateCountdown() {
+
+        const now = new Date().getTime();
+
+        const distance = targetDate - now;
+
+        if (distance <= 0) {
+
+            document.querySelector(".countdown").style.display = "none";
+
+            message.innerHTML = `
+
+            <h2 style="color:#0F5132;margin-top:25px;">
+            ✨ Alhamdulillah!
+            </h2>
+
+            <p style="margin-top:15px;font-size:18px;line-height:1.8;">
+            Today marks the beginning of our beautiful journey together.<br>
+            Please keep us in your duas. 🤍
+            </p>
+
+            `;
+
+            return;
+
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+        const hours = Math.floor(
+
+            (distance % (1000 * 60 * 60 * 24))
+
+            / (1000 * 60 * 60)
+
+        );
+
+        const minutes = Math.floor(
+
+            (distance % (1000 * 60 * 60))
+
+            / (1000 * 60)
+
+        );
+
+        const seconds = Math.floor(
+
+            (distance % (1000 * 60))
+
+            / 1000
+
+        );
+
+        daysEl.textContent = days;
+
+        hoursEl.textContent = String(hours).padStart(2, "0");
+
+        minutesEl.textContent = String(minutes).padStart(2, "0");
+
+        secondsEl.textContent = String(seconds).padStart(2, "0");
+
+    }
+
+    updateCountdown();
+
+    setInterval(updateCountdown, 1000);
+
+    /* ======================================================
+       SCROLL REVEAL
+    ====================================================== */
+
+    const reveals = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("active");
+
+                }
+
+            });
+
+        },
+
+        {
+
+            threshold: 0.15
+
+        }
+
+    );
+
+    reveals.forEach(section => observer.observe(section));
+
 });
 
-// Scratch to reveal card simple tap interaction
-document.getElementById('scratch-cover').addEventListener('click', function() {
-  this.style.opacity = '0';
-  setTimeout(() => {
-    this.style.display = 'none';
-  }, 500);
-});
+/* ==========================================================
+   PART 3B
+   Add to Calendar + Final Enhancements
+========================================================== */
 
-// Countdown Timer logic target: Oct 18, 2026 12:15:00
-const targetDate = new Date('October 18, 2026 12:15:00').getTime();
+/* ======================================================
+   ADD TO CALENDAR
+====================================================== */
 
-function updateCountdown() {
-  const now = new Date().getTime();
-  const difference = targetDate - now;
+const calendarBtn = document.getElementById("calendarBtn");
 
-  if (difference > 0) {
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+if (calendarBtn) {
 
-    document.getElementById('days').innerText = days < 10 ? '0' + days : days;
-    document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
-    document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
-    document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
-  }
+    calendarBtn.addEventListener("click", () => {
+
+        const start = new Date("2026-10-18T12:15:00");
+        const end = new Date("2026-10-18T15:30:00");
+
+        function formatDate(date) {
+            return date
+                .toISOString()
+                .replace(/[-:]/g, "")
+                .split(".")[0] + "Z";
+        }
+
+        const ics = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:Mohammed Izhan & Bazila Saba Wedding
+DTSTART:${formatDate(start)}
+DTEND:${formatDate(end)}
+LOCATION:Masjid-e-Mitpala & VK Mahal, Vaniyambadi
+DESCRIPTION:With the blessings of our parents, we warmly invite you to our Nikah and Valima. Your presence and duas will mean a lot to us.
+END:VEVENT
+END:VCALENDAR`;
+
+        const blob = new Blob([ics], {
+            type: "text/calendar;charset=utf-8"
+        });
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "Mohammed_Izhan_Bazila_Saba_Wedding.ics";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+    });
+
 }
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
+/* ======================================================
+   HERO STAGGER ANIMATION
+====================================================== */
+
+window.addEventListener("load", () => {
+
+    const heroItems=document.querySelectorAll(
+".hero-top,.couple-name,.ampersand,.date,.countdown"
+);
+
+heroItems.forEach((item,index)=>{
+
+    item.style.opacity="0";
+    item.style.transform="translateY(25px)";
+
+    setTimeout(()=>{
+
+        item.style.transition="all .9s ease";
+
+        item.style.opacity="1";
+
+        item.style.transform="translateY(0)";
+
+    },400+(index*220));
+
+});
+
+});
+
+/* ======================================================
+   SMOOTH BUTTON HOVER
+====================================================== */
+
+document.querySelectorAll("button, .map-btn").forEach(button => {
+
+    button.addEventListener("mouseenter", () => {
+
+        button.style.transform = "translateY(-3px)";
+
+    });
+
+    button.addEventListener("mouseleave", () => {
+
+        button.style.transform = "translateY(0)";
+
+    });
+
+});
+
+/* ======================================================
+   YEAR
+====================================================== */
+
+console.log("Mohammed Izhan & Bazila Saba Wedding Website");
+console.log("Version 3.0");
+console.log("© 2026");
