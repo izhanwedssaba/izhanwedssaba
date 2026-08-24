@@ -2803,3 +2803,249 @@ body {
     .env-v2-seal { width: 54px; height: 54px; top: 62%; }
     .env-v2-tap { bottom: 6%; letter-spacing: .21em; }
 }
+
+
+/* ==========================================================
+   ZAREQIA REFERENCE-INSPIRED ENVELOPE REBUILD
+   Reconstructed from the supplied video: dusty-rose textured
+   paper, embossed flap, small wax seal, clean vertical opening.
+   ========================================================== */
+
+#opening-screen {
+    background:
+      radial-gradient(circle at 50% 42%, rgba(255,255,255,.38), transparent 22%),
+      radial-gradient(circle at 12% 18%, rgba(255,232,220,.34), transparent 28%),
+      radial-gradient(circle at 90% 78%, rgba(124,49,54,.12), transparent 31%),
+      linear-gradient(135deg,#e9b8b4 0%,#d79693 48%,#c47d7d 100%) !important;
+}
+
+#opening-screen::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.18;
+    background-image:
+      repeating-linear-gradient(0deg,rgba(255,255,255,.32) 0 1px,transparent 1px 4px),
+      repeating-linear-gradient(90deg,rgba(88,38,40,.10) 0 1px,transparent 1px 5px);
+    mix-blend-mode:soft-light;
+}
+
+.opening-content { position:relative; z-index:2; }
+
+.zq-envelope {
+    position:relative !important;
+    display:block !important;
+    width:min(84vw,460px) !important;
+    aspect-ratio:.68 !important;
+    height:auto !important;
+    margin:36px auto 0 !important;
+    padding:0 !important;
+    border:0 !important;
+    border-radius:7px !important;
+    overflow:hidden !important;
+    background:linear-gradient(145deg,#e5aaa7,#bd7475) !important;
+    box-shadow:0 26px 55px rgba(81,32,34,.28) !important;
+    isolation:isolate;
+    cursor:pointer;
+    touch-action:manipulation;
+    perspective:1600px;
+    -webkit-tap-highlight-color:transparent;
+}
+
+.zq-envelope *,
+.zq-envelope *::before,
+.zq-envelope *::after { box-sizing:border-box; }
+
+.zq-paper {
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:
+      radial-gradient(circle at 75% 18%,rgba(255,255,255,.22),transparent 22%),
+      linear-gradient(135deg,#e4a9a6,#c37b7c);
+}
+
+.zq-paper::after {
+    content:"";
+    position:absolute; inset:0;
+    opacity:.24;
+    background-image:
+      repeating-linear-gradient(45deg,rgba(255,255,255,.25) 0 1px,transparent 1px 5px);
+    mix-blend-mode:soft-light;
+}
+
+.zq-letter {
+    position:absolute;
+    left:8%; right:8%; top:7%; bottom:8%;
+    z-index:3;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:20px 14px;
+    text-align:center;
+    background:linear-gradient(145deg,#f7ece7,#efd8cf);
+    color:#63383b;
+    border-radius:4px;
+    box-shadow:0 12px 20px rgba(82,37,40,.17);
+    transform:translateY(8%);
+    transition:transform .95s cubic-bezier(.22,.75,.2,1);
+}
+
+.zq-letter-bismillah {
+    font-size:clamp(.85rem,3.3vw,1.35rem);
+    color:#9a5c5b;
+    line-height:1.6;
+}
+
+.zq-letter-copy {
+    font-family:'Poppins',sans-serif;
+    font-size:clamp(.45rem,1.6vw,.7rem);
+    line-height:1.7;
+    color:#806668;
+}
+
+.zq-letter-rule { width:48px; height:1px; background:#bd7c79; margin:4px 0; }
+
+.zq-letter-names {
+    font-family:'Cinzel',serif;
+    font-size:clamp(.58rem,2vw,.9rem);
+    letter-spacing:.08em;
+    color:#6b393b;
+}
+
+.zq-letter-names b { color:#b77975; padding:0 5px; }
+
+.zq-pocket {
+    position:absolute;
+    inset:0;
+    z-index:7;
+    pointer-events:none;
+}
+
+.zq-left {
+    clip-path:polygon(0 0,50% 54%,0 100%);
+    background:linear-gradient(145deg,#cc8888,#a75e61);
+}
+
+.zq-right {
+    clip-path:polygon(100% 0,50% 54%,100% 100%);
+    background:linear-gradient(215deg,#e1a09c,#ad6264);
+}
+
+.zq-bottom {
+    clip-path:polygon(0 100%,50% 54%,100% 100%);
+    background:linear-gradient(145deg,#b66b6c,#e3a39e 48%,#a85d60);
+}
+
+.zq-flap {
+    position:absolute;
+    inset:0;
+    z-index:15;
+    overflow:hidden;
+    clip-path:polygon(0 0,100% 0,50% 62%);
+    transform-origin:50% 0;
+    transform-style:preserve-3d;
+    backface-visibility:hidden;
+    transition:transform 1.05s cubic-bezier(.18,.76,.18,1);
+    background:linear-gradient(145deg,#e9b5b1,#c98282);
+    box-shadow:0 6px 12px rgba(84,35,38,.08);
+}
+
+.zq-flap-pattern {
+    position:absolute;
+    inset:0;
+    opacity:.35;
+    background:
+      radial-gradient(circle at 50% 0,rgba(255,255,255,.55),transparent 40%),
+      repeating-linear-gradient(135deg,rgba(255,255,255,.22) 0 1px,transparent 1px 6px);
+}
+
+.zq-seal {
+    position:absolute;
+    left:50%; top:56%;
+    z-index:30;
+    width:clamp(48px,11vw,66px);
+    height:clamp(48px,11vw,66px);
+    transform:translate(-50%,-50%);
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 30% 24%,#f3d17d 0 7%,#d69d35 25%,#a66a12 64%,#6e4308 100%);
+    border:3px solid #f4d782;
+    box-shadow:
+      0 0 0 4px rgba(106,62,12,.22),
+      0 9px 18px rgba(64,35,7,.32),
+      inset 0 2px 5px rgba(255,255,255,.48);
+    transition:opacity .25s ease,transform .4s ease;
+}
+
+.zq-seal span {
+    width:72%; height:72%;
+    display:grid; place-items:center;
+    border:1px solid rgba(255,238,174,.68);
+    border-radius:50%;
+    color:#fff5d8;
+    font-family:'Cinzel',serif;
+    font-size:1.3rem;
+    text-shadow:0 1px 3px rgba(69,40,3,.5);
+}
+
+.zq-open-copy {
+    position:absolute;
+    left:50%; bottom:8%;
+    z-index:31;
+    transform:translateX(-50%);
+    color:#fff5ef;
+    font-family:'Poppins',sans-serif;
+    font-size:clamp(.48rem,1.6vw,.68rem);
+    font-weight:600;
+    letter-spacing:.28em;
+    white-space:nowrap;
+    text-shadow:0 2px 7px rgba(69,30,32,.34);
+    transition:opacity .2s ease;
+}
+
+.zq-envelope.opening .zq-flap {
+    transform:rotateX(-180deg) !important;
+}
+
+.zq-envelope.opening .zq-seal {
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.7);
+}
+
+.zq-envelope.opening .zq-open-copy { opacity:0; }
+
+.zq-envelope.opening .zq-letter {
+    transform:translateY(-28%) scale(1.01);
+}
+
+.zq-envelope.opening {
+    animation:zqEnvelopeLeave .85s ease 1.08s forwards !important;
+    pointer-events:none;
+}
+
+@keyframes zqEnvelopeLeave {
+    0% { opacity:1; transform:translateY(0) scale(1); }
+    100% { opacity:0; transform:translateY(-36px) scale(.985); }
+}
+
+/* Match the reference's cinematic handoff into the existing website. */
+#website.website-visible {
+    animation:zqSiteIn .9s cubic-bezier(.22,.7,.2,1) both;
+}
+
+@keyframes zqSiteIn {
+    from { opacity:0; transform:translateY(18px); }
+    to { opacity:1; transform:none; }
+}
+
+@media (max-width:650px) {
+    .zq-envelope { width:min(82vw,390px) !important; margin-top:26px !important; }
+    .zq-seal { width:54px; height:54px; }
+    .zq-open-copy { bottom:7%; letter-spacing:.22em; }
+}
