@@ -2571,3 +2571,235 @@ body {
         letter-spacing: .22em;
     }
 }
+
+
+/* ==========================================================
+   ENVELOPE V2 — CLEANER, CLOSER TO THE RECORDED REFERENCE
+   This intentionally replaces the previous envelope layers.
+   ========================================================== */
+
+#enterBtn.envelope-reference-v2 {
+    position: relative !important;
+    display: block !important;
+    width: min(90vw, 620px) !important;
+    height: auto !important;
+    aspect-ratio: 1.72 / 1 !important;
+    margin: 34px auto 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(167,116,26,.45) !important;
+    border-radius: 7px !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    background: #b77c26 !important;
+    box-shadow: 0 26px 60px rgba(70,48,16,.24) !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    perspective: 1800px !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+#enterBtn.envelope-reference-v2 *,
+#enterBtn.envelope-reference-v2 *::before,
+#enterBtn.envelope-reference-v2 *::after {
+    box-sizing: border-box !important;
+}
+
+.env-v2-back {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        radial-gradient(circle at 72% 24%, rgba(255,231,161,.58), transparent 28%),
+        linear-gradient(135deg,#8f5813 0%,#d7a94d 50%,#8d5510 100%);
+}
+
+.env-v2-pocket {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.env-v2-left {
+    clip-path: polygon(0 0, 50% 59%, 0 100%);
+    background: linear-gradient(145deg,#a86617 0%,#d2a047 100%);
+}
+
+.env-v2-right {
+    clip-path: polygon(100% 0, 50% 59%, 100% 100%);
+    background: linear-gradient(215deg,#d8ae5d 0%,#91580e 100%);
+}
+
+.env-v2-bottom {
+    clip-path: polygon(0 100%, 50% 59%, 100% 100%);
+    background:
+        linear-gradient(145deg,rgba(255,230,163,.18),transparent 40%),
+        linear-gradient(145deg,#a46315 0%,#e1ba63 49%,#8d540d 100%);
+}
+
+.env-v2-flap {
+    position: absolute;
+    inset: 0;
+    z-index: 12;
+    display: block;
+    overflow: hidden;
+    transform-origin: 50% 0%;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    clip-path: polygon(0 0,100% 0,50% 72%);
+    background:
+        radial-gradient(circle at 50% 2%,rgba(255,255,255,.9),transparent 48%),
+        linear-gradient(145deg,#fffefa 0%,#f6ead3 68%,#e3c183 100%);
+    transition: transform 1.05s cubic-bezier(.18,.75,.22,1);
+    box-shadow: 0 10px 18px rgba(78,53,14,.10);
+}
+
+.env-v2-flap-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #214d40;
+    transform: translateZ(1px);
+}
+
+.env-v2-kicker {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(.42rem,1.15vw,.63rem);
+    letter-spacing: .20em;
+    color: #746a5c;
+}
+
+.env-v2-monogram {
+    margin: 6px 0 4px;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1rem,2.9vw,1.65rem);
+    letter-spacing: .16em;
+    color: #b4812b;
+}
+
+.env-v2-monogram b {
+    font-size: .75em;
+    font-weight: 400;
+    color: #bd8d38;
+}
+
+.env-v2-names {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(.68rem,2.05vw,1.12rem);
+    line-height: 1.42;
+    letter-spacing: .08em;
+}
+
+.env-v2-names i {
+    color: #b4812b;
+    font-style: normal;
+    font-size: 1.18em;
+}
+
+.env-v2-seal {
+    position: absolute;
+    left: 50%;
+    top: 62%;
+    z-index: 30;
+    width: clamp(58px,9vw,78px);
+    height: clamp(58px,9vw,78px);
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    background:
+        radial-gradient(circle at 30% 23%,#ffeaa4 0 5%,#e2af42 23%,#a36713 61%,#6b4007 100%);
+    border: 3px solid rgba(255,238,179,.95);
+    box-shadow:
+        0 0 0 4px rgba(113,70,9,.22),
+        0 10px 21px rgba(69,41,4,.36),
+        inset 0 2px 5px rgba(255,255,255,.62);
+    transition: opacity .28s ease, transform .45s ease;
+}
+
+.env-v2-seal span {
+    width: 74%;
+    height: 74%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .05em;
+    border: 1px solid rgba(255,240,189,.72);
+    border-radius: 50%;
+    color: #fff9e9;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(.78rem,2.1vw,1.2rem);
+    text-shadow: 0 1px 4px rgba(62,37,4,.5);
+}
+
+.env-v2-seal b {
+    font-size: .75em;
+    font-weight: 400;
+    color: #ffe6a0;
+}
+
+.env-v2-tap {
+    position: absolute;
+    left: 50%;
+    bottom: 7%;
+    z-index: 31;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    white-space: nowrap;
+    color: #fffaf0;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(.52rem,1.3vw,.72rem);
+    font-weight: 600;
+    letter-spacing: .26em;
+    text-shadow: 0 2px 8px rgba(61,39,6,.32);
+    transition: opacity .25s ease;
+}
+
+.env-v2-tap span {
+    width: 17px;
+    height: 1px;
+    background: rgba(255,245,216,.72);
+}
+
+/* The old white invitation card no longer rises over the envelope. */
+#enterBtn.envelope-reference-v2.opening .env-v2-flap {
+    transform: rotateX(-180deg) !important;
+}
+
+#enterBtn.envelope-reference-v2.opening .env-v2-seal {
+    opacity: 0 !important;
+    transform: translate(-50%,-50%) scale(.72) !important;
+}
+
+#enterBtn.envelope-reference-v2.opening .env-v2-tap {
+    opacity: 0 !important;
+}
+
+#enterBtn.envelope-reference-v2.opening {
+    animation: envV2Exit .85s ease 1.05s forwards !important;
+    pointer-events: none !important;
+}
+
+@keyframes envV2Exit {
+    0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    100% { opacity: 0; transform: translateY(-40px) scale(.985); filter: blur(1px); }
+}
+
+@media (max-width:650px) {
+    #enterBtn.envelope-reference-v2 {
+        width: min(92vw,520px) !important;
+        margin-top: 25px !important;
+    }
+    .env-v2-flap-content { top: 8%; }
+    .env-v2-kicker { font-size: .40rem; }
+    .env-v2-seal { width: 54px; height: 54px; top: 62%; }
+    .env-v2-tap { bottom: 6%; letter-spacing: .21em; }
+}
