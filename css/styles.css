@@ -3163,3 +3163,28 @@ html.invitation-open #opening-screen {
         touch-action: pan-y !important;
     }
 }
+
+
+/* ==========================================================
+   ENVELOPE OPENING INTERACTION FIX
+   ========================================================== */
+
+/* During the physical opening animation, prevent duplicate taps only. */
+#opening-screen #enterBtn.envelope-reference-v2.opening {
+    pointer-events: none !important;
+    touch-action: manipulation !important;
+}
+
+/* Keep the opened envelope visible for the full flap animation window. */
+#opening-screen #enterBtn.envelope-reference-v2.opening:not(.envelope-exit) {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Mobile browsers: the envelope itself remains the tap target. */
+@media (max-width: 768px) {
+    #opening-screen #enterBtn.envelope-reference-v2 {
+        touch-action: manipulation !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+}
