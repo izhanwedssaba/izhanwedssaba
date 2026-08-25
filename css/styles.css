@@ -3156,3 +3156,87 @@ body.invitation-reveal {
     overflow-y: auto !important;
     touch-action: auto !important;
 }
+
+
+/* ==========================================================
+   EXACT MOBILE FIX FROM THE LATEST RECORDING
+   ========================================================== */
+
+/* The scrollbar in the recording is from page content behind the opening.
+   While the opening is active, lock the ENTIRE document. */
+html:has(body.opening-sequence),
+html:has(body.opening-sequence) body,
+body.opening-sequence {
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    overscroll-behavior: none !important;
+}
+
+/* Hide the long invitation page completely until the envelope is opened.
+   This removes the source of the first-page scrollbar. */
+body.opening-sequence #website {
+    display: none !important;
+}
+
+/* Keep only the opening scene on screen. */
+body.opening-sequence #opening-screen {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+}
+
+/* IMPORTANT: the previous combined animation had an 11% opacity hold.
+   The recording is only 3.5 seconds long, so the envelope was still hidden.
+   This replacement reveals the envelope immediately at 3.20 seconds. */
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 0 !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+    animation: exactEnvelopeSequence 4.8s ease-in-out 3.20s infinite !important;
+}
+
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
+    pointer-events: auto !important;
+}
+
+@keyframes exactEnvelopeSequence {
+    0% {
+        opacity: 0;
+        transform: translateY(24px) scale(.97);
+    }
+    12% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    55% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.005);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* When the invitation opens, restore normal document layout and scrolling. */
+body.invitation-reveal,
+body.invitation-reveal html {
+    height: auto !important;
+    min-height: 100% !important;
+    max-height: none !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+body.invitation-reveal #website {
+    display: block !important;
+}
