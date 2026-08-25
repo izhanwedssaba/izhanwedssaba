@@ -3210,3 +3210,53 @@ html.invitation-open #opening-screen {
 #opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap {
     pointer-events: none !important;
 }
+
+
+/* ==========================================================
+   SMOOTH ENVELOPE → INVITATION TRANSITION
+   Visual-only polish: keeps existing opening and scrolling behavior.
+   ========================================================== */
+
+/* Prepare page 2 for a gentle cross-fade instead of appearing abruptly. */
+body:not(.invitation-reveal) #website {
+    opacity: 0 !important;
+    transform: translateY(18px) !important;
+    filter: blur(3px) !important;
+    transition:
+        opacity 900ms cubic-bezier(.22,.75,.25,1),
+        transform 900ms cubic-bezier(.22,.75,.25,1),
+        filter 700ms ease !important;
+}
+
+body.invitation-reveal #website {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    filter: blur(0) !important;
+    transition:
+        opacity 900ms cubic-bezier(.22,.75,.25,1),
+        transform 900ms cubic-bezier(.22,.75,.25,1),
+        filter 700ms ease !important;
+}
+
+/* Fade the opening scene instead of cutting directly to page 2. */
+#opening-screen.cinematic-fade {
+    opacity: 0 !important;
+    visibility: visible !important;
+    transition: opacity 850ms cubic-bezier(.4,0,.2,1) !important;
+}
+
+/* A short veil blends the two scenes while the envelope finishes opening. */
+#opening-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: inherit;
+    transition: opacity 650ms ease;
+    z-index: 999;
+}
+
+#opening-screen.transitioning::after {
+    opacity: .82;
+}
