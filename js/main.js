@@ -1,58 +1,15 @@
 
-/* ==========================================================
-   SIMPLE CLEAN OPENING SEQUENCE
-   One class system only. No legacy stage classes are used.
-   ========================================================== */
-function startCleanOpeningSequence() {
-    const root = document.documentElement;
+
+/* Enable envelope interaction after its CSS reveal has completed.
+   Visibility is CSS-only, so failure here cannot produce a blank screen. */
+document.addEventListener("DOMContentLoaded", () => {
     const envelope = document.querySelector("#opening-screen #enterBtn.envelope-reference-v2");
-
-    // Make sure only this sequence controls the opening.
-    [
-        "show-intro",
-        "show-monogram",
-        "show-names",
-        "show-envelope",
-        "float-envelope",
-        "opening-locked",
-        "opening-stage-intro",
-        "opening-stage-monogram",
-        "opening-stage-names",
-        "opening-stage-envelope",
-        "opening-stage-float"
-    ].forEach(cls => root.classList.remove(cls));
-
-    root.classList.add("opening-sequence-active");
-
-    // Bismillah and translation
-    setTimeout(() => root.classList.add("show-intro"), 250);
-
-    // I ♥ S monogram
-    setTimeout(() => root.classList.add("show-monogram"), 1100);
-
-    // Couple names
-    setTimeout(() => root.classList.add("show-names"), 1950);
-
-    // Envelope appears only after the names
-    setTimeout(() => {
-        root.classList.add("show-envelope");
-        document.body.classList.add("opening-envelope-ready");
-    }, 3100);
-
-    // Visible floating begins after envelope reveal
-    setTimeout(() => {
-        root.classList.add("float-envelope");
-        if (envelope) {
-            envelope.style.top = "0px";
-        }
-    }, 3900);
-}
-
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", startCleanOpeningSequence, { once: true });
-} else {
-    startCleanOpeningSequence();
-}
+    if (envelope) {
+        window.setTimeout(() => {
+            envelope.classList.add("envelope-ready");
+        }, 4450);
+    }
+}, { once: true });
 
 /* ==========================================================
    Mohammed Izhan & Bazila Saba
