@@ -1,34 +1,45 @@
 
 /* ==========================================================
-   GUARANTEED OPENING CONTROLLER
-   Intro -> names -> envelope reveal -> floating
+   EVENT-BASED OPENING CONTROLLER
+   Intro -> couple names finish -> envelope reveal -> float
    ========================================================== */
-const startGuaranteedOpeningSequence = () => {
+const startEventBasedOpeningSequence = () => {
     document.body.classList.add("site-ready");
 
-    // Preserve the intro sequence first.
     requestAnimationFrame(() => {
         document.body.classList.add("opening-sequence");
     });
 
-    // Hard reveal: no CSS animation class is relied upon to change visibility.
-    // The envelope is directly switched to its visible state after the names.
-    window.setTimeout(() => {
-        document.body.classList.add("envelope-visible");
-        document.body.classList.add("opening-envelope-ready");
-    }, 2400);
+    const openingNames = document.querySelector("#opening-screen .opening-names");
+    let envelopeStarted = false;
 
-    // Start floating only after the envelope is fully visible.
-    window.setTimeout(() => {
-        document.body.classList.add("envelope-floating");
-    }, 3250);
+    const revealEnvelope = () => {
+        if (envelopeStarted) return;
+        envelopeStarted = true;
+
+        document.body.classList.add("envelope-reveal-now");
+        document.body.classList.add("opening-envelope-ready");
+
+        window.setTimeout(() => {
+            document.body.classList.add("envelope-float-now");
+        }, 700);
+    };
+
+    // Preferred path: reveal immediately after the names animation completes.
+    if (openingNames) {
+        openingNames.addEventListener("animationend", revealEnvelope, { once: true });
+        openingNames.addEventListener("transitionend", revealEnvelope, { once: true });
+    }
+
+    // Safety fallback if a browser suppresses animation events.
+    window.setTimeout(revealEnvelope, 2350);
 };
 
 if (document.readyState === "complete") {
-    requestAnimationFrame(startGuaranteedOpeningSequence);
+    requestAnimationFrame(startEventBasedOpeningSequence);
 } else {
     window.addEventListener("load", () => {
-        requestAnimationFrame(startGuaranteedOpeningSequence);
+        requestAnimationFrame(startEventBasedOpeningSequence);
     }, { once: true });
 }
 
