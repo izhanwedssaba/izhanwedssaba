@@ -1,11 +1,14 @@
 
-/* Enable envelope tap after the CSS reveal has completed. */
+/* Final envelope interaction timer: does not control visibility. */
 document.addEventListener("DOMContentLoaded", () => {
     const envelope = document.getElementById("enterBtn");
     if (envelope) {
-        window.setTimeout(() => envelope.classList.add("envelope-ready"), 4250);
+        window.setTimeout(() => {
+            envelope.classList.add("envelope-ready");
+        }, 5250);
     }
 }, { once: true });
+
 
 
 
