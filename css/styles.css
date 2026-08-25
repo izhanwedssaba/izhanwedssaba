@@ -3508,3 +3508,114 @@ body.envelope-float-now #opening-screen #enterBtn.envelope-reference-v2 {
 body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
     animation-delay: 0s !important;
 }
+
+
+/* ==========================================================
+   STRICT STAGED OPENING — INTRO / MONOGRAM / NAMES / ENVELOPE
+   ========================================================== */
+
+/* Nothing in the opening sequence is allowed to flash in early. */
+#opening-screen .opening-bismillah,
+#opening-screen .opening-translation,
+#opening-screen .opening-divider,
+#opening-screen .opening-monogram,
+#opening-screen .opening-names,
+#opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Stage 1: Bismillah + translation. */
+body.stage-intro #opening-screen .opening-bismillah,
+body.stage-intro #opening-screen .opening-translation,
+body.stage-intro #opening-screen .opening-divider {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    transition: opacity .7s ease, transform .7s ease !important;
+}
+
+/* Stage 2: monogram appears after the intro. */
+body.stage-monogram #opening-screen .opening-monogram {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    transition: opacity .65s ease, transform .65s ease !important;
+}
+
+/* Stage 3: couple names appear. */
+body.stage-names #opening-screen .opening-names {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    transition: opacity .8s ease, transform .8s cubic-bezier(.22,.75,.25,1) !important;
+}
+
+/* Stage 4: envelope appears ONLY after the couple names. */
+body.stage-envelope #opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translate3d(0, 0, 0) scale(1) !important;
+    transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.22,.75,.25,1),
+        visibility 0s !important;
+}
+
+/* Stage 5: gentle floating without using transform, so older transform rules
+   cannot cancel the animation. */
+body.stage-envelope-float #opening-screen #enterBtn.envelope-reference-v2 {
+    position: relative !important;
+    animation: envelopeTopFloat 4.2s ease-in-out infinite !important;
+}
+
+@keyframes envelopeTopFloat {
+    0%, 100% { top: 0; }
+    50% { top: -10px; }
+}
+
+/* Keep the envelope immediately after the names in the vertical flow. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 10 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 11 !important;
+    display: block !important;
+    margin-top: 26px !important;
+    z-index: 60 !important;
+}
+
+/* Start each staged item slightly offset, then stage classes bring it in. */
+#opening-screen .opening-bismillah,
+#opening-screen .opening-translation,
+#opening-screen .opening-divider {
+    transform: translateY(10px) !important;
+}
+
+#opening-screen .opening-monogram {
+    transform: translateY(14px) scale(.96) !important;
+}
+
+#opening-screen .opening-names {
+    transform: translateY(18px) !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    transform: translate3d(0, 28px, 0) scale(.98) !important;
+    pointer-events: none !important;
+}
+
+/* Decorative envelope parts never intercept mobile taps. */
+#opening-screen #enterBtn.envelope-reference-v2 *,
+#opening-screen #enterBtn.envelope-reference-v2 *::before,
+#opening-screen #enterBtn.envelope-reference-v2 *::after {
+    pointer-events: none !important;
+}
