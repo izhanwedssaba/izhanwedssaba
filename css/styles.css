@@ -3021,735 +3021,78 @@ body.invitation-reveal #opening-screen.cinematic-fade {
 
 
 /* ==========================================================
-   FINAL OPENING LAYOUT FIX — NO SCROLL + GUARANTEED ENVELOPE
+   FINAL ENVELOPE + FIRST PAGE SCROLL FIX
    ========================================================== */
 
-/* First page must behave like a single locked viewport, not a scroll page. */
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-}
-
-body.opening-sequence {
-    height: 100svh !important;
-    min-height: 100svh !important;
+/* The first screen must behave like a fixed viewport, not a scrollable page. */
+html:has(body.opening-locked-page),
+body.opening-locked-page {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
     overflow: hidden !important;
     overscroll-behavior: none !important;
-    touch-action: pan-x !important;
 }
 
-/* Override the earlier overflow-y:auto rule that caused first-page scrolling. */
-body.opening-sequence #opening-screen {
+body.opening-locked-page {
     position: fixed !important;
     inset: 0 !important;
-    width: 100% !important;
-    height: 100svh !important;
-    min-height: 100svh !important;
-    max-height: 100svh !important;
-    overflow: hidden !important;
-    overscroll-behavior: none !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 18px 14px !important;
 }
 
-/* Keep the complete sequence inside the viewport. */
-body.opening-sequence #opening-screen .opening-content {
-    width: min(92vw, 440px) !important;
-    max-height: calc(100svh - 36px) !important;
-    overflow: visible !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transform: none !important;
-}
-
-/* Slightly compact mobile spacing so the envelope fits without scrolling. */
-@media (max-width: 650px), (max-height: 760px) {
-    body.opening-sequence #opening-screen .opening-divider {
-        margin: 10px auto !important;
-    }
-
-    body.opening-sequence #opening-screen .opening-monogram {
-        margin: 10px 0 6px !important;
-        font-size: clamp(44px, 13vw, 62px) !important;
-    }
-
-    body.opening-sequence #opening-screen .opening-names {
-        margin-top: 4px !important;
-    }
-
-    body.opening-sequence #opening-screen .opening-title {
-        font-size: clamp(22px, 7vw, 30px) !important;
-        line-height: 1.12 !important;
-    }
-
-    body.opening-sequence #opening-screen .opening-ampersand {
-        margin: 1px 0 !important;
-        font-size: 22px !important;
-    }
-}
-
-/* GUARANTEED envelope visibility:
-   Use ONE animation only. The previous build used two competing animations
-   on the same element, which could leave opacity at 0. */
-body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
-    display: block !important;
-    visibility: visible !important;
-    width: min(88vw, 440px) !important;
-    max-width: 440px !important;
-    margin: 18px auto 0 !important;
-    flex: 0 0 auto !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    z-index: 500 !important;
-    position: relative !important;
-    animation: envelopeRevealAndFloat 8s ease-in-out 3.35s infinite !important;
-}
-
-/* After the reveal point, make the entire envelope tappable. */
-body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
-    pointer-events: auto !important;
-}
-
-@keyframes envelopeRevealAndFloat {
-    0% {
-        opacity: 0;
-        transform: translateY(24px) scale(.97);
-    }
-    11% {
-        opacity: 0;
-        transform: translateY(24px) scale(.97);
-    }
-    22% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    60% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1.005);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Safety fallback: if animation is disabled, the envelope must still appear. */
-@media (prefers-reduced-motion: reduce) {
-    body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
-        animation: none !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: none !important;
-    }
-}
-
-/* Once invitation is opened, restore normal website scrolling. */
-body.invitation-reveal {
-    height: auto !important;
-    min-height: 100% !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    touch-action: auto !important;
-}
-
-
-/* ==========================================================
-   EXACT MOBILE FIX FROM THE LATEST RECORDING
-   ========================================================== */
-
-/* The scrollbar in the recording is from page content behind the opening.
-   While the opening is active, lock the ENTIRE document. */
-html:has(body.opening-sequence),
-html:has(body.opening-sequence) body,
-body.opening-sequence {
-    width: 100% !important;
-    height: 100dvh !important;
-    min-height: 100dvh !important;
-    max-height: 100dvh !important;
-    overflow: hidden !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
-    overscroll-behavior: none !important;
-}
-
-/* Hide the long invitation page completely until the envelope is opened.
-   This removes the source of the first-page scrollbar. */
-body.opening-sequence #website {
-    display: none !important;
-}
-
-/* Keep only the opening scene on screen. */
-body.opening-sequence #opening-screen {
+/* Opening scene fills exactly the mobile viewport. */
+body.opening-locked-page #opening-screen {
     position: fixed !important;
     inset: 0 !important;
     width: 100vw !important;
+    width: 100dvw !important;
+    height: 100vh !important;
     height: 100dvh !important;
-    min-height: 100dvh !important;
-    max-height: 100dvh !important;
-    overflow: hidden !important;
-}
-
-/* IMPORTANT: the previous combined animation had an 11% opacity hold.
-   The recording is only 3.5 seconds long, so the envelope was still hidden.
-   This replacement reveals the envelope immediately at 3.20 seconds. */
-body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 0 !important;
-    visibility: visible !important;
-    pointer-events: none !important;
-    animation: exactEnvelopeSequence 4.8s ease-in-out 3.20s infinite !important;
-}
-
-body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
-    pointer-events: auto !important;
-}
-
-@keyframes exactEnvelopeSequence {
-    0% {
-        opacity: 0;
-        transform: translateY(24px) scale(.97);
-    }
-    12% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-    55% {
-        opacity: 1;
-        transform: translateY(-10px) scale(1.005);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* When the invitation opens, restore normal document layout and scrolling. */
-body.invitation-reveal,
-body.invitation-reveal html {
-    height: auto !important;
-    min-height: 100% !important;
-    max-height: none !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-}
-
-body.invitation-reveal #website {
-    display: block !important;
-}
-
-
-/* ==========================================================
-   CLEAN OPENING REBUILD — ISOLATED FROM ALL LEGACY ENVELOPE CSS
-   ========================================================== */
-
-/* Never scroll on the opening scene */
-html:has(body.opening-sequence),
-body.opening-sequence {
-    height: 100dvh !important;
-    min-height: 100dvh !important;
+    min-height: 0 !important;
     max-height: 100dvh !important;
     overflow: hidden !important;
     overscroll-behavior: none !important;
-}
-
-/* Keep the opening content centred and within one viewport */
-body.opening-sequence #opening-screen .opening-content {
-    width: min(92vw, 460px) !important;
-    height: 100% !important;
-    min-height: 0 !important;
-    margin: 0 auto !important;
-    padding: 18px 0 !important;
-    box-sizing: border-box !important;
-    overflow: visible !important;
     display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
-    gap: 0 !important;
 }
 
-/* Legacy envelope is disabled; clean envelope is the only visible one. */
-body.opening-sequence #enterBtn.envelope-reference-v2 {
-    display: none !important;
+/* Keep the opening content within the viewport. */
+body.opening-locked-page #opening-screen .opening-content {
+    width: 100% !important;
+    max-width: 620px !important;
+    min-height: 100% !important;
+    height: 100% !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    padding: clamp(28px, 6vh, 72px) 20px 20px !important;
+    box-sizing: border-box !important;
 }
 
-.clean-envelope {
-    width: min(88vw, 420px);
-    aspect-ratio: 1.58 / 1;
-    position: relative;
-    display: block;
-    border: 0;
-    padding: 0;
-    margin: 22px auto 0;
-    background: transparent;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translateY(24px) scale(.98);
-    transition: opacity .75s ease, transform .75s cubic-bezier(.22,.75,.25,1);
-    z-index: 10000;
-    animation: cleanEnvelopeFloat 4s ease-in-out 4.2s infinite;
+/* Absolute final authority for the envelope after JS reveals it. */
+body.opening-locked-page #opening-screen #enterBtn.envelope-reference-v2.force-envelope-visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    pointer-events: auto !important;
+    animation: finalReliableEnvelopeFloat 3.8s ease-in-out infinite !important;
+    transform: none !important;
 }
 
-.clean-envelope * {
-    box-sizing: border-box;
-}
-
-.clean-env-back {
-    position: absolute;
-    inset: 0;
-    border-radius: 4px;
-    background: linear-gradient(135deg, #f4ead8, #d9bd7b 48%, #f6eedf);
-    box-shadow: 0 18px 35px rgba(77, 57, 24, .16);
-}
-
-.clean-env-letter {
-    position: absolute;
-    left: 7%;
-    right: 7%;
-    bottom: 7%;
-    height: 77%;
-    border-radius: 3px;
-    background: #f9f5eb;
-    box-shadow: 0 4px 10px rgba(66, 47, 20, .08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #234e40;
-    z-index: 2;
-    padding: 8px;
-}
-
-.clean-env-kicker {
-    font-family: Poppins, sans-serif;
-    font-size: clamp(5px, 1.25vw, 8px);
-    letter-spacing: .18em;
-    color: #8a6b2f;
-    margin-bottom: 5px;
-}
-
-.clean-env-monogram {
-    font-family: Cinzel, serif;
-    font-size: clamp(18px, 6vw, 34px);
-    line-height: 1;
-    color: #214d3e;
-}
-
-.clean-env-monogram b,
-.clean-env-seal span {
-    color: #b89545;
-    font-weight: 400;
-}
-
-.clean-env-names {
-    margin-top: 7px;
-    font-family: Cinzel, serif;
-    font-size: clamp(7px, 2vw, 11px);
-    line-height: 1.25;
-    letter-spacing: .08em;
-    color: #214d3e;
-}
-
-.clean-env-names i {
-    color: #b89545;
-}
-
-.clean-env-flap {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    width: 100%;
-    height: 62%;
-    z-index: 4;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    background: linear-gradient(135deg, #e7d5ad, #c79f54, #ead9b5);
-    transform-origin: top center;
-    box-shadow: 0 2px 6px rgba(77, 57, 24, .10);
-}
-
-.clean-env-seal {
-    position: absolute;
-    left: 50%;
-    top: 53%;
-    translate: -50% -50%;
-    width: clamp(34px, 10vw, 50px);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    z-index: 6;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(circle at 35% 30%, #d8bd7b, #9f7a35);
-    color: #fff7e7;
-    border: 2px solid rgba(255,255,255,.65);
-    box-shadow: 0 4px 10px rgba(75,55,22,.22);
-    font-family: Cinzel, serif;
-    font-size: clamp(8px, 2.3vw, 12px);
-    letter-spacing: .04em;
-}
-
-.clean-env-tap {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -28px;
-    text-align: center;
-    color: #7d6330;
-    font-family: Poppins, sans-serif;
-    font-size: 10px;
-    letter-spacing: .16em;
-    z-index: 7;
-}
-
-@keyframes cleanEnvelopeFloat {
+@keyframes finalReliableEnvelopeFloat {
     0%, 100% { translate: 0 0; }
-    50% { translate: 0 -10px; }
+    50% { translate: 0 -12px; }
 }
 
-@media (max-width: 650px) {
-    body.opening-sequence #opening-screen .opening-bismillah {
-        font-size: 20px !important;
-    }
-    body.opening-sequence #opening-screen .opening-translation {
-        font-size: 13px !important;
-        line-height: 1.5 !important;
-    }
-    body.opening-sequence #opening-screen .opening-monogram {
-        margin: 12px 0 6px !important;
-    }
-    body.opening-sequence #opening-screen .opening-names {
-        margin: 4px 0 0 !important;
-    }
-    .clean-envelope {
-        width: min(82vw, 350px);
-        margin-top: 18px;
-    }
+/* Prevent legacy opening animation rules from changing the envelope back to hidden. */
+body.opening-locked-page #opening-screen #enterBtn.envelope-reference-v2.force-envelope-visible {
+    animation-delay: 0s !important;
 }
 
-
-/* ==========================================================
-   LATEST RECORDING FIX — ENVELOPE ORDER + CLEAN HANDOFF
-   ========================================================== */
-
-/* In the recording the new envelope was appearing ABOVE the names.
-   Put it explicitly after the couple-name block. */
-body.opening-sequence .clean-envelope {
-    order: 11 !important;
-    flex: 0 0 auto !important;
-}
-
-/* The name block remains before the envelope. */
-body.opening-sequence #opening-screen .opening-names {
-    order: 10 !important;
-}
-
-/* When the clean envelope is clicked, the invitation page must be restored
-   without any old opening-sequence hide rules. */
-body.invitation-reveal {
+/* After opening, restore normal page scrolling. */
+body.invitation-reveal,
+body.invitation-reveal html {
+    position: static !important;
+    overflow-y: auto !important;
     height: auto !important;
     min-height: 100% !important;
-    max-height: none !important;
-    overflow-x: hidden !important;
-    overflow-y: auto !important;
-    touch-action: auto !important;
-}
-
-body.invitation-reveal #website {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    position: relative !important;
-    z-index: 1 !important;
-}
-
-/* Neutralize the old rule that hid #website while the opening class existed. */
-body.invitation-reveal #website[style] {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-/* Main invitation sections should be available after handoff. */
-body.invitation-reveal .invitation,
-body.invitation-reveal .main-content,
-body.invitation-reveal section {
-    visibility: visible;
-}
-
-/* Opening screen fades away rather than leaving a blank overlay. */
-body.invitation-reveal #opening-screen {
-    z-index: 9999 !important;
-    transition: opacity .7s ease !important;
-}
-
-
-/* ==========================================================
-   SINGLE OPENING CONTROLLER — FINAL CLEAN REBUILD
-   The old opening scene is no longer used.
-   ========================================================== */
-
-#singleOpening {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100dvh;
-    overflow: hidden;
-    z-index: 2147483647;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-      radial-gradient(circle at 50% 30%, rgba(255,255,255,.58), transparent 26%),
-      radial-gradient(circle at 18% 18%, rgba(205,164,91,.18), transparent 24%),
-      radial-gradient(circle at 82% 82%, rgba(205,164,91,.14), transparent 28%),
-      linear-gradient(135deg, #f7f5ef 0%, #ece8df 48%, #f8f5ed 100%);
-    transition: opacity .65s ease, visibility .65s ease;
-}
-
-#singleOpening.single-opening-exit {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-}
-
-.single-opening-content {
-    width: min(92vw, 440px);
-    height: 100%;
-    padding: 18px 0 30px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
-}
-
-/* Sequence 1: Bismillah */
-.single-intro {
-    text-align: center;
-    opacity: 0;
-    animation: singleFadeUp .8s ease .2s forwards;
-}
-
-.single-arabic {
-    font-family: serif;
-    font-size: clamp(22px, 6vw, 31px);
-    color: #a9823f;
-    letter-spacing: .03em;
-}
-
-.single-translation {
-    margin-top: 10px;
-    font-family: Poppins, sans-serif;
-    font-size: clamp(13px, 3.5vw, 16px);
-    line-height: 1.5;
-    letter-spacing: .03em;
-    color: #666a70;
-}
-
-.single-line {
-    width: 92px;
-    height: 1px;
-    margin: 16px auto 0;
-    background: linear-gradient(90deg, transparent, #b7924c, transparent);
-}
-
-/* Sequence 2: monogram */
-.single-monogram {
-    margin-top: 28px;
-    opacity: 0;
-    font-family: Cinzel, serif;
-    font-size: clamp(50px, 15vw, 78px);
-    line-height: 1;
-    color: #1f5140;
-    animation: singleFadeUp .8s cubic-bezier(.22,.75,.25,1) 1.25s forwards;
-}
-
-.single-monogram span {
-    color: #bd974e;
-    font-size: .78em;
-}
-
-/* Sequence 3: couple names */
-.single-names {
-    margin-top: 22px;
-    text-align: center;
-    opacity: 0;
-    font-family: Cinzel, serif;
-    font-size: clamp(23px, 7vw, 35px);
-    line-height: 1.28;
-    letter-spacing: .04em;
-    color: #1f5140;
-    animation: singleFadeUp .9s cubic-bezier(.22,.75,.25,1) 2.15s forwards;
-}
-
-.single-and {
-    margin: 5px 0;
-    color: #bd974e;
-    font-size: .75em;
-}
-
-/* Sequence 4: envelope after the names */
-.single-envelope {
-    width: min(82vw, 365px);
-    aspect-ratio: 1.58 / 1;
-    margin-top: 22px;
-    border: 0;
-    padding: 0;
-    position: relative;
-    display: block;
-    background: transparent;
-    cursor: pointer;
-    opacity: 0;
-    transform: translateY(26px) scale(.98);
-    animation:
-        singleEnvelopeReveal .8s cubic-bezier(.22,.75,.25,1) 3.35s forwards,
-        singleEnvelopeFloat 4s ease-in-out 4.25s infinite;
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-}
-
-.single-envelope:focus-visible {
-    outline: 2px solid #a9823f;
-    outline-offset: 8px;
-}
-
-.single-envelope * { box-sizing: border-box; }
-
-.single-env-back {
-    position: absolute;
-    inset: 0;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #f4ead8, #d7b56e 48%, #f7efdf);
-    box-shadow: 0 18px 34px rgba(83, 63, 29, .18);
-}
-
-.single-env-letter {
-    position: absolute;
-    left: 7%;
-    right: 7%;
-    bottom: 7%;
-    height: 76%;
-    z-index: 2;
-    background: #fbf8f1;
-    border-radius: 3px;
-    box-shadow: 0 4px 10px rgba(66,47,20,.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    color: #214d3e;
-}
-
-.single-env-small {
-    font-family: Poppins, sans-serif;
-    font-size: clamp(5px, 1.2vw, 8px);
-    letter-spacing: .17em;
-    color: #8b6d34;
-    margin-bottom: 6px;
-}
-
-.single-env-initials {
-    font-family: Cinzel, serif;
-    font-size: clamp(18px, 5.6vw, 32px);
-    line-height: 1;
-}
-
-.single-env-initials b,
-.single-env-seal span {
-    color: #bc964d;
-    font-weight: 400;
-}
-
-.single-env-couple {
-    margin-top: 7px;
-    font-family: Cinzel, serif;
-    font-size: clamp(7px, 1.9vw, 11px);
-    line-height: 1.25;
-    letter-spacing: .08em;
-}
-
-.single-env-couple i { color: #bc964d; }
-
-.single-env-flap {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 62%;
-    z-index: 4;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    background: linear-gradient(135deg, #ead9b3, #c89f54, #ead9b3);
-}
-
-.single-env-seal {
-    position: absolute;
-    left: 50%;
-    top: 53%;
-    transform: translate(-50%, -50%);
-    width: clamp(38px, 10vw, 52px);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    z-index: 6;
-    display: grid;
-    place-items: center;
-    background: radial-gradient(circle at 35% 30%, #d9bd7d, #9f7935);
-    border: 2px solid rgba(255,255,255,.7);
-    box-shadow: 0 4px 10px rgba(75,55,22,.24);
-    color: #fff8e9;
-    font-family: Cinzel, serif;
-    font-size: clamp(9px, 2.3vw, 13px);
-}
-
-.single-env-tap {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -28px;
-    z-index: 8;
-    text-align: center;
-    color: #7d6330;
-    font-family: Poppins, sans-serif;
-    font-size: 10px;
-    letter-spacing: .16em;
-}
-
-@keyframes singleFadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes singleEnvelopeReveal {
-    from { opacity: 0; transform: translateY(26px) scale(.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes singleEnvelopeFloat {
-    0%, 100% { translate: 0 0; }
-    50% { translate: 0 -11px; }
-}
-
-@media (max-height: 760px) {
-    .single-opening-content { padding-top: 8px; padding-bottom: 24px; }
-    .single-monogram { margin-top: 18px; }
-    .single-names { margin-top: 14px; }
-    .single-envelope { width: min(76vw, 325px); margin-top: 15px; }
-    .single-line { margin-top: 10px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .single-intro,
-    .single-monogram,
-    .single-names,
-    .single-envelope {
-        animation: none !important;
-        opacity: 1 !important;
-        transform: none !important;
-    }
 }
