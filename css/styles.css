@@ -3216,3 +3216,55 @@ body.site-ready #opening-screen.cinematic-fade {
         margin-top: 22px !important;
     }
 }
+
+
+/* ==========================================================
+   SEAMLESS HANDOFF — REMOVE THE BLANK WHITE GAP
+   ========================================================== */
+
+/* Keep the invitation page rendered underneath from the start so it is ready.
+   It is invisible, but it does not create a white loading gap. */
+#website {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    min-height: 100svh !important;
+    transition: opacity .7s ease !important;
+}
+
+/* Envelope is always in normal opening flow after the couple names. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 1 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 2 !important;
+    margin-top: 26px !important;
+    flex: 0 0 auto !important;
+}
+
+/* Start revealing the real invitation before the opening overlay vanishes.
+   This removes the blank flash between scenes. */
+body.invitation-reveal #website {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+/* Opening overlay remains above until its final fade. */
+#opening-screen {
+    z-index: 9999 !important;
+}
+
+body.site-ready #opening-screen.cinematic-fade {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity .65s ease, visibility 0s linear .65s !important;
+}
