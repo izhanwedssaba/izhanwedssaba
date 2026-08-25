@@ -63,7 +63,21 @@ OPENING SCREEN
 
         </div>
 
-        <!-- FINAL REFERENCE-STYLE OPENING ENVELOPE -->
+        
+<!-- CLEAN ISOLATED ENVELOPE: this replaces the conflicting legacy envelope -->
+<button id="cleanEnterBtn" class="clean-envelope" type="button" aria-label="Tap to open wedding invitation">
+    <span class="clean-env-back"></span>
+    <span class="clean-env-letter">
+        <span class="clean-env-kicker">TOGETHER WITH OUR BELOVED FAMILIES</span>
+        <span class="clean-env-monogram">I <b>♥</b> S</span>
+        <span class="clean-env-names">MOHAMMED IZHAN<br><i>&amp;</i><br>BAZILA SABA</span>
+    </span>
+    <span class="clean-env-flap"></span>
+    <span class="clean-env-seal">I<span>♥</span>S</span>
+    <span class="clean-env-tap">— &nbsp; TAP TO OPEN &nbsp; —</span>
+</button>
+
+<!-- FINAL REFERENCE-STYLE OPENING ENVELOPE -->
 <button id="enterBtn" class="envelope envelope-reference-v2" type="button" aria-label="Tap to open wedding invitation">
     <span class="env-v2-back"></span>
     <span class="env-v2-pocket env-v2-left"></span>
@@ -428,6 +442,90 @@ FOOTER
 </div>
 
 <script src="js/main.js"></script>
+
+<script>
+(function () {
+  const run = function () {
+    const body = document.body;
+    const opening = document.getElementById('opening-screen');
+    const website = document.getElementById('website');
+    const intro = [
+      opening && opening.querySelector('.opening-bismillah'),
+      opening && opening.querySelector('.opening-translation'),
+      opening && opening.querySelector('.opening-divider')
+    ].filter(Boolean);
+    const monogram = opening && opening.querySelector('.opening-monogram');
+    const names = opening && opening.querySelector('.opening-names');
+    const cleanEnvelope = document.getElementById('cleanEnterBtn');
+    const legacyEnvelope = document.getElementById('enterBtn');
+
+    // Hard lock the opening scene. This is inline and cannot be overridden by
+    // the accumulated stylesheet rules.
+    document.documentElement.style.setProperty('overflow', 'hidden', 'important');
+    body.style.setProperty('overflow', 'hidden', 'important');
+    body.style.setProperty('height', '100dvh', 'important');
+
+    if (website) website.style.setProperty('display', 'none', 'important');
+    if (opening) {
+      opening.style.setProperty('position', 'fixed', 'important');
+      opening.style.setProperty('inset', '0', 'important');
+      opening.style.setProperty('height', '100dvh', 'important');
+      opening.style.setProperty('overflow', 'hidden', 'important');
+    }
+
+    if (legacyEnvelope) {
+      legacyEnvelope.style.setProperty('display', 'none', 'important');
+    }
+
+    const all = [...intro, monogram, names, cleanEnvelope].filter(Boolean);
+    all.forEach(el => {
+      el.style.setProperty('opacity', '0', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+    });
+
+    function reveal(el, transform) {
+      if (!el) return;
+      el.style.setProperty('visibility', 'visible', 'important');
+      el.style.setProperty('opacity', '1', 'important');
+      if (transform) el.style.setProperty('transform', transform, 'important');
+    }
+
+    // Exact sequence from the requested flow.
+    setTimeout(() => intro.forEach(el => reveal(el, 'translateY(0)')), 250);
+    setTimeout(() => reveal(monogram, 'translateY(0) scale(1)'), 1200);
+    setTimeout(() => reveal(names, 'translateY(0)'), 2100);
+    setTimeout(() => {
+      reveal(cleanEnvelope, 'translateY(0) scale(1)');
+      cleanEnvelope.style.setProperty('pointer-events', 'auto', 'important');
+    }, 3200);
+
+    // The new envelope is the only clickable opening trigger.
+    if (cleanEnvelope) {
+      cleanEnvelope.addEventListener('click', function () {
+        if (legacyEnvelope) {
+          legacyEnvelope.click();
+        } else {
+          if (website) {
+            website.style.setProperty('display', 'block', 'important');
+            website.style.setProperty('opacity', '1', 'important');
+          }
+          if (opening) opening.style.setProperty('display', 'none', 'important');
+          document.documentElement.style.removeProperty('overflow');
+          body.style.removeProperty('overflow');
+          body.style.removeProperty('height');
+        }
+      });
+    }
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', run, { once: true });
+  } else {
+    run();
+  }
+}());
+</script>
+
 
 </body>
 </html>
