@@ -2573,153 +2573,160 @@ body {
 }
 
 
+
+
 /* ==========================================================
-   ENVELOPE V2 — CLEANER, CLOSER TO THE RECORDED REFERENCE
-   This intentionally replaces the previous envelope layers.
+   MASTER ENVELOPE ANIMATION
+   Single source of truth — old V2 overrides removed.
    ========================================================== */
 
-#enterBtn.envelope-reference-v2 {
-    position: relative !important;
-    display: block !important;
-    width: min(90vw, 620px) !important;
-    height: auto !important;
-    aspect-ratio: 1.72 / 1 !important;
-    margin: 34px auto 0 !important;
-    padding: 0 !important;
-    border: 1px solid rgba(167,116,26,.45) !important;
-    border-radius: 7px !important;
-    overflow: hidden !important;
-    isolation: isolate !important;
-    background: #b77c26 !important;
-    box-shadow: 0 26px 60px rgba(70,48,16,.24) !important;
-    cursor: pointer !important;
-    touch-action: manipulation !important;
-    perspective: 1800px !important;
-    -webkit-tap-highlight-color: transparent !important;
+#opening-screen #enterBtn.envelope-reference-v2 {
+    position: relative;
+    display: block;
+    width: min(90vw, 590px);
+    aspect-ratio: 1.62 / 1;
+    margin: 28px auto 0;
+    padding: 0;
+    border: 1px solid rgba(177,139,70,.30);
+    border-radius: 12px;
+    overflow: visible;
+    isolation: isolate;
+    background:
+        radial-gradient(circle at 75% 16%, rgba(241,196,96,.18), transparent 27%),
+        radial-gradient(circle at 28% 74%, rgba(255,255,255,.55), transparent 34%),
+        linear-gradient(135deg, #fbfaf6 0%, #eee8dc 52%, #f8f3e8 100%);
+    box-shadow:
+        0 18px 42px rgba(83,68,42,.14),
+        0 1px 0 rgba(255,255,255,.85) inset;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    perspective: 1800px;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+    animation: masterEnvelopeFloat 3.8s ease-in-out infinite;
 }
 
-#enterBtn.envelope-reference-v2 *,
-#enterBtn.envelope-reference-v2 *::before,
-#enterBtn.envelope-reference-v2 *::after {
-    box-sizing: border-box !important;
+#opening-screen #enterBtn.envelope-reference-v2 *,
+#opening-screen #enterBtn.envelope-reference-v2 *::before,
+#opening-screen #enterBtn.envelope-reference-v2 *::after {
+    box-sizing: border-box;
 }
 
+/* Base paper */
 .env-v2-back {
     position: absolute;
     inset: 0;
     z-index: 1;
+    border-radius: inherit;
+    overflow: hidden;
     background:
-        radial-gradient(circle at 72% 24%, rgba(255,231,161,.58), transparent 28%),
-        linear-gradient(135deg,#8f5813 0%,#d7a94d 50%,#8d5510 100%);
+        radial-gradient(circle at 72% 20%, rgba(242,198,102,.18), transparent 28%),
+        linear-gradient(135deg, #faf8f2 0%, #eee8dc 100%);
 }
 
+/* Visible pocket folds */
 .env-v2-pocket {
     position: absolute;
     inset: 0;
-    z-index: 5;
     pointer-events: none;
 }
 
 .env-v2-left {
-    clip-path: polygon(0 0, 50% 59%, 0 100%);
-    background: linear-gradient(145deg,#a86617 0%,#d2a047 100%);
+    z-index: 10;
+    clip-path: polygon(0 0, 50% 61%, 0 100%);
+    background: linear-gradient(145deg, #fbfaf6 0%, #e8dfcf 100%);
 }
 
 .env-v2-right {
-    clip-path: polygon(100% 0, 50% 59%, 100% 100%);
-    background: linear-gradient(215deg,#d8ae5d 0%,#91580e 100%);
+    z-index: 10;
+    clip-path: polygon(100% 0, 50% 61%, 100% 100%);
+    background: linear-gradient(215deg, #f8f4ec 0%, #e5dccb 100%);
 }
 
 .env-v2-bottom {
-    clip-path: polygon(0 100%, 50% 59%, 100% 100%);
+    z-index: 11;
+    clip-path: polygon(0 100%, 50% 61%, 100% 100%);
     background:
-        linear-gradient(145deg,rgba(255,230,163,.18),transparent 40%),
-        linear-gradient(145deg,#a46315 0%,#e1ba63 49%,#8d540d 100%);
+        radial-gradient(circle at 50% 92%, rgba(225,177,74,.16), transparent 38%),
+        linear-gradient(145deg, #e8e0d1 0%, #f8f4ec 50%, #e5dccb 100%);
 }
 
+/* Physical flap */
 .env-v2-flap {
     position: absolute;
     inset: 0;
-    z-index: 12;
+    z-index: 20;
     display: block;
-    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0, 50% 69%);
     transform-origin: 50% 0%;
     transform-style: preserve-3d;
     backface-visibility: hidden;
-    clip-path: polygon(0 0,100% 0,50% 72%);
+    border-radius: 11px 11px 0 0;
     background:
-        radial-gradient(circle at 50% 2%,rgba(255,255,255,.9),transparent 48%),
-        linear-gradient(145deg,#fffefa 0%,#f6ead3 68%,#e3c183 100%);
-    transition: transform 1.05s cubic-bezier(.18,.75,.22,1);
-    box-shadow: 0 10px 18px rgba(78,53,14,.10);
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,.98), transparent 50%),
+        radial-gradient(circle at 74% 28%, rgba(240,196,97,.12), transparent 28%),
+        linear-gradient(145deg, #fbfaf6 0%, #f2ede2 67%, #e8deca 100%);
+    box-shadow: 0 9px 18px rgba(78,53,14,.08);
 }
 
 .env-v2-flap-content {
     position: absolute;
     left: 0;
     right: 0;
-    top: 10%;
+    top: 13%;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     color: #214d40;
-    transform: translateZ(1px);
 }
 
 .env-v2-kicker {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(.42rem,1.15vw,.63rem);
-    letter-spacing: .20em;
+    font-size: clamp(.40rem, 1vw, .56rem);
+    letter-spacing: .17em;
     color: #746a5c;
 }
 
 .env-v2-monogram {
-    margin: 6px 0 4px;
+    margin: 7px 0 2px;
     font-family: 'Cinzel', serif;
-    font-size: clamp(1rem,2.9vw,1.65rem);
-    letter-spacing: .16em;
+    font-size: clamp(1.25rem, 3.2vw, 1.8rem);
+    letter-spacing: .18em;
     color: #b4812b;
 }
 
 .env-v2-monogram b {
+    color: #bd8d38;
     font-size: .75em;
     font-weight: 400;
-    color: #bd8d38;
 }
 
 .env-v2-names {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(.68rem,2.05vw,1.12rem);
-    line-height: 1.42;
-    letter-spacing: .08em;
+    display: none;
 }
 
-.env-v2-names i {
-    color: #b4812b;
-    font-style: normal;
-    font-size: 1.18em;
-}
-
+/* Wax seal */
 .env-v2-seal {
     position: absolute;
     left: 50%;
-    top: 62%;
-    z-index: 30;
-    width: clamp(58px,9vw,78px);
-    height: clamp(58px,9vw,78px);
+    top: 61%;
+    z-index: 40;
+    width: clamp(46px, 6.8vw, 60px);
+    height: clamp(46px, 6.8vw, 60px);
     display: grid;
     place-items: center;
     border-radius: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
     background:
-        radial-gradient(circle at 30% 23%,#ffeaa4 0 5%,#e2af42 23%,#a36713 61%,#6b4007 100%);
-    border: 3px solid rgba(255,238,179,.95);
+        radial-gradient(circle at 31% 23%, #f9df90 0 5%, #d5a23c 25%, #a76d17 62%, #774807 100%);
+    border: 3px solid rgba(255,238,179,.92);
     box-shadow:
-        0 0 0 4px rgba(113,70,9,.22),
-        0 10px 21px rgba(69,41,4,.36),
-        inset 0 2px 5px rgba(255,255,255,.62);
-    transition: opacity .28s ease, transform .45s ease;
+        0 0 0 3px rgba(161,116,36,.13),
+        0 7px 15px rgba(79,54,10,.20),
+        inset 0 1px 4px rgba(255,255,255,.52);
+    will-change: transform, opacity;
 }
 
 .env-v2-seal span {
@@ -2733,629 +2740,136 @@ body {
     border-radius: 50%;
     color: #fff9e9;
     font-family: 'Cinzel', serif;
-    font-size: clamp(.78rem,2.1vw,1.2rem);
+    font-size: clamp(.70rem, 1.7vw, 1rem);
     text-shadow: 0 1px 4px rgba(62,37,4,.5);
 }
 
 .env-v2-seal b {
+    color: #ffe6a0;
     font-size: .75em;
     font-weight: 400;
-    color: #ffe6a0;
 }
 
+/* CTA */
 .env-v2-tap {
     position: absolute;
     left: 50%;
-    bottom: 7%;
-    z-index: 31;
+    bottom: 9%;
+    z-index: 41;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 9px;
     white-space: nowrap;
-    color: #fffaf0;
+    color: rgba(91,84,71,.82);
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(.52rem,1.3vw,.72rem);
+    font-size: clamp(.50rem, 1.15vw, .64rem);
     font-weight: 600;
-    letter-spacing: .26em;
-    text-shadow: 0 2px 8px rgba(61,39,6,.32);
-    transition: opacity .25s ease;
+    letter-spacing: .23em;
 }
 
 .env-v2-tap span {
-    width: 17px;
+    width: 13px;
     height: 1px;
-    background: rgba(255,245,216,.72);
+    background: rgba(183,143,67,.46);
 }
 
-/* The old white invitation card no longer rises over the envelope. */
-#enterBtn.envelope-reference-v2.opening .env-v2-flap {
-    transform: rotateX(-180deg) !important;
-}
-
-#enterBtn.envelope-reference-v2.opening .env-v2-seal {
-    opacity: 0 !important;
-    transform: translate(-50%,-50%) scale(.72) !important;
-}
-
-#enterBtn.envelope-reference-v2.opening .env-v2-tap {
-    opacity: 0 !important;
-}
-
-#enterBtn.envelope-reference-v2.opening {
-    animation: envV2Exit .85s ease 1.05s forwards !important;
-    pointer-events: none !important;
-}
-
-@keyframes envV2Exit {
-    0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-    100% { opacity: 0; transform: translateY(-40px) scale(.985); filter: blur(1px); }
-}
-
-@media (max-width:650px) {
-    #enterBtn.envelope-reference-v2 {
-        width: min(92vw,520px) !important;
-        margin-top: 25px !important;
-    }
-    .env-v2-flap-content { top: 8%; }
-    .env-v2-kicker { font-size: .40rem; }
-    .env-v2-seal { width: 54px; height: 54px; top: 62%; }
-    .env-v2-tap { bottom: 6%; letter-spacing: .21em; }
-}
-
-
-/* ==========================================================
-   SOFT IVORY ENVELOPE — MATCHED TO THE SITE BACKGROUND
-   Final visual override for the opening envelope.
-   ========================================================== */
-
-#enterBtn.envelope-reference-v2 {
-    background:
-        radial-gradient(circle at 22% 18%, rgba(255,255,255,.95), transparent 34%),
-        radial-gradient(circle at 76% 28%, rgba(239,194,94,.26), transparent 28%),
-        radial-gradient(circle at 46% 88%, rgba(229,181,77,.18), transparent 33%),
-        linear-gradient(135deg, #f8f5ed 0%, #eee9df 48%, #f7f2e8 100%) !important;
-    border: 1px solid rgba(180,139,61,.28) !important;
-    box-shadow:
-        0 22px 50px rgba(99,82,49,.16),
-        0 0 0 1px rgba(255,255,255,.58) inset !important;
-}
-
-/* same living, diffused light language as the reference background */
-#enterBtn.envelope-reference-v2::before {
-    content: "";
-    position: absolute;
-    inset: -25%;
-    z-index: 0;
-    pointer-events: none;
-    background:
-        radial-gradient(circle at 30% 42%, rgba(255,255,255,.70), transparent 24%),
-        radial-gradient(circle at 74% 30%, rgba(243,201,104,.28), transparent 18%),
-        radial-gradient(circle at 54% 76%, rgba(239,189,75,.18), transparent 24%);
-    filter: blur(18px);
-    animation: envelopeAmbientGlow 8s ease-in-out infinite alternate;
-}
-
-@keyframes envelopeAmbientGlow {
-    0% { transform: translate3d(-2%, 1%, 0) scale(1); opacity: .78; }
-    50% { transform: translate3d(2%, -2%, 0) scale(1.08); opacity: 1; }
-    100% { transform: translate3d(-1%, 2%, 0) scale(1.03); opacity: .82; }
-}
-
-.env-v2-back {
-    background:
-        radial-gradient(circle at 20% 18%, rgba(255,255,255,.82), transparent 28%),
-        radial-gradient(circle at 77% 26%, rgba(241,195,91,.23), transparent 25%),
-        radial-gradient(circle at 45% 86%, rgba(232,181,75,.14), transparent 32%),
-        linear-gradient(135deg,#f9f7f1 0%,#eee9df 50%,#f8f3e9 100%) !important;
-}
-
-/* Lower pocket stays ivory, with only a whisper of antique gold. */
-.env-v2-left {
-    background:
-        linear-gradient(145deg, rgba(255,255,255,.34), rgba(212,191,147,.10)),
-        linear-gradient(145deg,#f7f4ec 0%,#e9e2d4 100%) !important;
-    border-right: 1px solid rgba(179,142,70,.23);
-}
-
-.env-v2-right {
-    background:
-        linear-gradient(215deg, rgba(255,255,255,.35), rgba(225,185,96,.10)),
-        linear-gradient(215deg,#f7f3ea 0%,#e7dfd0 100%) !important;
-    border-left: 1px solid rgba(179,142,70,.22);
-}
-
-.env-v2-bottom {
-    background:
-        radial-gradient(circle at 50% 84%, rgba(235,192,99,.22), transparent 42%),
-        linear-gradient(145deg,#e9e2d4 0%,#f8f4ec 50%,#e5dccb 100%) !important;
-}
-
-/* The flap now belongs to the ivory background rather than looking metallic. */
-.env-v2-flap {
-    background:
-        radial-gradient(circle at 50% 8%, rgba(255,255,255,.98), transparent 47%),
-        radial-gradient(circle at 72% 34%, rgba(239,195,91,.14), transparent 28%),
-        linear-gradient(145deg,#fbfaf6 0%,#f2ede2 64%,#e8deca 100%) !important;
-    box-shadow:
-        0 10px 24px rgba(92,73,36,.08),
-        0 1px 0 rgba(255,255,255,.75) inset !important;
-}
-
-.env-v2-kicker {
-    color: rgba(82,82,76,.76) !important;
-}
-
-.env-v2-monogram,
-.env-v2-names {
-    color: #255145 !important;
-}
-
-.env-v2-monogram b,
-.env-v2-names i {
-    color: #b88b36 !important;
-}
-
-/* Smaller, warmer seal: accent only, not the dominant visual. */
-.env-v2-seal {
-    width: clamp(50px,7.6vw,68px) !important;
-    height: clamp(50px,7.6vw,68px) !important;
-    top: 62% !important;
-    background:
-        radial-gradient(circle at 30% 22%,#fbe7a1 0 5%,#d8a43a 24%,#a66d17 62%,#774807 100%) !important;
-    border: 2px solid rgba(255,240,191,.95) !important;
-    box-shadow:
-        0 0 0 3px rgba(162,116,35,.16),
-        0 8px 18px rgba(79,54,10,.24),
-        inset 0 2px 4px rgba(255,255,255,.52) !important;
-}
-
-.env-v2-seal span {
-    color: #fff9eb !important;
-    border-color: rgba(255,240,193,.62) !important;
-}
-
-.env-v2-seal b {
-    color: #ffe6a1 !important;
-}
-
-.env-v2-tap {
-    color: #6c665b !important;
-    text-shadow: none !important;
-    background: rgba(255,255,255,.34);
-    padding: 7px 12px;
-    border-radius: 999px;
-    letter-spacing: .20em !important;
-    backdrop-filter: blur(4px);
-}
-
-.env-v2-tap span {
-    background: rgba(184,139,54,.52) !important;
-}
-
-/* Gentle breathing glow before opening, matching the animated page ambience. */
-#enterBtn.envelope-reference-v2:not(.opening) {
-    animation: envelopeSoftFloat 5.5s ease-in-out infinite !important;
-}
-
-@keyframes envelopeSoftFloat {
+/* Idle float */
+@keyframes masterEnvelopeFloat {
     0%, 100% {
-        transform: translateY(0);
-        box-shadow: 0 22px 50px rgba(99,82,49,.14), 0 0 0 1px rgba(255,255,255,.58) inset;
+        transform: translate3d(0,0,0) scale(1);
+        box-shadow:
+            0 18px 42px rgba(83,68,42,.14),
+            0 1px 0 rgba(255,255,255,.85) inset;
     }
     50% {
-        transform: translateY(-5px);
-        box-shadow: 0 28px 58px rgba(99,82,49,.18), 0 0 0 1px rgba(255,255,255,.65) inset;
+        transform: translate3d(0,-13px,0) scale(1.008);
+        box-shadow:
+            0 34px 60px rgba(83,68,42,.20),
+            0 1px 0 rgba(255,255,255,.88) inset;
     }
 }
-
-#enterBtn.envelope-reference-v2.opening {
-    animation: envV2ExitSoft .9s cubic-bezier(.22,.72,.2,1) 1.05s forwards !important;
-}
-
-@keyframes envV2ExitSoft {
-    0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
-    100% { opacity: 0; transform: translateY(-42px) scale(.985); filter: blur(1px); }
-}
-
-@media (max-width:650px) {
-    .env-v2-seal {
-        width: 50px !important;
-        height: 50px !important;
-    }
-
-    .env-v2-tap {
-        padding: 6px 10px;
-        letter-spacing: .17em !important;
-    }
-}
-
 
 /* ==========================================================
-   VISIBILITY FIX — required because the old envelope CSS
-   kept opacity:0 for a delayed reveal animation.
+   OPENING STAGES
+   Only these classes control the opening animation.
    ========================================================== */
 
-#opening-screen #enterBtn.envelope-reference-v2 {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    animation: envelopeSoftFloat 5.5s ease-in-out infinite !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
 #opening-screen #enterBtn.envelope-reference-v2.opening {
-    opacity: 1 !important;
-    animation: envV2ExitSoft .9s cubic-bezier(.22,.72,.2,1) 1.05s forwards !important;
+    animation: none;
+    pointer-events: none;
 }
 
-/* Keep enough room below the names so the envelope cannot collapse out of view. */
-#opening-screen .opening-content {
-    min-height: 0 !important;
+/* Stage 1: seal release */
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-seal {
+    animation: masterSealRelease .34s ease forwards;
+}
+
+@keyframes masterSealRelease {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.56) translateY(-8px);
+    }
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-tap {
+    opacity: 0;
+    transition: opacity .16s ease;
+}
+
+/* Stage 2: flap physically opens and stays visible */
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap {
+    animation: masterFlapOpen 1.08s cubic-bezier(.18,.78,.2,1) .22s forwards;
+}
+
+@keyframes masterFlapOpen {
+    0%   { transform: rotateX(0deg); }
+    15%  { transform: rotateX(-4deg); }
+    58%  { transform: rotateX(-104deg); }
+    100% { transform: rotateX(-168deg); }
+}
+
+/* Stage 3: whole envelope exits after the flap has opened */
+#opening-screen #enterBtn.envelope-reference-v2.envelope-exit {
+    animation: masterEnvelopeExit .82s cubic-bezier(.22,.72,.2,1) forwards;
+}
+
+@keyframes masterEnvelopeExit {
+    0% {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale(1);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(0,-82px,0) scale(.97);
+        filter: blur(1px);
+    }
 }
 
 @media (max-width: 650px) {
     #opening-screen #enterBtn.envelope-reference-v2 {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        width: min(92vw, 520px) !important;
-        margin-top: 24px !important;
-    }
-}
-
-
-/* ==========================================================
-   ENVELOPE REFINEMENT — visual only, transitions untouched
-   ========================================================== */
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    width: min(88vw, 590px) !important;
-    aspect-ratio: 1.62 / 1 !important;
-    border-radius: 10px !important;
-    border: 1px solid rgba(176,138,65,.32) !important;
-    background:
-        radial-gradient(circle at 72% 18%, rgba(241,196,96,.20), transparent 25%),
-        radial-gradient(circle at 28% 70%, rgba(255,255,255,.52), transparent 31%),
-        linear-gradient(135deg,#f9f7f0 0%,#eee9df 52%,#f8f3e9 100%) !important;
-    box-shadow:
-        0 18px 42px rgba(83,68,42,.14),
-        0 1px 0 rgba(255,255,255,.80) inset !important;
-}
-
-/* Make the envelope geometry obvious but delicate. */
-#opening-screen #enterBtn.envelope-reference-v2::after {
-    content: "" !important;
-    position: absolute !important;
-    inset: 0 !important;
-    z-index: 8 !important;
-    pointer-events: none !important;
-    background:
-        linear-gradient(38deg, transparent 49.78%, rgba(177,139,70,.30) 49.95%, rgba(177,139,70,.30) 50.12%, transparent 50.3%),
-        linear-gradient(-38deg, transparent 49.78%, rgba(177,139,70,.30) 49.95%, rgba(177,139,70,.30) 50.12%, transparent 50.3%);
-    opacity: .72 !important;
-}
-
-/* Cleaner flap: large, soft, unmistakable triangle. */
-.env-v2-flap {
-    z-index: 16 !important;
-    clip-path: polygon(0 0, 100% 0, 50% 69%) !important;
-    background:
-        radial-gradient(circle at 50% 0%, rgba(255,255,255,.98), transparent 48%),
-        radial-gradient(circle at 72% 28%, rgba(240,196,97,.13), transparent 28%),
-        linear-gradient(145deg,#fbfaf6 0%,#f2ede2 67%,#e8deca 100%) !important;
-    border-bottom: 1px solid rgba(177,139,70,.22) !important;
-}
-
-/* Reduce content so the envelope reads as an envelope first. */
-.env-v2-flap-content {
-    top: 13% !important;
-}
-
-.env-v2-kicker {
-    font-size: clamp(.40rem,1vw,.56rem) !important;
-    letter-spacing: .17em !important;
-    opacity: .78 !important;
-}
-
-.env-v2-monogram {
-    margin: 7px 0 2px !important;
-    font-size: clamp(1.25rem,3.2vw,1.8rem) !important;
-    letter-spacing: .18em !important;
-}
-
-.env-v2-names {
-    display: none !important;
-}
-
-/* Pocket faces become visibly distinct ivory folds. */
-.env-v2-left {
-    z-index: 10 !important;
-    clip-path: polygon(0 0, 50% 61%, 0 100%) !important;
-    background:
-        linear-gradient(145deg, rgba(255,255,255,.56), rgba(220,207,181,.10)),
-        linear-gradient(145deg,#f9f6ef 0%,#e9e2d4 100%) !important;
-}
-
-.env-v2-right {
-    z-index: 10 !important;
-    clip-path: polygon(100% 0, 50% 61%, 100% 100%) !important;
-    background:
-        linear-gradient(215deg, rgba(255,255,255,.48), rgba(226,191,111,.08)),
-        linear-gradient(215deg,#f8f4ec 0%,#e7dfd0 100%) !important;
-}
-
-.env-v2-bottom {
-    z-index: 11 !important;
-    clip-path: polygon(0 100%, 50% 61%, 100% 100%) !important;
-    background:
-        radial-gradient(circle at 50% 88%, rgba(232,184,76,.18), transparent 38%),
-        linear-gradient(145deg,#e7dfd0 0%,#f8f4ec 48%,#e5dccb 100%) !important;
-}
-
-/* Smaller seal, positioned exactly at the flap meeting point. */
-.env-v2-seal {
-    z-index: 30 !important;
-    width: clamp(46px,6.8vw,60px) !important;
-    height: clamp(46px,6.8vw,60px) !important;
-    top: 61% !important;
-    background:
-        radial-gradient(circle at 31% 23%, #f9df90 0 5%, #d5a23c 25%, #a76d17 62%, #774807 100%) !important;
-    box-shadow:
-        0 0 0 3px rgba(161,116,36,.13),
-        0 7px 15px rgba(79,54,10,.20),
-        inset 0 1px 4px rgba(255,255,255,.52) !important;
-}
-
-.env-v2-seal span {
-    font-size: clamp(.70rem,1.7vw,1rem) !important;
-}
-
-/* Minimal call-to-action directly below the seal. */
-.env-v2-tap {
-    z-index: 31 !important;
-    bottom: 9% !important;
-    background: transparent !important;
-    padding: 0 !important;
-    color: rgba(91,84,71,.82) !important;
-    font-size: clamp(.50rem,1.15vw,.64rem) !important;
-    letter-spacing: .23em !important;
-}
-
-.env-v2-tap span {
-    width: 13px !important;
-    background: rgba(183,143,67,.46) !important;
-}
-
-@media (max-width:650px) {
-    #opening-screen #enterBtn.envelope-reference-v2 {
-        width: min(91vw, 520px) !important;
-        aspect-ratio: 1.58 / 1 !important;
+        width: min(91vw, 520px);
+        margin-top: 24px;
     }
 
-    .env-v2-flap-content {
-        top: 11% !important;
-    }
-
-    .env-v2-kicker {
-        font-size: .37rem !important;
-    }
+    .env-v2-flap-content { top: 11%; }
+    .env-v2-kicker { font-size: .37rem; }
 
     .env-v2-seal {
-        width: 46px !important;
-        height: 46px !important;
-        top: 61% !important;
+        width: 46px;
+        height: 46px;
+        top: 61%;
     }
 
     .env-v2-tap {
-        bottom: 8% !important;
-        letter-spacing: .20em !important;
+        bottom: 8%;
+        letter-spacing: .20em;
     }
-}
 
-
-/* ==========================================================
-   FINAL MOTION FIX
-   - clearly visible floating while idle
-   - no empty-envelope pause after tap
-   - existing design kept
-   ========================================================== */
-
-#opening-screen #enterBtn.envelope-reference-v2:not(.opening) {
-    animation: envelopeIdleFloat 3.8s ease-in-out infinite !important;
-    will-change: transform, box-shadow;
-    transform-origin: center center;
-}
-
-@keyframes envelopeIdleFloat {
-    0%, 100% {
-        transform: translate3d(0, 0, 0) scale(1);
-        box-shadow:
-            0 18px 38px rgba(83,68,42,.13),
-            0 1px 0 rgba(255,255,255,.82) inset;
-    }
-    50% {
-        transform: translate3d(0, -13px, 0) scale(1.008);
-        box-shadow:
-            0 34px 60px rgba(83,68,42,.20),
-            0 1px 0 rgba(255,255,255,.86) inset;
-    }
-}
-
-/* Make the tap feel alive without affecting the open transition. */
-#opening-screen #enterBtn.envelope-reference-v2:not(.opening) .env-v2-seal {
-    animation: sealBreath 3.8s ease-in-out infinite;
-}
-
-@keyframes sealBreath {
-    0%, 100% {
-        transform: translate(-50%,-50%) scale(1);
-    }
-    50% {
-        transform: translate(-50%,-50%) scale(1.045);
-    }
-}
-
-/* Opening is now continuous: flap opens, envelope lifts away, website crossfades in.
-   There is no period where the user sees an empty stationary envelope. */
-#opening-screen #enterBtn.envelope-reference-v2.opening {
-    animation: envelopeOpenExit .95s cubic-bezier(.22,.72,.2,1) .28s forwards !important;
-    will-change: transform, opacity, filter;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap {
-    transition: transform .72s cubic-bezier(.22,.72,.2,1) !important;
-    transform: rotateX(-168deg) !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-seal {
-    opacity: 0 !important;
-    transform: translate(-50%,-50%) scale(.72) !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-tap {
-    opacity: 0 !important;
-    transition: opacity .18s ease !important;
-}
-
-@keyframes envelopeOpenExit {
-    0% {
-        opacity: 1;
-        transform: translate3d(0,0,0) scale(1);
-        filter: blur(0);
-    }
-    55% {
-        opacity: 1;
-        transform: translate3d(0,-18px,0) scale(1.006);
-        filter: blur(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translate3d(0,-95px,0) scale(.96);
-        filter: blur(2px);
-    }
-}
-
-@media (max-width:650px) {
-    @keyframes envelopeIdleFloat {
-        0%, 100% {
-            transform: translate3d(0,0,0) scale(1);
-        }
-        50% {
-            transform: translate3d(0,-10px,0) scale(1.006);
-        }
-    }
-}
-
-
-/* ==========================================================
-   PHYSICAL FLAP OPENING SEQUENCE
-   Float -> seal release -> visible flap open -> envelope exit
-   ========================================================== */
-
-/* Keep the closed envelope floating normally. */
-#opening-screen #enterBtn.envelope-reference-v2:not(.opening) {
-    animation: envelopeIdleFloat 3.8s ease-in-out infinite !important;
-}
-
-/* Stop idle motion immediately when tapped so the opening feels intentional. */
-#opening-screen #enterBtn.envelope-reference-v2.opening {
-    animation: none !important;
-    overflow: visible !important;
-    pointer-events: none !important;
-}
-
-/* Keep the envelope body visible during the flap-opening beat. */
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-back,
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-left,
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-right,
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-bottom {
-    opacity: 1 !important;
-}
-
-/* Seal releases first. */
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-seal {
-    animation: sealRelease .34s ease forwards !important;
-}
-
-@keyframes sealRelease {
-    0% {
-        opacity: 1;
-        transform: translate(-50%,-50%) scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: translate(-50%,-50%) scale(.55) translateY(-7px);
-    }
-}
-
-/* Hide CTA before the flap starts moving. */
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-tap {
-    opacity: 0 !important;
-    transition: opacity .18s ease !important;
-}
-
-/* The flap is intentionally held for a visible beat, then opens upward. */
-#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap {
-    transform-origin: 50% 0% !important;
-    transform-style: preserve-3d !important;
-    backface-visibility: hidden !important;
-    animation: physicalFlapOpen 1.15s cubic-bezier(.18,.78,.2,1) .22s forwards !important;
-    transition: none !important;
-}
-
-@keyframes physicalFlapOpen {
-    0% {
-        transform: rotateX(0deg);
-        filter: brightness(1);
-        opacity: 1;
-    }
-    12% {
-        transform: rotateX(-4deg);
-    }
-    55% {
-        transform: rotateX(-102deg);
-        filter: brightness(.96);
-    }
-    100% {
-        transform: rotateX(-168deg);
-        filter: brightness(.92);
-        opacity: .98;
-    }
-}
-
-/* Only after the flap has had time to visibly open does the whole envelope leave. */
-#opening-screen #enterBtn.envelope-reference-v2.envelope-exit {
-    animation: envelopePhysicalExit .95s cubic-bezier(.22,.72,.2,1) forwards !important;
-    will-change: transform, opacity, filter;
-}
-
-@keyframes envelopePhysicalExit {
-    0% {
-        opacity: 1;
-        transform: translate3d(0,0,0) scale(1);
-        filter: blur(0);
-    }
-    35% {
-        opacity: 1;
-        transform: translate3d(0,-12px,0) scale(1.004);
-        filter: blur(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translate3d(0,-92px,0) scale(.965);
-        filter: blur(1.5px);
-    }
-}
-
-@media (max-width:650px) {
-    #opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap {
-        animation-duration: 1.05s !important;
+    @keyframes masterEnvelopeFloat {
+        0%, 100% { transform: translate3d(0,0,0) scale(1); }
+        50%      { transform: translate3d(0,-10px,0) scale(1.006); }
     }
 }
