@@ -3188,3 +3188,25 @@ html.invitation-open #opening-screen {
         -webkit-tap-highlight-color: transparent !important;
     }
 }
+
+
+/* ==========================================================
+   OPEN BUTTON INTERACTION — FINAL FIX
+   Keeps all existing visuals unchanged.
+   ========================================================== */
+
+/* After the envelope reveal, make the whole envelope a reliable tap target. */
+#opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+}
+
+/* Decorative layers must never intercept the tap intended for the button. */
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-back,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-pocket,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-flap,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-seal,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap {
+    pointer-events: none !important;
+}
