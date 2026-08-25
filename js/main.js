@@ -1,3 +1,43 @@
+
+/* ==========================================================
+   OPEN BUTTON READINESS + INTERACTION BRIDGE
+   ========================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    const envelopeButton = document.getElementById("enterBtn");
+    if (!envelopeButton) return;
+
+    // The previous build kept the CSS reveal, but no longer restored the
+    // envelope-ready class after removing competing handlers.
+    window.setTimeout(() => {
+        envelopeButton.classList.add("envelope-ready");
+        envelopeButton.style.setProperty("pointer-events", "auto", "important");
+    }, 4250);
+
+    // Mobile browsers can dispatch pointer and click differently.
+    // Forward click to the existing authoritative pointerup controller only
+    // when the pointerup path did not already run.
+    let handled = false;
+
+    envelopeButton.addEventListener("pointerup", () => {
+        handled = true;
+    }, true);
+
+    envelopeButton.addEventListener("click", (event) => {
+        if (handled) {
+            handled = false;
+            return;
+        }
+        event.preventDefault();
+
+        const synthetic = new PointerEvent("pointerup", {
+            bubbles: true,
+            cancelable: true,
+            pointerType: "touch"
+        });
+        envelopeButton.dispatchEvent(synthetic);
+    });
+}, { once: true });
+
 /* ==========================================================
    SAFE SCROLL UNLOCK
    Called only after the envelope animation has completed.
