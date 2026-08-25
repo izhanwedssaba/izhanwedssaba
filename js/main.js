@@ -25,9 +25,15 @@ document.addEventListener("DOMContentLoaded", () => {
             if (invitationOpening) return;
             invitationOpening = true;
 
+            // Stage 1: seal releases and flap opens.
             enterBtn.classList.add("opening");
 
-            // Crossfade the real invitation in while the envelope lifts away.
+            // Stage 2: after the flap has visibly opened, lift the envelope away.
+            window.setTimeout(() => {
+                enterBtn.classList.add("envelope-exit");
+            }, 1280);
+
+            // Stage 3: crossfade the actual invitation in during the envelope exit.
             window.setTimeout(() => {
                 if (website) {
                     website.style.display = "block";
@@ -35,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 if (opening) opening.classList.add("closing");
                 window.scrollTo({ top: 0, behavior: "auto" });
-            }, 760);
+            }, 1560);
 
             window.setTimeout(() => {
                 if (opening) opening.style.display = "none";
-            }, 1450);
+            }, 2350);
         };
 
         enterBtn.addEventListener("click", openInvitation);
