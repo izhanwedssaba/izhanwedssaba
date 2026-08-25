@@ -3149,3 +3149,70 @@ body.site-ready #opening-screen.handoff.closing {
 body.invitation-opened #opening-screen {
     pointer-events: none !important;
 }
+
+
+/* ==========================================================
+   CLEAN CINEMATIC HANDOFF — NO PAGE OVERLAP
+   ========================================================== */
+
+/* Keep the opening sequence as one vertical flow:
+   all intro content -> couple names -> envelope. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+#opening-screen .opening-bismillah,
+#opening-screen .opening-translation,
+#opening-screen .opening-divider,
+#opening-screen .opening-monogram {
+    order: 0 !important;
+}
+
+#opening-screen .opening-names {
+    order: 1 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 2 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    margin-top: 28px !important;
+    margin-bottom: 0 !important;
+}
+
+/* The second page stays completely hidden until the envelope sequence ends. */
+#website {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .8s ease;
+}
+
+body.invitation-reveal #website {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fade the opening overlay only after the envelope has exited. */
+body.site-ready #opening-screen.cinematic-fade {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity .55s ease, visibility 0s linear .55s !important;
+}
+
+@media (max-width: 650px) {
+    #opening-screen .opening-content {
+        padding-bottom: 28px !important;
+    }
+
+    #opening-screen #enterBtn.envelope-reference-v2 {
+        margin-top: 22px !important;
+    }
+}
