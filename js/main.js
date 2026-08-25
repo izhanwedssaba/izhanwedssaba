@@ -1,66 +1,105 @@
 
 /* ==========================================================
-   FINAL OPENING CONTROLLER
+   ONE AUTHORITATIVE OPENING CONTROLLER
+   Nothing else controls the opening sequence.
    ========================================================== */
-const startFinalOpeningSequence = () => {
+const runAuthoritativeOpening = () => {
     const root = document.documentElement;
 
-    // Remove every previous sequence state so old builds cannot conflict.
+    const intro = [
+        document.querySelector("#opening-screen .opening-bismillah"),
+        document.querySelector("#opening-screen .opening-translation"),
+        document.querySelector("#opening-screen .opening-divider")
+    ].filter(Boolean);
+
+    const monogram = document.querySelector("#opening-screen .opening-monogram");
+    const names = document.querySelector("#opening-screen .opening-names");
+    const envelope = document.querySelector("#opening-screen #enterBtn.envelope-reference-v2");
+
+    // Remove every legacy stage that can compete with this sequence.
     [
-        "opening-sequence",
-        "stage-intro",
-        "stage-monogram",
-        "stage-names",
-        "stage-envelope",
-        "stage-envelope-float",
-        "envelope-visible",
-        "envelope-floating",
-        "envelope-reveal-now",
-        "envelope-float-now",
-        "opening-envelope-ready",
         "opening-stage-intro",
         "opening-stage-monogram",
         "opening-stage-names",
         "opening-stage-envelope",
         "opening-stage-float"
-    ].forEach((name) => {
-        document.body.classList.remove(name);
-        root.classList.remove(name);
+    ].forEach(name => root.classList.remove(name));
+
+    const reveal = (elements, options = {}) => {
+        elements.forEach(el => {
+            el.style.setProperty("visibility", "visible", "important");
+            el.style.setProperty("pointer-events", options.pointer ? "auto" : "none", "important");
+            el.style.setProperty("transition", "opacity .75s ease, transform .75s cubic-bezier(.22,.75,.25,1)", "important");
+            el.style.setProperty("opacity", "1", "important");
+            el.style.setProperty("transform", "translateY(0) scale(1)", "important");
+        });
+    };
+
+    // Keep every item hidden first. This is an inline important state,
+    // so old stylesheet rules cannot reveal it early.
+    [...intro, monogram, names, envelope].filter(Boolean).forEach(el => {
+        el.style.setProperty("opacity", "0", "important");
+        el.style.setProperty("visibility", "hidden", "important");
+        el.style.setProperty("pointer-events", "none", "important");
     });
 
-    root.classList.add("opening-locked");
-    document.body.classList.add("site-ready");
+    if (envelope) {
+        envelope.style.setProperty("transform", "translateY(26px) scale(.98)", "important");
+        envelope.style.setProperty("top", "0px", "important");
+    }
+    if (monogram) monogram.style.setProperty("transform", "translateY(14px) scale(.96)", "important");
+    if (names) names.style.setProperty("transform", "translateY(18px)", "important");
 
-    // Deliberate cinematic sequence.
-    window.setTimeout(() => {
-        root.classList.add("opening-stage-intro");
-    }, 250);
+    // Stage 1 — Bismillah
+    setTimeout(() => reveal(intro), 300);
 
-    window.setTimeout(() => {
-        root.classList.add("opening-stage-monogram");
+    // Stage 2 — Monogram
+    setTimeout(() => {
+        if (monogram) reveal([monogram]);
     }, 1250);
 
-    window.setTimeout(() => {
-        root.classList.add("opening-stage-names");
+    // Stage 3 — Couple names
+    setTimeout(() => {
+        if (names) reveal([names]);
     }, 2200);
 
-    // Envelope only after the names have had time to appear.
-    window.setTimeout(() => {
-        root.classList.add("opening-stage-envelope");
+    // Stage 4 — Envelope directly below the names
+    setTimeout(() => {
+        if (!envelope) return;
+        envelope.style.setProperty("visibility", "visible", "important");
+        envelope.style.setProperty("transition", "opacity .8s ease, transform .8s cubic-bezier(.22,.75,.25,1)", "important");
+        envelope.style.setProperty("opacity", "1", "important");
+        envelope.style.setProperty("pointer-events", "auto", "important");
+        envelope.style.setProperty("transform", "translateY(0) scale(1)", "important");
         document.body.classList.add("opening-envelope-ready");
     }, 3400);
 
-    window.setTimeout(() => {
-        root.classList.add("opening-stage-float");
-    }, 4200);
+    // Stage 5 — continuous floating after reveal.
+    setTimeout(() => {
+        if (!envelope) return;
+
+        // Cancel any old CSS animation and use an independent Web Animation
+        // on the CSS translate property, which is not blocked by old transform rules.
+        envelope.style.setProperty("animation", "none", "important");
+        envelope.animate(
+            [
+                { translate: "0 0" },
+                { translate: "0 -12px" },
+                { translate: "0 0" }
+            ],
+            {
+                duration: 4200,
+                iterations: Infinity,
+                easing: "ease-in-out"
+            }
+        );
+    }, 4250);
 };
 
-if (document.readyState === "complete") {
-    requestAnimationFrame(startFinalOpeningSequence);
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", runAuthoritativeOpening, { once: true });
 } else {
-    window.addEventListener("load", () => {
-        requestAnimationFrame(startFinalOpeningSequence);
-    }, { once: true });
+    runAuthoritativeOpening();
 }
 
 /* ==========================================================
@@ -79,7 +118,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const website = document.getElementById("website");
     const enterBtn = document.getElementById("enterBtn");
 
-    if (website) website.style.display = "none";
+    if (website) {
+        website.style.setProperty("display", "block", "important");
+        website.style.setProperty("visibility", "visible", "important");
+        website.style.setProperty("opacity", "0", "important");
+        website.style.setProperty("pointer-events", "none", "important");
+    }
 
     // Reliable opening controller for desktop and mobile.
     if (enterBtn) {
