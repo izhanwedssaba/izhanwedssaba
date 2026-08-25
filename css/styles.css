@@ -3158,3 +3158,97 @@ body {
         letter-spacing: .20em !important;
     }
 }
+
+
+/* ==========================================================
+   FINAL MOTION FIX
+   - clearly visible floating while idle
+   - no empty-envelope pause after tap
+   - existing design kept
+   ========================================================== */
+
+#opening-screen #enterBtn.envelope-reference-v2:not(.opening) {
+    animation: envelopeIdleFloat 3.8s ease-in-out infinite !important;
+    will-change: transform, box-shadow;
+    transform-origin: center center;
+}
+
+@keyframes envelopeIdleFloat {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) scale(1);
+        box-shadow:
+            0 18px 38px rgba(83,68,42,.13),
+            0 1px 0 rgba(255,255,255,.82) inset;
+    }
+    50% {
+        transform: translate3d(0, -13px, 0) scale(1.008);
+        box-shadow:
+            0 34px 60px rgba(83,68,42,.20),
+            0 1px 0 rgba(255,255,255,.86) inset;
+    }
+}
+
+/* Make the tap feel alive without affecting the open transition. */
+#opening-screen #enterBtn.envelope-reference-v2:not(.opening) .env-v2-seal {
+    animation: sealBreath 3.8s ease-in-out infinite;
+}
+
+@keyframes sealBreath {
+    0%, 100% {
+        transform: translate(-50%,-50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%,-50%) scale(1.045);
+    }
+}
+
+/* Opening is now continuous: flap opens, envelope lifts away, website crossfades in.
+   There is no period where the user sees an empty stationary envelope. */
+#opening-screen #enterBtn.envelope-reference-v2.opening {
+    animation: envelopeOpenExit .95s cubic-bezier(.22,.72,.2,1) .28s forwards !important;
+    will-change: transform, opacity, filter;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap {
+    transition: transform .72s cubic-bezier(.22,.72,.2,1) !important;
+    transform: rotateX(-168deg) !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-seal {
+    opacity: 0 !important;
+    transform: translate(-50%,-50%) scale(.72) !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-tap {
+    opacity: 0 !important;
+    transition: opacity .18s ease !important;
+}
+
+@keyframes envelopeOpenExit {
+    0% {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale(1);
+        filter: blur(0);
+    }
+    55% {
+        opacity: 1;
+        transform: translate3d(0,-18px,0) scale(1.006);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(0,-95px,0) scale(.96);
+        filter: blur(2px);
+    }
+}
+
+@media (max-width:650px) {
+    @keyframes envelopeIdleFloat {
+        0%, 100% {
+            transform: translate3d(0,0,0) scale(1);
+        }
+        50% {
+            transform: translate3d(0,-10px,0) scale(1.006);
+        }
+    }
+}
