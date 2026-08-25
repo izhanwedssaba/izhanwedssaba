@@ -18,22 +18,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // The envelope is interactive immediately after it is visible.
     if (enterBtn) {
-        enterBtn.classList.add("envelope-ready");
         let invitationOpening = false;
 
         const openInvitation = () => {
             if (invitationOpening) return;
             invitationOpening = true;
 
-            // Stage 1: seal releases and flap opens.
+            // Stage 1: release seal + open flap.
             enterBtn.classList.add("opening");
 
-            // Stage 2: after the flap has visibly opened, lift the envelope away.
+            // Stage 2: flap remains visibly open before the envelope leaves.
             window.setTimeout(() => {
                 enterBtn.classList.add("envelope-exit");
-            }, 1280);
+            }, 1450);
 
-            // Stage 3: crossfade the actual invitation in during the envelope exit.
+            // Stage 3: reveal the real invitation during the exit.
             window.setTimeout(() => {
                 if (website) {
                     website.style.display = "block";
@@ -41,20 +40,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 if (opening) opening.classList.add("closing");
                 window.scrollTo({ top: 0, behavior: "auto" });
-            }, 1560);
+            }, 1750);
 
+            // Final cleanup.
             window.setTimeout(() => {
                 if (opening) opening.style.display = "none";
-            }, 2350);
+            }, 2500);
         };
 
         enterBtn.addEventListener("click", openInvitation);
+
         enterBtn.addEventListener("touchend", (event) => {
             event.preventDefault();
             openInvitation();
         }, { passive: false });
     }
-
 
     /* ======================================================
        SCRATCH TO REVEAL — WEDDING DATE
