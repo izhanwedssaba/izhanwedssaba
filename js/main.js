@@ -1,105 +1,57 @@
 
 /* ==========================================================
-   ONE AUTHORITATIVE OPENING CONTROLLER
-   Nothing else controls the opening sequence.
+   SIMPLE CLEAN OPENING SEQUENCE
+   One class system only. No legacy stage classes are used.
    ========================================================== */
-const runAuthoritativeOpening = () => {
+function startCleanOpeningSequence() {
     const root = document.documentElement;
-
-    const intro = [
-        document.querySelector("#opening-screen .opening-bismillah"),
-        document.querySelector("#opening-screen .opening-translation"),
-        document.querySelector("#opening-screen .opening-divider")
-    ].filter(Boolean);
-
-    const monogram = document.querySelector("#opening-screen .opening-monogram");
-    const names = document.querySelector("#opening-screen .opening-names");
     const envelope = document.querySelector("#opening-screen #enterBtn.envelope-reference-v2");
 
-    // Remove every legacy stage that can compete with this sequence.
+    // Make sure only this sequence controls the opening.
     [
+        "show-intro",
+        "show-monogram",
+        "show-names",
+        "show-envelope",
+        "float-envelope",
+        "opening-locked",
         "opening-stage-intro",
         "opening-stage-monogram",
         "opening-stage-names",
         "opening-stage-envelope",
         "opening-stage-float"
-    ].forEach(name => root.classList.remove(name));
+    ].forEach(cls => root.classList.remove(cls));
 
-    const reveal = (elements, options = {}) => {
-        elements.forEach(el => {
-            el.style.setProperty("visibility", "visible", "important");
-            el.style.setProperty("pointer-events", options.pointer ? "auto" : "none", "important");
-            el.style.setProperty("transition", "opacity .75s ease, transform .75s cubic-bezier(.22,.75,.25,1)", "important");
-            el.style.setProperty("opacity", "1", "important");
-            el.style.setProperty("transform", "translateY(0) scale(1)", "important");
-        });
-    };
+    root.classList.add("opening-sequence-active");
 
-    // Keep every item hidden first. This is an inline important state,
-    // so old stylesheet rules cannot reveal it early.
-    [...intro, monogram, names, envelope].filter(Boolean).forEach(el => {
-        el.style.setProperty("opacity", "0", "important");
-        el.style.setProperty("visibility", "hidden", "important");
-        el.style.setProperty("pointer-events", "none", "important");
-    });
+    // Bismillah and translation
+    setTimeout(() => root.classList.add("show-intro"), 250);
 
-    if (envelope) {
-        envelope.style.setProperty("transform", "translateY(26px) scale(.98)", "important");
-        envelope.style.setProperty("top", "0px", "important");
-    }
-    if (monogram) monogram.style.setProperty("transform", "translateY(14px) scale(.96)", "important");
-    if (names) names.style.setProperty("transform", "translateY(18px)", "important");
+    // I ♥ S monogram
+    setTimeout(() => root.classList.add("show-monogram"), 1100);
 
-    // Stage 1 — Bismillah
-    setTimeout(() => reveal(intro), 300);
+    // Couple names
+    setTimeout(() => root.classList.add("show-names"), 1950);
 
-    // Stage 2 — Monogram
+    // Envelope appears only after the names
     setTimeout(() => {
-        if (monogram) reveal([monogram]);
-    }, 1250);
-
-    // Stage 3 — Couple names
-    setTimeout(() => {
-        if (names) reveal([names]);
-    }, 2200);
-
-    // Stage 4 — Envelope directly below the names
-    setTimeout(() => {
-        if (!envelope) return;
-        envelope.style.setProperty("visibility", "visible", "important");
-        envelope.style.setProperty("transition", "opacity .8s ease, transform .8s cubic-bezier(.22,.75,.25,1)", "important");
-        envelope.style.setProperty("opacity", "1", "important");
-        envelope.style.setProperty("pointer-events", "auto", "important");
-        envelope.style.setProperty("transform", "translateY(0) scale(1)", "important");
+        root.classList.add("show-envelope");
         document.body.classList.add("opening-envelope-ready");
-    }, 3400);
+    }, 3100);
 
-    // Stage 5 — continuous floating after reveal.
+    // Visible floating begins after envelope reveal
     setTimeout(() => {
-        if (!envelope) return;
-
-        // Cancel any old CSS animation and use an independent Web Animation
-        // on the CSS translate property, which is not blocked by old transform rules.
-        envelope.style.setProperty("animation", "none", "important");
-        envelope.animate(
-            [
-                { translate: "0 0" },
-                { translate: "0 -12px" },
-                { translate: "0 0" }
-            ],
-            {
-                duration: 4200,
-                iterations: Infinity,
-                easing: "ease-in-out"
-            }
-        );
-    }, 4250);
-};
+        root.classList.add("float-envelope");
+        if (envelope) {
+            envelope.style.top = "0px";
+        }
+    }, 3900);
+}
 
 if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", runAuthoritativeOpening, { once: true });
+    document.addEventListener("DOMContentLoaded", startCleanOpeningSequence, { once: true });
 } else {
-    runAuthoritativeOpening();
+    startCleanOpeningSequence();
 }
 
 /* ==========================================================
