@@ -1,15 +1,13 @@
 
-
-/* Enable envelope interaction after its CSS reveal has completed.
-   Visibility is CSS-only, so failure here cannot produce a blank screen. */
+/* Enable envelope tap after the CSS reveal has completed. */
 document.addEventListener("DOMContentLoaded", () => {
-    const envelope = document.querySelector("#opening-screen #enterBtn.envelope-reference-v2");
+    const envelope = document.getElementById("enterBtn");
     if (envelope) {
-        window.setTimeout(() => {
-            envelope.classList.add("envelope-ready");
-        }, 4450);
+        window.setTimeout(() => envelope.classList.add("envelope-ready"), 4250);
     }
 }, { once: true });
+
+
 
 /* ==========================================================
    Mohammed Izhan & Bazila Saba
