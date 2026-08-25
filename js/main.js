@@ -30,61 +30,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (website) website.style.display = "none";
 
-    // The envelope is interactive immediately after it is visible.
+    // Reliable opening controller for desktop and mobile.
     if (enterBtn) {
         let invitationOpening = false;
 
-        const openInvitation = () => {
+        const revealInvitation = () => {
             if (invitationOpening) return;
             invitationOpening = true;
 
-            // Stage 1: release seal + open flap.
+            // Stop the envelope floating and start its opening state.
             enterBtn.classList.add("opening");
 
-            // Stage 2: flap remains visibly open before the envelope leaves.
+            // Make the second page available early, behind the envelope overlay.
+            window.setTimeout(() => {
+                document.body.classList.add("invitation-opened");
+
+                if (website) {
+                    website.style.setProperty("display", "block", "important");
+                    website.style.setProperty("visibility", "visible", "important");
+                    website.style.setProperty("opacity", "1", "important");
+                }
+            }, 420);
+
+            // Let the flap animation complete, then remove the opening screen.
             window.setTimeout(() => {
                 enterBtn.classList.add("envelope-exit");
-            }, 1450);
+            }, 1180);
 
-            // Stage 3: reveal the real invitation during the exit.
             window.setTimeout(() => {
-                if (website) {
-                    website.style.display = "block";
-                    requestAnimationFrame(() => website.classList.add("website-visible"));
+                if (opening) {
+                    opening.classList.add("handoff");
+                    opening.classList.add("closing");
                 }
-                if (opening) opening.classList.add("closing");
-                window.scrollTo({ top: 0, behavior: "auto" });
-            }, 1750);
+                window.scrollTo(0, 0);
+            }, 1500);
 
-            // Final cleanup.
+            // Hard cleanup so the overlay can never remain on top.
             window.setTimeout(() => {
-                if (opening) opening.style.display = "none";
-            }, 2500);
+                if (opening) {
+                    opening.style.display = "none";
+                    opening.style.pointerEvents = "none";
+                }
+                if (website) {
+                    website.style.setProperty("display", "block", "important");
+                    website.style.setProperty("visibility", "visible", "important");
+                    website.style.setProperty("opacity", "1", "important");
+                }
+            }, 2400);
         };
 
-        // Mobile-safe interaction.
-        // Android touchstart is used first; click remains as a desktop fallback.
         const triggerOpen = (event) => {
             if (event) {
                 event.preventDefault();
                 event.stopPropagation();
             }
-            openInvitation();
+            revealInvitation();
         };
 
-        enterBtn.addEventListener("touchstart", triggerOpen, {
-            passive: false,
-            capture: true
+        // Direct click handler works on desktop and normal mobile taps.
+        enterBtn.onclick = triggerOpen;
+
+        // Touch fallback for Android browsers.
+        enterBtn.addEventListener("touchend", triggerOpen, {
+            passive: false
         });
 
+        // Pointer fallback.
         enterBtn.addEventListener("pointerup", triggerOpen, {
-            passive: false,
-            capture: true
-        });
-
-        enterBtn.addEventListener("click", triggerOpen, {
-            passive: false,
-            capture: true
+            passive: false
         });
 
         enterBtn.addEventListener("keydown", (event) => {
