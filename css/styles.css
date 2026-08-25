@@ -3018,3 +3018,141 @@ body.invitation-reveal #opening-screen.cinematic-fade {
         opacity: 1 !important;
     }
 }
+
+
+/* ==========================================================
+   FINAL OPENING LAYOUT FIX — NO SCROLL + GUARANTEED ENVELOPE
+   ========================================================== */
+
+/* First page must behave like a single locked viewport, not a scroll page. */
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body.opening-sequence {
+    height: 100svh !important;
+    min-height: 100svh !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    touch-action: pan-x !important;
+}
+
+/* Override the earlier overflow-y:auto rule that caused first-page scrolling. */
+body.opening-sequence #opening-screen {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100svh !important;
+    min-height: 100svh !important;
+    max-height: 100svh !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 18px 14px !important;
+}
+
+/* Keep the complete sequence inside the viewport. */
+body.opening-sequence #opening-screen .opening-content {
+    width: min(92vw, 440px) !important;
+    max-height: calc(100svh - 36px) !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+}
+
+/* Slightly compact mobile spacing so the envelope fits without scrolling. */
+@media (max-width: 650px), (max-height: 760px) {
+    body.opening-sequence #opening-screen .opening-divider {
+        margin: 10px auto !important;
+    }
+
+    body.opening-sequence #opening-screen .opening-monogram {
+        margin: 10px 0 6px !important;
+        font-size: clamp(44px, 13vw, 62px) !important;
+    }
+
+    body.opening-sequence #opening-screen .opening-names {
+        margin-top: 4px !important;
+    }
+
+    body.opening-sequence #opening-screen .opening-title {
+        font-size: clamp(22px, 7vw, 30px) !important;
+        line-height: 1.12 !important;
+    }
+
+    body.opening-sequence #opening-screen .opening-ampersand {
+        margin: 1px 0 !important;
+        font-size: 22px !important;
+    }
+}
+
+/* GUARANTEED envelope visibility:
+   Use ONE animation only. The previous build used two competing animations
+   on the same element, which could leave opacity at 0. */
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
+    display: block !important;
+    visibility: visible !important;
+    width: min(88vw, 440px) !important;
+    max-width: 440px !important;
+    margin: 18px auto 0 !important;
+    flex: 0 0 auto !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    z-index: 500 !important;
+    position: relative !important;
+    animation: envelopeRevealAndFloat 8s ease-in-out 3.35s infinite !important;
+}
+
+/* After the reveal point, make the entire envelope tappable. */
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
+    pointer-events: auto !important;
+}
+
+@keyframes envelopeRevealAndFloat {
+    0% {
+        opacity: 0;
+        transform: translateY(24px) scale(.97);
+    }
+    11% {
+        opacity: 0;
+        transform: translateY(24px) scale(.97);
+    }
+    22% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    60% {
+        opacity: 1;
+        transform: translateY(-10px) scale(1.005);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Safety fallback: if animation is disabled, the envelope must still appear. */
+@media (prefers-reduced-motion: reduce) {
+    body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
+        animation: none !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+    }
+}
+
+/* Once invitation is opened, restore normal website scrolling. */
+body.invitation-reveal {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    touch-action: auto !important;
+}
