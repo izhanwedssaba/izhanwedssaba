@@ -3370,3 +3370,87 @@ body.opening-sequence.opening-envelope-ready #opening-screen #enterBtn.envelope-
         animation-delay: 2.35s !important;
     }
 }
+
+
+/* ==========================================================
+   GUARANTEED ENVELOPE REVEAL
+   Fixes the CSS state conflict that was hiding the envelope.
+   ========================================================== */
+
+/* The envelope starts truly hidden. */
+#opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translate3d(0, 34px, 0) scale(.98) !important;
+    animation: none !important;
+    transition:
+        opacity .72s ease,
+        transform .72s cubic-bezier(.22,.75,.25,1),
+        visibility 0s linear .72s !important;
+}
+
+/* Names must finish first. */
+#opening-screen .opening-names {
+    position: relative !important;
+    z-index: 20 !important;
+}
+
+/* This class is added only after the names are visible.
+   It has higher specificity than all previous hidden rules. */
+body.envelope-visible #opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translate3d(0, 0, 0) scale(1) !important;
+    transition:
+        opacity .72s ease,
+        transform .72s cubic-bezier(.22,.75,.25,1),
+        visibility 0s linear 0s !important;
+}
+
+/* Start floating only after the reveal transition finishes. */
+body.envelope-floating #opening-screen #enterBtn.envelope-reference-v2 {
+    animation: envelopeGentleFloat 4.6s ease-in-out infinite !important;
+}
+
+@keyframes envelopeGentleFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50%      { transform: translate3d(0, -10px, 0) scale(1); }
+}
+
+/* Explicit stacking: envelope cannot be behind the opening background. */
+#opening-screen #enterBtn.envelope-reference-v2 {
+    position: relative !important;
+    z-index: 50 !important;
+    display: block !important;
+    margin-top: 28px !important;
+}
+
+/* Keep it directly after the couple names. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 10 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 11 !important;
+}
+
+/* Once visible, mobile must be able to tap the actual envelope. */
+body.envelope-visible #opening-screen #enterBtn.envelope-reference-v2 {
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+/* Decorative children never intercept the tap. */
+#opening-screen #enterBtn.envelope-reference-v2 *,
+#opening-screen #enterBtn.envelope-reference-v2 *::before,
+#opening-screen #enterBtn.envelope-reference-v2 *::after {
+    pointer-events: none !important;
+}
