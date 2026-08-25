@@ -38,46 +38,40 @@ document.addEventListener("DOMContentLoaded", () => {
             if (invitationOpening) return;
             invitationOpening = true;
 
-            // 1. Start the physical envelope opening.
+            // 1. Physical envelope opening.
             enterBtn.classList.add("opening");
 
-            // 2. After the flap has visibly opened, let the envelope leave.
+            // 2. Let the open envelope be clearly visible, then exit.
             window.setTimeout(() => {
                 enterBtn.classList.add("envelope-exit");
             }, 1450);
 
-            // 3. Fade away ONLY the opening overlay.
-            // The second page is still hidden here, preventing overlap.
+            // 3. Start the second page fade while the opening overlay is still
+            // present. This preloads the next scene behind the outgoing overlay,
+            // eliminating the blank white gap seen in the previous build.
+            window.setTimeout(() => {
+                document.body.classList.add("invitation-reveal");
+            }, 1850);
+
+            // 4. Fade the opening overlay over the already-rendered invitation.
             window.setTimeout(() => {
                 if (opening) {
                     opening.classList.add("cinematic-fade");
                 }
-            }, 2050);
+            }, 1950);
 
-            // 4. Remove the opening screen completely.
+            // 5. Remove the overlay only after its fade completes.
             window.setTimeout(() => {
                 if (opening) {
                     opening.style.setProperty("display", "none", "important");
                     opening.style.setProperty("pointer-events", "none", "important");
                 }
-
-                // 5. Only now reveal the second page.
                 if (website) {
-                    website.style.setProperty("display", "block", "important");
-                    website.style.setProperty("visibility", "visible", "important");
-                    website.style.setProperty("opacity", "0", "important");
-
-                    requestAnimationFrame(() => {
-                        requestAnimationFrame(() => {
-                            website.style.setProperty("transition", "opacity .8s ease", "important");
-                            website.style.setProperty("opacity", "1", "important");
-                            document.body.classList.add("invitation-reveal");
-                        });
-                    });
+                    website.style.setProperty("opacity", "1", "important");
+                    website.style.setProperty("pointer-events", "auto", "important");
                 }
-
                 window.scrollTo({ top: 0, behavior: "auto" });
-            }, 2600);
+            }, 2700);
         };
 
         const triggerOpen = (event) => {
