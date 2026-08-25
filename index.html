@@ -21,7 +21,7 @@ href="assets/favicon/favicon.png">
 
 </head>
 
-<body class="opening-sequence">
+<body class="opening-sequence opening-locked-page">
 
 <!-- ===========================
 OPENING SCREEN
@@ -62,7 +62,8 @@ OPENING SCREEN
             </div>
 
         </div>
-<!-- FINAL REFERENCE-STYLE OPENING ENVELOPE -->
+
+        <!-- FINAL REFERENCE-STYLE OPENING ENVELOPE -->
 <button id="enterBtn" class="envelope envelope-reference-v2" type="button" aria-label="Tap to open wedding invitation">
     <span class="env-v2-back"></span>
     <span class="env-v2-pocket env-v2-left"></span>
@@ -427,102 +428,6 @@ FOOTER
 </div>
 
 <script src="js/main.js"></script>
-
-<!-- =========================================================
-     SINGLE OPENING CONTROLLER
-     This scene is intentionally isolated from all legacy opening code.
-     ========================================================= -->
-<div id="singleOpening" aria-label="Wedding invitation opening">
-  <div class="single-opening-content">
-    <div class="single-intro">
-      <div class="single-arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-      <div class="single-translation">
-        In the name of Allah,<br>
-        The Most Gracious,<br>
-        The Most Merciful
-      </div>
-      <div class="single-line"></div>
-    </div>
-
-    <div class="single-monogram">I <span>♥</span> S</div>
-
-    <div class="single-names">
-      <div>MOHAMMED IZHAN</div>
-      <div class="single-and">&amp;</div>
-      <div>BAZILA SABA</div>
-    </div>
-
-    <button id="singleOpenBtn" type="button" class="single-envelope" aria-label="Tap to open invitation">
-      <span class="single-env-back"></span>
-      <span class="single-env-letter">
-        <span class="single-env-small">TOGETHER WITH OUR BELOVED FAMILIES</span>
-        <span class="single-env-initials">I <b>♥</b> S</span>
-        <span class="single-env-couple">MOHAMMED IZHAN<br><i>&amp;</i><br>BAZILA SABA</span>
-      </span>
-      <span class="single-env-flap"></span>
-      <span class="single-env-seal">I<span>♥</span>S</span>
-      <span class="single-env-tap">— &nbsp; TAP TO OPEN &nbsp; —</span>
-    </button>
-  </div>
-</div>
-
-<script>
-(function () {
-  // One controller only. No timers are used to reveal the scene;
-  // CSS animation delays handle the sequence once.
-  const start = () => {
-    const body = document.body;
-    const legacyOpening = document.getElementById('opening-screen');
-    const website = document.getElementById('website');
-    const overlay = document.getElementById('singleOpening');
-    const button = document.getElementById('singleOpenBtn');
-
-    // Disable the old opening scene completely so its old scripts cannot
-    // create a second animation, blank flash, or restart.
-    if (legacyOpening) {
-      legacyOpening.style.setProperty('display', 'none', 'important');
-      legacyOpening.style.setProperty('visibility', 'hidden', 'important');
-    }
-
-    // Keep the real invitation hidden only behind this isolated overlay.
-    if (website) {
-      website.style.setProperty('display', 'none', 'important');
-      website.style.setProperty('visibility', 'visible', 'important');
-      website.style.setProperty('opacity', '1', 'important');
-    }
-
-    document.documentElement.style.setProperty('overflow', 'hidden', 'important');
-    body.style.setProperty('overflow', 'hidden', 'important');
-    body.style.setProperty('height', '100dvh', 'important');
-
-    button.addEventListener('click', () => {
-      button.disabled = true;
-      overlay.classList.add('single-opening-exit');
-
-      // Reveal the actual invitation directly; do not call any legacy handler.
-      if (website) {
-        website.style.setProperty('display', 'block', 'important');
-        website.style.setProperty('visibility', 'visible', 'important');
-        website.style.setProperty('opacity', '1', 'important');
-      }
-
-      document.documentElement.style.removeProperty('overflow');
-      body.style.removeProperty('overflow');
-      body.style.removeProperty('height');
-
-      window.setTimeout(() => {
-        overlay.remove();
-      }, 650);
-    }, { once: true });
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, { once: true });
-  } else {
-    start();
-  }
-}());
-</script>
 
 </body>
 </html>
