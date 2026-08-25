@@ -3720,3 +3720,30 @@ html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
     margin-top: 26px !important;
     display: block !important;
 }
+
+
+/* ==========================================================
+   ONE AUTHORITATIVE OPENING — FINAL GUARD
+   ========================================================== */
+html.opening-locked #opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+html.opening-locked #opening-screen .opening-names {
+    order: 10 !important;
+}
+
+html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
+    order: 11 !important;
+    display: block !important;
+    position: relative !important;
+    z-index: 200 !important;
+    margin-top: 26px !important;
+}
+
+/* No old delayed animation is allowed to run during the new sequence. */
+html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
+    animation-delay: 0s !important;
+}
