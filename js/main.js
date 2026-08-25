@@ -65,18 +65,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 window.scrollTo(0, 0);
             }, 1500);
 
-            // Hard cleanup so the overlay can never remain on top.
+            // Final hard handoff. Use direct inline important styles so no
+            // earlier preload/site-ready selector can keep the opening overlay visible.
             window.setTimeout(() => {
-                if (opening) {
-                    opening.style.display = "none";
-                    opening.style.pointerEvents = "none";
-                }
+                document.body.classList.add("invitation-opened");
                 if (website) {
                     website.style.setProperty("display", "block", "important");
                     website.style.setProperty("visibility", "visible", "important");
                     website.style.setProperty("opacity", "1", "important");
                 }
-            }, 2400);
+                if (opening) {
+                    opening.style.setProperty("opacity", "0", "important");
+                    opening.style.setProperty("visibility", "hidden", "important");
+                    opening.style.setProperty("pointer-events", "none", "important");
+                    opening.style.setProperty("display", "none", "important");
+                }
+                window.scrollTo({ top: 0, behavior: "auto" });
+            }, 1900);
         };
 
         const triggerOpen = (event) => {
