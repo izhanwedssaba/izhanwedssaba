@@ -2875,355 +2875,116 @@ body {
 }
 
 
+
+
 /* ==========================================================
-   CRITICAL OPENING SCREEN LAYER FIX
-   This MUST remain after all animated-background rules.
+   CLEAN OPENING SEQUENCE — ALL OLD STAGE CONFLICTS REMOVED
    ========================================================== */
 
-/* The previous background layer rule changed #opening-screen from
-   fixed to relative. That pushed the envelope out of the opening view.
-   Restore the opening screen as the top overlay. */
+/* The opening overlay remains visible and owns the first scene. */
 #opening-screen {
-    position: fixed !important;
-    inset: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     z-index: 9999 !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    min-height: 100svh !important;
-    width: 100% !important;
-    height: 100svh !important;
-
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-
-    padding: 18px 14px 28px !important;
-
-    opacity: 1 !important;
-    pointer-events: auto !important;
-
-    background:
-        radial-gradient(circle at 50% 18%, rgba(255,252,244,.98), rgba(250,247,242,.96) 52%, rgba(240,233,220,.98) 100%) !important;
 }
 
-/* Keep the invitation behind the opening overlay until the envelope is tapped. */
-#website {
-    position: relative !important;
-    z-index: 1 !important;
-}
-
-/* Make sure the entire opening stack stays inside the visible viewport. */
-#opening-screen .opening-content {
-    width: 100% !important;
-    max-width: 620px !important;
-    margin: auto !important;
-    padding: 0 0 12px !important;
-    transform: none !important;
-}
-
-/* Envelope must not be hidden by old generic .envelope rules. */
-#opening-screen #enterBtn.envelope-reference-v2 {
-    display: block !important;
+/* Reset only the opening items. No legacy body/html stage classes are used. */
+body.opening-sequence #opening-screen .opening-bismillah,
+body.opening-sequence #opening-screen .opening-translation,
+body.opening-sequence #opening-screen .opening-divider,
+body.opening-sequence #opening-screen .opening-monogram,
+body.opening-sequence #opening-screen .opening-names,
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
     visibility: visible !important;
-    opacity: 1 !important;
-
-    position: relative !important;
-    z-index: 50 !important;
-
-    width: min(88vw, 520px) !important;
-    aspect-ratio: 1.62 / 1 !important;
-    min-height: 0 !important;
-
-    margin: 26px auto 0 !important;
-    flex: 0 0 auto !important;
-
-    transform-origin: center center !important;
-}
-
-/* Keep all envelope layers explicitly visible. */
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-back,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-left,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-right,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-bottom,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-flap,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-seal,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap {
-    display: block !important;
-    visibility: visible !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-seal {
-    display: grid !important;
-    z-index: 60 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap {
-    display: flex !important;
-    z-index: 61 !important;
-}
-
-/* The website reveal only happens after opening is triggered. */
-#opening-screen.closing {
-    opacity: 0 !important;
-    pointer-events: none !important;
-    transition: opacity 1.2s ease !important;
-}
-
-@media (max-width: 650px) {
-    #opening-screen {
-        align-items: flex-start !important;
-        padding-top: 18px !important;
-    }
-
-    #opening-screen .opening-content {
-        max-width: 440px !important;
-    }
-
-    #opening-screen #enterBtn.envelope-reference-v2 {
-        width: min(86vw, 400px) !important;
-        margin-top: 22px !important;
-    }
-}
-
-
-/* ==========================================================
-   CRITICAL TAP FIX
-   The envelope itself receives the pointer event.
-   Decorative layers cannot intercept the tap.
-   ========================================================== */
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    touch-action: manipulation !important;
-    -webkit-tap-highlight-color: transparent !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-back,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-pocket,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-flap,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-flap *,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-seal,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-seal *,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap,
-#opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap * {
-    pointer-events: none !important;
-}
-
-/* Visible feedback confirms that the tap was received. */
-#opening-screen #enterBtn.envelope-reference-v2:active {
-    transform: translate3d(0,-4px,0) scale(.985) !important;
-}
-
-/* Keep the opening animation classes above any generic button rules. */
-#opening-screen #enterBtn.envelope-reference-v2.opening,
-#opening-screen #enterBtn.envelope-reference-v2.envelope-exit {
-    pointer-events: none !important;
-}
-
-
-/* ==========================================================
-   MOBILE TAP + PRELOAD VISIBILITY FIX
-   ========================================================== */
-
-/* Do not flash the envelope before the full page has loaded. */
-#opening-screen {
-    visibility: hidden !important;
-    opacity: 0 !important;
-}
-
-body.site-ready #opening-screen {
-    visibility: visible !important;
-    opacity: 1 !important;
-    transition: opacity .45s ease !important;
-}
-
-/* The envelope owns the entire touch area on mobile. */
-#opening-screen #enterBtn.envelope-reference-v2 {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-    touch-action: manipulation !important;
-    -webkit-tap-highlight-color: transparent !important;
-    -webkit-user-select: none !important;
-    user-select: none !important;
-}
-
-/* Every visual child is decoration only and cannot block touch. */
-#opening-screen #enterBtn.envelope-reference-v2 *,
-#opening-screen #enterBtn.envelope-reference-v2 *::before,
-#opening-screen #enterBtn.envelope-reference-v2 *::after {
-    pointer-events: none !important;
-}
-
-
-/* ==========================================================
-   OPENING FLOW FINAL FIX
-   ========================================================== */
-
-/* Keep the envelope directly below the couple names. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 1 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 2 !important;
-    margin-top: 28px !important;
-    margin-bottom: 0 !important;
-}
-
-/* Main invitation must be able to appear above the normal page layer. */
-#website {
-    position: relative !important;
-    z-index: 5 !important;
-    width: 100% !important;
-    min-height: 100svh !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-/* During the handoff, the website is explicitly revealed. */
-body.invitation-opened #website {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-/* Fade only the opening overlay; do not leave it blocking the website. */
-#opening-screen.handoff {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transition: opacity .75s ease, visibility 0s linear .75s !important;
-}
-
-/* Mobile: leave enough space for names then envelope, without pushing it away. */
-@media (max-width: 650px) {
-    #opening-screen {
-        overflow-y: auto !important;
-        align-items: flex-start !important;
-    }
-
-    #opening-screen .opening-content {
-        padding-top: 16px !important;
-        padding-bottom: 30px !important;
-    }
-
-    #opening-screen #enterBtn.envelope-reference-v2 {
-        margin-top: 22px !important;
-    }
-}
-
-
-/* ==========================================================
-   ROOT-CAUSE FIX: PRELOAD STATE MUST NOT OVERRIDE HANDOFF
-   body.site-ready #opening-screen is more specific than
-   #opening-screen.handoff, so the old preload rule kept opacity:1.
-   These selectors explicitly win after the invitation is opened.
-   ========================================================== */
-body.site-ready #opening-screen.handoff,
-body.site-ready #opening-screen.closing,
-body.site-ready #opening-screen.handoff.closing {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transition: opacity .65s ease !important;
-}
-
-/* Keep envelope below the names in normal document order. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-}
-#opening-screen .opening-names { order: 0 !important; }
-#opening-screen #enterBtn.envelope-reference-v2 { order: 1 !important; }
-
-/* Mobile handoff must remove the fixed overlay completely. */
-body.invitation-opened #opening-screen {
-    pointer-events: none !important;
-}
-
-
-/* ==========================================================
-   CLEAN CINEMATIC HANDOFF — NO PAGE OVERLAP
-   ========================================================== */
-
-/* Keep the opening sequence as one vertical flow:
-   all intro content -> couple names -> envelope. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    width: 100% !important;
-}
-
-#opening-screen .opening-bismillah,
-#opening-screen .opening-translation,
-#opening-screen .opening-divider,
-#opening-screen .opening-monogram {
-    order: 0 !important;
-}
-
-#opening-screen .opening-names {
-    order: 1 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 2 !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    position: relative !important;
-    margin-top: 28px !important;
-    margin-bottom: 0 !important;
-}
-
-/* The second page stays completely hidden until the envelope sequence ends. */
-#website {
-    display: none;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity .8s ease;
 }
 
-body.invitation-reveal #website {
-    display: block !important;
-    visibility: visible !important;
+/* 1. Bismillah and translation */
+body.opening-sequence #opening-screen .opening-bismillah {
+    animation: cleanIntroIn .8s ease .25s forwards !important;
+}
+body.opening-sequence #opening-screen .opening-translation {
+    animation: cleanIntroIn .8s ease .55s forwards !important;
+}
+body.opening-sequence #opening-screen .opening-divider {
+    animation: cleanDividerIn .7s ease .85s forwards !important;
+}
+
+/* 2. Monogram */
+body.opening-sequence #opening-screen .opening-monogram {
+    animation: cleanMonogramIn .8s cubic-bezier(.22,.75,.25,1) 1.35s forwards !important;
+}
+
+/* 3. Couple names */
+body.opening-sequence #opening-screen .opening-names {
+    animation: cleanNamesIn .9s cubic-bezier(.22,.75,.25,1) 2.15s forwards !important;
+}
+
+/* Disable the individual old name timings so the names enter as one stage. */
+body.opening-sequence #opening-screen .opening-title,
+body.opening-sequence #opening-screen .opening-ampersand {
     opacity: 1 !important;
+    animation: none !important;
 }
 
-/* Fade the opening overlay only after the envelope has exited. */
-body.site-ready #opening-screen.cinematic-fade {
-    opacity: 0 !important;
-    visibility: hidden !important;
+/* 4. Envelope appears only after the couple names.
+   The original masterEnvelopeFloat animation resumes automatically once
+   opacity is revealed, so the envelope is visibly floating from this point. */
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
     pointer-events: none !important;
-    transition: opacity .55s ease, visibility 0s linear .55s !important;
+    animation:
+        cleanEnvelopeIn .85s cubic-bezier(.22,.75,.25,1) 3.35s forwards,
+        masterEnvelopeFloat 3.8s ease-in-out 4.2s infinite !important;
 }
 
-@media (max-width: 650px) {
-    #opening-screen .opening-content {
-        padding-bottom: 28px !important;
-    }
-
-    #opening-screen #enterBtn.envelope-reference-v2 {
-        margin-top: 22px !important;
-    }
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
+    pointer-events: auto !important;
 }
 
+@keyframes cleanIntroIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 
-/* ==========================================================
-   SEAMLESS HANDOFF — REMOVE THE BLANK WHITE GAP
-   ========================================================== */
+@keyframes cleanDividerIn {
+    from { opacity: 0; transform: scaleX(0); }
+    to   { opacity: 1; transform: scaleX(1); }
+}
 
-/* Keep the invitation page rendered underneath from the start so it is ready.
-   It is invisible, but it does not create a white loading gap. */
+@keyframes cleanMonogramIn {
+    from { opacity: 0; transform: translateY(12px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cleanNamesIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cleanEnvelopeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Envelope remains directly after the names. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 10 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 11 !important;
+    display: block !important;
+    margin-top: 26px !important;
+}
+
+/* Clean invitation handoff. */
 #website {
     display: block !important;
     visibility: visible !important;
@@ -3233,632 +2994,27 @@ body.site-ready #opening-screen.cinematic-fade {
     transition: opacity .7s ease !important;
 }
 
-/* Envelope is always in normal opening flow after the couple names. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 1 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 2 !important;
-    margin-top: 26px !important;
-    flex: 0 0 auto !important;
-}
-
-/* Start revealing the real invitation before the opening overlay vanishes.
-   This removes the blank flash between scenes. */
 body.invitation-reveal #website {
     opacity: 1 !important;
     pointer-events: auto !important;
 }
 
-/* Opening overlay remains above until its final fade. */
-#opening-screen {
-    z-index: 9999 !important;
-}
-
-body.site-ready #opening-screen.cinematic-fade {
+body.invitation-reveal #opening-screen.cinematic-fade {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
     transition: opacity .65s ease, visibility 0s linear .65s !important;
 }
 
-
-/* ==========================================================
-   STAGED OPENING SEQUENCE
-   Envelope must NEVER appear before the couple names.
-   ========================================================== */
-
-/* Hard initial state: envelope is not rendered visibly on load. */
-#opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transform: translateY(28px) scale(.98) !important;
-    animation: none !important;
-}
-
-/* Intro and names are also staged for a deliberate sequence. */
-#opening-screen .opening-bismillah,
-#opening-screen .opening-translation,
-#opening-screen .opening-divider,
-#opening-screen .opening-monogram,
-#opening-screen .opening-names {
-    opacity: 0;
-    visibility: hidden;
-}
-
-/* Step 1: intro */
-body.opening-sequence #opening-screen .opening-bismillah,
-body.opening-sequence #opening-screen .opening-translation,
-body.opening-sequence #opening-screen .opening-divider,
-body.opening-sequence #opening-screen .opening-monogram {
-    visibility: visible;
-    animation: openingIntroIn .7s ease forwards;
-}
-
-/* Step 2: couple names */
-body.opening-sequence #opening-screen .opening-names {
-    visibility: visible;
-    animation: openingNamesIn .8s cubic-bezier(.22,.75,.25,1) forwards;
-    animation-delay: 1.35s;
-}
-
-/* Step 3: ONLY AFTER names have appeared, reveal envelope. */
-body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
-    visibility: visible !important;
-    animation: envelopeAfterNames 1s cubic-bezier(.22,.75,.25,1) forwards !important;
-    animation-delay: 2.45s !important;
-}
-
-/* The envelope cannot be clicked until it is visibly on screen. */
-body.opening-sequence.opening-envelope-ready #opening-screen #enterBtn.envelope-reference-v2 {
-    pointer-events: auto !important;
-    cursor: pointer !important;
-}
-
-@keyframes openingIntroIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes openingNamesIn {
-    from { opacity: 0; transform: translateY(20px) scale(.985); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes envelopeAfterNames {
-    0% {
-        opacity: 0;
-        transform: translateY(32px) scale(.97);
-    }
-    65% {
-        opacity: 1;
-        transform: translateY(-5px) scale(1.01);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Keep the envelope after the names in layout. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 1 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 2 !important;
-    margin-top: 28px !important;
-}
-
-/* On small screens keep the same timing and placement. */
-@media (max-width: 650px) {
-    body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
-        animation-delay: 2.35s !important;
-    }
-}
-
-
-/* ==========================================================
-   GUARANTEED ENVELOPE REVEAL
-   Fixes the CSS state conflict that was hiding the envelope.
-   ========================================================== */
-
-/* The envelope starts truly hidden. */
-#opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transform: translate3d(0, 34px, 0) scale(.98) !important;
-    animation: none !important;
-    transition:
-        opacity .72s ease,
-        transform .72s cubic-bezier(.22,.75,.25,1),
-        visibility 0s linear .72s !important;
-}
-
-/* Names must finish first. */
-#opening-screen .opening-names {
-    position: relative !important;
-    z-index: 20 !important;
-}
-
-/* This class is added only after the names are visible.
-   It has higher specificity than all previous hidden rules. */
-body.envelope-visible #opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translate3d(0, 0, 0) scale(1) !important;
-    transition:
-        opacity .72s ease,
-        transform .72s cubic-bezier(.22,.75,.25,1),
-        visibility 0s linear 0s !important;
-}
-
-/* Start floating only after the reveal transition finishes. */
-body.envelope-floating #opening-screen #enterBtn.envelope-reference-v2 {
-    animation: envelopeGentleFloat 4.6s ease-in-out infinite !important;
-}
-
-@keyframes envelopeGentleFloat {
-    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
-    50%      { transform: translate3d(0, -10px, 0) scale(1); }
-}
-
-/* Explicit stacking: envelope cannot be behind the opening background. */
-#opening-screen #enterBtn.envelope-reference-v2 {
-    position: relative !important;
-    z-index: 50 !important;
-    display: block !important;
-    margin-top: 28px !important;
-}
-
-/* Keep it directly after the couple names. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 10 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 11 !important;
-}
-
-/* Once visible, mobile must be able to tap the actual envelope. */
-body.envelope-visible #opening-screen #enterBtn.envelope-reference-v2 {
-    touch-action: manipulation !important;
-    -webkit-tap-highlight-color: transparent !important;
-}
-
-/* Decorative children never intercept the tap. */
-#opening-screen #enterBtn.envelope-reference-v2 *,
-#opening-screen #enterBtn.envelope-reference-v2 *::before,
-#opening-screen #enterBtn.envelope-reference-v2 *::after {
-    pointer-events: none !important;
-}
-
-
-/* ==========================================================
-   EVENT-BASED ENVELOPE REVEAL
-   The envelope appears when the couple-names animation finishes,
-   not after a fixed timer.
-   ========================================================== */
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transform: translate3d(0, 30px, 0) scale(.98) !important;
-    animation: none !important;
-}
-
-body.envelope-reveal-now #opening-screen #enterBtn.envelope-reference-v2 {
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: translate3d(0, 0, 0) scale(1) !important;
-    animation: none !important;
-    transition:
-        opacity .65s ease,
-        transform .65s cubic-bezier(.22,.75,.25,1) !important;
-}
-
-body.envelope-float-now #opening-screen #enterBtn.envelope-reference-v2 {
-    animation: envelopeGentleFloat 4.6s ease-in-out infinite !important;
-}
-
-/* The envelope is placed in normal flow immediately after the names. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 10 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 11 !important;
-    position: relative !important;
-    z-index: 50 !important;
-    margin-top: 24px !important;
-    display: block !important;
-}
-
-/* Do not let any previous delayed envelope animation override this state. */
-body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
-    animation-delay: 0s !important;
-}
-
-
-/* ==========================================================
-   STRICT STAGED OPENING — INTRO / MONOGRAM / NAMES / ENVELOPE
-   ========================================================== */
-
-/* Nothing in the opening sequence is allowed to flash in early. */
-#opening-screen .opening-bismillah,
-#opening-screen .opening-translation,
-#opening-screen .opening-divider,
-#opening-screen .opening-monogram,
-#opening-screen .opening-names,
-#opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 0 !important;
-    visibility: hidden !important;
-}
-
-/* Stage 1: Bismillah + translation. */
-body.stage-intro #opening-screen .opening-bismillah,
-body.stage-intro #opening-screen .opening-translation,
-body.stage-intro #opening-screen .opening-divider {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
-    transition: opacity .7s ease, transform .7s ease !important;
-}
-
-/* Stage 2: monogram appears after the intro. */
-body.stage-monogram #opening-screen .opening-monogram {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) scale(1) !important;
-    transition: opacity .65s ease, transform .65s ease !important;
-}
-
-/* Stage 3: couple names appear. */
-body.stage-names #opening-screen .opening-names {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
-    transition: opacity .8s ease, transform .8s cubic-bezier(.22,.75,.25,1) !important;
-}
-
-/* Stage 4: envelope appears ONLY after the couple names. */
-body.stage-envelope #opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translate3d(0, 0, 0) scale(1) !important;
-    transition:
-        opacity .7s ease,
-        transform .7s cubic-bezier(.22,.75,.25,1),
-        visibility 0s !important;
-}
-
-/* Stage 5: gentle floating without using transform, so older transform rules
-   cannot cancel the animation. */
-body.stage-envelope-float #opening-screen #enterBtn.envelope-reference-v2 {
-    position: relative !important;
-    animation: envelopeTopFloat 4.2s ease-in-out infinite !important;
-}
-
-@keyframes envelopeTopFloat {
-    0%, 100% { top: 0; }
-    50% { top: -10px; }
-}
-
-/* Keep the envelope immediately after the names in the vertical flow. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 10 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 11 !important;
-    display: block !important;
-    margin-top: 26px !important;
-    z-index: 60 !important;
-}
-
-/* Start each staged item slightly offset, then stage classes bring it in. */
-#opening-screen .opening-bismillah,
-#opening-screen .opening-translation,
-#opening-screen .opening-divider {
-    transform: translateY(10px) !important;
-}
-
-#opening-screen .opening-monogram {
-    transform: translateY(14px) scale(.96) !important;
-}
-
-#opening-screen .opening-names {
-    transform: translateY(18px) !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    transform: translate3d(0, 28px, 0) scale(.98) !important;
-    pointer-events: none !important;
-}
-
-/* Decorative envelope parts never intercept mobile taps. */
-#opening-screen #enterBtn.envelope-reference-v2 *,
-#opening-screen #enterBtn.envelope-reference-v2 *::before,
-#opening-screen #enterBtn.envelope-reference-v2 *::after {
-    pointer-events: none !important;
-}
-
-
-/* ==========================================================
-   FINAL AUTHORITATIVE OPENING SEQUENCE
-   ========================================================== */
-
-/* Hard reset: nothing flashes before its own stage. */
-html.opening-locked #opening-screen .opening-bismillah,
-html.opening-locked #opening-screen .opening-translation,
-html.opening-locked #opening-screen .opening-divider,
-html.opening-locked #opening-screen .opening-monogram,
-html.opening-locked #opening-screen .opening-names,
-html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
-
-/* Intro stage */
-html.opening-stage-intro #opening-screen .opening-bismillah,
-html.opening-stage-intro #opening-screen .opening-translation,
-html.opening-stage-intro #opening-screen .opening-divider {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
-    transition: opacity .65s ease, transform .65s ease !important;
-}
-
-/* Monogram stage */
-html.opening-stage-monogram #opening-screen .opening-monogram {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) scale(1) !important;
-    transition: opacity .65s ease, transform .65s ease !important;
-}
-
-/* Names stage */
-html.opening-stage-names #opening-screen .opening-names {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
-    transition: opacity .8s ease, transform .8s cubic-bezier(.22,.75,.25,1) !important;
-}
-
-/* Envelope stage: explicitly visible and directly after names */
-html.opening-stage-envelope #opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translate3d(0,0,0) scale(1) !important;
-    transition: opacity .7s ease, transform .7s cubic-bezier(.22,.75,.25,1) !important;
-}
-
-/* Float uses the independent CSS translate property.
-   This cannot be cancelled by old transform: ... !important rules. */
-html.opening-stage-float #opening-screen #enterBtn.envelope-reference-v2 {
-    animation: finalEnvelopeFloat 4.2s ease-in-out infinite !important;
-}
-
-@keyframes finalEnvelopeFloat {
-    0%, 100% { translate: 0 0; }
-    50%      { translate: 0 -12px; }
-}
-
-/* Initial offsets */
-html.opening-locked #opening-screen .opening-bismillah,
-html.opening-locked #opening-screen .opening-translation,
-html.opening-locked #opening-screen .opening-divider {
-    transform: translateY(10px) !important;
-}
-
-html.opening-locked #opening-screen .opening-monogram {
-    transform: translateY(14px) scale(.96) !important;
-}
-
-html.opening-locked #opening-screen .opening-names {
-    transform: translateY(18px) !important;
-}
-
-html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
-    transform: translate3d(0,28px,0) scale(.98) !important;
-}
-
-/* Final layout order */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 10 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 11 !important;
-    position: relative !important;
-    z-index: 100 !important;
-    margin-top: 26px !important;
-    display: block !important;
-}
-
-
-/* ==========================================================
-   ONE AUTHORITATIVE OPENING — FINAL GUARD
-   ========================================================== */
-html.opening-locked #opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-html.opening-locked #opening-screen .opening-names {
-    order: 10 !important;
-}
-
-html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
-    order: 11 !important;
-    display: block !important;
-    position: relative !important;
-    z-index: 200 !important;
-    margin-top: 26px !important;
-}
-
-/* No old delayed animation is allowed to run during the new sequence. */
-html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
-    animation-delay: 0s !important;
-}
-
-
-
-
-/* ==========================================================
-   CSS-ONLY OPENING SEQUENCE — NO JS VISIBILITY DEPENDENCY
-   This fixes the blank screen caused by JS stage classes failing.
-   ========================================================== */
-
-/* Keep all opening elements available in the DOM. The animations themselves
-   control the reveal, so the page cannot remain permanently blank if JS fails. */
-
-#opening-screen .opening-bismillah,
-#opening-screen .opening-translation,
-#opening-screen .opening-divider {
-    opacity: 0;
-    animation: cssIntroReveal .75s ease forwards !important;
-}
-
-#opening-screen .opening-bismillah { animation-delay: .35s !important; }
-#opening-screen .opening-translation { animation-delay: .55s !important; }
-#opening-screen .opening-divider { animation-delay: .75s !important; }
-
-#opening-screen .opening-monogram {
-    opacity: 0;
-    animation: cssMonogramReveal .8s cubic-bezier(.22,.75,.25,1) forwards !important;
-    animation-delay: 1.45s !important;
-}
-
-#opening-screen .opening-names {
-    opacity: 0;
-    animation: cssNamesReveal .9s cubic-bezier(.22,.75,.25,1) forwards !important;
-    animation-delay: 2.35s !important;
-}
-
-/* Envelope is revealed after the names. The reveal animation also keeps the
-   element visible at its final state. */
-#opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 0 !important;
-    visibility: visible !important;
-    pointer-events: none !important;
-    position: relative !important;
-    top: 0 !important;
-    margin-top: 26px !important;
-    z-index: 100 !important;
-    animation:
-        cssEnvelopeReveal .9s cubic-bezier(.22,.75,.25,1) 3.55s forwards,
-        cssEnvelopeFloat 4.2s ease-in-out 4.55s infinite !important;
-}
-
-/* Enable tapping after the envelope is visibly present. */
-#opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
-    pointer-events: auto !important;
-}
-
-@keyframes cssIntroReveal {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes cssMonogramReveal {
-    from { opacity: 0; transform: translateY(16px) scale(.96); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes cssNamesReveal {
-    from { opacity: 0; transform: translateY(20px) scale(.985); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes cssEnvelopeReveal {
-    from {
-        opacity: 0;
-        transform: translateY(30px) scale(.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-@keyframes cssEnvelopeFloat {
-    0%, 100% { top: 0; }
-    50% { top: -12px; }
-}
-
-/* Force the opening content into a predictable vertical flow. */
-#opening-screen .opening-content {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
-
-#opening-screen .opening-names {
-    order: 10 !important;
-}
-
-#opening-screen #enterBtn.envelope-reference-v2 {
-    order: 11 !important;
-    display: block !important;
-}
-
-/* Accessibility: reduce motion still reveals everything instead of hiding it. */
+/* Reduced motion must still show all opening content. */
 @media (prefers-reduced-motion: reduce) {
-    #opening-screen .opening-bismillah,
-    #opening-screen .opening-translation,
-    #opening-screen .opening-divider,
-    #opening-screen .opening-monogram,
-    #opening-screen .opening-names,
-    #opening-screen #enterBtn.envelope-reference-v2 {
+    body.opening-sequence #opening-screen .opening-bismillah,
+    body.opening-sequence #opening-screen .opening-translation,
+    body.opening-sequence #opening-screen .opening-divider,
+    body.opening-sequence #opening-screen .opening-monogram,
+    body.opening-sequence #opening-screen .opening-names,
+    body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
         animation: none !important;
         opacity: 1 !important;
-        visibility: visible !important;
     }
 }
