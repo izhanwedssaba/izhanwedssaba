@@ -3749,80 +3749,91 @@ html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
 }
 
 
+
+
 /* ==========================================================
-   SIMPLE CLEAN OPENING SEQUENCE — FINAL
+   CSS-ONLY OPENING SEQUENCE — NO JS VISIBILITY DEPENDENCY
+   This fixes the blank screen caused by JS stage classes failing.
    ========================================================== */
 
-/* Only this html class controls the initial visibility. */
-html.opening-sequence-active #opening-screen .opening-bismillah,
-html.opening-sequence-active #opening-screen .opening-translation,
-html.opening-sequence-active #opening-screen .opening-divider,
-html.opening-sequence-active #opening-screen .opening-monogram,
-html.opening-sequence-active #opening-screen .opening-names,
-html.opening-sequence-active #opening-screen #enterBtn.envelope-reference-v2 {
+/* Keep all opening elements available in the DOM. The animations themselves
+   control the reveal, so the page cannot remain permanently blank if JS fails. */
+
+#opening-screen .opening-bismillah,
+#opening-screen .opening-translation,
+#opening-screen .opening-divider {
+    opacity: 0;
+    animation: cssIntroReveal .75s ease forwards !important;
+}
+
+#opening-screen .opening-bismillah { animation-delay: .35s !important; }
+#opening-screen .opening-translation { animation-delay: .55s !important; }
+#opening-screen .opening-divider { animation-delay: .75s !important; }
+
+#opening-screen .opening-monogram {
+    opacity: 0;
+    animation: cssMonogramReveal .8s cubic-bezier(.22,.75,.25,1) forwards !important;
+    animation-delay: 1.45s !important;
+}
+
+#opening-screen .opening-names {
+    opacity: 0;
+    animation: cssNamesReveal .9s cubic-bezier(.22,.75,.25,1) forwards !important;
+    animation-delay: 2.35s !important;
+}
+
+/* Envelope is revealed after the names. The reveal animation also keeps the
+   element visible at its final state. */
+#opening-screen #enterBtn.envelope-reference-v2 {
     opacity: 0 !important;
-    visibility: hidden !important;
+    visibility: visible !important;
     pointer-events: none !important;
-}
-
-/* Intro */
-html.opening-sequence-active.show-intro #opening-screen .opening-bismillah,
-html.opening-sequence-active.show-intro #opening-screen .opening-translation,
-html.opening-sequence-active.show-intro #opening-screen .opening-divider {
-    opacity: 1 !important;
-    visibility: visible !important;
-    animation: cleanFadeUp .7s ease both !important;
-}
-
-/* Monogram */
-html.opening-sequence-active.show-monogram #opening-screen .opening-monogram {
-    opacity: 1 !important;
-    visibility: visible !important;
-    animation: cleanFadeUp .7s ease both !important;
-}
-
-/* Couple names */
-html.opening-sequence-active.show-names #opening-screen .opening-names {
-    opacity: 1 !important;
-    visibility: visible !important;
-    animation: cleanNamesIn .85s cubic-bezier(.22,.75,.25,1) both !important;
-}
-
-/* Envelope */
-html.opening-sequence-active.show-envelope #opening-screen #enterBtn.envelope-reference-v2 {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    animation: cleanEnvelopeIn .8s cubic-bezier(.22,.75,.25,1) both !important;
-}
-
-/* Floating is deliberately animated with TOP, not transform. */
-html.opening-sequence-active.float-envelope #opening-screen #enterBtn.envelope-reference-v2 {
     position: relative !important;
-    animation: cleanEnvelopeFloat 4s ease-in-out infinite !important;
+    top: 0 !important;
+    margin-top: 26px !important;
+    z-index: 100 !important;
+    animation:
+        cssEnvelopeReveal .9s cubic-bezier(.22,.75,.25,1) 3.55s forwards,
+        cssEnvelopeFloat 4.2s ease-in-out 4.55s infinite !important;
 }
 
-@keyframes cleanFadeUp {
-    from { opacity: 0; transform: translateY(14px); }
+/* Enable tapping after the envelope is visibly present. */
+#opening-screen #enterBtn.envelope-reference-v2.envelope-ready {
+    pointer-events: auto !important;
+}
+
+@keyframes cssIntroReveal {
+    from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes cleanNamesIn {
-    from { opacity: 0; transform: translateY(22px) scale(.985); }
+@keyframes cssMonogramReveal {
+    from { opacity: 0; transform: translateY(16px) scale(.96); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes cleanEnvelopeIn {
-    from { opacity: 0; transform: translateY(28px) scale(.98); }
+@keyframes cssNamesReveal {
+    from { opacity: 0; transform: translateY(20px) scale(.985); }
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@keyframes cleanEnvelopeFloat {
+@keyframes cssEnvelopeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes cssEnvelopeFloat {
     0%, 100% { top: 0; }
     50% { top: -12px; }
 }
 
-/* Keep envelope physically after couple names in the same flex column. */
+/* Force the opening content into a predictable vertical flow. */
 #opening-screen .opening-content {
     display: flex !important;
     flex-direction: column !important;
@@ -3836,15 +3847,18 @@ html.opening-sequence-active.float-envelope #opening-screen #enterBtn.envelope-r
 #opening-screen #enterBtn.envelope-reference-v2 {
     order: 11 !important;
     display: block !important;
-    position: relative !important;
-    z-index: 100 !important;
-    margin-top: 26px !important;
 }
 
-/* Mobile: keep the same sequence and allow the whole envelope to be tapped. */
-@media (max-width: 650px) {
+/* Accessibility: reduce motion still reveals everything instead of hiding it. */
+@media (prefers-reduced-motion: reduce) {
+    #opening-screen .opening-bismillah,
+    #opening-screen .opening-translation,
+    #opening-screen .opening-divider,
+    #opening-screen .opening-monogram,
+    #opening-screen .opening-names,
     #opening-screen #enterBtn.envelope-reference-v2 {
-        touch-action: manipulation !important;
-        -webkit-tap-highlight-color: transparent !important;
+        animation: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 }
