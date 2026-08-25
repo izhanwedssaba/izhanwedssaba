@@ -48,12 +48,29 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 2500);
         };
 
-        enterBtn.addEventListener("click", openInvitation);
-
-        enterBtn.addEventListener("touchend", (event) => {
-            event.preventDefault();
+        // One unified event path for Android Chrome, touch and mouse.
+        // Decorative child layers have pointer-events disabled in CSS,
+        // so the button itself always receives the interaction.
+        const triggerOpen = (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
             openInvitation();
-        }, { passive: false });
+        };
+
+        if (window.PointerEvent) {
+            enterBtn.addEventListener("pointerup", triggerOpen, { passive: false });
+        } else {
+            enterBtn.addEventListener("click", triggerOpen, { passive: false });
+            enterBtn.addEventListener("touchend", triggerOpen, { passive: false });
+        }
+
+        enterBtn.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                triggerOpen(event);
+            }
+        });
     }
 
     /* ======================================================
