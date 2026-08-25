@@ -3120,3 +3120,32 @@ body.invitation-opened #website {
         margin-top: 22px !important;
     }
 }
+
+
+/* ==========================================================
+   ROOT-CAUSE FIX: PRELOAD STATE MUST NOT OVERRIDE HANDOFF
+   body.site-ready #opening-screen is more specific than
+   #opening-screen.handoff, so the old preload rule kept opacity:1.
+   These selectors explicitly win after the invitation is opened.
+   ========================================================== */
+body.site-ready #opening-screen.handoff,
+body.site-ready #opening-screen.closing,
+body.site-ready #opening-screen.handoff.closing {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity .65s ease !important;
+}
+
+/* Keep envelope below the names in normal document order. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+}
+#opening-screen .opening-names { order: 0 !important; }
+#opening-screen #enterBtn.envelope-reference-v2 { order: 1 !important; }
+
+/* Mobile handoff must remove the fixed overlay completely. */
+body.invitation-opened #opening-screen {
+    pointer-events: none !important;
+}
