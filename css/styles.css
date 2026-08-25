@@ -3022,3 +3022,37 @@ body {
 #opening-screen #enterBtn.envelope-reference-v2.envelope-exit {
     pointer-events: none !important;
 }
+
+
+/* ==========================================================
+   MOBILE TAP + PRELOAD VISIBILITY FIX
+   ========================================================== */
+
+/* Do not flash the envelope before the full page has loaded. */
+#opening-screen {
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+body.site-ready #opening-screen {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transition: opacity .45s ease !important;
+}
+
+/* The envelope owns the entire touch area on mobile. */
+#opening-screen #enterBtn.envelope-reference-v2 {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+}
+
+/* Every visual child is decoration only and cannot block touch. */
+#opening-screen #enterBtn.envelope-reference-v2 *,
+#opening-screen #enterBtn.envelope-reference-v2 *::before,
+#opening-screen #enterBtn.envelope-reference-v2 *::after {
+    pointer-events: none !important;
+}
