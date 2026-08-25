@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             enterBtn.classList.add("opening");
 
-            // Let the user clearly see the flap open first.
+            // Crossfade the real invitation in while the envelope lifts away.
             window.setTimeout(() => {
                 if (website) {
                     website.style.display = "block";
@@ -35,11 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 if (opening) opening.classList.add("closing");
                 window.scrollTo({ top: 0, behavior: "auto" });
-            }, 1050);
+            }, 760);
 
             window.setTimeout(() => {
                 if (opening) opening.style.display = "none";
-            }, 1900);
+            }, 1450);
         };
 
         enterBtn.addEventListener("click", openInvitation);
