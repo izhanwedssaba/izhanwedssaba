@@ -3619,3 +3619,104 @@ body.stage-envelope-float #opening-screen #enterBtn.envelope-reference-v2 {
 #opening-screen #enterBtn.envelope-reference-v2 *::after {
     pointer-events: none !important;
 }
+
+
+/* ==========================================================
+   FINAL AUTHORITATIVE OPENING SEQUENCE
+   ========================================================== */
+
+/* Hard reset: nothing flashes before its own stage. */
+html.opening-locked #opening-screen .opening-bismillah,
+html.opening-locked #opening-screen .opening-translation,
+html.opening-locked #opening-screen .opening-divider,
+html.opening-locked #opening-screen .opening-monogram,
+html.opening-locked #opening-screen .opening-names,
+html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Intro stage */
+html.opening-stage-intro #opening-screen .opening-bismillah,
+html.opening-stage-intro #opening-screen .opening-translation,
+html.opening-stage-intro #opening-screen .opening-divider {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    transition: opacity .65s ease, transform .65s ease !important;
+}
+
+/* Monogram stage */
+html.opening-stage-monogram #opening-screen .opening-monogram {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) scale(1) !important;
+    transition: opacity .65s ease, transform .65s ease !important;
+}
+
+/* Names stage */
+html.opening-stage-names #opening-screen .opening-names {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+    transition: opacity .8s ease, transform .8s cubic-bezier(.22,.75,.25,1) !important;
+}
+
+/* Envelope stage: explicitly visible and directly after names */
+html.opening-stage-envelope #opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translate3d(0,0,0) scale(1) !important;
+    transition: opacity .7s ease, transform .7s cubic-bezier(.22,.75,.25,1) !important;
+}
+
+/* Float uses the independent CSS translate property.
+   This cannot be cancelled by old transform: ... !important rules. */
+html.opening-stage-float #opening-screen #enterBtn.envelope-reference-v2 {
+    animation: finalEnvelopeFloat 4.2s ease-in-out infinite !important;
+}
+
+@keyframes finalEnvelopeFloat {
+    0%, 100% { translate: 0 0; }
+    50%      { translate: 0 -12px; }
+}
+
+/* Initial offsets */
+html.opening-locked #opening-screen .opening-bismillah,
+html.opening-locked #opening-screen .opening-translation,
+html.opening-locked #opening-screen .opening-divider {
+    transform: translateY(10px) !important;
+}
+
+html.opening-locked #opening-screen .opening-monogram {
+    transform: translateY(14px) scale(.96) !important;
+}
+
+html.opening-locked #opening-screen .opening-names {
+    transform: translateY(18px) !important;
+}
+
+html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
+    transform: translate3d(0,28px,0) scale(.98) !important;
+}
+
+/* Final layout order */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 10 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 11 !important;
+    position: relative !important;
+    z-index: 100 !important;
+    margin-top: 26px !important;
+    display: block !important;
+}
