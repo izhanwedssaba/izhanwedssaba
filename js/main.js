@@ -38,50 +38,46 @@ document.addEventListener("DOMContentLoaded", () => {
             if (invitationOpening) return;
             invitationOpening = true;
 
-            // Stop the envelope floating and start its opening state.
+            // 1. Start the physical envelope opening.
             enterBtn.classList.add("opening");
 
-            // Make the second page available early, behind the envelope overlay.
-            window.setTimeout(() => {
-                document.body.classList.add("invitation-opened");
-
-                if (website) {
-                    website.style.setProperty("display", "block", "important");
-                    website.style.setProperty("visibility", "visible", "important");
-                    website.style.setProperty("opacity", "1", "important");
-                }
-            }, 420);
-
-            // Let the flap animation complete, then remove the opening screen.
+            // 2. After the flap has visibly opened, let the envelope leave.
             window.setTimeout(() => {
                 enterBtn.classList.add("envelope-exit");
-            }, 1180);
+            }, 1450);
 
+            // 3. Fade away ONLY the opening overlay.
+            // The second page is still hidden here, preventing overlap.
             window.setTimeout(() => {
                 if (opening) {
-                    opening.classList.add("handoff");
-                    opening.classList.add("closing");
+                    opening.classList.add("cinematic-fade");
                 }
-                window.scrollTo(0, 0);
-            }, 1500);
+            }, 2050);
 
-            // Final hard handoff. Use direct inline important styles so no
-            // earlier preload/site-ready selector can keep the opening overlay visible.
+            // 4. Remove the opening screen completely.
             window.setTimeout(() => {
-                document.body.classList.add("invitation-opened");
+                if (opening) {
+                    opening.style.setProperty("display", "none", "important");
+                    opening.style.setProperty("pointer-events", "none", "important");
+                }
+
+                // 5. Only now reveal the second page.
                 if (website) {
                     website.style.setProperty("display", "block", "important");
                     website.style.setProperty("visibility", "visible", "important");
-                    website.style.setProperty("opacity", "1", "important");
+                    website.style.setProperty("opacity", "0", "important");
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            website.style.setProperty("transition", "opacity .8s ease", "important");
+                            website.style.setProperty("opacity", "1", "important");
+                            document.body.classList.add("invitation-reveal");
+                        });
+                    });
                 }
-                if (opening) {
-                    opening.style.setProperty("opacity", "0", "important");
-                    opening.style.setProperty("visibility", "hidden", "important");
-                    opening.style.setProperty("pointer-events", "none", "important");
-                    opening.style.setProperty("display", "none", "important");
-                }
+
                 window.scrollTo({ top: 0, behavior: "auto" });
-            }, 1900);
+            }, 2600);
         };
 
         const triggerOpen = (event) => {
