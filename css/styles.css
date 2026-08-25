@@ -3056,3 +3056,67 @@ body.site-ready #opening-screen {
 #opening-screen #enterBtn.envelope-reference-v2 *::after {
     pointer-events: none !important;
 }
+
+
+/* ==========================================================
+   OPENING FLOW FINAL FIX
+   ========================================================== */
+
+/* Keep the envelope directly below the couple names. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 1 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 2 !important;
+    margin-top: 28px !important;
+    margin-bottom: 0 !important;
+}
+
+/* Main invitation must be able to appear above the normal page layer. */
+#website {
+    position: relative !important;
+    z-index: 5 !important;
+    width: 100% !important;
+    min-height: 100svh !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* During the handoff, the website is explicitly revealed. */
+body.invitation-opened #website {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Fade only the opening overlay; do not leave it blocking the website. */
+#opening-screen.handoff {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity .75s ease, visibility 0s linear .75s !important;
+}
+
+/* Mobile: leave enough space for names then envelope, without pushing it away. */
+@media (max-width: 650px) {
+    #opening-screen {
+        overflow-y: auto !important;
+        align-items: flex-start !important;
+    }
+
+    #opening-screen .opening-content {
+        padding-top: 16px !important;
+        padding-bottom: 30px !important;
+    }
+
+    #opening-screen #enterBtn.envelope-reference-v2 {
+        margin-top: 22px !important;
+    }
+}
