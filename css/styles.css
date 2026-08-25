@@ -3240,3 +3240,194 @@ body.invitation-reveal html {
 body.invitation-reveal #website {
     display: block !important;
 }
+
+
+/* ==========================================================
+   CLEAN OPENING REBUILD — ISOLATED FROM ALL LEGACY ENVELOPE CSS
+   ========================================================== */
+
+/* Never scroll on the opening scene */
+html:has(body.opening-sequence),
+body.opening-sequence {
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    max-height: 100dvh !important;
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+}
+
+/* Keep the opening content centred and within one viewport */
+body.opening-sequence #opening-screen .opening-content {
+    width: min(92vw, 460px) !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 auto !important;
+    padding: 18px 0 !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+}
+
+/* Legacy envelope is disabled; clean envelope is the only visible one. */
+body.opening-sequence #enterBtn.envelope-reference-v2 {
+    display: none !important;
+}
+
+.clean-envelope {
+    width: min(88vw, 420px);
+    aspect-ratio: 1.58 / 1;
+    position: relative;
+    display: block;
+    border: 0;
+    padding: 0;
+    margin: 22px auto 0;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(24px) scale(.98);
+    transition: opacity .75s ease, transform .75s cubic-bezier(.22,.75,.25,1);
+    z-index: 10000;
+    animation: cleanEnvelopeFloat 4s ease-in-out 4.2s infinite;
+}
+
+.clean-envelope * {
+    box-sizing: border-box;
+}
+
+.clean-env-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #f4ead8, #d9bd7b 48%, #f6eedf);
+    box-shadow: 0 18px 35px rgba(77, 57, 24, .16);
+}
+
+.clean-env-letter {
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    bottom: 7%;
+    height: 77%;
+    border-radius: 3px;
+    background: #f9f5eb;
+    box-shadow: 0 4px 10px rgba(66, 47, 20, .08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #234e40;
+    z-index: 2;
+    padding: 8px;
+}
+
+.clean-env-kicker {
+    font-family: Poppins, sans-serif;
+    font-size: clamp(5px, 1.25vw, 8px);
+    letter-spacing: .18em;
+    color: #8a6b2f;
+    margin-bottom: 5px;
+}
+
+.clean-env-monogram {
+    font-family: Cinzel, serif;
+    font-size: clamp(18px, 6vw, 34px);
+    line-height: 1;
+    color: #214d3e;
+}
+
+.clean-env-monogram b,
+.clean-env-seal span {
+    color: #b89545;
+    font-weight: 400;
+}
+
+.clean-env-names {
+    margin-top: 7px;
+    font-family: Cinzel, serif;
+    font-size: clamp(7px, 2vw, 11px);
+    line-height: 1.25;
+    letter-spacing: .08em;
+    color: #214d3e;
+}
+
+.clean-env-names i {
+    color: #b89545;
+}
+
+.clean-env-flap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 62%;
+    z-index: 4;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    background: linear-gradient(135deg, #e7d5ad, #c79f54, #ead9b5);
+    transform-origin: top center;
+    box-shadow: 0 2px 6px rgba(77, 57, 24, .10);
+}
+
+.clean-env-seal {
+    position: absolute;
+    left: 50%;
+    top: 53%;
+    translate: -50% -50%;
+    width: clamp(34px, 10vw, 50px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    z-index: 6;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 35% 30%, #d8bd7b, #9f7a35);
+    color: #fff7e7;
+    border: 2px solid rgba(255,255,255,.65);
+    box-shadow: 0 4px 10px rgba(75,55,22,.22);
+    font-family: Cinzel, serif;
+    font-size: clamp(8px, 2.3vw, 12px);
+    letter-spacing: .04em;
+}
+
+.clean-env-tap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -28px;
+    text-align: center;
+    color: #7d6330;
+    font-family: Poppins, sans-serif;
+    font-size: 10px;
+    letter-spacing: .16em;
+    z-index: 7;
+}
+
+@keyframes cleanEnvelopeFloat {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -10px; }
+}
+
+@media (max-width: 650px) {
+    body.opening-sequence #opening-screen .opening-bismillah {
+        font-size: 20px !important;
+    }
+    body.opening-sequence #opening-screen .opening-translation {
+        font-size: 13px !important;
+        line-height: 1.5 !important;
+    }
+    body.opening-sequence #opening-screen .opening-monogram {
+        margin: 12px 0 6px !important;
+    }
+    body.opening-sequence #opening-screen .opening-names {
+        margin: 4px 0 0 !important;
+    }
+    .clean-envelope {
+        width: min(82vw, 350px);
+        margin-top: 18px;
+    }
+}
