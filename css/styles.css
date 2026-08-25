@@ -3268,3 +3268,105 @@ body.site-ready #opening-screen.cinematic-fade {
     pointer-events: none !important;
     transition: opacity .65s ease, visibility 0s linear .65s !important;
 }
+
+
+/* ==========================================================
+   STAGED OPENING SEQUENCE
+   Envelope must NEVER appear before the couple names.
+   ========================================================== */
+
+/* Hard initial state: envelope is not rendered visibly on load. */
+#opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(28px) scale(.98) !important;
+    animation: none !important;
+}
+
+/* Intro and names are also staged for a deliberate sequence. */
+#opening-screen .opening-bismillah,
+#opening-screen .opening-translation,
+#opening-screen .opening-divider,
+#opening-screen .opening-monogram,
+#opening-screen .opening-names {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Step 1: intro */
+body.opening-sequence #opening-screen .opening-bismillah,
+body.opening-sequence #opening-screen .opening-translation,
+body.opening-sequence #opening-screen .opening-divider,
+body.opening-sequence #opening-screen .opening-monogram {
+    visibility: visible;
+    animation: openingIntroIn .7s ease forwards;
+}
+
+/* Step 2: couple names */
+body.opening-sequence #opening-screen .opening-names {
+    visibility: visible;
+    animation: openingNamesIn .8s cubic-bezier(.22,.75,.25,1) forwards;
+    animation-delay: 1.35s;
+}
+
+/* Step 3: ONLY AFTER names have appeared, reveal envelope. */
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
+    visibility: visible !important;
+    animation: envelopeAfterNames 1s cubic-bezier(.22,.75,.25,1) forwards !important;
+    animation-delay: 2.45s !important;
+}
+
+/* The envelope cannot be clicked until it is visibly on screen. */
+body.opening-sequence.opening-envelope-ready #opening-screen #enterBtn.envelope-reference-v2 {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+@keyframes openingIntroIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes openingNamesIn {
+    from { opacity: 0; transform: translateY(20px) scale(.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes envelopeAfterNames {
+    0% {
+        opacity: 0;
+        transform: translateY(32px) scale(.97);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.01);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Keep the envelope after the names in layout. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 1 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 2 !important;
+    margin-top: 28px !important;
+}
+
+/* On small screens keep the same timing and placement. */
+@media (max-width: 650px) {
+    body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
+        animation-delay: 2.35s !important;
+    }
+}
