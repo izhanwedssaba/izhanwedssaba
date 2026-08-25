@@ -1,14 +1,26 @@
 
-/* Prevent opening-screen flash before the full page is ready. */
-const markSiteReady = () => {
+/* ==========================================================
+   STAGED OPENING CONTROLLER
+   Intro -> couple names -> envelope
+   ========================================================== */
+const startOpeningSequence = () => {
     document.body.classList.add("site-ready");
+
+    requestAnimationFrame(() => {
+        document.body.classList.add("opening-sequence");
+    });
+
+    // The envelope becomes interactive only after its reveal animation begins.
+    window.setTimeout(() => {
+        document.body.classList.add("opening-envelope-ready");
+    }, 2650);
 };
 
 if (document.readyState === "complete") {
-    requestAnimationFrame(markSiteReady);
+    requestAnimationFrame(startOpeningSequence);
 } else {
     window.addEventListener("load", () => {
-        requestAnimationFrame(markSiteReady);
+        requestAnimationFrame(startOpeningSequence);
     }, { once: true });
 }
 
