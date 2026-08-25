@@ -1,26 +1,34 @@
 
 /* ==========================================================
-   STAGED OPENING CONTROLLER
-   Intro -> couple names -> envelope
+   GUARANTEED OPENING CONTROLLER
+   Intro -> names -> envelope reveal -> floating
    ========================================================== */
-const startOpeningSequence = () => {
+const startGuaranteedOpeningSequence = () => {
     document.body.classList.add("site-ready");
 
+    // Preserve the intro sequence first.
     requestAnimationFrame(() => {
         document.body.classList.add("opening-sequence");
     });
 
-    // The envelope becomes interactive only after its reveal animation begins.
+    // Hard reveal: no CSS animation class is relied upon to change visibility.
+    // The envelope is directly switched to its visible state after the names.
     window.setTimeout(() => {
+        document.body.classList.add("envelope-visible");
         document.body.classList.add("opening-envelope-ready");
-    }, 2650);
+    }, 2400);
+
+    // Start floating only after the envelope is fully visible.
+    window.setTimeout(() => {
+        document.body.classList.add("envelope-floating");
+    }, 3250);
 };
 
 if (document.readyState === "complete") {
-    requestAnimationFrame(startOpeningSequence);
+    requestAnimationFrame(startGuaranteedOpeningSequence);
 } else {
     window.addEventListener("load", () => {
-        requestAnimationFrame(startOpeningSequence);
+        requestAnimationFrame(startGuaranteedOpeningSequence);
     }, { once: true });
 }
 
