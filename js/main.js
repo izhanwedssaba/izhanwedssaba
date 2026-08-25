@@ -1,14 +1,32 @@
 
-/* Enable the envelope only after it is visibly on screen. */
+/* ==========================================================
+   FINAL RELIABLE ENVELOPE REVEAL + FIRST PAGE SCROLL LOCK
+   ========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
     const envelope = document.getElementById("enterBtn");
+    const openingScreen = document.getElementById("opening-screen");
+
+    // Force the envelope visible after the names stage, regardless of legacy CSS.
     if (envelope) {
         window.setTimeout(() => {
-            envelope.classList.add("envelope-ready");
-        }, 3900);
+            envelope.style.setProperty("opacity", "1", "important");
+            envelope.style.setProperty("visibility", "visible", "important");
+            envelope.style.setProperty("display", "block", "important");
+            envelope.style.setProperty("pointer-events", "auto", "important");
+            envelope.classList.add("envelope-ready", "force-envelope-visible");
+        }, 3600);
+    }
+
+    // Keep the first page fixed. When the invitation opens, the existing
+    // click flow can add invitation-reveal and this unlocks normal scrolling.
+    if (openingScreen && envelope) {
+        envelope.addEventListener("click", () => {
+            document.body.classList.remove("opening-locked-page");
+            document.documentElement.style.overflowY = "auto";
+            document.body.style.overflowY = "auto";
+        }, { once: true });
     }
 }, { once: true });
-
 
 
 
