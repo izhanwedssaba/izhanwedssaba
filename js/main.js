@@ -1,13 +1,14 @@
 
-/* Final envelope interaction timer: does not control visibility. */
+/* Enable the envelope only after it is visibly on screen. */
 document.addEventListener("DOMContentLoaded", () => {
     const envelope = document.getElementById("enterBtn");
     if (envelope) {
         window.setTimeout(() => {
             envelope.classList.add("envelope-ready");
-        }, 5250);
+        }, 3900);
     }
 }, { once: true });
+
 
 
 
