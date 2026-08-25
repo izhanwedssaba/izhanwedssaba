@@ -1,45 +1,41 @@
 
 /* ==========================================================
-   EVENT-BASED OPENING CONTROLLER
-   Intro -> couple names finish -> envelope reveal -> float
+   STRICT STAGED OPENING CONTROLLER
+   Intro -> monogram -> couple names -> envelope -> floating
    ========================================================== */
-const startEventBasedOpeningSequence = () => {
+const startStrictOpeningSequence = () => {
     document.body.classList.add("site-ready");
 
+    // Keep the sequence deterministic and independent of old animation rules.
     requestAnimationFrame(() => {
-        document.body.classList.add("opening-sequence");
+        document.body.classList.add("stage-intro");
     });
 
-    const openingNames = document.querySelector("#opening-screen .opening-names");
-    let envelopeStarted = false;
+    window.setTimeout(() => {
+        document.body.classList.add("stage-monogram");
+    }, 850);
 
-    const revealEnvelope = () => {
-        if (envelopeStarted) return;
-        envelopeStarted = true;
+    window.setTimeout(() => {
+        document.body.classList.add("stage-names");
+    }, 1700);
 
-        document.body.classList.add("envelope-reveal-now");
+    // Envelope is deliberately delayed until after the names have appeared.
+    window.setTimeout(() => {
+        document.body.classList.add("stage-envelope");
         document.body.classList.add("opening-envelope-ready");
+    }, 2850);
 
-        window.setTimeout(() => {
-            document.body.classList.add("envelope-float-now");
-        }, 700);
-    };
-
-    // Preferred path: reveal immediately after the names animation completes.
-    if (openingNames) {
-        openingNames.addEventListener("animationend", revealEnvelope, { once: true });
-        openingNames.addEventListener("transitionend", revealEnvelope, { once: true });
-    }
-
-    // Safety fallback if a browser suppresses animation events.
-    window.setTimeout(revealEnvelope, 2350);
+    // Start floating after the reveal transition is complete.
+    window.setTimeout(() => {
+        document.body.classList.add("stage-envelope-float");
+    }, 3650);
 };
 
 if (document.readyState === "complete") {
-    requestAnimationFrame(startEventBasedOpeningSequence);
+    requestAnimationFrame(startStrictOpeningSequence);
 } else {
     window.addEventListener("load", () => {
-        requestAnimationFrame(startEventBasedOpeningSequence);
+        requestAnimationFrame(startStrictOpeningSequence);
     }, { once: true });
 }
 
