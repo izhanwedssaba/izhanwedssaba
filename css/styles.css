@@ -3454,3 +3454,57 @@ body.envelope-visible #opening-screen #enterBtn.envelope-reference-v2 {
 #opening-screen #enterBtn.envelope-reference-v2 *::after {
     pointer-events: none !important;
 }
+
+
+/* ==========================================================
+   EVENT-BASED ENVELOPE REVEAL
+   The envelope appears when the couple-names animation finishes,
+   not after a fixed timer.
+   ========================================================== */
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translate3d(0, 30px, 0) scale(.98) !important;
+    animation: none !important;
+}
+
+body.envelope-reveal-now #opening-screen #enterBtn.envelope-reference-v2 {
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translate3d(0, 0, 0) scale(1) !important;
+    animation: none !important;
+    transition:
+        opacity .65s ease,
+        transform .65s cubic-bezier(.22,.75,.25,1) !important;
+}
+
+body.envelope-float-now #opening-screen #enterBtn.envelope-reference-v2 {
+    animation: envelopeGentleFloat 4.6s ease-in-out infinite !important;
+}
+
+/* The envelope is placed in normal flow immediately after the names. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 10 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 11 !important;
+    position: relative !important;
+    z-index: 50 !important;
+    margin-top: 24px !important;
+    display: block !important;
+}
+
+/* Do not let any previous delayed envelope animation override this state. */
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2 {
+    animation-delay: 0s !important;
+}
