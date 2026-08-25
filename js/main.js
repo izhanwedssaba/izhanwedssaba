@@ -1,3 +1,17 @@
+
+/* Prevent opening-screen flash before the full page is ready. */
+const markSiteReady = () => {
+    document.body.classList.add("site-ready");
+};
+
+if (document.readyState === "complete") {
+    requestAnimationFrame(markSiteReady);
+} else {
+    window.addEventListener("load", () => {
+        requestAnimationFrame(markSiteReady);
+    }, { once: true });
+}
+
 /* ==========================================================
    Mohammed Izhan & Bazila Saba
    Wedding Invitation
@@ -48,9 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 2500);
         };
 
-        // One unified event path for Android Chrome, touch and mouse.
-        // Decorative child layers have pointer-events disabled in CSS,
-        // so the button itself always receives the interaction.
+        // Mobile-safe interaction.
+        // Android touchstart is used first; click remains as a desktop fallback.
         const triggerOpen = (event) => {
             if (event) {
                 event.preventDefault();
@@ -59,12 +72,20 @@ document.addEventListener("DOMContentLoaded", () => {
             openInvitation();
         };
 
-        if (window.PointerEvent) {
-            enterBtn.addEventListener("pointerup", triggerOpen, { passive: false });
-        } else {
-            enterBtn.addEventListener("click", triggerOpen, { passive: false });
-            enterBtn.addEventListener("touchend", triggerOpen, { passive: false });
-        }
+        enterBtn.addEventListener("touchstart", triggerOpen, {
+            passive: false,
+            capture: true
+        });
+
+        enterBtn.addEventListener("pointerup", triggerOpen, {
+            passive: false,
+            capture: true
+        });
+
+        enterBtn.addEventListener("click", triggerOpen, {
+            passive: false,
+            capture: true
+        });
 
         enterBtn.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
