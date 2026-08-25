@@ -1,5 +1,84 @@
 
 /* ==========================================================
+   UNIVERSAL MOBILE SCROLL UNLOCK
+   ========================================================== */
+function unlockInvitationScroll() {
+    const root = document.documentElement;
+    const body = document.body;
+    const opening = document.getElementById("opening-screen");
+    const website = document.getElementById("website");
+
+    root.classList.add("invitation-open");
+    body.classList.remove("opening-locked-page");
+    body.classList.add("invitation-reveal");
+
+    // Clear fixed-position scroll lock left by the opening page.
+    [
+        "position", "inset", "top", "left", "right", "bottom",
+        "height", "maxHeight", "overflow", "overflowY"
+    ].forEach(prop => {
+        body.style[prop] = "";
+        root.style[prop] = "";
+    });
+
+    root.style.setProperty("overflow-y", "auto", "important");
+    body.style.setProperty("overflow-y", "auto", "important");
+    body.style.setProperty("touch-action", "pan-y", "important");
+
+    if (website) {
+        website.style.setProperty("display", "block", "important");
+        website.style.setProperty("visibility", "visible", "important");
+        website.style.setProperty("opacity", "1", "important");
+        website.style.setProperty("pointer-events", "auto", "important");
+        website.style.setProperty("height", "auto", "important");
+        website.style.setProperty("max-height", "none", "important");
+        website.style.setProperty("overflow", "visible", "important");
+    }
+
+    if (opening) {
+        opening.style.setProperty("display", "none", "important");
+        opening.style.setProperty("pointer-events", "none", "important");
+    }
+
+    // Force a mobile browser reflow after removing position:fixed.
+    window.scrollTo(0, 0);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const envelope = document.getElementById("enterBtn");
+    const opening = document.getElementById("opening-screen");
+
+    // Unlock on every possible envelope interaction.
+    if (envelope) {
+        ["click", "touchend", "pointerup"].forEach(eventName => {
+            envelope.addEventListener(eventName, () => {
+                window.setTimeout(unlockInvitationScroll, 50);
+            }, { passive: true });
+        });
+    }
+
+    // Safety observer: if existing app logic hides/fades the opening screen,
+    // unlock scrolling even if the envelope listener is bypassed.
+    if (opening) {
+        const observer = new MutationObserver(() => {
+            const style = getComputedStyle(opening);
+            if (style.display === "none" ||
+                style.visibility === "hidden" ||
+                parseFloat(style.opacity || "1") < 0.05 ||
+                document.body.classList.contains("invitation-reveal")) {
+                unlockInvitationScroll();
+                observer.disconnect();
+            }
+        });
+        observer.observe(opening, {
+            attributes: true,
+            attributeFilter: ["class", "style"]
+        });
+    }
+}, { once: true });
+
+
+/* ==========================================================
    FINAL RELIABLE ENVELOPE REVEAL + FIRST PAGE SCROLL LOCK
    ========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
