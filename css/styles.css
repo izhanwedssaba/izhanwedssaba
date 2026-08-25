@@ -3747,3 +3747,104 @@ html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
 html.opening-locked #opening-screen #enterBtn.envelope-reference-v2 {
     animation-delay: 0s !important;
 }
+
+
+/* ==========================================================
+   SIMPLE CLEAN OPENING SEQUENCE — FINAL
+   ========================================================== */
+
+/* Only this html class controls the initial visibility. */
+html.opening-sequence-active #opening-screen .opening-bismillah,
+html.opening-sequence-active #opening-screen .opening-translation,
+html.opening-sequence-active #opening-screen .opening-divider,
+html.opening-sequence-active #opening-screen .opening-monogram,
+html.opening-sequence-active #opening-screen .opening-names,
+html.opening-sequence-active #opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Intro */
+html.opening-sequence-active.show-intro #opening-screen .opening-bismillah,
+html.opening-sequence-active.show-intro #opening-screen .opening-translation,
+html.opening-sequence-active.show-intro #opening-screen .opening-divider {
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: cleanFadeUp .7s ease both !important;
+}
+
+/* Monogram */
+html.opening-sequence-active.show-monogram #opening-screen .opening-monogram {
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: cleanFadeUp .7s ease both !important;
+}
+
+/* Couple names */
+html.opening-sequence-active.show-names #opening-screen .opening-names {
+    opacity: 1 !important;
+    visibility: visible !important;
+    animation: cleanNamesIn .85s cubic-bezier(.22,.75,.25,1) both !important;
+}
+
+/* Envelope */
+html.opening-sequence-active.show-envelope #opening-screen #enterBtn.envelope-reference-v2 {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    animation: cleanEnvelopeIn .8s cubic-bezier(.22,.75,.25,1) both !important;
+}
+
+/* Floating is deliberately animated with TOP, not transform. */
+html.opening-sequence-active.float-envelope #opening-screen #enterBtn.envelope-reference-v2 {
+    position: relative !important;
+    animation: cleanEnvelopeFloat 4s ease-in-out infinite !important;
+}
+
+@keyframes cleanFadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cleanNamesIn {
+    from { opacity: 0; transform: translateY(22px) scale(.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cleanEnvelopeIn {
+    from { opacity: 0; transform: translateY(28px) scale(.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cleanEnvelopeFloat {
+    0%, 100% { top: 0; }
+    50% { top: -12px; }
+}
+
+/* Keep envelope physically after couple names in the same flex column. */
+#opening-screen .opening-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    order: 10 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    order: 11 !important;
+    display: block !important;
+    position: relative !important;
+    z-index: 100 !important;
+    margin-top: 26px !important;
+}
+
+/* Mobile: keep the same sequence and allow the whole envelope to be tapped. */
+@media (max-width: 650px) {
+    #opening-screen #enterBtn.envelope-reference-v2 {
+        touch-action: manipulation !important;
+        -webkit-tap-highlight-color: transparent !important;
+    }
+}
