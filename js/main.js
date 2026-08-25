@@ -1,29 +1,28 @@
-
 /* ==========================================================
-   UNIVERSAL MOBILE SCROLL UNLOCK
+   SAFE SCROLL UNLOCK
+   Called only after the envelope animation has completed.
    ========================================================== */
-function unlockInvitationScroll() {
+function unlockInvitationScrollAfterEnvelope() {
     const root = document.documentElement;
     const body = document.body;
-    const opening = document.getElementById("opening-screen");
     const website = document.getElementById("website");
 
     root.classList.add("invitation-open");
     body.classList.remove("opening-locked-page");
     body.classList.add("invitation-reveal");
 
-    // Clear fixed-position scroll lock left by the opening page.
-    [
-        "position", "inset", "top", "left", "right", "bottom",
-        "height", "maxHeight", "overflow", "overflowY"
-    ].forEach(prop => {
-        body.style[prop] = "";
-        root.style[prop] = "";
-    });
+    // Release the first-page mobile scroll lock now, not when the envelope is tapped.
+    body.style.removeProperty("position");
+    body.style.removeProperty("inset");
+    body.style.removeProperty("height");
+    body.style.removeProperty("max-height");
+    body.style.removeProperty("overflow");
+    body.style.removeProperty("overflow-y");
 
-    root.style.setProperty("overflow-y", "auto", "important");
-    body.style.setProperty("overflow-y", "auto", "important");
-    body.style.setProperty("touch-action", "pan-y", "important");
+    root.style.removeProperty("height");
+    root.style.removeProperty("max-height");
+    root.style.removeProperty("overflow");
+    root.style.removeProperty("overflow-y");
 
     if (website) {
         website.style.setProperty("display", "block", "important");
@@ -34,78 +33,9 @@ function unlockInvitationScroll() {
         website.style.setProperty("max-height", "none", "important");
         website.style.setProperty("overflow", "visible", "important");
     }
-
-    if (opening) {
-        opening.style.setProperty("display", "none", "important");
-        opening.style.setProperty("pointer-events", "none", "important");
-    }
-
-    // Force a mobile browser reflow after removing position:fixed.
-    window.scrollTo(0, 0);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const envelope = document.getElementById("enterBtn");
-    const opening = document.getElementById("opening-screen");
 
-    // Unlock on every possible envelope interaction.
-    if (envelope) {
-        ["click", "touchend", "pointerup"].forEach(eventName => {
-            envelope.addEventListener(eventName, () => {
-                window.setTimeout(unlockInvitationScroll, 50);
-            }, { passive: true });
-        });
-    }
-
-    // Safety observer: if existing app logic hides/fades the opening screen,
-    // unlock scrolling even if the envelope listener is bypassed.
-    if (opening) {
-        const observer = new MutationObserver(() => {
-            const style = getComputedStyle(opening);
-            if (style.display === "none" ||
-                style.visibility === "hidden" ||
-                parseFloat(style.opacity || "1") < 0.05 ||
-                document.body.classList.contains("invitation-reveal")) {
-                unlockInvitationScroll();
-                observer.disconnect();
-            }
-        });
-        observer.observe(opening, {
-            attributes: true,
-            attributeFilter: ["class", "style"]
-        });
-    }
-}, { once: true });
-
-
-/* ==========================================================
-   FINAL RELIABLE ENVELOPE REVEAL + FIRST PAGE SCROLL LOCK
-   ========================================================== */
-document.addEventListener("DOMContentLoaded", () => {
-    const envelope = document.getElementById("enterBtn");
-    const openingScreen = document.getElementById("opening-screen");
-
-    // Force the envelope visible after the names stage, regardless of legacy CSS.
-    if (envelope) {
-        window.setTimeout(() => {
-            envelope.style.setProperty("opacity", "1", "important");
-            envelope.style.setProperty("visibility", "visible", "important");
-            envelope.style.setProperty("display", "block", "important");
-            envelope.style.setProperty("pointer-events", "auto", "important");
-            envelope.classList.add("envelope-ready", "force-envelope-visible");
-        }, 3600);
-    }
-
-    // Keep the first page fixed. When the invitation opens, the existing
-    // click flow can add invitation-reveal and this unlocks normal scrolling.
-    if (openingScreen && envelope) {
-        envelope.addEventListener("click", () => {
-            document.body.classList.remove("opening-locked-page");
-            document.documentElement.style.overflowY = "auto";
-            document.body.style.overflowY = "auto";
-        }, { once: true });
-    }
-}, { once: true });
 
 
 
@@ -133,7 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
         website.style.setProperty("pointer-events", "none", "important");
     }
 
-    // Reliable opening controller for desktop and mobile.
+    // Single authoritative envelope opening controller.
+    // No early scroll unlock or overlay removal is allowed.
     if (enterBtn) {
         let invitationOpening = false;
 
@@ -141,40 +72,35 @@ document.addEventListener("DOMContentLoaded", () => {
             if (invitationOpening) return;
             invitationOpening = true;
 
-            // 1. Physical envelope opening.
+            // Stop floating and begin the physical envelope opening.
+            enterBtn.classList.remove("envelope-exit");
             enterBtn.classList.add("opening");
+            enterBtn.setAttribute("aria-disabled", "true");
 
-            // 2. Let the open envelope be clearly visible, then exit.
+            // Keep the opened flap clearly visible before transitioning away.
             window.setTimeout(() => {
                 enterBtn.classList.add("envelope-exit");
-            }, 1450);
+            }, 1750);
 
-            // 3. Start the second page fade while the opening overlay is still
-            // present. This preloads the next scene behind the outgoing overlay,
-            // eliminating the blank white gap seen in the previous build.
+            // Only after the envelope animation is complete, reveal page 2.
             window.setTimeout(() => {
-                document.body.classList.add("invitation-reveal");
-            }, 1850);
+                unlockInvitationScrollAfterEnvelope();
 
-            // 4. Fade the opening overlay over the already-rendered invitation.
-            window.setTimeout(() => {
                 if (opening) {
                     opening.classList.add("cinematic-fade");
                 }
-            }, 1950);
+            }, 2550);
 
-            // 5. Remove the overlay only after its fade completes.
+            // Remove the opening overlay after its fade, then ensure page 2 is active.
             window.setTimeout(() => {
                 if (opening) {
                     opening.style.setProperty("display", "none", "important");
                     opening.style.setProperty("pointer-events", "none", "important");
                 }
-                if (website) {
-                    website.style.setProperty("opacity", "1", "important");
-                    website.style.setProperty("pointer-events", "auto", "important");
-                }
+
+                unlockInvitationScrollAfterEnvelope();
                 window.scrollTo({ top: 0, behavior: "auto" });
-            }, 2700);
+            }, 3250);
         };
 
         const triggerOpen = (event) => {
@@ -185,19 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
             revealInvitation();
         };
 
-        // Direct click handler works on desktop and normal mobile taps.
-        enterBtn.onclick = triggerOpen;
+        // Use one primary interaction path. Pointer events cover modern Android
+        // and desktop without triggering duplicate touch/click transitions.
+        enterBtn.addEventListener("pointerup", triggerOpen, { passive: false });
 
-        // Touch fallback for Android browsers.
-        enterBtn.addEventListener("touchend", triggerOpen, {
-            passive: false
-        });
-
-        // Pointer fallback.
-        enterBtn.addEventListener("pointerup", triggerOpen, {
-            passive: false
-        });
-
+        // Keyboard accessibility.
         enterBtn.addEventListener("keydown", (event) => {
             if (event.key === "Enter" || event.key === " ") {
                 triggerOpen(event);
