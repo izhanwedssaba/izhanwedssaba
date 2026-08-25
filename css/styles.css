@@ -2986,3 +2986,39 @@ body {
         margin-top: 22px !important;
     }
 }
+
+
+/* ==========================================================
+   CRITICAL TAP FIX
+   The envelope itself receives the pointer event.
+   Decorative layers cannot intercept the tap.
+   ========================================================== */
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-back,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-pocket,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-flap,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-flap *,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-seal,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-seal *,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap,
+#opening-screen #enterBtn.envelope-reference-v2 .env-v2-tap * {
+    pointer-events: none !important;
+}
+
+/* Visible feedback confirms that the tap was received. */
+#opening-screen #enterBtn.envelope-reference-v2:active {
+    transform: translate3d(0,-4px,0) scale(.985) !important;
+}
+
+/* Keep the opening animation classes above any generic button rules. */
+#opening-screen #enterBtn.envelope-reference-v2.opening,
+#opening-screen #enterBtn.envelope-reference-v2.envelope-exit {
+    pointer-events: none !important;
+}
