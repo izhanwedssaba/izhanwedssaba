@@ -1,41 +1,65 @@
 
 /* ==========================================================
-   STRICT STAGED OPENING CONTROLLER
-   Intro -> monogram -> couple names -> envelope -> floating
+   FINAL OPENING CONTROLLER
    ========================================================== */
-const startStrictOpeningSequence = () => {
-    document.body.classList.add("site-ready");
+const startFinalOpeningSequence = () => {
+    const root = document.documentElement;
 
-    // Keep the sequence deterministic and independent of old animation rules.
-    requestAnimationFrame(() => {
-        document.body.classList.add("stage-intro");
+    // Remove every previous sequence state so old builds cannot conflict.
+    [
+        "opening-sequence",
+        "stage-intro",
+        "stage-monogram",
+        "stage-names",
+        "stage-envelope",
+        "stage-envelope-float",
+        "envelope-visible",
+        "envelope-floating",
+        "envelope-reveal-now",
+        "envelope-float-now",
+        "opening-envelope-ready",
+        "opening-stage-intro",
+        "opening-stage-monogram",
+        "opening-stage-names",
+        "opening-stage-envelope",
+        "opening-stage-float"
+    ].forEach((name) => {
+        document.body.classList.remove(name);
+        root.classList.remove(name);
     });
 
+    root.classList.add("opening-locked");
+    document.body.classList.add("site-ready");
+
+    // Deliberate cinematic sequence.
     window.setTimeout(() => {
-        document.body.classList.add("stage-monogram");
-    }, 850);
+        root.classList.add("opening-stage-intro");
+    }, 250);
 
     window.setTimeout(() => {
-        document.body.classList.add("stage-names");
-    }, 1700);
+        root.classList.add("opening-stage-monogram");
+    }, 1250);
 
-    // Envelope is deliberately delayed until after the names have appeared.
     window.setTimeout(() => {
-        document.body.classList.add("stage-envelope");
+        root.classList.add("opening-stage-names");
+    }, 2200);
+
+    // Envelope only after the names have had time to appear.
+    window.setTimeout(() => {
+        root.classList.add("opening-stage-envelope");
         document.body.classList.add("opening-envelope-ready");
-    }, 2850);
+    }, 3400);
 
-    // Start floating after the reveal transition is complete.
     window.setTimeout(() => {
-        document.body.classList.add("stage-envelope-float");
-    }, 3650);
+        root.classList.add("opening-stage-float");
+    }, 4200);
 };
 
 if (document.readyState === "complete") {
-    requestAnimationFrame(startStrictOpeningSequence);
+    requestAnimationFrame(startFinalOpeningSequence);
 } else {
     window.addEventListener("load", () => {
-        requestAnimationFrame(startStrictOpeningSequence);
+        requestAnimationFrame(startFinalOpeningSequence);
     }, { once: true });
 }
 
