@@ -1,5 +1,44 @@
 
 /* ==========================================================
+   SMOOTH PAGE HANDOFF
+   ========================================================== */
+function beginSmoothInvitationTransition() {
+    const opening = document.getElementById("opening-screen");
+    const website = document.getElementById("website");
+
+    if (opening) {
+        opening.classList.add("transitioning");
+    }
+
+    // Start page 2 underneath the fading opening scene.
+    if (website) {
+        website.style.setProperty("display", "block", "important");
+        website.style.setProperty("visibility", "visible", "important");
+        website.style.setProperty("pointer-events", "none", "important");
+    }
+
+    // Small overlap prevents the abrupt black/blank flash.
+    window.setTimeout(() => {
+        document.body.classList.add("invitation-reveal");
+        if (website) {
+            website.style.setProperty("pointer-events", "auto", "important");
+        }
+        if (opening) {
+            opening.classList.add("cinematic-fade");
+        }
+    }, 120);
+
+    // Remove the opening layer only after the cross-fade completes.
+    window.setTimeout(() => {
+        if (opening) {
+            opening.style.setProperty("display", "none", "important");
+            opening.style.setProperty("pointer-events", "none", "important");
+        }
+    }, 1100);
+}
+
+
+/* ==========================================================
    OPEN BUTTON READINESS + INTERACTION BRIDGE
    ========================================================== */
 document.addEventListener("DOMContentLoaded", () => {
@@ -125,19 +164,11 @@ document.addEventListener("DOMContentLoaded", () => {
             // Only after the envelope animation is complete, reveal page 2.
             window.setTimeout(() => {
                 unlockInvitationScrollAfterEnvelope();
-
-                if (opening) {
-                    opening.classList.add("cinematic-fade");
-                }
+                beginSmoothInvitationTransition();
             }, 2550);
 
             // Remove the opening overlay after its fade, then ensure page 2 is active.
             window.setTimeout(() => {
-                if (opening) {
-                    opening.style.setProperty("display", "none", "important");
-                    opening.style.setProperty("pointer-events", "none", "important");
-                }
-
                 unlockInvitationScrollAfterEnvelope();
                 window.scrollTo({ top: 0, behavior: "auto" });
             }, 3250);
