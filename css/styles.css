@@ -3252,3 +3252,110 @@ body {
         }
     }
 }
+
+
+/* ==========================================================
+   PHYSICAL FLAP OPENING SEQUENCE
+   Float -> seal release -> visible flap open -> envelope exit
+   ========================================================== */
+
+/* Keep the closed envelope floating normally. */
+#opening-screen #enterBtn.envelope-reference-v2:not(.opening) {
+    animation: envelopeIdleFloat 3.8s ease-in-out infinite !important;
+}
+
+/* Stop idle motion immediately when tapped so the opening feels intentional. */
+#opening-screen #enterBtn.envelope-reference-v2.opening {
+    animation: none !important;
+    overflow: visible !important;
+    pointer-events: none !important;
+}
+
+/* Keep the envelope body visible during the flap-opening beat. */
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-back,
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-left,
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-right,
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-bottom {
+    opacity: 1 !important;
+}
+
+/* Seal releases first. */
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-seal {
+    animation: sealRelease .34s ease forwards !important;
+}
+
+@keyframes sealRelease {
+    0% {
+        opacity: 1;
+        transform: translate(-50%,-50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%,-50%) scale(.55) translateY(-7px);
+    }
+}
+
+/* Hide CTA before the flap starts moving. */
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-tap {
+    opacity: 0 !important;
+    transition: opacity .18s ease !important;
+}
+
+/* The flap is intentionally held for a visible beat, then opens upward. */
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap {
+    transform-origin: 50% 0% !important;
+    transform-style: preserve-3d !important;
+    backface-visibility: hidden !important;
+    animation: physicalFlapOpen 1.15s cubic-bezier(.18,.78,.2,1) .22s forwards !important;
+    transition: none !important;
+}
+
+@keyframes physicalFlapOpen {
+    0% {
+        transform: rotateX(0deg);
+        filter: brightness(1);
+        opacity: 1;
+    }
+    12% {
+        transform: rotateX(-4deg);
+    }
+    55% {
+        transform: rotateX(-102deg);
+        filter: brightness(.96);
+    }
+    100% {
+        transform: rotateX(-168deg);
+        filter: brightness(.92);
+        opacity: .98;
+    }
+}
+
+/* Only after the flap has had time to visibly open does the whole envelope leave. */
+#opening-screen #enterBtn.envelope-reference-v2.envelope-exit {
+    animation: envelopePhysicalExit .95s cubic-bezier(.22,.72,.2,1) forwards !important;
+    will-change: transform, opacity, filter;
+}
+
+@keyframes envelopePhysicalExit {
+    0% {
+        opacity: 1;
+        transform: translate3d(0,0,0) scale(1);
+        filter: blur(0);
+    }
+    35% {
+        opacity: 1;
+        transform: translate3d(0,-12px,0) scale(1.004);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(0,-92px,0) scale(.965);
+        filter: blur(1.5px);
+    }
+}
+
+@media (max-width:650px) {
+    #opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap {
+        animation-duration: 1.05s !important;
+    }
+}
