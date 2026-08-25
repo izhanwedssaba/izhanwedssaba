@@ -3009,3 +3009,152 @@ body {
         margin-top: 24px !important;
     }
 }
+
+
+/* ==========================================================
+   ENVELOPE REFINEMENT — visual only, transitions untouched
+   ========================================================== */
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    width: min(88vw, 590px) !important;
+    aspect-ratio: 1.62 / 1 !important;
+    border-radius: 10px !important;
+    border: 1px solid rgba(176,138,65,.32) !important;
+    background:
+        radial-gradient(circle at 72% 18%, rgba(241,196,96,.20), transparent 25%),
+        radial-gradient(circle at 28% 70%, rgba(255,255,255,.52), transparent 31%),
+        linear-gradient(135deg,#f9f7f0 0%,#eee9df 52%,#f8f3e9 100%) !important;
+    box-shadow:
+        0 18px 42px rgba(83,68,42,.14),
+        0 1px 0 rgba(255,255,255,.80) inset !important;
+}
+
+/* Make the envelope geometry obvious but delicate. */
+#opening-screen #enterBtn.envelope-reference-v2::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 8 !important;
+    pointer-events: none !important;
+    background:
+        linear-gradient(38deg, transparent 49.78%, rgba(177,139,70,.30) 49.95%, rgba(177,139,70,.30) 50.12%, transparent 50.3%),
+        linear-gradient(-38deg, transparent 49.78%, rgba(177,139,70,.30) 49.95%, rgba(177,139,70,.30) 50.12%, transparent 50.3%);
+    opacity: .72 !important;
+}
+
+/* Cleaner flap: large, soft, unmistakable triangle. */
+.env-v2-flap {
+    z-index: 16 !important;
+    clip-path: polygon(0 0, 100% 0, 50% 69%) !important;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,.98), transparent 48%),
+        radial-gradient(circle at 72% 28%, rgba(240,196,97,.13), transparent 28%),
+        linear-gradient(145deg,#fbfaf6 0%,#f2ede2 67%,#e8deca 100%) !important;
+    border-bottom: 1px solid rgba(177,139,70,.22) !important;
+}
+
+/* Reduce content so the envelope reads as an envelope first. */
+.env-v2-flap-content {
+    top: 13% !important;
+}
+
+.env-v2-kicker {
+    font-size: clamp(.40rem,1vw,.56rem) !important;
+    letter-spacing: .17em !important;
+    opacity: .78 !important;
+}
+
+.env-v2-monogram {
+    margin: 7px 0 2px !important;
+    font-size: clamp(1.25rem,3.2vw,1.8rem) !important;
+    letter-spacing: .18em !important;
+}
+
+.env-v2-names {
+    display: none !important;
+}
+
+/* Pocket faces become visibly distinct ivory folds. */
+.env-v2-left {
+    z-index: 10 !important;
+    clip-path: polygon(0 0, 50% 61%, 0 100%) !important;
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.56), rgba(220,207,181,.10)),
+        linear-gradient(145deg,#f9f6ef 0%,#e9e2d4 100%) !important;
+}
+
+.env-v2-right {
+    z-index: 10 !important;
+    clip-path: polygon(100% 0, 50% 61%, 100% 100%) !important;
+    background:
+        linear-gradient(215deg, rgba(255,255,255,.48), rgba(226,191,111,.08)),
+        linear-gradient(215deg,#f8f4ec 0%,#e7dfd0 100%) !important;
+}
+
+.env-v2-bottom {
+    z-index: 11 !important;
+    clip-path: polygon(0 100%, 50% 61%, 100% 100%) !important;
+    background:
+        radial-gradient(circle at 50% 88%, rgba(232,184,76,.18), transparent 38%),
+        linear-gradient(145deg,#e7dfd0 0%,#f8f4ec 48%,#e5dccb 100%) !important;
+}
+
+/* Smaller seal, positioned exactly at the flap meeting point. */
+.env-v2-seal {
+    z-index: 30 !important;
+    width: clamp(46px,6.8vw,60px) !important;
+    height: clamp(46px,6.8vw,60px) !important;
+    top: 61% !important;
+    background:
+        radial-gradient(circle at 31% 23%, #f9df90 0 5%, #d5a23c 25%, #a76d17 62%, #774807 100%) !important;
+    box-shadow:
+        0 0 0 3px rgba(161,116,36,.13),
+        0 7px 15px rgba(79,54,10,.20),
+        inset 0 1px 4px rgba(255,255,255,.52) !important;
+}
+
+.env-v2-seal span {
+    font-size: clamp(.70rem,1.7vw,1rem) !important;
+}
+
+/* Minimal call-to-action directly below the seal. */
+.env-v2-tap {
+    z-index: 31 !important;
+    bottom: 9% !important;
+    background: transparent !important;
+    padding: 0 !important;
+    color: rgba(91,84,71,.82) !important;
+    font-size: clamp(.50rem,1.15vw,.64rem) !important;
+    letter-spacing: .23em !important;
+}
+
+.env-v2-tap span {
+    width: 13px !important;
+    background: rgba(183,143,67,.46) !important;
+}
+
+@media (max-width:650px) {
+    #opening-screen #enterBtn.envelope-reference-v2 {
+        width: min(91vw, 520px) !important;
+        aspect-ratio: 1.58 / 1 !important;
+    }
+
+    .env-v2-flap-content {
+        top: 11% !important;
+    }
+
+    .env-v2-kicker {
+        font-size: .37rem !important;
+    }
+
+    .env-v2-seal {
+        width: 46px !important;
+        height: 46px !important;
+        top: 61% !important;
+    }
+
+    .env-v2-tap {
+        bottom: 8% !important;
+        letter-spacing: .20em !important;
+    }
+}
