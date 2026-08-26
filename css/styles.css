@@ -4709,3 +4709,1195 @@ body {
         animation: none !important;
     }
 }
+
+
+/* ==========================================================
+   COMPLETE LUXURY EVENT CARD BACKGROUNDS
+   Replaces the previous incomplete-looking ornaments only.
+   ========================================================== */
+
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    overflow: hidden !important;
+    isolation: isolate !important;
+}
+
+/* Disable the previous floating decorative pieces */
+.event-card.event-nikah-bg .nikah-corner,
+.event-card.event-valima-bg .valima-corner,
+.event-card.event-nikah-bg .card-shimmer,
+.event-card.event-valima-bg .card-shimmer {
+    display: none !important;
+}
+
+/* ---------------- NIKAH ----------------
+   Full balanced Islamic frame + arch-inspired composition */
+.event-card.event-nikah-bg {
+    background:
+        radial-gradient(ellipse at 50% 44%, rgba(255,255,255,.96) 0 28%, rgba(255,250,238,.82) 56%, rgba(232,210,154,.42) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff7e8 58%, #f0dfbd 100%) !important;
+    border: 1px solid rgba(184,138,69,.52) !important;
+}
+
+.event-card.event-nikah-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 12px !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: 1 !important;
+    background:
+        /* four corner medallions */
+        radial-gradient(circle at 0 0, transparent 0 23px, rgba(184,138,69,.42) 23.5px 24.5px, transparent 25px 34px, rgba(184,138,69,.25) 34.5px 35.5px, transparent 36px),
+        radial-gradient(circle at 100% 0, transparent 0 23px, rgba(184,138,69,.42) 23.5px 24.5px, transparent 25px 34px, rgba(184,138,69,.25) 34.5px 35.5px, transparent 36px),
+        radial-gradient(circle at 0 100%, transparent 0 23px, rgba(184,138,69,.42) 23.5px 24.5px, transparent 25px 34px, rgba(184,138,69,.25) 34.5px 35.5px, transparent 36px),
+        radial-gradient(circle at 100% 100%, transparent 0 23px, rgba(184,138,69,.42) 23.5px 24.5px, transparent 25px 34px, rgba(184,138,69,.25) 34.5px 35.5px, transparent 36px),
+
+        /* complete arch-inspired side motifs */
+        linear-gradient(90deg, rgba(184,138,69,.28), rgba(184,138,69,.28)) left 38px top / 1px calc(100% - 76px) no-repeat,
+        linear-gradient(90deg, rgba(184,138,69,.28), rgba(184,138,69,.28)) right 38px top / 1px calc(100% - 76px) no-repeat,
+
+        /* subtle full geometric field */
+        linear-gradient(30deg, rgba(184,138,69,.11) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.11) 87.5%, rgba(184,138,69,.11)),
+        linear-gradient(150deg, rgba(184,138,69,.11) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.11) 87.5%, rgba(184,138,69,.11)),
+        linear-gradient(30deg, rgba(184,138,69,.11) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.11) 87.5%, rgba(184,138,69,.11)),
+        linear-gradient(150deg, rgba(184,138,69,.11) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.11) 87.5%, rgba(184,138,69,.11));
+    background-size:
+        100% 100%, 100% 100%, 100% 100%, 100% 100%,
+        auto, auto,
+        42px 74px, 42px 74px, 42px 74px, 42px 74px !important;
+    background-position:
+        center, center, center, center,
+        left top, right top,
+        0 0, 0 0, 21px 37px, 21px 37px !important;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.58));
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.9), rgba(0,0,0,.58));
+}
+
+.event-card.event-nikah-bg::after {
+    content: "✦" !important;
+    position: absolute !important;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: rgba(184,138,69,.55);
+    font-size: 14px;
+    letter-spacing: 0;
+    pointer-events: none;
+}
+
+/* ---------------- VALIMA ----------------
+   Complete floral frame with balanced vines in all corners */
+.event-card.event-valima-bg {
+    background:
+        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.97) 0 28%, rgba(255,248,231,.88) 56%, rgba(232,210,154,.54) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff3dc 55%, #ecd6a3 100%) !important;
+    border: 1px solid rgba(184,138,69,.58) !important;
+}
+
+.event-card.event-valima-bg::before {
+    content: "❀  ·  ❀" !important;
+    position: absolute !important;
+    inset: 12px !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    color: rgba(184,138,69,.40);
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: 0;
+    text-align: center;
+    opacity: 1 !important;
+    background:
+        /* full ornamental frame */
+        linear-gradient(rgba(184,138,69,.30), rgba(184,138,69,.30)) top center / calc(100% - 76px) 1px no-repeat,
+        linear-gradient(rgba(184,138,69,.30), rgba(184,138,69,.30)) bottom center / calc(100% - 76px) 1px no-repeat,
+        linear-gradient(90deg, rgba(184,138,69,.26), rgba(184,138,69,.26)) left center / 1px calc(100% - 76px) no-repeat,
+        linear-gradient(90deg, rgba(184,138,69,.26), rgba(184,138,69,.26)) right center / 1px calc(100% - 76px) no-repeat,
+
+        /* repeated soft floral accents */
+        radial-gradient(circle at 8% 12%, rgba(184,138,69,.24) 0 2px, transparent 2.6px),
+        radial-gradient(circle at 92% 12%, rgba(184,138,69,.24) 0 2px, transparent 2.6px),
+        radial-gradient(circle at 8% 88%, rgba(184,138,69,.24) 0 2px, transparent 2.6px),
+        radial-gradient(circle at 92% 88%, rgba(184,138,69,.24) 0 2px, transparent 2.6px),
+
+        /* soft champagne field */
+        radial-gradient(circle at 15% 18%, rgba(213,177,106,.14), transparent 20%),
+        radial-gradient(circle at 85% 82%, rgba(213,177,106,.16), transparent 22%);
+    background-size:
+        auto, auto, auto, auto,
+        100% 100%, 100% 100%, 100% 100%, 100% 100%,
+        auto, auto !important;
+    background-position:
+        top center, bottom center, left center, right center,
+        center, center, center, center,
+        center, center !important;
+}
+
+.event-card.event-valima-bg::after {
+    content: "❀    ✦    ❀" !important;
+    position: absolute !important;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: rgba(184,138,69,.42);
+    font-size: 15px;
+    letter-spacing: 7px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Preserve readable content above all decoration */
+.event-card.event-nikah-bg > *,
+.event-card.event-valima-bg > * {
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+/* Gentle, cohesive light movement */
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    animation: completeCardGlow 12s ease-in-out infinite alternate !important;
+}
+
+@keyframes completeCardGlow {
+    0% {
+        box-shadow:
+            inset 0 0 45px rgba(255,255,255,.68),
+            inset 0 0 70px rgba(213,177,106,.10),
+            0 14px 36px rgba(112,83,41,.08);
+    }
+    100% {
+        box-shadow:
+            inset 0 0 58px rgba(255,255,255,.90),
+            inset 0 0 92px rgba(213,177,106,.20),
+            0 16px 42px rgba(112,83,41,.11);
+    }
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg::before {
+        inset: 9px !important;
+        background-size:
+            100% 100%, 100% 100%, 100% 100%, 100% 100%,
+            auto, auto,
+            34px 60px, 34px 60px, 34px 60px, 34px 60px !important;
+        background-position:
+            center, center, center, center,
+            left top, right top,
+            0 0, 0 0, 17px 30px, 17px 30px !important;
+    }
+
+    .event-card.event-valima-bg::before {
+        inset: 9px !important;
+        font-size: 30px;
+    }
+}
+
+
+/* ==========================================================
+   REFINED EVENT CARD BACKGROUNDS
+   Clean luxury stationery look — replaces busy repeating patterns.
+   ========================================================== */
+
+/* Remove all previously injected decorative helper elements. */
+.event-card.event-nikah-bg .nikah-corner,
+.event-card.event-valima-bg .valima-corner,
+.event-card.event-nikah-bg .card-shimmer,
+.event-card.event-valima-bg .card-shimmer {
+    display: none !important;
+}
+
+/* Keep motion extremely subtle. */
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    animation: refinedCardGlow 14s ease-in-out infinite alternate !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+}
+
+/* ---------------- NIKAH ----------------
+   One large, faint mosque arch watermark. Clean center. */
+.event-card.event-nikah-bg {
+    background:
+        radial-gradient(ellipse at 50% 42%, rgba(255,255,255,.98) 0 34%, rgba(255,252,245,.92) 63%, rgba(239,224,192,.46) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff9ee 58%, #f5ead5 100%) !important;
+    border: 1px solid rgba(184,138,69,.36) !important;
+}
+
+.event-card.event-nikah-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    width: min(68%, 280px) !important;
+    height: 78% !important;
+    transform: translate(-50%, -43%) !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .12 !important;
+    background:
+        /* inner arch */
+        radial-gradient(ellipse at 50% 48%, transparent 0 48%, rgba(184,138,69,.78) 48.5% 49.2%, transparent 50%),
+        /* tall arch silhouette */
+        linear-gradient(rgba(184,138,69,.42), rgba(184,138,69,.42)) 8% 48% / 1px 52% no-repeat,
+        linear-gradient(rgba(184,138,69,.42), rgba(184,138,69,.42)) 92% 48% / 1px 52% no-repeat,
+        /* pointed dome/arch top */
+        radial-gradient(ellipse at 50% 54%, transparent 0 58%, rgba(184,138,69,.70) 58.4% 59.1%, transparent 59.6%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100% !important;
+}
+
+.event-card.event-nikah-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 14px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(184,138,69,.17) !important;
+    background:
+        linear-gradient(90deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 0 0 / 34px 1px no-repeat,
+        linear-gradient(180deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 0 0 / 1px 34px no-repeat,
+        linear-gradient(90deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 100% 0 / 34px 1px no-repeat,
+        linear-gradient(180deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 100% 0 / 1px 34px no-repeat,
+        linear-gradient(90deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 0 100% / 34px 1px no-repeat,
+        linear-gradient(180deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 0 100% / 1px 34px no-repeat,
+        linear-gradient(90deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 100% 100% / 34px 1px no-repeat,
+        linear-gradient(180deg, rgba(184,138,69,.30), rgba(184,138,69,.30)) 100% 100% / 1px 34px no-repeat !important;
+}
+
+/* ---------------- VALIMA ----------------
+   Soft botanical illustration flowing from two opposite corners. */
+.event-card.event-valima-bg {
+    background:
+        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.98) 0 34%, rgba(255,249,236,.90) 65%, rgba(235,213,165,.50) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff5e2 58%, #efdbad 100%) !important;
+    border: 1px solid rgba(184,138,69,.40) !important;
+}
+
+.event-card.event-valima-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .46 !important;
+    background:
+        /* top-left botanical leaves */
+        radial-gradient(ellipse 16px 7px at 8% 10%, rgba(184,138,69,.34) 0 45%, transparent 48%),
+        radial-gradient(ellipse 18px 8px at 13% 15%, rgba(213,177,106,.30) 0 45%, transparent 48%),
+        radial-gradient(ellipse 15px 7px at 18% 19%, rgba(184,138,69,.28) 0 45%, transparent 48%),
+        radial-gradient(circle at 11% 18%, rgba(184,138,69,.28) 0 3px, transparent 3.5px),
+        /* bottom-right botanical leaves */
+        radial-gradient(ellipse 16px 7px at 92% 90%, rgba(184,138,69,.34) 0 45%, transparent 48%),
+        radial-gradient(ellipse 18px 8px at 87% 85%, rgba(213,177,106,.30) 0 45%, transparent 48%),
+        radial-gradient(ellipse 15px 7px at 82% 81%, rgba(184,138,69,.28) 0 45%, transparent 48%),
+        radial-gradient(circle at 89% 82%, rgba(184,138,69,.28) 0 3px, transparent 3.5px),
+        /* very faint champagne wash */
+        radial-gradient(circle at 0 0, rgba(213,177,106,.15), transparent 31%),
+        radial-gradient(circle at 100% 100%, rgba(184,138,69,.12), transparent 34%) !important;
+}
+
+.event-card.event-valima-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 14px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(184,138,69,.14) !important;
+    border-radius: 2px !important;
+}
+
+/* Text and existing content always stay above the refined artwork. */
+.event-card.event-nikah-bg > *,
+.event-card.event-valima-bg > * {
+    position: relative !important;
+    z-index: 4 !important;
+}
+
+@keyframes refinedCardGlow {
+    0% {
+        box-shadow:
+            inset 0 0 38px rgba(255,255,255,.72),
+            inset 0 0 58px rgba(213,177,106,.08),
+            0 14px 34px rgba(112,83,41,.07);
+    }
+    100% {
+        box-shadow:
+            inset 0 0 48px rgba(255,255,255,.90),
+            inset 0 0 72px rgba(213,177,106,.14),
+            0 16px 40px rgba(112,83,41,.09);
+    }
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg::before {
+        width: 78% !important;
+        height: 72% !important;
+        opacity: .10 !important;
+    }
+
+    .event-card.event-nikah-bg::after,
+    .event-card.event-valima-bg::after {
+        inset: 10px !important;
+    }
+}
+
+
+/* ==========================================================
+   EVENT CARDS — PREMIUM MIDDLE GROUND
+   Slightly stronger artwork + title glow, without busy patterns.
+   ========================================================== */
+
+/* Make the existing Nikah arch watermark more visible and intentional. */
+.event-card.event-nikah-bg::before {
+    opacity: .18 !important;
+    width: min(74%, 300px) !important;
+    height: 82% !important;
+}
+
+/* Slightly stronger refined frame. */
+.event-card.event-nikah-bg::after {
+    border-color: rgba(184,138,69,.25) !important;
+}
+
+/* Make the Valima botanical artwork more visible while keeping it delicate. */
+.event-card.event-valima-bg::before {
+    opacity: .64 !important;
+    background:
+        radial-gradient(ellipse 19px 8px at 8% 10%, rgba(184,138,69,.42) 0 45%, transparent 48%),
+        radial-gradient(ellipse 21px 9px at 13% 15%, rgba(213,177,106,.40) 0 45%, transparent 48%),
+        radial-gradient(ellipse 18px 8px at 18% 19%, rgba(184,138,69,.36) 0 45%, transparent 48%),
+        radial-gradient(circle at 11% 18%, rgba(184,138,69,.36) 0 3.4px, transparent 4px),
+        radial-gradient(ellipse 19px 8px at 92% 90%, rgba(184,138,69,.42) 0 45%, transparent 48%),
+        radial-gradient(ellipse 21px 9px at 87% 85%, rgba(213,177,106,.40) 0 45%, transparent 48%),
+        radial-gradient(ellipse 18px 8px at 82% 81%, rgba(184,138,69,.36) 0 45%, transparent 48%),
+        radial-gradient(circle at 89% 82%, rgba(184,138,69,.36) 0 3.4px, transparent 4px),
+        radial-gradient(circle at 0 0, rgba(213,177,106,.22), transparent 32%),
+        radial-gradient(circle at 100% 100%, rgba(184,138,69,.18), transparent 35%) !important;
+}
+
+/* Soft champagne glow behind the event headings only. */
+.event-card.event-nikah-bg h3,
+.event-card.event-nikah-bg h2,
+.event-card.event-valima-bg h3,
+.event-card.event-valima-bg h2 {
+    text-shadow:
+        0 0 12px rgba(255,250,235,.95),
+        0 0 24px rgba(232,210,154,.42) !important;
+}
+
+/* A subtle centered title halo without altering layout. */
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    background-blend-mode: normal !important;
+}
+
+.event-card.event-nikah-bg {
+    box-shadow:
+        inset 0 0 54px rgba(255,255,255,.92),
+        inset 0 0 86px rgba(213,177,106,.16),
+        0 16px 40px rgba(112,83,41,.09) !important;
+}
+
+.event-card.event-valima-bg {
+    box-shadow:
+        inset 0 0 56px rgba(255,255,255,.92),
+        inset 0 0 92px rgba(213,177,106,.20),
+        0 16px 40px rgba(112,83,41,.10) !important;
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg::before {
+        opacity: .15 !important;
+        width: 82% !important;
+        height: 78% !important;
+    }
+
+    .event-card.event-valima-bg::before {
+        opacity: .56 !important;
+    }
+}
+
+
+/* ==========================================================
+   FINAL EVENT CARD BACKGROUNDS — SILK & LIGHT LUXURY
+   Replaces decorative patterns with elegant couture-inspired depth.
+   ========================================================== */
+
+/* Remove previous decorative artwork completely. */
+.event-card.event-nikah-bg .nikah-corner,
+.event-card.event-valima-bg .valima-corner,
+.event-card.event-nikah-bg .card-shimmer,
+.event-card.event-valima-bg .card-shimmer {
+    display: none !important;
+}
+
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    animation: none !important;
+}
+
+/* Keep all actual invitation content above the background artwork. */
+.event-card.event-nikah-bg > *,
+.event-card.event-valima-bg > * {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+/* ---------------- NIKAH: PEARL IVORY SILK ---------------- */
+.event-card.event-nikah-bg {
+    background:
+        radial-gradient(ellipse at 50% 44%,
+            rgba(255,255,255,.98) 0%,
+            rgba(255,253,247,.96) 28%,
+            rgba(250,244,232,.88) 62%,
+            rgba(232,218,188,.62) 100%) !important;
+    border: 1px solid rgba(184,138,69,.34) !important;
+    box-shadow:
+        inset 0 0 65px rgba(255,255,255,.78),
+        inset 0 0 105px rgba(213,177,106,.10),
+        0 16px 40px rgba(112,83,41,.08) !important;
+}
+
+/* Flowing satin folds — soft and abstract, not decorative. */
+.event-card.event-nikah-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: -28% -18% !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .78 !important;
+    background:
+        radial-gradient(ellipse at 8% 20%, transparent 0 34%, rgba(184,138,69,.08) 35% 38%, transparent 39%),
+        radial-gradient(ellipse at 92% 10%, transparent 0 38%, rgba(255,255,255,.82) 39% 43%, transparent 44%),
+        radial-gradient(ellipse at 18% 88%, transparent 0 40%, rgba(213,177,106,.10) 41% 45%, transparent 46%),
+        radial-gradient(ellipse at 88% 82%, transparent 0 42%, rgba(255,255,255,.72) 43% 47%, transparent 48%),
+        linear-gradient(118deg,
+            transparent 0 22%,
+            rgba(255,255,255,.46) 30%,
+            rgba(232,210,154,.10) 42%,
+            transparent 54%,
+            rgba(255,255,255,.36) 66%,
+            transparent 78%) !important;
+    filter: blur(3px);
+}
+
+/* Soft pearl edge light. */
+.event-card.event-nikah-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 10px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(255,255,255,.72) !important;
+    box-shadow:
+        inset 0 0 30px rgba(255,255,255,.40),
+        0 0 0 1px rgba(184,138,69,.10) !important;
+    border-radius: 3px !important;
+    background: none !important;
+}
+
+/* ---------------- VALIMA: CHAMPAGNE LIGHT ---------------- */
+.event-card.event-valima-bg {
+    background:
+        radial-gradient(ellipse at 48% 44%,
+            rgba(255,255,255,.98) 0%,
+            rgba(255,250,239,.94) 28%,
+            rgba(247,233,202,.84) 62%,
+            rgba(223,194,135,.62) 100%) !important;
+    border: 1px solid rgba(184,138,69,.42) !important;
+    box-shadow:
+        inset 0 0 70px rgba(255,255,255,.74),
+        inset 0 0 110px rgba(213,177,106,.16),
+        0 16px 42px rgba(112,83,41,.09) !important;
+}
+
+/* Warm luminous bokeh + diagonal light rays. */
+.event-card.event-valima-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .72 !important;
+    background:
+        radial-gradient(circle at 9% 14%, rgba(255,255,255,.75) 0 2px, transparent 7px),
+        radial-gradient(circle at 17% 24%, rgba(232,210,154,.42) 0 3px, transparent 9px),
+        radial-gradient(circle at 84% 16%, rgba(255,255,255,.70) 0 2px, transparent 8px),
+        radial-gradient(circle at 92% 31%, rgba(213,177,106,.34) 0 3px, transparent 10px),
+        radial-gradient(circle at 12% 82%, rgba(213,177,106,.28) 0 2px, transparent 8px),
+        radial-gradient(circle at 88% 84%, rgba(255,255,255,.72) 0 3px, transparent 10px),
+        linear-gradient(135deg,
+            rgba(255,255,255,.30) 0 16%,
+            transparent 30% 58%,
+            rgba(255,255,255,.20) 72%,
+            transparent 88%),
+        radial-gradient(ellipse at 0 0, rgba(255,255,255,.38), transparent 42%),
+        radial-gradient(ellipse at 100% 100%, rgba(213,177,106,.18), transparent 45%) !important;
+    filter: blur(.4px);
+}
+
+/* Champagne inner frame with gentle moving light. */
+.event-card.event-valima-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 10px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(184,138,69,.16) !important;
+    border-radius: 3px !important;
+    box-shadow:
+        inset 0 0 34px rgba(255,255,255,.34),
+        inset 0 0 55px rgba(232,210,154,.08) !important;
+    background: none !important;
+}
+
+/* Subtle premium title illumination without changing text. */
+.event-card.event-nikah-bg h2,
+.event-card.event-nikah-bg h3,
+.event-card.event-valima-bg h2,
+.event-card.event-valima-bg h3 {
+    text-shadow:
+        0 0 10px rgba(255,255,255,.95),
+        0 0 22px rgba(232,210,154,.24) !important;
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg::after,
+    .event-card.event-valima-bg::after {
+        inset: 8px !important;
+    }
+
+    .event-card.event-nikah-bg::before {
+        opacity: .70 !important;
+        filter: blur(2px);
+    }
+
+    .event-card.event-valima-bg::before {
+        opacity: .66 !important;
+    }
+}
+
+
+/* ==========================================================
+   ELEGANT BOTANICAL SILK EVENT BACKGROUNDS
+   Based on the approved visual direction:
+   soft couture silk + organic botanical light accents.
+   ========================================================== */
+
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    animation: none !important;
+}
+
+/* Remove all previous decorative helper elements. */
+.event-card.event-nikah-bg .nikah-corner,
+.event-card.event-valima-bg .valima-corner,
+.event-card.event-nikah-bg .card-shimmer,
+.event-card.event-valima-bg .card-shimmer {
+    display: none !important;
+}
+
+/* Keep existing invitation content untouched and above artwork. */
+.event-card.event-nikah-bg > *,
+.event-card.event-valima-bg > * {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+/* ---------------- NIKAH — PEARL SILK ---------------- */
+
+.event-card.event-nikah-bg {
+    background:
+        radial-gradient(ellipse at 50% 45%,
+            rgba(255,255,255,.99) 0%,
+            rgba(255,253,248,.97) 32%,
+            rgba(249,242,229,.90) 68%,
+            rgba(235,220,191,.58) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff9ef 56%, #f1dfbd 100%) !important;
+    border: 1px solid rgba(184,138,69,.36) !important;
+    box-shadow:
+        inset 0 0 70px rgba(255,255,255,.82),
+        inset 0 0 120px rgba(213,177,106,.10),
+        0 16px 40px rgba(112,83,41,.08) !important;
+}
+
+.event-card.event-nikah-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: -20% -18% !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .86 !important;
+    background:
+        radial-gradient(ellipse at -5% 15%, transparent 0 34%, rgba(255,255,255,.92) 35% 39%, transparent 40%),
+        radial-gradient(ellipse at 108% 8%, transparent 0 38%, rgba(255,255,255,.86) 39% 43%, transparent 44%),
+        radial-gradient(ellipse at 2% 92%, transparent 0 42%, rgba(232,210,154,.13) 43% 47%, transparent 48%),
+        radial-gradient(ellipse at 102% 88%, transparent 0 40%, rgba(255,255,255,.72) 41% 45%, transparent 46%),
+        linear-gradient(120deg,
+            transparent 0 16%,
+            rgba(255,255,255,.58) 28%,
+            rgba(232,210,154,.08) 42%,
+            transparent 55%,
+            rgba(255,255,255,.40) 68%,
+            transparent 82%) !important;
+    filter: blur(3px);
+}
+
+.event-card.event-nikah-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 10px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(184,138,69,.18) !important;
+    border-radius: 3px !important;
+    box-shadow:
+        inset 0 0 34px rgba(255,255,255,.52),
+        0 0 0 1px rgba(255,255,255,.55) !important;
+}
+
+/* ---------------- VALIMA — CHAMPAGNE BOTANICAL LIGHT ---------------- */
+
+.event-card.event-valima-bg {
+    background:
+        radial-gradient(ellipse at 50% 43%,
+            rgba(255,255,255,.99) 0%,
+            rgba(255,250,240,.95) 34%,
+            rgba(247,233,202,.88) 68%,
+            rgba(224,195,137,.62) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff4df 55%, #ecd5a0 100%) !important;
+    border: 1px solid rgba(184,138,69,.42) !important;
+    box-shadow:
+        inset 0 0 72px rgba(255,255,255,.78),
+        inset 0 0 120px rgba(213,177,106,.18),
+        0 16px 42px rgba(112,83,41,.09) !important;
+}
+
+.event-card.event-valima-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .72 !important;
+    background:
+        /* top-right flowing botanical cluster */
+        radial-gradient(ellipse 30px 9px at 91% 7%, rgba(170,123,52,.30) 0 46%, transparent 49%),
+        radial-gradient(ellipse 34px 10px at 86% 12%, rgba(184,138,69,.32) 0 46%, transparent 49%),
+        radial-gradient(ellipse 28px 8px at 94% 18%, rgba(213,177,106,.30) 0 46%, transparent 49%),
+        radial-gradient(ellipse 26px 8px at 82% 20%, rgba(184,138,69,.26) 0 46%, transparent 49%),
+        radial-gradient(circle at 89% 25%, rgba(184,138,69,.28) 0 3px, transparent 3.8px),
+        radial-gradient(circle at 94% 29%, rgba(213,177,106,.25) 0 2px, transparent 3px),
+
+        /* lower-left soft botanical cluster */
+        radial-gradient(ellipse 32px 10px at 8% 82%, rgba(184,138,69,.25) 0 46%, transparent 49%),
+        radial-gradient(ellipse 28px 8px at 14% 88%, rgba(213,177,106,.28) 0 46%, transparent 49%),
+        radial-gradient(ellipse 25px 8px at 5% 92%, rgba(184,138,69,.22) 0 46%, transparent 49%),
+        radial-gradient(circle at 12% 76%, rgba(184,138,69,.24) 0 2.5px, transparent 3.4px),
+
+        /* couture light ribbons */
+        linear-gradient(145deg,
+            transparent 0 12%,
+            rgba(255,255,255,.38) 22%,
+            transparent 35% 68%,
+            rgba(255,255,255,.24) 79%,
+            transparent 90%),
+        radial-gradient(ellipse at 0 100%, rgba(232,210,154,.20), transparent 42%),
+        radial-gradient(ellipse at 100% 0, rgba(255,255,255,.34), transparent 38%) !important;
+    filter: blur(.35px);
+}
+
+.event-card.event-valima-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 10px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(184,138,69,.18) !important;
+    border-radius: 3px !important;
+    box-shadow:
+        inset 0 0 38px rgba(255,255,255,.38),
+        inset 0 0 70px rgba(232,210,154,.10) !important;
+}
+
+/* Gentle, elegant title illumination. */
+.event-card.event-nikah-bg h2,
+.event-card.event-nikah-bg h3,
+.event-card.event-valima-bg h2,
+.event-card.event-valima-bg h3 {
+    text-shadow:
+        0 0 12px rgba(255,255,255,.96),
+        0 0 26px rgba(232,210,154,.28) !important;
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg::after,
+    .event-card.event-valima-bg::after {
+        inset: 8px !important;
+    }
+
+    .event-card.event-valima-bg::before {
+        opacity: .62 !important;
+    }
+}
+
+
+/* ==========================================================
+   FINAL REFINEMENT — LUXURY PAPER & CHAMPAGNE WATERCOLOR
+   Only the Nikah and Valima card backgrounds are changed.
+   ========================================================== */
+
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    animation: none !important;
+}
+
+/* Keep invitation content above all background layers. */
+.event-card.event-nikah-bg > *,
+.event-card.event-valima-bg > * {
+    position: relative !important;
+    z-index: 5 !important;
+}
+
+/* ---------------- NIKAH — HANDMADE IVORY PAPER ---------------- */
+
+.event-card.event-nikah-bg {
+    background:
+        /* soft paper fibres */
+        repeating-linear-gradient(
+            0deg,
+            rgba(143,115,74,.018) 0px,
+            rgba(143,115,74,.018) 1px,
+            transparent 1px,
+            transparent 7px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,.28) 0px,
+            rgba(255,255,255,.28) 1px,
+            transparent 1px,
+            transparent 11px
+        ),
+        radial-gradient(
+            ellipse at 50% 42%,
+            rgba(255,255,255,.98) 0%,
+            rgba(255,253,247,.97) 42%,
+            rgba(247,240,226,.92) 74%,
+            rgba(232,218,190,.58) 100%
+        ) !important;
+    border: 1px solid rgba(176,133,68,.42) !important;
+    box-shadow:
+        inset 0 0 42px rgba(255,255,255,.88),
+        inset 0 0 85px rgba(213,177,106,.09),
+        0 16px 40px rgba(112,83,41,.08) !important;
+}
+
+/* Soft uneven paper-light texture — no patterns or visible shapes. */
+.event-card.event-nikah-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .60 !important;
+    background:
+        radial-gradient(ellipse at 12% 16%, rgba(255,255,255,.72), transparent 28%),
+        radial-gradient(ellipse at 86% 22%, rgba(231,208,163,.10), transparent 32%),
+        radial-gradient(ellipse at 18% 86%, rgba(231,208,163,.08), transparent 30%),
+        radial-gradient(ellipse at 82% 84%, rgba(255,255,255,.58), transparent 30%) !important;
+    filter: blur(10px);
+}
+
+/* Refined antique-gold stationery edge. */
+.event-card.event-nikah-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 10px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(176,133,68,.24) !important;
+    box-shadow:
+        inset 0 0 18px rgba(255,255,255,.48),
+        0 0 0 1px rgba(255,255,255,.42) !important;
+    border-radius: 3px !important;
+    background: none !important;
+}
+
+/* ---------------- VALIMA — CHAMPAGNE WATERCOLOR ---------------- */
+
+.event-card.event-valima-bg {
+    background:
+        radial-gradient(
+            ellipse at 48% 44%,
+            rgba(255,255,255,.99) 0%,
+            rgba(255,250,240,.96) 38%,
+            rgba(247,233,204,.88) 72%,
+            rgba(231,207,164,.58) 100%
+        ),
+        linear-gradient(135deg, #fffdf8 0%, #fff6e7 54%, #efd9ad 100%) !important;
+    border: 1px solid rgba(176,133,68,.42) !important;
+    box-shadow:
+        inset 0 0 58px rgba(255,255,255,.84),
+        inset 0 0 96px rgba(213,177,106,.14),
+        0 16px 42px rgba(112,83,41,.09) !important;
+}
+
+/* Flowing translucent watercolor washes — deliberately abstract and elegant. */
+.event-card.event-valima-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: -18% -12% !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .70 !important;
+    background:
+        radial-gradient(
+            ellipse 52% 28% at 5% 12%,
+            rgba(238,213,165,.30) 0%,
+            rgba(238,213,165,.16) 42%,
+            transparent 74%
+        ),
+        radial-gradient(
+            ellipse 44% 34% at 96% 20%,
+            rgba(255,255,255,.62) 0%,
+            rgba(246,222,178,.14) 48%,
+            transparent 76%
+        ),
+        radial-gradient(
+            ellipse 58% 32% at 88% 92%,
+            rgba(218,184,117,.22) 0%,
+            rgba(238,214,170,.11) 48%,
+            transparent 76%
+        ),
+        radial-gradient(
+            ellipse 46% 30% at 10% 88%,
+            rgba(255,255,255,.54) 0%,
+            rgba(240,219,180,.12) 48%,
+            transparent 76%
+        ),
+        linear-gradient(
+            122deg,
+            transparent 0 18%,
+            rgba(255,255,255,.24) 30%,
+            rgba(229,199,142,.07) 46%,
+            transparent 62% 100%
+        ) !important;
+    filter: blur(15px);
+    transform: rotate(-3deg) scale(1.05);
+}
+
+/* Soft luxury paper edge for Valima. */
+.event-card.event-valima-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 10px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(176,133,68,.20) !important;
+    border-radius: 3px !important;
+    box-shadow:
+        inset 0 0 26px rgba(255,255,255,.46),
+        inset 0 0 44px rgba(232,210,154,.08) !important;
+    background: none !important;
+}
+
+/* Keep titles elegant and unchanged; only a soft light lift. */
+.event-card.event-nikah-bg h2,
+.event-card.event-nikah-bg h3,
+.event-card.event-valima-bg h2,
+.event-card.event-valima-bg h3 {
+    text-shadow:
+        0 0 8px rgba(255,255,255,.95),
+        0 0 18px rgba(232,210,154,.16) !important;
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg::after,
+    .event-card.event-valima-bg::after {
+        inset: 8px !important;
+    }
+
+    .event-card.event-valima-bg::before {
+        opacity: .62 !important;
+        filter: blur(12px);
+    }
+}
+
+
+/* ==========================================================
+   VISIBLE EVENT CARD BACKGROUND FIX
+   Uses the actual event-card containers and strong final overrides.
+   ========================================================== */
+
+/* Both event cards */
+.events-grid .event-card,
+.event-card {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    background-color: #fbf6ea !important;
+}
+
+/* NIKAH — visibly textured ivory stationery */
+.events-grid .event-card:nth-of-type(1),
+.event-card:nth-of-type(1) {
+    background:
+        repeating-linear-gradient(
+            92deg,
+            rgba(255,255,255,.00) 0 12px,
+            rgba(181,143,83,.035) 13px 14px,
+            rgba(255,255,255,.00) 15px 28px
+        ),
+        radial-gradient(circle at 18% 22%, rgba(255,255,255,.95) 0 11%, transparent 30%),
+        radial-gradient(circle at 84% 78%, rgba(214,182,121,.20) 0 5%, transparent 32%),
+        linear-gradient(135deg, #f3ead8 0%, #fffdf8 43%, #efe0bf 100%) !important;
+}
+
+/* VALIMA — visibly warmer champagne watercolor */
+.events-grid .event-card:nth-of-type(2),
+.event-card:nth-of-type(2) {
+    background:
+        radial-gradient(ellipse at 12% 8%, rgba(239,205,137,.40) 0 16%, transparent 42%),
+        radial-gradient(ellipse at 90% 18%, rgba(255,255,255,.92) 0 15%, transparent 40%),
+        radial-gradient(ellipse at 88% 92%, rgba(220,177,95,.32) 0 18%, transparent 44%),
+        radial-gradient(ellipse at 8% 88%, rgba(255,255,255,.80) 0 13%, transparent 40%),
+        linear-gradient(145deg, #f8e7bf 0%, #fffdf8 45%, #efd39b 100%) !important;
+}
+
+/* Strong decorative light layers that are unmistakably visible */
+.events-grid .event-card:nth-of-type(1)::before,
+.event-card:nth-of-type(1)::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: 1 !important;
+    background:
+        linear-gradient(120deg,
+            transparent 0 16%,
+            rgba(255,255,255,.55) 28%,
+            rgba(255,255,255,.10) 42%,
+            transparent 58%,
+            rgba(217,184,118,.10) 74%,
+            transparent 88%) !important;
+    mix-blend-mode: screen !important;
+}
+
+.events-grid .event-card:nth-of-type(2)::before,
+.event-card:nth-of-type(2)::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: 1 !important;
+    background:
+        radial-gradient(ellipse at -8% 4%, rgba(255,255,255,.62) 0 18%, transparent 48%),
+        radial-gradient(ellipse at 108% 100%, rgba(194,145,65,.20) 0 20%, transparent 50%),
+        linear-gradient(135deg,
+            transparent 0 20%,
+            rgba(255,255,255,.34) 34%,
+            transparent 52% 70%,
+            rgba(255,238,199,.24) 82%,
+            transparent 94%) !important;
+}
+
+/* Elegant gold inner frame */
+.events-grid .event-card::after,
+.event-card::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 12px !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+    border: 1px solid rgba(166,120,52,.34) !important;
+    border-radius: 10px !important;
+    box-shadow:
+        inset 0 0 35px rgba(255,255,255,.45),
+        0 0 0 1px rgba(255,255,255,.45) !important;
+}
+
+/* Ensure existing content stays on top */
+.events-grid .event-card > *,
+.event-card > * {
+    position: relative !important;
+    z-index: 3 !important;
+}
+
+@media (max-width: 600px) {
+    .events-grid .event-card::after,
+    .event-card::after {
+        inset: 8px !important;
+    }
+}
+
+
+/* ==========================================================
+   CLEAN SEAMLESS EVENT CARD POLISH
+   Removes the structured Nikah fibres and Valima line/rectangle artifact.
+   ========================================================== */
+
+/* NIKAH — seamless handmade ivory paper, softer and more natural */
+.events-grid .event-card:nth-of-type(1),
+.event-card:nth-of-type(1) {
+    background:
+        radial-gradient(ellipse at 20% 18%, rgba(255,255,255,.88) 0%, transparent 38%),
+        radial-gradient(ellipse at 82% 84%, rgba(222,193,136,.14) 0%, transparent 42%),
+        radial-gradient(ellipse at 48% 45%, rgba(255,255,255,.98) 0%, rgba(255,252,246,.96) 55%, rgba(242,231,208,.78) 100%) !important;
+}
+
+/* Remove the structured stripe look entirely */
+.events-grid .event-card:nth-of-type(1)::before,
+.event-card:nth-of-type(1)::before {
+    background:
+        radial-gradient(ellipse at 8% 12%, rgba(255,255,255,.58) 0%, transparent 34%),
+        radial-gradient(ellipse at 92% 18%, rgba(236,215,173,.12) 0%, transparent 36%),
+        radial-gradient(ellipse at 18% 88%, rgba(255,255,255,.42) 0%, transparent 34%),
+        radial-gradient(ellipse at 86% 82%, rgba(226,196,141,.10) 0%, transparent 38%) !important;
+    opacity: .95 !important;
+    mix-blend-mode: normal !important;
+}
+
+/* VALIMA — smooth champagne watercolor with no hard vertical edges */
+.events-grid .event-card:nth-of-type(2),
+.event-card:nth-of-type(2) {
+    background:
+        radial-gradient(ellipse at 14% 10%, rgba(241,211,157,.34) 0%, transparent 42%),
+        radial-gradient(ellipse at 88% 16%, rgba(255,255,255,.82) 0%, transparent 40%),
+        radial-gradient(ellipse at 86% 88%, rgba(223,184,111,.24) 0%, transparent 44%),
+        radial-gradient(ellipse at 12% 90%, rgba(255,255,255,.62) 0%, transparent 42%),
+        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.98) 0%, rgba(255,249,238,.94) 58%, rgba(239,215,169,.72) 100%) !important;
+}
+
+/* Replace the previous hard light layer with blurred watercolor only */
+.events-grid .event-card:nth-of-type(2)::before,
+.event-card:nth-of-type(2)::before {
+    background:
+        radial-gradient(ellipse 52% 34% at -4% 8%, rgba(255,255,255,.50) 0%, rgba(242,215,164,.10) 42%, transparent 76%),
+        radial-gradient(ellipse 46% 36% at 104% 96%, rgba(219,177,100,.18) 0%, rgba(255,255,255,.10) 44%, transparent 78%),
+        radial-gradient(ellipse 44% 26% at 70% 14%, rgba(255,255,255,.26) 0%, transparent 72%) !important;
+    opacity: .82 !important;
+    filter: blur(18px) !important;
+    mix-blend-mode: normal !important;
+}
+
+/* Keep the frame, but soften it so it blends naturally */
+.events-grid .event-card::after,
+.event-card::after {
+    border-color: rgba(166,120,52,.25) !important;
+    box-shadow:
+        inset 0 0 26px rgba(255,255,255,.42),
+        0 0 0 1px rgba(255,255,255,.32) !important;
+}
+
+@media (max-width: 600px) {
+    .events-grid .event-card:nth-of-type(2)::before,
+    .event-card:nth-of-type(2)::before {
+        filter: blur(14px) !important;
+    }
+}
+
+
+/* ==========================================================
+   HARD RESET — REMOVE VISIBLE RECTANGLE / VERTICAL SEAM
+   The screenshot artifact is caused by an inherited decorative overlay.
+   ========================================================== */
+
+/* Do NOT use an inset pseudo-element frame on event cards. */
+.events-grid .event-card::after,
+.event-card::after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Remove any legacy overlay that can create a hard rectangular edge. */
+.events-grid .event-card::before,
+.event-card::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    transform: none !important;
+    clip-path: none !important;
+    border-radius: inherit !important;
+}
+
+/* Remove old decorative child overlays if present. */
+.events-grid .event-card .card-shimmer,
+.events-grid .event-card .nikah-corner,
+.events-grid .event-card .valima-corner,
+.event-card .card-shimmer,
+.event-card .nikah-corner,
+.event-card .valima-corner {
+    display: none !important;
+}
+
+/* Clean card border directly on the card itself. */
+.events-grid .event-card,
+.event-card {
+    border: 1px solid rgba(166,120,52,.34) !important;
+    outline: none !important;
+    box-shadow:
+        inset 0 0 48px rgba(255,255,255,.56),
+        0 16px 40px rgba(112,83,41,.08) !important;
+}
+
+/* NIKAH — seamless background, no internal rectangle */
+.events-grid .event-card:nth-of-type(1),
+.event-card:nth-of-type(1) {
+    background:
+        radial-gradient(ellipse at 18% 18%, rgba(255,255,255,.82) 0%, transparent 34%),
+        radial-gradient(ellipse at 84% 84%, rgba(223,190,130,.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.99) 0%, rgba(255,252,246,.96) 58%, rgba(243,231,207,.78) 100%) !important;
+}
+
+.events-grid .event-card:nth-of-type(1)::before,
+.event-card:nth-of-type(1)::before {
+    background:
+        radial-gradient(ellipse at 6% 14%, rgba(255,255,255,.48) 0%, transparent 38%),
+        radial-gradient(ellipse at 94% 84%, rgba(230,202,150,.10) 0%, transparent 40%) !important;
+    opacity: 1 !important;
+    filter: blur(10px) !important;
+}
+
+/* VALIMA — smooth champagne wash, no internal rectangle */
+.events-grid .event-card:nth-of-type(2),
+.event-card:nth-of-type(2) {
+    background:
+        radial-gradient(ellipse at 12% 10%, rgba(241,211,157,.28) 0%, transparent 44%),
+        radial-gradient(ellipse at 90% 16%, rgba(255,255,255,.76) 0%, transparent 42%),
+        radial-gradient(ellipse at 88% 90%, rgba(221,179,103,.20) 0%, transparent 46%),
+        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.99) 0%, rgba(255,249,238,.95) 60%, rgba(239,215,169,.72) 100%) !important;
+}
+
+.events-grid .event-card:nth-of-type(2)::before,
+.event-card:nth-of-type(2)::before {
+    background:
+        radial-gradient(ellipse 54% 34% at -5% 8%, rgba(255,255,255,.44) 0%, transparent 76%),
+        radial-gradient(ellipse 50% 38% at 105% 96%, rgba(220,177,100,.14) 0%, transparent 78%) !important;
+    opacity: 1 !important;
+    filter: blur(18px) !important;
+}
+
+/* Existing content remains above the single background layer. */
+.events-grid .event-card > *,
+.event-card > * {
+    position: relative !important;
+    z-index: 2 !important;
+}
