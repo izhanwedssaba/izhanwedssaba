@@ -3374,3 +3374,149 @@ body.transition-handoff #opening-screen.cinematic-fade
 #enterBtn.envelope-reference-v2.opening {
     opacity: 1 !important;
 }
+
+
+/* ==========================================================
+   ROMANTIC HEART SCRATCH REVEAL
+   Inspired by the approved blush + champagne + ivory concept.
+   ========================================================== */
+
+:root {
+    --scratch-rose: #b86f73;
+    --scratch-blush: #d9a0a0;
+    --scratch-champagne: #d6b46a;
+    --scratch-ivory: #fffaf2;
+}
+
+/* Soft romantic atmosphere around the scratch area. */
+.scratch-section,
+.reveal-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.scratch-section::before,
+.reveal-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 50% 40%, rgba(217,160,160,.20), transparent 32%),
+        radial-gradient(circle at 15% 75%, rgba(214,180,106,.10), transparent 26%),
+        radial-gradient(circle at 88% 20%, rgba(184,111,115,.10), transparent 24%);
+}
+
+/* Heart-shaped scratch surface. */
+#scratchCanvas,
+.scratch-canvas {
+    border-radius: 50% 50% 46% 46%;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.45),
+        0 12px 38px rgba(184,111,115,.18),
+        inset 0 0 28px rgba(255,255,255,.25);
+}
+
+/* Romantic scratch coating. */
+.scratch-romantic-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 22% 25%, rgba(255,255,255,.42) 0 1px, transparent 2px),
+        radial-gradient(circle at 78% 30%, rgba(255,255,255,.35) 0 1px, transparent 2px),
+        radial-gradient(circle at 40% 75%, rgba(255,255,255,.32) 0 1px, transparent 2px),
+        linear-gradient(135deg,
+            rgba(184,111,115,.94),
+            rgba(215,154,154,.88) 48%,
+            rgba(169,96,105,.92));
+    mix-blend-mode: multiply;
+    opacity: .96;
+}
+
+/* Keep the date completely hidden until enough scratching is done. */
+.scratch-date-content,
+.scratch-reveal-content {
+    opacity: 0;
+    transform: scale(.96) translateY(8px);
+    transition: opacity .75s ease, transform .75s cubic-bezier(.22,.75,.25,1);
+}
+
+.scratch-date-content.revealed,
+.scratch-reveal-content.revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Floating heart sparkles. */
+.heart-sparkle {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    width: var(--heart-size, 12px);
+    height: var(--heart-size, 12px);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    animation: heartBurst 1.8s cubic-bezier(.16,.84,.35,1) forwards;
+    filter: drop-shadow(0 0 7px rgba(255,214,225,.8));
+}
+
+.heart-sparkle::before,
+.heart-sparkle::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--heart-color, #f6c5cf);
+}
+
+.heart-sparkle::before { left: -50%; }
+.heart-sparkle::after { top: -50%; }
+
+@keyframes heartBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    }
+    18% {
+        opacity: 1;
+        transform: translate(
+            calc(-50% + var(--burst-x)),
+            calc(-50% + var(--burst-y))
+        ) rotate(45deg) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(
+            calc(-50% + var(--burst-x)),
+            calc(-50% + var(--burst-y) - 45px)
+        ) rotate(45deg) scale(.45);
+    }
+}
+
+.scratch-celebration-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0;
+    background:
+        radial-gradient(circle at 50% 45%,
+            rgba(255,239,228,.75) 0%,
+            rgba(255,214,225,.26) 20%,
+            rgba(255,255,255,0) 55%);
+    animation: celebrationGlow 1.35s ease-out forwards;
+}
+
+@keyframes celebrationGlow {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .heart-sparkle {
+        --heart-size: 10px;
+    }
+}
