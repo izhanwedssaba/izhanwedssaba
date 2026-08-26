@@ -978,8 +978,8 @@ console.log("© 2026");
         });
     });
 
-/* ==========================================================
-   ANTIQUE GOLD + MUTED SAGE SCRATCH PATCH
+  /* ==========================================================
+   CHAMPAGNE GOLD + IVORY SCRATCH PATCH
    Add this block at the VERY END of js/main.js
    ========================================================== */
 
@@ -995,33 +995,33 @@ console.log("© 2026");
     const cy = rect.top + rect.height / 2;
 
     const layer = document.createElement("div");
-    layer.className = "antique-sage-celebration";
+    layer.className = "champagne-celebration";
     document.body.appendChild(layer);
 
     const glyphs = ["♥","✦","♡","✧","❋"];
-    const colors = ["#b28a3d","#d7bd7b","#fbf7ed","#78856b","#e7d9b7"];
+    const colors = ["#c9a86a","#e6d0a2","#fffdf8","#b89252","#f1e8d7"];
 
-    for(let i=0;i<58;i++){
-      const angle = (Math.PI*2*i/58) + (Math.random()-.5)*.2;
-      const distance = 55 + Math.random()*220;
+    for(let i=0;i<62;i++){
+      const angle = (Math.PI*2*i/62) + (Math.random()-.5)*.2;
+      const distance = 55 + Math.random()*225;
 
       const p = document.createElement("span");
-      p.className = "antique-sage-particle";
+      p.className = "champagne-particle";
       p.textContent = glyphs[i % glyphs.length];
       p.style.left = `${cx}px`;
       p.style.top = `${cy}px`;
       p.style.setProperty("--tx", `${Math.cos(angle)*distance}px`);
       p.style.setProperty("--ty", `${Math.sin(angle)*distance*.72}px`);
-      p.style.setProperty("--delay", `${Math.random()*160}ms`);
-      p.style.setProperty("--size", `${10 + Math.random()*20}px`);
+      p.style.setProperty("--delay", `${Math.random()*170}ms`);
+      p.style.setProperty("--size", `${10 + Math.random()*21}px`);
       p.style.color = colors[i % colors.length];
       layer.appendChild(p);
     }
 
-    setTimeout(() => layer.remove(), 2300);
+    setTimeout(() => layer.remove(), 2350);
   }
 
-  function paintAntiqueSage(canvas){
+  function paintChampagneIvory(canvas){
     const rect = canvas.getBoundingClientRect();
     if(!rect.width || !rect.height) return;
 
@@ -1034,10 +1034,10 @@ console.log("© 2026");
     ctx.globalCompositeOperation = "source-over";
 
     const g = ctx.createLinearGradient(0,0,rect.width,rect.height);
-    g.addColorStop(0,"#56654f");
-    g.addColorStop(.34,"#78856b");
-    g.addColorStop(.62,"#9da58d");
-    g.addColorStop(1,"#65755d");
+    g.addColorStop(0,"#b89252");
+    g.addColorStop(.32,"#c9a86a");
+    g.addColorStop(.64,"#e6d0a2");
+    g.addColorStop(1,"#c3a06a");
     ctx.fillStyle = g;
     ctx.fillRect(0,0,rect.width,rect.height);
 
@@ -1045,16 +1045,16 @@ console.log("© 2026");
       rect.width*.5, rect.height*.34, 8,
       rect.width*.5, rect.height*.34, Math.max(rect.width,rect.height)*.72
     );
-    glow.addColorStop(0,"rgba(215,189,123,.52)");
-    glow.addColorStop(.48,"rgba(251,247,237,.16)");
+    glow.addColorStop(0,"rgba(255,253,248,.52)");
+    glow.addColorStop(.48,"rgba(230,208,162,.24)");
     glow.addColorStop(1,"rgba(255,255,255,0)");
     ctx.fillStyle = glow;
     ctx.fillRect(0,0,rect.width,rect.height);
 
-    for(let i=0;i<145;i++){
+    for(let i=0;i<155;i++){
       ctx.fillStyle = i%4===0
-        ? "rgba(215,189,123,.88)"
-        : "rgba(255,255,255,.34)";
+        ? "rgba(255,250,235,.88)"
+        : "rgba(255,255,255,.42)";
       ctx.beginPath();
       ctx.arc(
         Math.random()*rect.width,
@@ -1073,7 +1073,7 @@ console.log("© 2026");
 
     if(!canvas) return;
 
-    setTimeout(() => paintAntiqueSage(canvas), 120);
+    setTimeout(() => paintChampagneIvory(canvas), 120);
 
     const launchIfComplete = () => {
       const style = getComputedStyle(canvas);
@@ -1100,4 +1100,78 @@ console.log("© 2026");
 
     canvas.addEventListener("scratchcomplete", () => launchCelebration(canvas));
   }, {once:true});
+})();
+
+
+/* ==========================================================
+   FINAL ENVELOPE TAP FIX — MOBILE + DESKTOP
+   This is intentionally isolated from the scratch feature.
+   ========================================================== */
+(() => {
+    function installEnvelopeTapFix() {
+        const btn = document.getElementById("enterBtn");
+        const opening = document.getElementById("opening-screen");
+        const website = document.getElementById("website");
+        if (!btn || !opening) return;
+
+        let openingNow = false;
+
+        const openInvitation = (event) => {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+            }
+            if (openingNow || btn.classList.contains("opening")) return;
+
+            openingNow = true;
+
+            // Disable only after the tap has been accepted.
+            btn.style.setProperty("pointer-events", "none", "important");
+            btn.classList.add("opening");
+            btn.setAttribute("aria-disabled", "true");
+
+            window.setTimeout(() => {
+                document.documentElement.classList.add("invitation-open");
+                document.body.classList.remove("opening-locked-page");
+                document.body.classList.add("invitation-reveal");
+
+                if (website) {
+                    website.style.setProperty("display", "block", "important");
+                    website.style.setProperty("visibility", "visible", "important");
+                    website.style.setProperty("opacity", "1", "important");
+                    website.style.setProperty("pointer-events", "auto", "important");
+                }
+                opening.classList.add("opening-fade-out");
+            }, 2550);
+
+            window.setTimeout(() => {
+                opening.classList.add("opening-hidden");
+                opening.style.setProperty("pointer-events", "none", "important");
+                window.scrollTo(0, 0);
+            }, 3250);
+        };
+
+        // Capture phase prevents old duplicate handlers from swallowing mobile taps.
+        ["pointerup", "click", "touchend"].forEach(type => {
+            btn.addEventListener(type, openInvitation, {
+                capture: true,
+                passive: false
+            });
+        });
+
+        // Guarantee the envelope is actually tappable once it is visible.
+        window.setTimeout(() => {
+            if (!btn.classList.contains("opening")) {
+                btn.style.setProperty("pointer-events", "auto", "important");
+                btn.style.setProperty("touch-action", "manipulation", "important");
+            }
+        }, 4600);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", installEnvelopeTapFix, { once: true });
+    } else {
+        installEnvelopeTapFix();
+    }
 })();
