@@ -3350,3 +3350,27 @@ body.transition-handoff #opening-screen.cinematic-fade {
     opacity: 0 !important;
     transition: none !important;
 }
+
+
+/* ==========================================================
+   DIRECT OPENED ENVELOPE → PAGE 2 HANDOFF
+   ========================================================== */
+
+/* Never show the old empty-envelope exit frame. */
+#opening-screen #enterBtn.envelope-reference-v2.opening,
+#opening-screen #enterBtn.envelope-reference-v2.opening.envelope-exit {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* During the handoff, keep the opened envelope as the visual bridge. */
+body.transition-handoff #opening-screen #enterBtn.envelope-reference-v2.opening {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* The envelope disappears naturally with the opening scene cross-fade. */
+body.transition-handoff #opening-screen.cinematic-fade
+#enterBtn.envelope-reference-v2.opening {
+    opacity: 1 !important;
+}
