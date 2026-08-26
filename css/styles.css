@@ -3985,3 +3985,110 @@ body.transition-handoff #opening-screen.cinematic-fade
         rgba(232,210,154,.28) 26%,
         rgba(255,255,255,0) 60%) !important;
 }
+
+
+/* ==========================================================
+   CINEMATIC CHAMPAGNE + IVORY REVEAL CELEBRATION
+   Only affects the scratch completion celebration.
+   ========================================================== */
+
+.cinematic-reveal-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483647;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.cinematic-reveal-flash {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at var(--cx) var(--cy),
+            rgba(255,255,255,.98) 0,
+            rgba(255,248,228,.72) 10%,
+            rgba(232,210,154,.32) 24%,
+            rgba(255,255,255,0) 58%);
+    animation: cinematicFlash 1.45s ease-out forwards;
+}
+
+.cinematic-heart,
+.cinematic-spark {
+    position: fixed;
+    left: var(--left);
+    top: var(--top);
+    opacity: 0;
+    line-height: 1;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: var(--size);
+    color: var(--color);
+    text-shadow:
+        0 0 10px currentColor,
+        0 0 22px rgba(255,255,255,.95),
+        0 0 38px rgba(232,210,154,.85);
+    animation: cinematicBurst var(--duration) cubic-bezier(.12,.8,.18,1) var(--delay) forwards;
+    will-change: transform, opacity;
+}
+
+.cinematic-spark {
+    font-family: serif;
+    font-weight: 700;
+}
+
+@keyframes cinematicFlash {
+    0% { opacity: 0; }
+    12% { opacity: 1; }
+    42% { opacity: .55; }
+    100% { opacity: 0; }
+}
+
+@keyframes cinematicBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.15) rotate(-25deg);
+    }
+    10% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.35) rotate(8deg);
+    }
+    65% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform:
+            translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+            scale(.72) rotate(42deg);
+    }
+}
+
+.cinematic-gold-dust {
+    position: fixed;
+    left: var(--left);
+    top: var(--top);
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: var(--color);
+    box-shadow:
+        0 0 8px var(--color),
+        0 0 18px rgba(255,255,255,.85);
+    opacity: 0;
+    animation: cinematicDust var(--duration) ease-out var(--delay) forwards;
+}
+
+@keyframes cinematicDust {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.2);
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform:
+            translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+            scale(.2);
+    }
+}
