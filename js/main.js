@@ -1,40 +1,44 @@
 
 /* ==========================================================
-   SMOOTH PAGE HANDOFF
+   SEAMLESS PAGE HANDOFF
    ========================================================== */
 function beginSmoothInvitationTransition() {
     const opening = document.getElementById("opening-screen");
     const website = document.getElementById("website");
 
-    if (opening) {
-        opening.classList.add("transitioning");
-    }
+    document.body.classList.add("transition-handoff");
 
-    // Start page 2 underneath the fading opening scene.
+    // Put page 2 underneath immediately so there can never be a blank gap.
     if (website) {
         website.style.setProperty("display", "block", "important");
         website.style.setProperty("visibility", "visible", "important");
         website.style.setProperty("pointer-events", "none", "important");
+        website.style.setProperty("opacity", "0", "important");
     }
 
-    // Small overlap prevents the abrupt black/blank flash.
-    window.setTimeout(() => {
-        document.body.classList.add("invitation-reveal");
-        if (website) {
-            website.style.setProperty("pointer-events", "auto", "important");
-        }
-        if (opening) {
-            opening.classList.add("cinematic-fade");
-        }
-    }, 120);
+    // Force the browser to paint page 2 before starting the cross-fade.
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.body.classList.add("invitation-reveal");
 
-    // Remove the opening layer only after the cross-fade completes.
+            if (website) {
+                website.style.removeProperty("opacity");
+                website.style.removeProperty("pointer-events");
+            }
+
+            if (opening) {
+                opening.classList.add("transitioning", "cinematic-fade");
+            }
+        });
+    });
+
+    // Remove the opening layer only after both fade animations finish.
     window.setTimeout(() => {
         if (opening) {
             opening.style.setProperty("display", "none", "important");
             opening.style.setProperty("pointer-events", "none", "important");
         }
-    }, 1100);
+    }, 820);
 }
 
 
