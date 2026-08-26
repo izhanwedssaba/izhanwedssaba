@@ -3260,3 +3260,93 @@ body.invitation-reveal #website {
 #opening-screen.transitioning::after {
     opacity: .82;
 }
+
+
+/* ==========================================================
+   ENVELOPE ALIGNMENT + SEAMLESS PAGE HANDOFF
+   Keeps the working envelope interaction and all other content unchanged.
+   ========================================================== */
+
+/* Stable envelope alignment on desktop and mobile. */
+#opening-screen #enterBtn.envelope-reference-v2 {
+    align-self: center !important;
+    justify-self: center !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    transform-origin: center center !important;
+}
+
+/* The envelope must sit directly under the couple names. */
+#opening-screen .opening-content {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 680px !important;
+    margin: 0 auto !important;
+    align-items: center !important;
+}
+
+#opening-screen .opening-names {
+    width: 100% !important;
+    text-align: center !important;
+    margin-bottom: 0 !important;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2 {
+    position: relative !important;
+    width: min(78vw, 330px) !important;
+    max-width: 330px !important;
+    min-width: 0 !important;
+    margin-top: clamp(22px, 3.5vh, 38px) !important;
+    margin-bottom: 0 !important;
+}
+
+/* Prevent mobile inherited transforms from pushing the envelope sideways. */
+@media (max-width: 768px) {
+    #opening-screen .opening-content {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+        box-sizing: border-box !important;
+    }
+
+    #opening-screen #enterBtn.envelope-reference-v2 {
+        width: min(82vw, 320px) !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+/* Page 2 is present underneath before the opening scene fades away. */
+body.transition-handoff #website {
+    display: block !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    transform: translateY(10px) !important;
+    filter: none !important;
+}
+
+body.transition-handoff.invitation-reveal #website {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+    transition:
+        opacity 700ms cubic-bezier(.22,.75,.25,1),
+        transform 700ms cubic-bezier(.22,.75,.25,1) !important;
+}
+
+/* Fade the opening scene only after page 2 has started appearing.
+   No blank/empty frame is allowed between the two scenes. */
+body.transition-handoff #opening-screen.cinematic-fade {
+    opacity: 0 !important;
+    visibility: visible !important;
+    pointer-events: none !important;
+    transition: opacity 700ms ease-in-out !important;
+}
+
+/* Do not add a separate veil that can create a blank-looking frame. */
+#opening-screen.transitioning::after {
+    opacity: 0 !important;
+    transition: none !important;
+}
