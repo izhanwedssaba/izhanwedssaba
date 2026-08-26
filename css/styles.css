@@ -4285,3 +4285,67 @@ body {
         display: none;
     }
 }
+
+
+/* ==========================================================
+   NIKAH + VALIMA EVENT CARD BACKGROUNDS
+   Background styling only — content, layout and functionality unchanged.
+   ========================================================== */
+
+/* Nikah: ivory + subtle Islamic arch/geometric atmosphere */
+.nikah-card,
+.event-card.nikah,
+#nikah,
+.nikah {
+    background-color: #fffdf8 !important;
+    background-image:
+        radial-gradient(circle at 50% 0%, rgba(232,210,154,.18), transparent 34%),
+        linear-gradient(90deg,
+            transparent 0 18%,
+            rgba(184,138,69,.055) 18.2% 18.8%,
+            transparent 19% 81%,
+            rgba(184,138,69,.055) 81.2% 81.8%,
+            transparent 82%),
+        linear-gradient(135deg,
+            transparent 0 48%,
+            rgba(213,177,106,.045) 48.2% 51.8%,
+            transparent 52%),
+        linear-gradient(45deg,
+            transparent 0 48%,
+            rgba(213,177,106,.035) 48.2% 51.8%,
+            transparent 52%),
+        linear-gradient(135deg, #fffdf8 0%, #fffaf0 58%, #f8f1e3 100%) !important;
+    background-size: auto, 100% 100%, 34px 34px, 34px 34px, auto !important;
+    border-color: rgba(184,138,69,.28) !important;
+}
+
+/* Valima: warm champagne ivory + delicate floral/luxury glow */
+.valima-card,
+.event-card.valima,
+#valima,
+.valima {
+    background-color: #fffaf0 !important;
+    background-image:
+        radial-gradient(circle at 18% 18%, rgba(213,177,106,.18), transparent 22%),
+        radial-gradient(circle at 82% 76%, rgba(232,210,154,.20), transparent 26%),
+        radial-gradient(circle at 88% 18%, rgba(255,255,255,.78) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 12% 84%, rgba(184,138,69,.12) 0 1px, transparent 1.8px),
+        linear-gradient(135deg, #fffdf8 0%, #fff7e7 54%, #f7ead0 100%) !important;
+    background-size: auto, auto, 24px 24px, 31px 31px, auto !important;
+    border-color: rgba(213,177,106,.32) !important;
+}
+
+/* Soft premium inner glow without changing dimensions. */
+.nikah-card,
+.event-card.nikah,
+#nikah,
+.nikah,
+.valima-card,
+.event-card.valima,
+#valima,
+.valima {
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.58),
+        inset 0 0 32px rgba(232,210,154,.08),
+        0 14px 35px rgba(112,83,41,.06) !important;
+}
