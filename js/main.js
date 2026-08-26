@@ -160,10 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
             enterBtn.classList.add("opening");
             enterBtn.setAttribute("aria-disabled", "true");
 
-            // Keep the opened flap clearly visible before transitioning away.
-            window.setTimeout(() => {
-                enterBtn.classList.add("envelope-exit");
-            }, 1750);
+            // Keep the fully opened envelope visible during the handoff.
+            // Page 2 will fade in underneath before the opening scene disappears.
 
             // Only after the envelope animation is complete, reveal page 2.
             window.setTimeout(() => {
