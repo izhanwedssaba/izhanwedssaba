@@ -1,4 +1,55 @@
 
+
+/* ==========================================================
+   RELIABLE HEART SPARKLE CELEBRATION
+   ========================================================== */
+window.launchWeddingCelebration = function(origin) {
+    if (window.__weddingCelebrationPlayed) return;
+    window.__weddingCelebrationPlayed = true;
+
+    const rect = origin ? origin.getBoundingClientRect() : {
+        left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0
+    };
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    const layer = document.createElement("div");
+    layer.className = "wedding-heart-burst";
+    document.body.appendChild(layer);
+
+    const symbols = ["♥", "♡", "✦", "♥", "✧", "♡"];
+    const colors = ["#f4b7c1", "#f9d4dc", "#f1c978", "#ffffff", "#d68b9a"];
+
+    for (let i = 0; i < 52; i++) {
+        const angle = (Math.PI * 2 * i / 52) + (Math.random() - .5) * .22;
+        const distance = 70 + Math.random() * Math.min(innerWidth, 260);
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance * .72;
+
+        const particle = document.createElement("span");
+        particle.className = "wedding-heart-particle";
+        particle.textContent = symbols[i % symbols.length];
+        particle.style.left = `${cx}px`;
+        particle.style.top = `${cy}px`;
+        particle.style.setProperty("--tx", `${x}px`);
+        particle.style.setProperty("--ty", `${y}px`);
+        particle.style.setProperty("--delay", `${Math.random() * 180}ms`);
+        particle.style.setProperty("--size", `${12 + Math.random() * 22}px`);
+        particle.style.color = colors[i % colors.length];
+        layer.appendChild(particle);
+    }
+
+    const flash = document.createElement("div");
+    flash.className = "wedding-reveal-glow";
+    document.body.appendChild(flash);
+
+    window.setTimeout(() => {
+        layer.remove();
+        flash.remove();
+    }, 2200);
+};
+
+
 /* ==========================================================
    HEART COMPLETION DETECTOR
    Works even when the existing scratch code does not emit an event.
@@ -489,7 +540,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const rect = scratchCard.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
 
-            const dpr = Math.max(1, window.devicePixelRatio || 1);
+            const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
             scratchCanvas.width = Math.round(rect.width * dpr);
             scratchCanvas.height = Math.round(rect.height * dpr);
             scratchCanvas.style.width = rect.width + "px";
@@ -499,26 +550,38 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.globalCompositeOperation = "source-over";
             ctx.clearRect(0, 0, rect.width, rect.height);
 
-            /* Fully opaque antique-gold foil */
+            // Romantic blush → dusty rose → champagne scratch surface.
             const base = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-            base.addColorStop(0, "#b97c1c");
-            base.addColorStop(.24, "#d9a94b");
-            base.addColorStop(.5, "#b67918");
-            base.addColorStop(.76, "#e4bc62");
-            base.addColorStop(1, "#9b6214");
+            base.addColorStop(0, "#9f5f69");
+            base.addColorStop(.34, "#c98790");
+            base.addColorStop(.62, "#dca9a7");
+            base.addColorStop(1, "#b86f79");
             ctx.fillStyle = base;
             ctx.fillRect(0, 0, rect.width, rect.height);
 
-            /* Opaque center glow, still covering the reveal text */
+            // Soft champagne glow.
             const glow = ctx.createRadialGradient(
-                rect.width * .52, rect.height * .42, 4,
-                rect.width * .52, rect.height * .42, Math.max(rect.width, rect.height) * .72
+                rect.width * .5, rect.height * .34, 8,
+                rect.width * .5, rect.height * .34, Math.max(rect.width, rect.height) * .72
             );
-            glow.addColorStop(0, "rgba(255,241,190,.52)");
-            glow.addColorStop(.38, "rgba(239,191,91,.20)");
-            glow.addColorStop(1, "rgba(145,89,13,.08)");
+            glow.addColorStop(0, "rgba(255,241,213,.58)");
+            glow.addColorStop(.46, "rgba(255,222,225,.18)");
+            glow.addColorStop(1, "rgba(255,255,255,0)");
             ctx.fillStyle = glow;
             ctx.fillRect(0, 0, rect.width, rect.height);
+
+            // Fine sparkle texture directly on the real scratch canvas.
+            for (let i = 0; i < 150; i++) {
+                const x = Math.random() * rect.width;
+                const y = Math.random() * rect.height;
+                const r = Math.random() * 1.35 + .25;
+                ctx.fillStyle = i % 4 === 0
+                    ? "rgba(255,238,199,.82)"
+                    : "rgba(255,255,255,.40)";
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
 
             lastPoint = null;
             scratchCanvas.style.opacity = "1";
@@ -563,24 +626,37 @@ document.addEventListener("DOMContentLoaded", () => {
             if (revealed) return;
 
             const image = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
+            const w = scratchCanvas.width;
+            const h = scratchCanvas.height;
+            const step = Math.max(8, Math.floor(Math.min(w, h) / 42));
             let transparent = 0;
             let samples = 0;
 
-            for (let i = 3; i < image.length; i += 128) {
-                samples++;
-                if (image[i] < 35) transparent++;
+            // Sample only points inside the heart silhouette.
+            for (let py = step; py < h; py += step) {
+                for (let px = step; px < w; px += step) {
+                    const x = (px / w) * 2.2 - 1.1;
+                    const y = 1.05 - (py / h) * 2.1;
+                    const heart = Math.pow(x * x + y * y - 1, 3) - x * x * Math.pow(y, 3);
+
+                    if (heart <= 0) {
+                        samples++;
+                        const alpha = image[(py * w + px) * 4 + 3];
+                        if (alpha < 40) transparent++;
+                    }
+                }
             }
 
-            if (samples && transparent / samples > .42) {
+            if (samples && transparent / samples > .24) {
                 revealed = true;
-                scratchCanvas.style.transition = "opacity .65s ease";
+                scratchCanvas.style.transition = "opacity .7s ease";
                 scratchCanvas.style.opacity = "0";
                 scratchCanvas.style.pointerEvents = "none";
                 if (scratchHint) scratchHint.style.display = "none";
 
-                // Cinematic celebration immediately after the wedding date is revealed.
+                // Reliable sparkle celebration.
                 if (typeof window.launchWeddingCelebration === "function") {
-                    window.launchWeddingCelebration();
+                    window.launchWeddingCelebration(scratchCard);
                 }
             }
         }
