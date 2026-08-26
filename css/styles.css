@@ -3614,3 +3614,131 @@ body.transition-handoff #opening-screen.cinematic-fade
         border-radius: 24px !important;
     }
 }
+
+
+/* ==========================================================
+   TRUE HEART-SHAPED SCRATCH + RELIABLE SPARKLE CELEBRATION
+   ========================================================== */
+
+/* The entire scratch reveal area is now a real heart, not a rectangle. */
+#scratchCard,
+.scratch-card,
+.scratch-container {
+    width: min(88vw, 430px) !important;
+    aspect-ratio: 1.05 / 0.92 !important;
+    min-height: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    clip-path: none !important;
+}
+
+/* The scratch canvas itself defines the visible heart surface. */
+#scratchCanvas,
+.scratch-canvas {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    clip-path: path("M 50 92 C 42 82, 4 62, 4 30 C 4 10, 20 2, 34 2 C 42 2, 48 6, 50 12 C 52 6, 58 2, 66 2 C 80 2, 96 10, 96 30 C 96 62, 58 82, 50 92 Z") !important;
+    transform: scale(1.06) !important;
+    transform-origin: center center !important;
+    box-shadow:
+        0 18px 42px rgba(170,93,110,.22),
+        0 0 28px rgba(242,193,202,.34) !important;
+}
+
+/* WebKit/SVG-safe heart fallback for mobile browsers. */
+@supports not (clip-path: path("M 0 0")) {
+    #scratchCanvas,
+    .scratch-canvas {
+        clip-path: polygon(
+            50% 100%, 43% 91%, 34% 82%, 22% 71%, 10% 58%,
+            3% 44%, 4% 27%, 13% 13%, 27% 8%, 40% 13%,
+            50% 25%, 60% 13%, 73% 8%, 87% 13%, 96% 27%,
+            97% 44%, 90% 58%, 78% 71%, 66% 82%, 57% 91%
+        ) !important;
+    }
+}
+
+/* Reveal content follows the same heart silhouette. */
+#scratchCard .scratch-date-content,
+.scratch-card .scratch-date-content,
+.scratch-container .scratch-date-content,
+#scratchCard .scratch-reveal-content,
+.scratch-card .scratch-reveal-content,
+.scratch-container .scratch-reveal-content {
+    position: absolute !important;
+    inset: 9% 8% 13% !important;
+    z-index: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    clip-path: polygon(
+        50% 100%, 43% 91%, 34% 82%, 22% 71%, 10% 58%,
+        3% 44%, 4% 27%, 13% 13%, 27% 8%, 40% 13%,
+        50% 25%, 60% 13%, 73% 8%, 87% 13%, 96% 27%,
+        97% 44%, 90% 58%, 78% 71%, 66% 82%, 57% 91%
+    ) !important;
+}
+
+/* Romantic background behind the heart, visible as scratching progresses. */
+#scratchCard::after,
+.scratch-card::after,
+.scratch-container::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    clip-path: polygon(
+        50% 100%, 43% 91%, 34% 82%, 22% 71%, 10% 58%,
+        3% 44%, 4% 27%, 13% 13%, 27% 8%, 40% 13%,
+        50% 25%, 60% 13%, 73% 8%, 87% 13%, 96% 27%,
+        97% 44%, 90% 58%, 78% 71%, 66% 82%, 57% 91%
+    ) !important;
+    background:
+        radial-gradient(circle at 50% 36%, rgba(255,255,255,.88), transparent 36%),
+        radial-gradient(circle at 30% 70%, rgba(247,205,211,.38), transparent 28%),
+        radial-gradient(circle at 74% 66%, rgba(244,211,159,.26), transparent 24%),
+        linear-gradient(135deg, #fff8f0, #f9e8e6 55%, #fff8ee) !important;
+    box-shadow: 0 0 30px rgba(235,174,185,.18) !important;
+    pointer-events: none !important;
+}
+
+/* Stronger, more visible heart sparkles. */
+.heart-sparkle {
+    z-index: 30000 !important;
+    display: block !important;
+    opacity: 0 !important;
+    width: var(--heart-size, 14px) !important;
+    height: var(--heart-size, 14px) !important;
+    background: var(--heart-color, #f3b7c2) !important;
+    border-radius: 2px !important;
+    box-shadow: 0 0 14px var(--heart-color, #f3b7c2) !important;
+}
+
+.heart-sparkle::before,
+.heart-sparkle::after {
+    background: inherit !important;
+}
+
+@media (max-width: 768px) {
+    #scratchCard,
+    .scratch-card,
+    .scratch-container {
+        width: min(90vw, 400px) !important;
+    }
+
+    #scratchCanvas,
+    .scratch-canvas {
+        transform: scale(1.03) !important;
+    }
+}
