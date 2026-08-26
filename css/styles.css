@@ -4074,3 +4074,44 @@ body.transition-handoff #opening-screen.cinematic-fade
 #opening-screen.opening-fade-out {
     pointer-events: none !important;
 }
+
+
+/* ==========================================================
+   HARD ENVELOPE HIT-AREA FIX
+   ========================================================== */
+#enterBtn{
+  position:relative!important;
+  display:block!important;
+  z-index:2147483000!important;
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+  cursor:pointer!important;
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-tap-highlight-color:transparent!important;
+}
+
+#enterBtn::before{
+  content:""!important;
+  position:absolute!important;
+  inset:-18px!important;
+  z-index:2147483001!important;
+  background:transparent!important;
+  pointer-events:auto!important;
+}
+
+#enterBtn > *,
+#enterBtn .env-v2,
+#enterBtn .env-v2 *,
+#enterBtn .envelope,
+#enterBtn .envelope *{
+  pointer-events:none!important;
+}
+
+#opening-screen{
+  pointer-events:auto!important;
+}
+
+#website{
+  pointer-events:auto!important;
+}
