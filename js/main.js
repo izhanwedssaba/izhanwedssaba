@@ -981,3 +981,110 @@ console.log("© 2026");
     // If the site dispatches any scratch completion event, support that too.
     document.addEventListener("scratchcomplete", () => burstFromScratch(lastCanvas));
 })();
+
+
+/* ==========================================================
+   CINEMATIC REVEAL BURST — CHAMPAGNE GOLD + IVORY
+   Independent from earlier sparkle systems for reliable visibility.
+   ========================================================== */
+window.launchCinematicScratchCelebration = function(origin) {
+    if (window.__cinematicScratchPlayed) return;
+    window.__cinematicScratchPlayed = true;
+
+    const rect = origin ? origin.getBoundingClientRect() : {
+        left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0
+    };
+
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    const layer = document.createElement("div");
+    layer.className = "cinematic-reveal-layer";
+    document.body.appendChild(layer);
+
+    const flash = document.createElement("div");
+    flash.className = "cinematic-reveal-flash";
+    flash.style.setProperty("--cx", `${cx}px`);
+    flash.style.setProperty("--cy", `${cy}px`);
+    layer.appendChild(flash);
+
+    const palette = ["#b88a45", "#d5b16a", "#ead59f", "#fffaf0", "#ffffff", "#c99b52"];
+    const heartSymbols = ["♥", "♡", "♥", "✦", "♡", "✧"];
+
+    // Large, clearly visible romantic hearts and starbursts.
+    for (let i = 0; i < 54; i++) {
+        const angle = (Math.PI * 2 * i / 54) + (Math.random() - .5) * .20;
+        const distance = 90 + Math.random() * Math.min(290, Math.max(innerWidth, innerHeight) * .34);
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance * .76 - 20;
+
+        const particle = document.createElement("span");
+        particle.className = i % 3 === 0 ? "cinematic-spark" : "cinematic-heart";
+        particle.textContent = heartSymbols[i % heartSymbols.length];
+        particle.style.setProperty("--left", `${cx}px`);
+        particle.style.setProperty("--top", `${cy}px`);
+        particle.style.setProperty("--x", `${x}px`);
+        particle.style.setProperty("--y", `${y}px`);
+        particle.style.setProperty("--size", `${15 + Math.random() * 25}px`);
+        particle.style.setProperty("--color", palette[i % palette.length]);
+        particle.style.setProperty("--delay", `${Math.random() * 150}ms`);
+        particle.style.setProperty("--duration", `${1450 + Math.random() * 700}ms`);
+        layer.appendChild(particle);
+    }
+
+    // Fine champagne dust for a cinematic glow.
+    for (let i = 0; i < 90; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 25 + Math.random() * Math.min(330, Math.max(innerWidth, innerHeight) * .38);
+
+        const dust = document.createElement("span");
+        dust.className = "cinematic-gold-dust";
+        dust.style.setProperty("--left", `${cx}px`);
+        dust.style.setProperty("--top", `${cy}px`);
+        dust.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+        dust.style.setProperty("--y", `${Math.sin(angle) * distance * .72 - 15}px`);
+        dust.style.setProperty("--size", `${2 + Math.random() * 5}px`);
+        dust.style.setProperty("--color", palette[(i + 1) % palette.length]);
+        dust.style.setProperty("--delay", `${Math.random() * 170}ms`);
+        dust.style.setProperty("--duration", `${1200 + Math.random() * 900}ms`);
+        layer.appendChild(dust);
+    }
+
+    setTimeout(() => layer.remove(), 3000);
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas =
+        document.getElementById("scratchCanvas") ||
+        document.querySelector(".scratch-canvas");
+
+    if (!canvas) return;
+
+    const celebrate = () => {
+        if (
+            canvas.classList.contains("scratch-complete") ||
+            canvas.classList.contains("revealed") ||
+            canvas.style.pointerEvents === "none" ||
+            parseFloat(canvas.style.opacity || "1") < 0.2
+        ) {
+            window.launchCinematicScratchCelebration(canvas);
+        }
+    };
+
+    new MutationObserver(celebrate).observe(canvas, {
+        attributes: true,
+        attributeFilter: ["class", "style"]
+    });
+
+    ["pointerup", "touchend", "mouseup"].forEach(evt => {
+        canvas.addEventListener(evt, () => {
+            setTimeout(celebrate, 80);
+            setTimeout(celebrate, 450);
+            setTimeout(celebrate, 900);
+        }, { passive: true });
+    });
+
+    canvas.addEventListener("scratchcomplete", () => {
+        window.launchCinematicScratchCelebration(canvas);
+    });
+}, { once: true });
