@@ -978,6 +978,131 @@ console.log("© 2026");
         });
     });
 
+   /* ==========================================================
+   ANTIQUE GOLD + MUTED SAGE SCRATCH PATCH
+   Add this block at the VERY END of js/main.js
+   ========================================================== */
+
+(() => {
+  let celebrationPlayed = false;
+
+  function launchCelebration(origin){
+    if (celebrationPlayed || !origin) return;
+    celebrationPlayed = true;
+
+    const rect = origin.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    const layer = document.createElement("div");
+    layer.className = "antique-sage-celebration";
+    document.body.appendChild(layer);
+
+    const glyphs = ["♥","✦","♡","✧","❋"];
+    const colors = ["#b28a3d","#d7bd7b","#fbf7ed","#78856b","#e7d9b7"];
+
+    for(let i=0;i<58;i++){
+      const angle = (Math.PI*2*i/58) + (Math.random()-.5)*.2;
+      const distance = 55 + Math.random()*220;
+
+      const p = document.createElement("span");
+      p.className = "antique-sage-particle";
+      p.textContent = glyphs[i % glyphs.length];
+      p.style.left = `${cx}px`;
+      p.style.top = `${cy}px`;
+      p.style.setProperty("--tx", `${Math.cos(angle)*distance}px`);
+      p.style.setProperty("--ty", `${Math.sin(angle)*distance*.72}px`);
+      p.style.setProperty("--delay", `${Math.random()*160}ms`);
+      p.style.setProperty("--size", `${10 + Math.random()*20}px`);
+      p.style.color = colors[i % colors.length];
+      layer.appendChild(p);
+    }
+
+    setTimeout(() => layer.remove(), 2300);
+  }
+
+  function paintAntiqueSage(canvas){
+    const rect = canvas.getBoundingClientRect();
+    if(!rect.width || !rect.height) return;
+
+    const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+    canvas.width = Math.round(rect.width*dpr);
+    canvas.height = Math.round(rect.height*dpr);
+
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalCompositeOperation = "source-over";
+
+    const g = ctx.createLinearGradient(0,0,rect.width,rect.height);
+    g.addColorStop(0,"#56654f");
+    g.addColorStop(.34,"#78856b");
+    g.addColorStop(.62,"#9da58d");
+    g.addColorStop(1,"#65755d");
+    ctx.fillStyle = g;
+    ctx.fillRect(0,0,rect.width,rect.height);
+
+    const glow = ctx.createRadialGradient(
+      rect.width*.5, rect.height*.34, 8,
+      rect.width*.5, rect.height*.34, Math.max(rect.width,rect.height)*.72
+    );
+    glow.addColorStop(0,"rgba(215,189,123,.52)");
+    glow.addColorStop(.48,"rgba(251,247,237,.16)");
+    glow.addColorStop(1,"rgba(255,255,255,0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0,0,rect.width,rect.height);
+
+    for(let i=0;i<145;i++){
+      ctx.fillStyle = i%4===0
+        ? "rgba(215,189,123,.88)"
+        : "rgba(255,255,255,.34)";
+      ctx.beginPath();
+      ctx.arc(
+        Math.random()*rect.width,
+        Math.random()*rect.height,
+        Math.random()*1.35+.25,
+        0, Math.PI*2
+      );
+      ctx.fill();
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const canvas =
+      document.getElementById("scratchCanvas") ||
+      document.querySelector(".scratch-canvas");
+
+    if(!canvas) return;
+
+    setTimeout(() => paintAntiqueSage(canvas), 120);
+
+    const launchIfComplete = () => {
+      const style = getComputedStyle(canvas);
+      const complete =
+        canvas.style.pointerEvents === "none" ||
+        canvas.classList.contains("scratch-complete") ||
+        canvas.classList.contains("revealed") ||
+        parseFloat(canvas.style.opacity || style.opacity) < .25;
+
+      if(complete) launchCelebration(canvas);
+    };
+
+    new MutationObserver(launchIfComplete).observe(canvas,{
+      attributes:true,
+      attributeFilter:["style","class"]
+    });
+
+    ["pointerup","touchend","mouseup"].forEach(type => {
+      canvas.addEventListener(type, () => {
+        setTimeout(launchIfComplete,80);
+        setTimeout(launchIfComplete,450);
+      }, {passive:true});
+    });
+
+    canvas.addEventListener("scratchcomplete", () => launchCelebration(canvas));
+  }, {once:true});
+})();
+
+
     // If the site dispatches any scratch completion event, support that too.
     document.addEventListener("scratchcomplete", () => burstFromScratch(lastCanvas));
 })();
