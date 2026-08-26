@@ -1088,3 +1088,37 @@ document.addEventListener("DOMContentLoaded", () => {
         window.launchCinematicScratchCelebration(canvas);
     });
 }, { once: true });
+
+
+/* ==========================================================
+   LIVING IVORY BACKGROUND PARTICLES
+   Background only — does not affect any existing feature.
+   ========================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.querySelector(".living-background")) return;
+
+    const glow = document.createElement("div");
+    glow.className = "living-background";
+
+    const dust = document.createElement("div");
+    dust.className = "living-dust";
+
+    const count = window.innerWidth <= 600 ? 16 : 28;
+
+    for (let i = 0; i < count; i++) {
+        const particle = document.createElement("span");
+        const size = (Math.random() * 2.4 + 1).toFixed(2);
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.bottom = `${-8 - Math.random() * 35}vh`;
+        particle.style.setProperty("--duration", `${16 + Math.random() * 20}s`);
+        particle.style.setProperty("--delay", `${-Math.random() * 24}s`);
+        particle.style.setProperty("--drift", `${(Math.random() - .5) * 18}vw`);
+        particle.style.setProperty("--opacity", `${0.18 + Math.random() * 0.34}`);
+        dust.appendChild(particle);
+    }
+
+    document.body.prepend(dust);
+    document.body.prepend(glow);
+}, { once: true });
