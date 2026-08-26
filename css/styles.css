@@ -3919,3 +3919,112 @@ body.transition-handoff #opening-screen.cinematic-fade
             scale(.8) rotate(32deg);
     }
 }
+
+/* ==========================================================
+   ANTIQUE GOLD + MUTED SAGE SCRATCH REVEAL PATCH
+   Add this block at the VERY END of css/styles.css
+   ========================================================== */
+
+:root{
+  --scratch-sage-deep:#56654f;
+  --scratch-sage:#78856b;
+  --scratch-sage-soft:#9da58d;
+  --scratch-gold:#b28a3d;
+  --scratch-gold-light:#d7bd7b;
+  --scratch-ivory:#fbf7ed;
+}
+
+/* Cleaner, symmetrical heart */
+#scratchCard,
+.scratch-card,
+.scratch-container{
+  position:relative!important;
+  width:min(92vw,430px)!important;
+  aspect-ratio:1/.92!important;
+  margin-inline:auto!important;
+  overflow:hidden!important;
+  border-radius:0!important;
+  background:
+    radial-gradient(circle at 50% 42%,#fffdf7 0%,#f7f0df 58%,#ebe0c8 100%)!important;
+  box-shadow:0 20px 50px rgba(82,98,77,.18)!important;
+  clip-path:polygon(
+    50% 100%,45% 95%,39% 89%,32% 82%,24% 75%,16% 67%,9% 58%,
+    5% 49%,4% 39%,5% 29%,10% 20%,18% 14%,28% 11%,37% 12%,
+    44% 17%,50% 25%,56% 17%,63% 12%,72% 11%,82% 14%,90% 20%,
+    95% 29%,96% 39%,95% 49%,91% 58%,84% 67%,76% 75%,68% 82%,
+    61% 89%,55% 95%
+  )!important;
+}
+
+#scratchCard::before,
+.scratch-card::before,
+.scratch-container::before{
+  content:""!important;
+  position:absolute!important;
+  inset:2px!important;
+  z-index:10!important;
+  pointer-events:none!important;
+  clip-path:inherit!important;
+  border:1px solid rgba(215,189,123,.78)!important;
+  box-shadow:inset 0 0 20px rgba(178,138,61,.18)!important;
+}
+
+#scratchCanvas,
+.scratch-canvas{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  z-index:4!important;
+  clip-path:inherit!important;
+  border-radius:0!important;
+  touch-action:none!important;
+}
+
+.scratch-hint{
+  color:var(--scratch-sage-deep)!important;
+  background:rgba(251,247,237,.92)!important;
+  border-color:rgba(178,138,61,.52)!important;
+  box-shadow:0 12px 28px rgba(82,98,77,.16)!important;
+}
+
+.scratch-heart,
+.scratch-eyebrow{
+  color:var(--scratch-gold)!important;
+}
+
+/* Celebration layer */
+.antique-sage-celebration{
+  position:fixed;
+  inset:0;
+  z-index:2147483647;
+  pointer-events:none;
+  overflow:hidden;
+}
+
+.antique-sage-particle{
+  position:fixed;
+  z-index:2147483647;
+  display:block;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:var(--size);
+  line-height:1;
+  opacity:0;
+  text-shadow:
+    0 0 9px currentColor,
+    0 0 20px rgba(215,189,123,.85),
+    0 0 32px rgba(255,255,255,.9);
+  animation:antiqueSageBurst 2s cubic-bezier(.15,.78,.22,1) var(--delay) forwards;
+}
+
+@keyframes antiqueSageBurst{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotate(-18deg)}
+  14%{opacity:1;transform:translate(-50%,-50%) scale(1.15) rotate(10deg)}
+  68%{opacity:1}
+  100%{
+    opacity:0;
+    transform:translate(calc(-50% + var(--tx)),
+                        calc(-50% + var(--ty) - 70px))
+              scale(.78) rotate(30deg);
+  }
+}
