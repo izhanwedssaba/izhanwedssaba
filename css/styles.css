@@ -3919,3 +3919,69 @@ body.transition-handoff #opening-screen.cinematic-fade
             scale(.8) rotate(32deg);
     }
 }
+
+
+/* ==========================================================
+   CHAMPAGNE GOLD + IVORY — SCRATCH/REVEAL COLOR ONLY
+   Everything else in the site remains unchanged.
+   ========================================================== */
+
+:root {
+    --scratch-champagne-deep: #b88a45;
+    --scratch-champagne: #d5b16a;
+    --scratch-light-gold: #ead59f;
+    --scratch-ivory: #fffaf0;
+    --scratch-warm-white: #fffdf8;
+}
+
+/* Reveal area colors only. */
+#scratchCard,
+.scratch-card,
+.scratch-container {
+    background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,.96), rgba(255,250,240,.88) 42%, rgba(247,237,214,.96) 100%) !important;
+    border-color: rgba(213,177,106,.55) !important;
+}
+
+#scratchCard::after,
+.scratch-card::after,
+.scratch-container::after {
+    background:
+        radial-gradient(circle at 50% 36%, rgba(255,255,255,.96), transparent 42%),
+        radial-gradient(circle at 30% 70%, rgba(232,210,154,.22), transparent 30%),
+        radial-gradient(circle at 74% 66%, rgba(213,177,106,.16), transparent 26%),
+        linear-gradient(135deg, #fffdf8, #fff8e9 55%, #f7ead0) !important;
+    box-shadow: 0 0 30px rgba(213,177,106,.18) !important;
+}
+
+#scratchCard .scratch-hint {
+    background: rgba(255,253,248,.92) !important;
+    color: #8f6a31 !important;
+    border-color: rgba(213,177,106,.48) !important;
+    box-shadow: 0 12px 30px rgba(184,138,69,.16) !important;
+}
+
+#scratchCard .scratch-heart,
+#scratchCard .scratch-eyebrow {
+    color: #b88a45 !important;
+}
+
+#scratchCard .scratch-reveal-content {
+    color: #6f5329 !important;
+}
+
+/* Sparkle palette only. */
+.wedding-heart-particle,
+.scratch-sparkle-particle {
+    text-shadow:
+        0 0 8px currentColor,
+        0 0 18px rgba(255,255,255,.9),
+        0 0 28px rgba(232,210,154,.85) !important;
+}
+
+.wedding-reveal-glow {
+    background: radial-gradient(circle at 50% 50%,
+        rgba(255,248,229,.70) 0%,
+        rgba(232,210,154,.28) 26%,
+        rgba(255,255,255,0) 60%) !important;
+}
