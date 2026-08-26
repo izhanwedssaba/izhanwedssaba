@@ -4416,3 +4416,296 @@ body {
     position: relative;
     z-index: 1;
 }
+
+
+/* ==========================================================
+   FINAL NIKAH + VALIMA CARD BACKGROUNDS
+   Applied directly to the actual event-card elements.
+   ========================================================== */
+
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    position: relative !important;
+    isolation: isolate !important;
+    overflow: hidden !important;
+}
+
+/* Keep all existing card content above the decorative layer. */
+.event-card.event-nikah-bg > *,
+.event-card.event-valima-bg > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* NIKAH — ivory Islamic geometry + mosque-arch atmosphere */
+.event-card.event-nikah-bg {
+    background:
+        radial-gradient(circle at 50% 14%, rgba(255,255,255,.96) 0%, rgba(255,250,238,.78) 30%, rgba(232,210,154,.30) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff9ed 56%, #f0dfbd 100%) !important;
+    border: 1px solid rgba(184,138,69,.48) !important;
+    box-shadow:
+        inset 0 0 48px rgba(255,255,255,.82),
+        inset 0 0 80px rgba(213,177,106,.12),
+        0 14px 38px rgba(112,83,41,.10) !important;
+}
+
+.event-card.event-nikah-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .72 !important;
+    background-image:
+        linear-gradient(30deg, rgba(184,138,69,.20) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.20) 87.5%, rgba(184,138,69,.20)),
+        linear-gradient(150deg, rgba(184,138,69,.20) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.20) 87.5%, rgba(184,138,69,.20)),
+        linear-gradient(30deg, rgba(184,138,69,.20) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.20) 87.5%, rgba(184,138,69,.20)),
+        linear-gradient(150deg, rgba(184,138,69,.20) 12%, transparent 12.5%, transparent 87%, rgba(184,138,69,.20) 87.5%, rgba(184,138,69,.20));
+    background-size: 42px 74px, 42px 74px, 42px 74px, 42px 74px !important;
+    background-position: 0 0, 0 0, 21px 37px, 21px 37px !important;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), rgba(0,0,0,.20) 65%, transparent 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,.65), rgba(0,0,0,.20) 65%, transparent 100%);
+}
+
+.event-card.event-nikah-bg::after {
+    content: "" !important;
+    position: absolute !important;
+    left: 7%;
+    right: 7%;
+    bottom: 0;
+    height: 38%;
+    z-index: 1;
+    pointer-events: none;
+    opacity: .20;
+    background:
+        radial-gradient(ellipse at 8% 100%, #b88a45 0 8%, transparent 8.5%),
+        radial-gradient(ellipse at 22% 100%, #b88a45 0 12%, transparent 12.5%),
+        radial-gradient(ellipse at 50% 100%, #b88a45 0 16%, transparent 16.5%),
+        radial-gradient(ellipse at 78% 100%, #b88a45 0 12%, transparent 12.5%),
+        radial-gradient(ellipse at 92% 100%, #b88a45 0 8%, transparent 8.5%);
+}
+
+/* VALIMA — warm champagne luxury + floral/sparkle texture */
+.event-card.event-valima-bg {
+    background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,.96) 0%, rgba(255,248,231,.88) 35%, rgba(232,210,154,.56) 100%),
+        linear-gradient(135deg, #fffdf8 0%, #fff3d9 52%, #ead59f 100%) !important;
+    border: 1px solid rgba(213,177,106,.62) !important;
+    box-shadow:
+        inset 0 0 52px rgba(255,255,255,.72),
+        inset 0 0 90px rgba(213,177,106,.22),
+        0 14px 38px rgba(112,83,41,.11) !important;
+}
+
+.event-card.event-valima-bg::before {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    opacity: .78 !important;
+    background:
+        radial-gradient(circle at 10% 14%, rgba(184,138,69,.38) 0 1.2px, transparent 2px),
+        radial-gradient(circle at 24% 26%, rgba(213,177,106,.30) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 84% 16%, rgba(184,138,69,.35) 0 1.4px, transparent 2.2px),
+        radial-gradient(circle at 92% 42%, rgba(213,177,106,.30) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 14% 78%, rgba(184,138,69,.32) 0 1.2px, transparent 2px),
+        radial-gradient(circle at 78% 84%, rgba(213,177,106,.36) 0 1.4px, transparent 2.2px);
+    background-size: 32px 32px, 48px 48px, 38px 38px, 55px 55px, 46px 46px, 42px 42px !important;
+}
+
+.event-card.event-valima-bg::after {
+    content: "✦   ❀   ✦" !important;
+    position: absolute !important;
+    left: 50%;
+    top: 12px;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: rgba(184,138,69,.36);
+    font-size: 20px;
+    letter-spacing: 18px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg::before {
+        background-size: 34px 60px, 34px 60px, 34px 60px, 34px 60px !important;
+        background-position: 0 0, 0 0, 17px 30px, 17px 30px !important;
+    }
+
+    .event-card.event-valima-bg::after {
+        font-size: 16px;
+        letter-spacing: 12px;
+    }
+}
+
+
+/* ==========================================================
+   SUBTLE LUXURY CARD MOTION
+   Adds only corner ornaments + gentle shimmer to event cards.
+   ========================================================== */
+
+.event-card.event-nikah-bg,
+.event-card.event-valima-bg {
+    animation: eventCardAmbientGlow 10s ease-in-out infinite alternate;
+}
+
+/* Fine moving light sweep */
+.event-card.event-nikah-bg .card-shimmer,
+.event-card.event-valima-bg .card-shimmer {
+    position: absolute;
+    inset: -30%;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(
+        115deg,
+        transparent 38%,
+        rgba(255,255,255,0) 44%,
+        rgba(255,255,255,.22) 50%,
+        rgba(232,210,154,.12) 54%,
+        transparent 62%
+    );
+    transform: translateX(-115%) rotate(2deg);
+    animation: luxuryCardShimmer 12s ease-in-out infinite;
+}
+
+/* Nikah corner ornaments */
+.event-card.event-nikah-bg .nikah-corner {
+    position: absolute;
+    z-index: 1;
+    width: 62px;
+    height: 62px;
+    pointer-events: none;
+    opacity: .42;
+}
+
+.event-card.event-nikah-bg .nikah-corner::before,
+.event-card.event-nikah-bg .nikah-corner::after {
+    content: "";
+    position: absolute;
+    border: 1px solid rgba(184,138,69,.55);
+}
+
+.event-card.event-nikah-bg .nikah-corner::before {
+    width: 48px;
+    height: 48px;
+    border-radius: 0 0 0 48px;
+}
+
+.event-card.event-nikah-bg .nikah-corner::after {
+    width: 30px;
+    height: 30px;
+    top: 9px;
+    left: 9px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(232,210,154,.20);
+}
+
+.event-card.event-nikah-bg .nikah-corner.tl { top: 10px; left: 10px; }
+.event-card.event-nikah-bg .nikah-corner.tr { top: 10px; right: 10px; transform: scaleX(-1); }
+.event-card.event-nikah-bg .nikah-corner.bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+.event-card.event-nikah-bg .nikah-corner.br { bottom: 10px; right: 10px; transform: scale(-1); }
+
+/* Valima floral/luxury corner ornaments */
+.event-card.event-valima-bg .valima-corner {
+    position: absolute;
+    z-index: 1;
+    width: 72px;
+    height: 72px;
+    pointer-events: none;
+    opacity: .38;
+}
+
+.event-card.event-valima-bg .valima-corner::before {
+    content: "❀";
+    position: absolute;
+    color: rgba(184,138,69,.70);
+    font-size: 48px;
+    line-height: 1;
+}
+
+.event-card.event-valima-bg .valima-corner::after {
+    content: "✦  ·  ✦";
+    position: absolute;
+    color: rgba(213,177,106,.72);
+    font-size: 12px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.event-card.event-valima-bg .valima-corner.tl { top: 8px; left: 8px; }
+.event-card.event-valima-bg .valima-corner.tr { top: 8px; right: 8px; transform: scaleX(-1); }
+.event-card.event-valima-bg .valima-corner.bl { bottom: 8px; left: 8px; transform: scaleY(-1); }
+.event-card.event-valima-bg .valima-corner.br { bottom: 8px; right: 8px; transform: scale(-1); }
+
+@keyframes luxuryCardShimmer {
+    0%, 28% {
+        transform: translateX(-115%) rotate(2deg);
+        opacity: 0;
+    }
+    34% {
+        opacity: .85;
+    }
+    58% {
+        transform: translateX(115%) rotate(2deg);
+        opacity: .75;
+    }
+    65%, 100% {
+        transform: translateX(115%) rotate(2deg);
+        opacity: 0;
+    }
+}
+
+@keyframes eventCardAmbientGlow {
+    0% {
+        box-shadow:
+            inset 0 0 50px rgba(255,255,255,.72),
+            inset 0 0 70px rgba(213,177,106,.10),
+            0 14px 36px rgba(112,83,41,.08);
+    }
+    100% {
+        box-shadow:
+            inset 0 0 62px rgba(255,255,255,.90),
+            inset 0 0 92px rgba(213,177,106,.22),
+            0 16px 42px rgba(112,83,41,.11);
+    }
+}
+
+@media (max-width: 600px) {
+    .event-card.event-nikah-bg .nikah-corner {
+        width: 48px;
+        height: 48px;
+        opacity: .32;
+    }
+
+    .event-card.event-nikah-bg .nikah-corner::before {
+        width: 36px;
+        height: 36px;
+    }
+
+    .event-card.event-nikah-bg .nikah-corner::after {
+        width: 22px;
+        height: 22px;
+        top: 7px;
+        left: 7px;
+    }
+
+    .event-card.event-valima-bg .valima-corner {
+        transform-origin: center;
+        opacity: .30;
+    }
+
+    .event-card.event-valima-bg .valima-corner::before {
+        font-size: 38px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .event-card.event-nikah-bg,
+    .event-card.event-valima-bg,
+    .event-card.event-nikah-bg .card-shimmer,
+    .event-card.event-valima-bg .card-shimmer {
+        animation: none !important;
+    }
+}
