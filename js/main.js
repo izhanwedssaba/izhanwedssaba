@@ -1175,3 +1175,85 @@ console.log("© 2026");
         installEnvelopeTapFix();
     }
 })();
+
+
+/* ==========================================================
+   HARD ENVELOPE OPEN FIX — FINAL
+   ========================================================== */
+(() => {
+  function start() {
+    const btn = document.getElementById("enterBtn");
+    const opening = document.getElementById("opening-screen");
+    const website = document.getElementById("website");
+
+    if (!btn || !opening) return;
+
+    let busy = false;
+
+    function forceOpen(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation?.();
+      }
+      if (busy) return;
+      busy = true;
+
+      // Immediately acknowledge the tap.
+      btn.classList.add("opening");
+      btn.style.pointerEvents = "none";
+
+      // Keep the existing envelope animation visible.
+      setTimeout(() => {
+        opening.style.transition = "opacity .7s ease, visibility .7s ease";
+        opening.style.opacity = "0";
+        opening.style.visibility = "hidden";
+        opening.style.pointerEvents = "none";
+
+        if (website) {
+          website.hidden = false;
+          website.removeAttribute("hidden");
+          website.style.display = "block";
+          website.style.visibility = "visible";
+          website.style.opacity = "1";
+          website.style.pointerEvents = "auto";
+        }
+
+        document.documentElement.classList.add("invitation-open");
+        document.body.classList.add("invitation-open");
+        document.body.style.overflow = "";
+      }, 2350);
+
+      setTimeout(() => {
+        opening.style.display = "none";
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }, 3150);
+    }
+
+    // Remove the cloned/old button to eliminate stacked layers and handlers.
+    const fresh = btn.cloneNode(true);
+    btn.parentNode.replaceChild(fresh, btn);
+
+    // Make the entire visible envelope hit target clickable.
+    fresh.addEventListener("pointerdown", e => {
+      e.preventDefault();
+      fresh.style.transform = "translateY(1px)";
+    }, {capture:true, passive:false});
+
+    fresh.addEventListener("pointerup", forceOpen, {capture:true, passive:false});
+    fresh.addEventListener("click", forceOpen, {capture:true, passive:false});
+
+    // iOS/older Android fallback.
+    fresh.addEventListener("touchend", forceOpen, {capture:true, passive:false});
+
+    fresh.style.pointerEvents = "auto";
+    fresh.style.touchAction = "manipulation";
+    fresh.style.webkitUserSelect = "none";
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, {once:true});
+  } else {
+    start();
+  }
+})();
