@@ -3871,3 +3871,51 @@ body.transition-handoff #opening-screen.cinematic-fade
         inset: 13% 11% 16% !important;
     }
 }
+
+
+/* ==========================================================
+   SCRATCH SPARKLE CELEBRATION — FINAL VISIBILITY FIX
+   ========================================================== */
+.scratch-sparkle-layer {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483647 !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+}
+
+.scratch-sparkle-particle {
+    position: fixed !important;
+    display: block !important;
+    z-index: 2147483647 !important;
+    font-family: Georgia, "Times New Roman", serif !important;
+    font-size: var(--size) !important;
+    line-height: 1 !important;
+    opacity: 0 !important;
+    transform: translate(-50%, -50%) scale(.1) rotate(-20deg) !important;
+    text-shadow:
+        0 0 8px currentColor,
+        0 0 18px rgba(255,255,255,.85),
+        0 0 28px currentColor !important;
+    animation: scratchSparkleBurst 2.05s cubic-bezier(.15,.78,.22,1) var(--delay) forwards !important;
+}
+
+@keyframes scratchSparkleBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.15) rotate(-18deg);
+    }
+    12% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.15) rotate(8deg);
+    }
+    58% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform:
+            translate(calc(-50% + var(--x)), calc(-50% + var(--y) - 65px))
+            scale(.8) rotate(32deg);
+    }
+}
