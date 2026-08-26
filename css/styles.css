@@ -4114,3 +4114,55 @@ body.transition-handoff #opening-screen.cinematic-fade
         letter-spacing: .20em;
     }
 }
+
+
+/* Elegant antique-gold divider below "OUR COUNTDOWN BEGINS" */
+.countdown-intro {
+    position: relative;
+    padding-bottom: 20px;
+    margin-bottom: 18px;
+}
+
+.countdown-intro::after {
+    content: "✦";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    color: #b88a45;
+    font-size: 13px;
+    line-height: 1;
+}
+
+.countdown-intro::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 5px;
+    width: 86px;
+    height: 1px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(184,138,69,.45) 12%,
+        #b88a45 50%,
+        rgba(184,138,69,.45) 88%,
+        transparent 100%
+    );
+}
+
+@media (max-width: 600px) {
+    .countdown-intro {
+        padding-bottom: 18px;
+        margin-bottom: 15px;
+    }
+
+    .countdown-intro::before {
+        width: 72px;
+    }
+
+    .countdown-intro::after {
+        font-size: 11px;
+    }
+}
