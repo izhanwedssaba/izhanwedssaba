@@ -3520,3 +3520,97 @@ body.transition-handoff #opening-screen.cinematic-fade
         --heart-size: 10px;
     }
 }
+
+
+/* ==========================================================
+   SCRATCH REVEAL VISUAL FIX
+   Replaces the plain/blank rectangle with a romantic blush-gold surface.
+   ========================================================== */
+
+#scratchCard,
+.scratch-card,
+.scratch-container {
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    border-radius: 28px !important;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(255,255,255,.72) 0 1px, transparent 2px),
+        radial-gradient(circle at 82% 26%, rgba(255,255,255,.52) 0 1px, transparent 2px),
+        radial-gradient(circle at 48% 72%, rgba(255,255,255,.42) 0 1px, transparent 2px),
+        linear-gradient(135deg, #b87880 0%, #dba9ad 48%, #c8868d 100%) !important;
+    box-shadow:
+        0 16px 38px rgba(161,92,104,.20),
+        inset 0 1px 0 rgba(255,255,255,.45) !important;
+}
+
+/* Add a romantic heart-shaped glow to the coating itself. */
+#scratchCard::before,
+.scratch-card::before,
+.scratch-container::before {
+    content: "♥  ✦  ♥  ✦  ♥" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    display: grid !important;
+    place-items: center !important;
+    color: rgba(255,245,242,.38) !important;
+    font-size: clamp(20px, 5vw, 42px) !important;
+    letter-spacing: .45em !important;
+    text-indent: .45em !important;
+    pointer-events: none !important;
+    text-shadow: 0 0 18px rgba(255,255,255,.35) !important;
+}
+
+/* Canvas must sit above the romantic surface and be fully transparent where scratched. */
+#scratchCanvas,
+.scratch-canvas {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+    border-radius: inherit !important;
+    background: transparent !important;
+    touch-action: none !important;
+}
+
+/* Put reveal content above the background and below the canvas. */
+#scratchCard .scratch-date-content,
+.scratch-card .scratch-date-content,
+.scratch-container .scratch-date-content,
+#scratchCard .scratch-reveal-content,
+.scratch-card .scratch-reveal-content,
+.scratch-container .scratch-reveal-content {
+    position: relative !important;
+    z-index: 1 !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Remove the previous rectangular pseudo-overlay that was causing the blank look. */
+.scratch-romantic-overlay {
+    display: none !important;
+}
+
+/* Date stays visually protected by the actual scratch canvas, not CSS opacity. */
+.scratch-date-content,
+.scratch-reveal-content {
+    opacity: 1 !important;
+    transform: none !important;
+}
+
+/* Heart celebration appears from the scratch card and feels romantic rather than explosive. */
+.heart-sparkle {
+    z-index: 10001 !important;
+}
+
+@media (max-width: 768px) {
+    #scratchCard,
+    .scratch-card,
+    .scratch-container {
+        min-height: 230px !important;
+        border-radius: 24px !important;
+    }
+}
