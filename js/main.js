@@ -1,5 +1,93 @@
 
 /* ==========================================================
+   HEART COMPLETION DETECTOR
+   Works even when the existing scratch code does not emit an event.
+   ========================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas =
+        document.getElementById("scratchCanvas") ||
+        document.querySelector(".scratch-canvas");
+
+    if (!canvas) return;
+
+    let celebrated = false;
+
+    const complete = () => {
+        if (celebrated) return;
+        celebrated = true;
+
+        canvas.classList.add("scratch-complete", "revealed");
+        romanticHeartCelebration(canvas);
+
+        const dateContent =
+            document.querySelector(".scratch-date-content") ||
+            document.querySelector(".scratch-reveal-content");
+
+        if (dateContent) dateContent.classList.add("revealed");
+    };
+
+    const checkProgress = () => {
+        if (celebrated) return;
+
+        try {
+            const ctx = canvas.getContext("2d", { willReadFrequently: true });
+            const w = canvas.width;
+            const h = canvas.height;
+            if (!w || !h) return;
+
+            const step = Math.max(12, Math.floor(Math.min(w, h) / 34));
+            let total = 0;
+            let clear = 0;
+
+            for (let y = step; y < h; y += step) {
+                for (let x = step; x < w; x += step) {
+                    total++;
+                    if (ctx.getImageData(x, y, 1, 1).data[3] < 25) clear++;
+                }
+            }
+
+            if (total && clear / total >= 0.30) {
+                complete();
+            }
+        } catch (_) {
+            // If another implementation owns the canvas, completion events below
+            // still provide a fallback.
+        }
+    };
+
+    // Existing custom event support.
+    canvas.addEventListener("scratchcomplete", complete);
+
+    // Check after every completed finger/mouse stroke.
+    ["pointerup", "touchend", "mouseup"].forEach(type => {
+        canvas.addEventListener(type, () => {
+            window.setTimeout(checkProgress, 60);
+        }, { passive: true });
+    });
+
+    // Also check periodically while the user is actively scratching.
+    ["pointermove", "touchmove", "mousemove"].forEach(type => {
+        canvas.addEventListener(type, () => {
+            window.setTimeout(checkProgress, 0);
+        }, { passive: true });
+    });
+
+    // Class observer fallback.
+    new MutationObserver(() => {
+        if (
+            canvas.classList.contains("scratch-complete") ||
+            canvas.classList.contains("revealed")
+        ) {
+            complete();
+        }
+    }).observe(canvas, {
+        attributes: true,
+        attributeFilter: ["class"]
+    });
+}, { once: true });
+
+
+/* ==========================================================
    ROMANTIC CANVAS SKIN + HEART SPARKLE COMPLETION
    ========================================================== */
 function applyRomanticScratchSkin(canvas) {
