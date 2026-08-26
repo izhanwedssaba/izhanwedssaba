@@ -3921,20 +3921,20 @@ body.transition-handoff #opening-screen.cinematic-fade
 }
 
 /* ==========================================================
-   ANTIQUE GOLD + MUTED SAGE SCRATCH REVEAL PATCH
+   CHAMPAGNE GOLD + IVORY SCRATCH REVEAL PATCH
    Add this block at the VERY END of css/styles.css
    ========================================================== */
 
 :root{
-  --scratch-sage-deep:#56654f;
-  --scratch-sage:#78856b;
-  --scratch-sage-soft:#9da58d;
-  --scratch-gold:#b28a3d;
-  --scratch-gold-light:#d7bd7b;
+  --scratch-champagne:#c9a86a;
+  --scratch-gold:#b89252;
+  --scratch-gold-light:#e6d0a2;
   --scratch-ivory:#fbf7ed;
+  --scratch-ivory-deep:#f1e8d7;
+  --scratch-white:#fffdf8;
 }
 
-/* Cleaner, symmetrical heart */
+/* Cleaner, softer, symmetrical heart */
 #scratchCard,
 .scratch-card,
 .scratch-container{
@@ -3945,8 +3945,10 @@ body.transition-handoff #opening-screen.cinematic-fade
   overflow:hidden!important;
   border-radius:0!important;
   background:
-    radial-gradient(circle at 50% 42%,#fffdf7 0%,#f7f0df 58%,#ebe0c8 100%)!important;
-  box-shadow:0 20px 50px rgba(82,98,77,.18)!important;
+    radial-gradient(circle at 50% 40%, #fffdf8 0%, #fbf7ed 48%, #f1e8d7 100%)!important;
+  box-shadow:
+    0 20px 50px rgba(184,146,82,.16),
+    0 0 0 1px rgba(230,208,162,.28) inset!important;
   clip-path:polygon(
     50% 100%,45% 95%,39% 89%,32% 82%,24% 75%,16% 67%,9% 58%,
     5% 49%,4% 39%,5% 29%,10% 20%,18% 14%,28% 11%,37% 12%,
@@ -3965,8 +3967,10 @@ body.transition-handoff #opening-screen.cinematic-fade
   z-index:10!important;
   pointer-events:none!important;
   clip-path:inherit!important;
-  border:1px solid rgba(215,189,123,.78)!important;
-  box-shadow:inset 0 0 20px rgba(178,138,61,.18)!important;
+  border:1px solid rgba(230,208,162,.82)!important;
+  box-shadow:
+    inset 0 0 22px rgba(201,168,106,.16),
+    0 0 12px rgba(255,255,255,.45)!important;
 }
 
 #scratchCanvas,
@@ -3982,10 +3986,10 @@ body.transition-handoff #opening-screen.cinematic-fade
 }
 
 .scratch-hint{
-  color:var(--scratch-sage-deep)!important;
-  background:rgba(251,247,237,.92)!important;
-  border-color:rgba(178,138,61,.52)!important;
-  box-shadow:0 12px 28px rgba(82,98,77,.16)!important;
+  color:#9b783f!important;
+  background:rgba(255,253,248,.94)!important;
+  border-color:rgba(201,168,106,.52)!important;
+  box-shadow:0 12px 28px rgba(184,146,82,.14)!important;
 }
 
 .scratch-heart,
@@ -3993,8 +3997,8 @@ body.transition-handoff #opening-screen.cinematic-fade
   color:var(--scratch-gold)!important;
 }
 
-/* Celebration layer */
-.antique-sage-celebration{
+/* Champagne celebration layer */
+.champagne-celebration{
   position:fixed;
   inset:0;
   z-index:2147483647;
@@ -4002,7 +4006,7 @@ body.transition-handoff #opening-screen.cinematic-fade
   overflow:hidden;
 }
 
-.antique-sage-particle{
+.champagne-particle{
   position:fixed;
   z-index:2147483647;
   display:block;
@@ -4011,20 +4015,62 @@ body.transition-handoff #opening-screen.cinematic-fade
   line-height:1;
   opacity:0;
   text-shadow:
-    0 0 9px currentColor,
-    0 0 20px rgba(215,189,123,.85),
-    0 0 32px rgba(255,255,255,.9);
-  animation:antiqueSageBurst 2s cubic-bezier(.15,.78,.22,1) var(--delay) forwards;
+    0 0 8px currentColor,
+    0 0 18px rgba(230,208,162,.9),
+    0 0 30px rgba(255,255,255,.95);
+  animation:champagneBurst 2.05s cubic-bezier(.15,.78,.22,1) var(--delay) forwards;
 }
 
-@keyframes antiqueSageBurst{
+@keyframes champagneBurst{
   0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotate(-18deg)}
-  14%{opacity:1;transform:translate(-50%,-50%) scale(1.15) rotate(10deg)}
+  14%{opacity:1;transform:translate(-50%,-50%) scale(1.16) rotate(10deg)}
   68%{opacity:1}
   100%{
     opacity:0;
     transform:translate(calc(-50% + var(--tx)),
-                        calc(-50% + var(--ty) - 70px))
+                        calc(-50% + var(--ty) - 72px))
               scale(.78) rotate(30deg);
   }
+}
+
+
+/* ==========================================================
+   FINAL ENVELOPE TAP FIX — STACKING + TOUCH SAFETY
+   ========================================================== */
+#enterBtn,
+.env-v2,
+.env-v2 * {
+    touch-action: manipulation !important;
+}
+
+#enterBtn {
+    position: relative !important;
+    z-index: 9999 !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+#enterBtn.envelope-ready {
+    pointer-events: auto !important;
+}
+
+#opening-screen {
+    isolation: isolate;
+}
+
+#enterBtn .env-v2-flap,
+#enterBtn .env-v2-seal,
+#enterBtn .env-v2-tap,
+#enterBtn .env-v2-pocket,
+#enterBtn .env-v2-back {
+    pointer-events: none !important;
+}
+
+#opening-screen.opening-hidden {
+    display: none !important;
+}
+
+#opening-screen.opening-fade-out {
+    pointer-events: none !important;
 }
