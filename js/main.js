@@ -1,5 +1,81 @@
 
 /* ==========================================================
+   ROMANTIC HEART SPARKLE CELEBRATION
+   ========================================================== */
+function romanticHeartCelebration(originElement) {
+    const rect = originElement
+        ? originElement.getBoundingClientRect()
+        : { left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0 };
+
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    const glow = document.createElement("div");
+    glow.className = "scratch-celebration-glow";
+    document.body.appendChild(glow);
+    glow.addEventListener("animationend", () => glow.remove(), { once: true });
+
+    const colors = ["#f8d5dd", "#eab1bd", "#d9a0a0", "#f2d18c", "#fff4dc"];
+
+    for (let i = 0; i < 42; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = 45 + Math.random() * 180;
+        const x = Math.cos(angle) * distance;
+        const y = Math.sin(angle) * distance * 0.78;
+        const heart = document.createElement("span");
+        heart.className = "heart-sparkle";
+        heart.style.left = `${cx}px`;
+        heart.style.top = `${cy}px`;
+        heart.style.setProperty("--burst-x", `${x}px`);
+        heart.style.setProperty("--burst-y", `${y}px`);
+        heart.style.setProperty("--heart-size", `${8 + Math.random() * 13}px`);
+        heart.style.setProperty("--heart-color", colors[i % colors.length]);
+        heart.style.animationDelay = `${Math.random() * 0.18}s`;
+        document.body.appendChild(heart);
+        heart.addEventListener("animationend", () => heart.remove(), { once: true });
+    }
+}
+
+/* Observe the existing scratch reveal and celebrate exactly once. */
+document.addEventListener("DOMContentLoaded", () => {
+    const scratchTarget =
+        document.getElementById("scratchCanvas") ||
+        document.querySelector(".scratch-canvas") ||
+        document.querySelector(".scratch-container") ||
+        document.querySelector("[data-scratch]");
+
+    if (!scratchTarget) return;
+
+    let celebrated = false;
+
+    const celebrateOnce = () => {
+        if (celebrated) return;
+        celebrated = true;
+        romanticHeartCelebration(scratchTarget);
+    };
+
+    // Existing implementations often toggle one of these reveal classes.
+    const observer = new MutationObserver(() => {
+        const revealed =
+            scratchTarget.classList.contains("revealed") ||
+            scratchTarget.classList.contains("scratch-complete") ||
+            document.querySelector(".scratch-date-content.revealed") ||
+            document.querySelector(".scratch-reveal-content.revealed");
+
+        if (revealed) celebrateOnce();
+    });
+
+    observer.observe(scratchTarget, {
+        attributes: true,
+        attributeFilter: ["class"]
+    });
+
+    // Fallback custom event for scratch implementations.
+    scratchTarget.addEventListener("scratchcomplete", celebrateOnce);
+}, { once: true });
+
+
+/* ==========================================================
    SEAMLESS PAGE HANDOFF
    ========================================================== */
 function beginSmoothInvitationTransition() {
