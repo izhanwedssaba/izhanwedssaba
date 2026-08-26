@@ -5901,3 +5901,299 @@ body {
     position: relative !important;
     z-index: 2 !important;
 }
+
+
+/* ==========================================================
+   NEW WEDDING EXPERIENCE FEATURES
+   Timeline · Scroll Journey · Share Our Joy · Thank You · Wedding Day Mode
+   ========================================================== */
+
+.wedding-timeline-section,
+.share-joy-section,
+.final-thankyou-section {
+    position: relative;
+    padding: 80px 20px;
+    overflow: hidden;
+}
+
+.feature-inner {
+    width: min(100%, 900px);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.feature-kicker {
+    margin: 0 0 10px;
+    letter-spacing: .24em;
+    font-size: .72rem;
+    color: #b58b48;
+    font-weight: 600;
+}
+
+.wedding-timeline-section {
+    background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.95), transparent 42%),
+        linear-gradient(135deg, rgba(250,244,232,.78), rgba(255,255,255,.96), rgba(244,229,196,.72));
+}
+
+.wedding-timeline-section h2,
+.share-joy-section h2,
+.final-thankyou-section h2 {
+    margin: 0 0 30px;
+}
+
+.wedding-timeline {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+    margin-top: 35px;
+}
+
+.timeline-item {
+    flex: 1;
+    min-width: 0;
+}
+
+.timeline-line {
+    width: 48px;
+    align-self: center;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(181,139,72,.22), rgba(181,139,72,.72), rgba(181,139,72,.22));
+    margin-top: -28px;
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #b58b48;
+    box-shadow: 0 0 0 7px rgba(181,139,72,.10);
+}
+
+.timeline-card {
+    padding: 18px 10px;
+}
+
+.timeline-step {
+    display: block;
+    margin-bottom: 7px;
+    color: rgba(181,139,72,.65);
+    font-size: .72rem;
+    letter-spacing: .16em;
+}
+
+.timeline-card h3 {
+    margin: 0 0 8px;
+}
+
+.timeline-card p {
+    margin: 0;
+    font-size: .9rem;
+    opacity: .75;
+}
+
+.share-joy-section {
+    background:
+        radial-gradient(circle at 15% 50%, rgba(232,210,154,.20), transparent 30%),
+        radial-gradient(circle at 85% 50%, rgba(255,255,255,.80), transparent 32%),
+        linear-gradient(180deg, #fffdf8, #fbf3e4);
+}
+
+.share-joy-card {
+    padding: 45px 24px;
+    border: 1px solid rgba(181,139,72,.22);
+    box-shadow: inset 0 0 45px rgba(255,255,255,.75), 0 15px 45px rgba(120,90,45,.07);
+    background: rgba(255,255,255,.58);
+    backdrop-filter: blur(5px);
+}
+
+.share-joy-card > p:not(.feature-kicker) {
+    max-width: 500px;
+    margin: 0 auto 24px;
+    opacity: .78;
+}
+
+.share-joy-btn {
+    border: 1px solid rgba(181,139,72,.55);
+    background: linear-gradient(135deg, #b58b48, #d4b06a);
+    color: #fff;
+    padding: 13px 24px;
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    box-shadow: 0 8px 20px rgba(181,139,72,.18);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.share-joy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(181,139,72,.25);
+}
+
+.final-thankyou-section {
+    min-height: 420px;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(circle at 50% 45%, rgba(255,255,255,.94), transparent 35%),
+        radial-gradient(circle at 20% 20%, rgba(232,210,154,.22), transparent 34%),
+        radial-gradient(circle at 80% 80%, rgba(181,139,72,.14), transparent 38%),
+        linear-gradient(135deg, #f7eedc, #fffdf8, #f0dfbd);
+}
+
+.thankyou-content {
+    position: relative;
+    z-index: 2;
+}
+
+.thankyou-message {
+    max-width: 560px;
+    margin: 0 auto 25px;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.thankyou-monogram {
+    font-family: "Cinzel", serif;
+    font-size: 2.3rem;
+    letter-spacing: .15em;
+    color: #a87936;
+    margin: 10px 0 18px;
+}
+
+.thankyou-monogram span {
+    color: #c69b58;
+    font-size: .78em;
+}
+
+.thankyou-sparkles {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    color: #c69b58;
+}
+
+.thankyou-sparkles i {
+    font-style: normal;
+    animation: thankyouTwinkle 2.6s ease-in-out infinite;
+}
+
+.thankyou-sparkles i:nth-child(2) { animation-delay: .4s; }
+.thankyou-sparkles i:nth-child(3) { animation-delay: .8s; }
+.thankyou-sparkles i:nth-child(4) { animation-delay: 1.2s; }
+.thankyou-sparkles i:nth-child(5) { animation-delay: 1.6s; }
+
+@keyframes thankyouTwinkle {
+    0%, 100% { transform: translateY(0) scale(.7); opacity: .35; }
+    50% { transform: translateY(-6px) scale(1.2); opacity: 1; }
+}
+
+/* Cinematic scroll journey */
+.reveal-journey {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .85s ease, transform .85s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal-journey.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.wedding-day-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    place-items: center;
+    z-index: 9999;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.96), rgba(247,234,205,.95) 50%, rgba(202,166,99,.92));
+    text-align: center;
+    padding: 24px;
+}
+
+.wedding-day-overlay.is-active {
+    display: grid;
+}
+
+.wedding-day-message {
+    position: relative;
+    z-index: 2;
+    animation: weddingDayEnter 1s ease both;
+}
+
+.wedding-day-message h2 {
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    margin: 0 0 14px;
+}
+
+.wedding-day-message p:last-child {
+    opacity: .75;
+}
+
+.wedding-day-sparkles::before,
+.wedding-day-sparkles::after {
+    content: "✦  ✧   ✦      ✧   ✦  ✧      ✦   ✧   ✦";
+    position: absolute;
+    left: 0;
+    right: 0;
+    color: rgba(181,139,72,.75);
+    font-size: clamp(1rem, 3vw, 2rem);
+    letter-spacing: 1.2em;
+    animation: daySparkle 3s ease-in-out infinite;
+}
+
+.wedding-day-sparkles::before { top: 16%; }
+.wedding-day-sparkles::after { bottom: 16%; animation-delay: 1.2s; }
+
+@keyframes weddingDayEnter {
+    from { opacity: 0; transform: translateY(18px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes daySparkle {
+    0%, 100% { opacity: .25; transform: scale(.96); }
+    50% { opacity: 1; transform: scale(1.03); }
+}
+
+@media (max-width: 700px) {
+    .wedding-timeline {
+        flex-direction: column;
+        gap: 8px;
+        max-width: 360px;
+        margin-inline: auto;
+    }
+
+    .timeline-line {
+        width: 1px;
+        height: 32px;
+        margin: -2px auto;
+        background: linear-gradient(180deg, rgba(181,139,72,.22), rgba(181,139,72,.72), rgba(181,139,72,.22));
+    }
+
+    .timeline-card {
+        padding: 8px 10px 14px;
+    }
+
+    .share-joy-card {
+        padding: 38px 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-journey,
+    .thankyou-sparkles i,
+    .wedding-day-message,
+    .wedding-day-sparkles::before,
+    .wedding-day-sparkles::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .reveal-journey {
+        opacity: 1;
+        transform: none;
+    }
+}
