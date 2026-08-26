@@ -899,3 +899,85 @@ document.querySelectorAll("button, .map-btn").forEach(button => {
 console.log("Mohammed Izhan & Bazila Saba Wedding Website");
 console.log("Version 3.0");
 console.log("© 2026");
+
+
+/* ==========================================================
+   INDEPENDENT SCRATCH COMPLETION CELEBRATION — FINAL FIX
+   ========================================================== */
+(() => {
+    let played = false;
+    let lastCanvas = null;
+
+    function burstFromScratch(canvas) {
+        if (played || !canvas) return;
+        played = true;
+
+        const r = canvas.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+
+        const layer = document.createElement("div");
+        layer.className = "scratch-sparkle-layer";
+        document.body.appendChild(layer);
+
+        const glyphs = ["♥", "✦", "♡", "✧", "♥", "✦"];
+        const colors = ["#f2aebb", "#f8d7dd", "#e7bf70", "#ffffff", "#d9879a"];
+
+        for (let i = 0; i < 64; i++) {
+            const a = (Math.PI * 2 * i / 64) + (Math.random() - .5) * .18;
+            const d = 55 + Math.random() * 210;
+            const particle = document.createElement("span");
+            particle.className = "scratch-sparkle-particle";
+            particle.textContent = glyphs[i % glyphs.length];
+            particle.style.left = `${cx}px`;
+            particle.style.top = `${cy}px`;
+            particle.style.setProperty("--x", `${Math.cos(a) * d}px`);
+            particle.style.setProperty("--y", `${Math.sin(a) * d * .72}px`);
+            particle.style.setProperty("--size", `${12 + Math.random() * 22}px`);
+            particle.style.setProperty("--delay", `${Math.random() * 140}ms`);
+            particle.style.color = colors[i % colors.length];
+            layer.appendChild(particle);
+        }
+
+        setTimeout(() => layer.remove(), 2400);
+    }
+
+    function detectCompletion(canvas) {
+        if (!canvas || played) return;
+        try {
+            const style = getComputedStyle(canvas);
+            if (
+                canvas.style.pointerEvents === "none" ||
+                parseFloat(canvas.style.opacity || style.opacity) < 0.25 ||
+                canvas.classList.contains("revealed") ||
+                canvas.classList.contains("scratch-complete")
+            ) {
+                burstFromScratch(canvas);
+            }
+        } catch (_) {}
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const canvas = document.getElementById("scratchCanvas") || document.querySelector(".scratch-canvas");
+        if (!canvas) return;
+        lastCanvas = canvas;
+
+        // Mutation observer catches the exact completion state from existing code.
+        new MutationObserver(() => detectCompletion(canvas)).observe(canvas, {
+            attributes: true,
+            attributeFilter: ["style", "class"]
+        });
+
+        // Also poll briefly after each interaction as a guaranteed fallback.
+        ["pointerup", "touchend", "mouseup"].forEach(evt => {
+            canvas.addEventListener(evt, () => {
+                setTimeout(() => detectCompletion(canvas), 50);
+                setTimeout(() => detectCompletion(canvas), 300);
+                setTimeout(() => detectCompletion(canvas), 750);
+            }, { passive: true });
+        });
+    });
+
+    // If the site dispatches any scratch completion event, support that too.
+    document.addEventListener("scratchcomplete", () => burstFromScratch(lastCanvas));
+})();
