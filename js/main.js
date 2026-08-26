@@ -1122,3 +1122,75 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.prepend(dust);
     document.body.prepend(glow);
 }, { once: true });
+
+
+/* NEW WEDDING EXPERIENCE FEATURES */
+(function () {
+  function initWeddingExperience() {
+    // Cinematic scroll journey
+    const revealItems = document.querySelectorAll('.reveal-journey');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('is-visible'));
+    }
+
+    // Share Our Joy
+    const shareButton = document.getElementById('shareJoyBtn');
+    if (shareButton) {
+      shareButton.addEventListener('click', async () => {
+        const shareData = {
+          title: document.title || 'Our Wedding Invitation',
+          text: 'You are warmly invited to celebrate our special day.',
+          url: window.location.href
+        };
+
+        try {
+          if (navigator.share) {
+            await navigator.share(shareData);
+          } else if (navigator.clipboard) {
+            await navigator.clipboard.writeText(window.location.href);
+            const original = shareButton.innerHTML;
+            shareButton.innerHTML = '<span>✓</span> Link Copied';
+            setTimeout(() => { shareButton.innerHTML = original; }, 1800);
+          } else {
+            window.prompt('Copy and share this link:', window.location.href);
+          }
+        } catch (error) {
+          // User cancelling the native share sheet is expected.
+        }
+      });
+    }
+
+    // Wedding Day Mode: 18 October 2026 in local device time.
+    const now = new Date();
+    const isWeddingDay =
+      now.getFullYear() === 2026 &&
+      now.getMonth() === 9 &&
+      now.getDate() === 18;
+
+    const overlay = document.getElementById('weddingDayOverlay');
+    if (isWeddingDay && overlay) {
+      overlay.classList.add('is-active');
+      overlay.setAttribute('aria-hidden', 'false');
+      overlay.addEventListener('click', () => {
+        overlay.classList.remove('is-active');
+        overlay.setAttribute('aria-hidden', 'true');
+      }, { once: true });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWeddingExperience);
+  } else {
+    initWeddingExperience();
+  }
+})();
