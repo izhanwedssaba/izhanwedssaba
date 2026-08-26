@@ -3742,3 +3742,132 @@ body.transition-handoff #opening-screen.cinematic-fade
         transform: scale(1.03) !important;
     }
 }
+
+
+/* ==========================================================
+   FINAL HEART SCRATCH — AUTHORITATIVE OVERRIDE
+   ========================================================== */
+
+.scratch-section {
+    width: min(100%, 480px) !important;
+    margin: 30px auto 20px !important;
+}
+
+#scratchCard.scratch-card {
+    position: relative !important;
+    width: min(92vw, 430px) !important;
+    aspect-ratio: 1 / .92 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(221, 165, 174, .55) !important;
+    border-radius: 0 !important;
+    clip-path: polygon(
+        50% 100%,
+        44% 93%, 36% 85%, 26% 76%, 14% 65%, 6% 52%,
+        3% 40%, 5% 25%, 13% 13%, 25% 7%, 37% 10%,
+        45% 16%, 50% 25%,
+        55% 16%, 63% 10%, 75% 7%, 87% 13%, 95% 25%,
+        97% 40%, 94% 52%, 86% 65%, 74% 76%, 64% 85%, 56% 93%
+    ) !important;
+    background:
+        radial-gradient(circle at 50% 38%, rgba(255,255,255,.98), rgba(255,244,238,.92) 38%, rgba(247,225,223,.95) 100%) !important;
+    box-shadow: 0 20px 48px rgba(164, 91, 107, .22) !important;
+    touch-action: none !important;
+}
+
+#scratchCard .scratch-reveal-content {
+    z-index: 1 !important;
+    inset: 12% 10% 14% !important;
+    padding: 18px !important;
+    justify-content: center !important;
+}
+
+#scratchCard #scratchCanvas {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 3 !important;
+    width: 100% !important;
+    height: 100% !important;
+    clip-path: inherit !important;
+    border-radius: 0 !important;
+    touch-action: none !important;
+}
+
+#scratchCard .scratch-hint {
+    z-index: 4 !important;
+    background: rgba(255,250,247,.88) !important;
+    color: #8f5361 !important;
+    border-color: rgba(202,135,149,.45) !important;
+    box-shadow: 0 12px 30px rgba(165,91,108,.18) !important;
+}
+
+#scratchCard .scratch-heart { color: #c77b8b !important; }
+#scratchCard .scratch-eyebrow { color: #9d6570 !important; }
+#scratchCard .scratch-reveal-content { color: #6d3f49 !important; }
+
+.wedding-heart-burst {
+    position: fixed;
+    inset: 0;
+    z-index: 50000;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.wedding-heart-particle {
+    position: fixed;
+    transform: translate(-50%, -50%) scale(.2);
+    opacity: 0;
+    font-size: var(--size);
+    line-height: 1;
+    text-shadow: 0 0 14px currentColor, 0 0 28px rgba(255,255,255,.75);
+    animation: weddingHeartBurst 1.9s cubic-bezier(.15,.8,.25,1) var(--delay) forwards;
+}
+
+@keyframes weddingHeartBurst {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.15) rotate(-15deg);
+    }
+    16% {
+        opacity: 1;
+    }
+    72% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform:
+            translate(calc(-50% + var(--tx)), calc(-50% + var(--ty) - 70px))
+            scale(.9) rotate(24deg);
+    }
+}
+
+.wedding-reveal-glow {
+    position: fixed;
+    inset: 0;
+    z-index: 49999;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%,
+        rgba(255,230,219,.60) 0%,
+        rgba(248,203,213,.20) 25%,
+        rgba(255,255,255,0) 58%);
+    animation: revealGlow 1.3s ease-out forwards;
+}
+
+@keyframes revealGlow {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@media (max-width: 600px) {
+    #scratchCard.scratch-card {
+        width: min(94vw, 390px) !important;
+    }
+
+    #scratchCard .scratch-reveal-content {
+        inset: 13% 11% 16% !important;
+    }
+}
