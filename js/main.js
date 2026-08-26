@@ -1,5 +1,113 @@
 
 /* ==========================================================
+   ROMANTIC CANVAS SKIN + HEART SPARKLE COMPLETION
+   ========================================================== */
+function applyRomanticScratchSkin(canvas) {
+    if (!canvas) return;
+
+    const parent = canvas.parentElement;
+    const resizeCanvas = () => {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const width = Math.max(1, Math.round(rect.width * dpr));
+        const height = Math.max(1, Math.round(rect.height * dpr));
+
+        if (canvas.width !== width || canvas.height !== height) {
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext("2d");
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            const w = rect.width;
+            const h = rect.height;
+
+            // Romantic dusty-rose → blush → champagne coating.
+            const gradient = ctx.createLinearGradient(0, 0, w, h);
+            gradient.addColorStop(0, "#b77780");
+            gradient.addColorStop(.46, "#d9a3a7");
+            gradient.addColorStop(1, "#c6848c");
+
+            ctx.globalCompositeOperation = "source-over";
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, w, h);
+
+            // Soft champagne glow.
+            const glow = ctx.createRadialGradient(w * .72, h * .22, 0, w * .72, h * .22, Math.max(w, h) * .72);
+            glow.addColorStop(0, "rgba(246,215,159,.55)");
+            glow.addColorStop(.45, "rgba(255,255,255,.08)");
+            glow.addColorStop(1, "rgba(255,255,255,0)");
+            ctx.fillStyle = glow;
+            ctx.fillRect(0, 0, w, h);
+
+            // Fine sparkle texture.
+            for (let i = 0; i < 110; i++) {
+                const x = Math.random() * w;
+                const y = Math.random() * h;
+                const r = Math.random() * 1.4 + .25;
+                ctx.fillStyle = i % 3 === 0
+                    ? "rgba(255,244,235,.70)"
+                    : "rgba(255,255,255,.34)";
+                ctx.beginPath();
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Subtle heart motifs.
+            ctx.save();
+            ctx.globalAlpha = .28;
+            ctx.fillStyle = "#fff6ef";
+            ctx.font = `${Math.max(16, Math.min(28, w * .07))}px serif`;
+            ["♡", "♥", "♡", "✦", "♡", "♥"].forEach((symbol, i) => {
+                ctx.fillText(symbol, w * (.12 + i * .14), h * (.25 + (i % 2) * .45));
+            });
+            ctx.restore();
+
+            canvas.dataset.romanticSkinned = "true";
+        }
+    };
+
+    resizeCanvas();
+    new ResizeObserver(resizeCanvas).observe(parent || canvas);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas =
+        document.getElementById("scratchCanvas") ||
+        document.querySelector(".scratch-canvas");
+
+    if (!canvas) return;
+
+    // Wait for the existing scratch script to finish sizing the canvas,
+    // then paint the romantic coating directly onto it.
+    window.setTimeout(() => applyRomanticScratchSkin(canvas), 150);
+
+    let celebrated = false;
+    const celebrate = () => {
+        if (celebrated) return;
+        celebrated = true;
+        romanticHeartCelebration(canvas);
+    };
+
+    // Detect the existing completion state or custom completion event.
+    canvas.addEventListener("scratchcomplete", celebrate);
+
+    const observer = new MutationObserver(() => {
+        if (
+            canvas.classList.contains("revealed") ||
+            canvas.classList.contains("scratch-complete") ||
+            document.querySelector(".scratch-date-content.revealed") ||
+            document.querySelector(".scratch-reveal-content.revealed")
+        ) {
+            celebrate();
+        }
+    });
+
+    observer.observe(canvas, { attributes: true, attributeFilter: ["class"] });
+}, { once: true });
+
+
+/* ==========================================================
    ROMANTIC HEART SPARKLE CELEBRATION
    ========================================================== */
 function romanticHeartCelebration(originElement) {
