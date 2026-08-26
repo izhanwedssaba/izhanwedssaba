@@ -18,7 +18,7 @@ window.launchWeddingCelebration = function(origin) {
     document.body.appendChild(layer);
 
     const symbols = ["♥", "♡", "✦", "♥", "✧", "♡"];
-    const colors = ["#f4b7c1", "#f9d4dc", "#f1c978", "#ffffff", "#d68b9a"];
+    const colors = ["#b88a45", "#d5b16a", "#ead59f", "#fffdf8", "#c99b52"];
 
     for (let i = 0; i < 52; i++) {
         const angle = (Math.PI * 2 * i / 52) + (Math.random() - .5) * .22;
@@ -552,10 +552,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // Romantic blush → dusty rose → champagne scratch surface.
             const base = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-            base.addColorStop(0, "#9f5f69");
-            base.addColorStop(.34, "#c98790");
-            base.addColorStop(.62, "#dca9a7");
-            base.addColorStop(1, "#b86f79");
+            base.addColorStop(0, "#b88a45");
+            base.addColorStop(.34, "#d5b16a");
+            base.addColorStop(.62, "#ead59f");
+            base.addColorStop(1, "#c99b52");
             ctx.fillStyle = base;
             ctx.fillRect(0, 0, rect.width, rect.height);
 
@@ -564,8 +564,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 rect.width * .5, rect.height * .34, 8,
                 rect.width * .5, rect.height * .34, Math.max(rect.width, rect.height) * .72
             );
-            glow.addColorStop(0, "rgba(255,241,213,.58)");
-            glow.addColorStop(.46, "rgba(255,222,225,.18)");
+            glow.addColorStop(0, "rgba(255,253,245,.82)");
+            glow.addColorStop(.46, "rgba(255,244,213,.26)");
             glow.addColorStop(1, "rgba(255,255,255,0)");
             ctx.fillStyle = glow;
             ctx.fillRect(0, 0, rect.width, rect.height);
@@ -576,7 +576,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const y = Math.random() * rect.height;
                 const r = Math.random() * 1.35 + .25;
                 ctx.fillStyle = i % 4 === 0
-                    ? "rgba(255,238,199,.82)"
+                    ? "rgba(255,249,232,.92)"
                     : "rgba(255,255,255,.40)";
                 ctx.beginPath();
                 ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -921,7 +921,7 @@ console.log("© 2026");
         document.body.appendChild(layer);
 
         const glyphs = ["♥", "✦", "♡", "✧", "♥", "✦"];
-        const colors = ["#f2aebb", "#f8d7dd", "#e7bf70", "#ffffff", "#d9879a"];
+        const colors = ["#b88a45", "#d5b16a", "#ead59f", "#fffdf8", "#c99b52"];
 
         for (let i = 0; i < 64; i++) {
             const a = (Math.PI * 2 * i / 64) + (Math.random() - .5) * .18;
