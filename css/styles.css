@@ -6197,3 +6197,58 @@ body {
         transform: none;
     }
 }
+/* =========================================================
+   SCRATCH HEART OVERLAP FIX
+   Keeps all existing design and functionality unchanged
+   ========================================================= */
+
+/* Give the couple names their own safe space */
+.hero,
+.hero-content{
+  position: relative;
+  z-index: 1;
+}
+
+/* Keep the scratch section below the name section */
+.scratch-section{
+  position: relative;
+  z-index: 2;
+  clear: both;
+  margin-top: 0 !important;
+  padding-top: 42px !important;
+}
+
+/* Remove any accidental negative positioning from the heart */
+.scratch-wrap,
+.scratch-container,
+.heart-scratch,
+.scratch-card,
+.scratch-heart{
+  margin-top: 0 !important;
+  transform: none;
+}
+
+/* Ensure the heart stays inside its own layout space */
+.scratch-canvas-wrap,
+.scratch-canvas-container{
+  position: relative !important;
+  margin: 36px auto 0 !important;
+  top: auto !important;
+}
+
+/* MOBILE FIX */
+@media (max-width: 650px){
+
+  .hero{
+    padding-bottom: 36px !important;
+  }
+
+  .scratch-section{
+    padding-top: 52px !important;
+  }
+
+  .scratch-canvas-wrap,
+  .scratch-canvas-container{
+    margin-top: 28px !important;
+  }
+}
