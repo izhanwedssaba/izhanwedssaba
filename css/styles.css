@@ -6252,3 +6252,169 @@ body {
     margin-top: 28px !important;
   }
 }
+
+
+/* ==========================================================
+   CINEMATIC OPENING HEART + ENVELOPE REVEAL
+   ONLY replaces the opening couple-name area.
+   Existing envelope interaction and all other site code remain unchanged.
+   ========================================================== */
+
+/* The former opening-name slot now becomes a self-contained cinematic stage. */
+body.opening-sequence #opening-screen .opening-cinematic-heart{
+    position: relative;
+    width: 150px;
+    height: 128px;
+    margin: 12px auto 0;
+    opacity: 0;
+    overflow: visible;
+    animation: cinematicHeartStage 1.85s cubic-bezier(.22,.75,.25,1) 2.12s forwards !important;
+}
+
+.heart-aura{
+    position:absolute;
+    left:50%; top:50%;
+    width:92px; height:92px;
+    transform:translate(-50%,-50%) scale(.35);
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(225,177,74,.28) 0%, rgba(225,177,74,.12) 30%, rgba(255,250,235,0) 70%);
+    filter:blur(2px);
+    opacity:0;
+    animation: heartAuraPulse 1.85s ease 2.12s forwards;
+}
+
+.heart-particles{
+    position:absolute;
+    inset:0;
+    z-index:2;
+}
+
+.heart-particle{
+    --fx: 0px; --fy: 0px; --sx: 0px; --sy: 0px;
+    position:absolute;
+    left:50%; top:50%;
+    width:6px; height:6px;
+    margin:-3px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff9df 0 14%, #efd28a 38%, #b9852d 100%);
+    box-shadow:0 0 8px rgba(213,163,62,.58), 0 0 18px rgba(255,229,152,.24);
+    opacity:0;
+    transform:translate(var(--sx),var(--sy)) scale(.35);
+    animation: heartParticleJourney 1.55s cubic-bezier(.2,.8,.2,1) 2.18s forwards;
+}
+
+/* Final coordinates trace a delicate heart; starting coordinates are scattered. */
+.heart-particle:nth-child(1)  {--fx:-36px;--fy:-24px;--sx:-68px;--sy:-42px;}
+.heart-particle:nth-child(2)  {--fx:-20px;--fy:-38px;--sx:62px;--sy:-35px;}
+.heart-particle:nth-child(3)  {--fx:0px;--fy:-28px;--sx:-52px;--sy:34px;}
+.heart-particle:nth-child(4)  {--fx:20px;--fy:-38px;--sx:54px;--sy:42px;}
+.heart-particle:nth-child(5)  {--fx:36px;--fy:-24px;--sx:-76px;--sy:5px;}
+.heart-particle:nth-child(6)  {--fx:43px;--fy:-6px;--sx:77px;--sy:9px;}
+.heart-particle:nth-child(7)  {--fx:37px;--fy:14px;--sx:-62px;--sy:-4px;}
+.heart-particle:nth-child(8)  {--fx:26px;--fy:31px;--sx:67px;--sy:-18px;}
+.heart-particle:nth-child(9)  {--fx:13px;--fy:48px;--sx:-38px;--sy:-48px;}
+.heart-particle:nth-child(10) {--fx:0px;--fy:62px;--sx:39px;--sy:54px;}
+.heart-particle:nth-child(11) {--fx:-13px;--fy:48px;--sx:-78px;--sy:45px;}
+.heart-particle:nth-child(12) {--fx:-26px;--fy:31px;--sx:72px;--sy:-53px;}
+.heart-particle:nth-child(13) {--fx:-37px;--fy:14px;--sx:-20px;--sy:64px;}
+.heart-particle:nth-child(14) {--fx:-43px;--fy:-6px;--sx:18px;--sy:-63px;}
+.heart-particle:nth-child(15) {--fx:-12px;--fy:-8px;--sx:-92px;--sy:28px;}
+.heart-particle:nth-child(16) {--fx:12px;--fy:-8px;--sx:91px;--sy:30px;}
+.heart-particle:nth-child(17) {--fx:-7px;--fy:25px;--sx:-12px;--sy:-73px;}
+.heart-particle:nth-child(18) {--fx:7px;--fy:25px;--sx:14px;--sy:76px;}
+
+.cinematic-heart-shape{
+    position:absolute;
+    left:50%; top:50%;
+    width:64px; height:58px;
+    transform:translate(-50%,-50%) rotate(-45deg) scale(.3);
+    opacity:0;
+    border-radius:9px 0 9px 0;
+    background:linear-gradient(135deg, #f7e5a6 0%, #d8a94d 42%, #9d691b 100%);
+    box-shadow:0 0 0 1px rgba(255,242,194,.6) inset, 0 0 18px rgba(207,157,55,.42);
+    z-index:1;
+    animation: heartShapeReveal 1.85s cubic-bezier(.22,.75,.25,1) 2.12s forwards;
+}
+.cinematic-heart-shape::before,
+.cinematic-heart-shape::after{
+    content:"";
+    position:absolute;
+    width:64px; height:64px;
+    border-radius:50%;
+    background:inherit;
+}
+.cinematic-heart-shape::before{top:-32px;left:0;}
+.cinematic-heart-shape::after{left:32px;top:0;}
+
+@keyframes cinematicHeartStage{
+    0%{opacity:0; transform:translateY(10px)}
+    12%{opacity:1; transform:translateY(0)}
+    70%{opacity:1}
+    100%{opacity:0; transform:translateY(-7px) scale(.94)}
+}
+@keyframes heartParticleJourney{
+    0%{opacity:0; transform:translate(var(--sx),var(--sy)) scale(.2)}
+    18%{opacity:1}
+    55%{opacity:1; transform:translate(var(--fx),var(--fy)) scale(1)}
+    72%{opacity:1; transform:translate(var(--fx),var(--fy)) scale(1.2)}
+    100%{opacity:0; transform:translate(calc(var(--fx) * 1.45),calc(var(--fy) * 1.45 - 10px)) scale(.35)}
+}
+@keyframes heartShapeReveal{
+    0%,32%{opacity:0; transform:translate(-50%,-50%) rotate(-45deg) scale(.3)}
+    52%{opacity:.95; transform:translate(-50%,-50%) rotate(-45deg) scale(1)}
+    67%{opacity:1; transform:translate(-50%,-50%) rotate(-45deg) scale(1.13)}
+    82%{opacity:.78; transform:translate(-50%,-50%) rotate(-45deg) scale(1)}
+    100%{opacity:0; transform:translate(-50%,-58%) rotate(-45deg) scale(.72)}
+}
+@keyframes heartAuraPulse{
+    0%,28%{opacity:0; transform:translate(-50%,-50%) scale(.3)}
+    55%{opacity:1; transform:translate(-50%,-50%) scale(1.05)}
+    72%{opacity:.65; transform:translate(-50%,-50%) scale(1.22)}
+    100%{opacity:0; transform:translate(-50%,-50%) scale(1.65)}
+}
+
+/* Envelope waits until the heart has dissolved, then fades in and floats. */
+body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2{
+    margin-top: 8px;
+    animation:
+        cleanEnvelopeIn .9s cubic-bezier(.22,.75,.25,1) 4.02s forwards,
+        masterEnvelopeFloat 3.8s ease-in-out 4.95s infinite !important;
+}
+
+/* A restrained champagne shimmer crosses the wax seal while the envelope floats. */
+.env-v2-seal::after{
+    content:"";
+    position:absolute;
+    inset:7px;
+    border-radius:50%;
+    border:1px solid rgba(255,245,207,.35);
+    box-shadow:0 0 10px rgba(255,225,139,.18);
+    animation: sealSoftShimmer 3.8s ease-in-out 5.15s infinite;
+}
+@keyframes sealSoftShimmer{
+    0%,100%{opacity:.35; transform:scale(.94)}
+    50%{opacity:.95; transform:scale(1.04)}
+}
+
+@media (max-width:650px){
+    body.opening-sequence #opening-screen .opening-cinematic-heart{
+        width:138px;
+        height:118px;
+        margin-top:8px;
+    }
+    body.opening-sequence #opening-screen #enterBtn.envelope-reference-v2{
+        margin-top:4px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+    body.opening-sequence #opening-screen .opening-cinematic-heart,
+    .heart-aura,
+    .heart-particle,
+    .cinematic-heart-shape,
+    .env-v2-seal::after{
+        animation:none !important;
+        opacity:1;
+    }
+    .cinematic-heart-shape{display:none;}
+}
