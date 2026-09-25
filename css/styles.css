@@ -2765,6 +2765,86 @@ body {
     display: none;
 }
 
+/* Letter that rises up out of the envelope as the flap opens */
+.env-v2-letter {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    z-index: 15;
+    width: 58%;
+    aspect-ratio: 1.55 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 3px;
+    background:
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.6) 38%, transparent 40%),
+        linear-gradient(160deg, #fffdf9 0%, #f6efe0 100%);
+    box-shadow:
+        0 14px 28px rgba(83,68,42,.22),
+        0 0 0 1px rgba(196,164,102,.35) inset;
+    transform: translate(-50%, 4%) scale(.88);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.env-v2-letter b {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(.95rem, 2.5vw, 1.3rem);
+    letter-spacing: .1em;
+    color: #b4812b;
+}
+
+.env-v2-letter b i {
+    font-style: normal;
+    color: #97682a;
+}
+
+.env-v2-letter > span {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(.4rem, .95vw, .54rem);
+    letter-spacing: .24em;
+    color: #746a5c;
+    text-transform: uppercase;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-letter {
+    animation: masterLetterRise 1s cubic-bezier(.22,.75,.25,1) .42s forwards;
+}
+
+@keyframes masterLetterRise {
+    0%   { opacity: 0; transform: translate(-50%, 4%) scale(.88); }
+    30%  { opacity: 1; }
+    100% { opacity: 1; transform: translate(-50%, -48%) scale(1.03); }
+}
+
+/* Soft golden shimmer that idly sweeps across the flap */
+.env-v2-flap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 32%, rgba(255,255,255,.5) 47%, transparent 62%);
+    background-size: 240% 240%;
+    background-position: -60% -60%;
+    opacity: .55;
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+    animation: masterFlapShine 6s ease-in-out infinite;
+}
+
+@keyframes masterFlapShine {
+    0%, 100% { background-position: -60% -60%; }
+    50%      { background-position: 60% 60%; }
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-flap::after {
+    animation: none;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
 /* Wax seal */
 .env-v2-seal {
     position: absolute;
@@ -2869,6 +2949,27 @@ body {
         opacity: 0;
         transform: translate(-50%, -50%) scale(.56) translateY(-8px);
     }
+}
+
+/* A brief warm burst of light where the wax seal breaks */
+.env-v2-seal::after {
+    content: "";
+    position: absolute;
+    inset: -45%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,226,153,.7), transparent 72%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-seal::after {
+    animation: masterSealGlow .55s ease forwards;
+}
+
+@keyframes masterSealGlow {
+    0%   { opacity: 0; transform: scale(.4); }
+    35%  { opacity: .9; transform: scale(1.2); }
+    100% { opacity: 0; transform: scale(2); }
 }
 
 #opening-screen #enterBtn.envelope-reference-v2.opening .env-v2-tap {
