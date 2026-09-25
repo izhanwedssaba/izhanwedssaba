@@ -537,7 +537,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const rect = scratchCard.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
 
-            const dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
+            // Lower the pixel density specifically on phones: a scratch
+            // coating is a texture that gets wiped away in seconds, so a
+            // slightly softer render is imperceptible, while it cuts the
+            // number of pixels every stroke has to composite roughly in
+            // half on a typical 3x-DPR phone -- a big, direct win for
+            // per-stroke performance.
+            const dprCap = window.innerWidth <= 768 ? 1.5 : 2;
+            const dpr = Math.min(dprCap, Math.max(1, window.devicePixelRatio || 1));
             scratchCanvas.width = Math.round(rect.width * dpr);
             scratchCanvas.height = Math.round(rect.height * dpr);
             scratchCanvas.style.width = rect.width + "px";
@@ -598,10 +605,16 @@ document.addEventListener("DOMContentLoaded", () => {
         // them once per stroke (pointerdown) and once on resize instead.
         let cachedRect = null;
         let cachedRadius = 24;
+        let cachedScaleX = 1;
+        let cachedScaleY = 1;
 
         function refreshStrokeMetrics() {
             cachedRect = scratchCanvas.getBoundingClientRect();
-            cachedRadius = Math.max(24, Math.min(scratchCard.clientWidth * .07, 48));
+            const w = Math.max(1, scratchCard.clientWidth);
+            const h = Math.max(1, scratchCard.clientHeight);
+            cachedRadius = Math.max(24, Math.min(w * .07, 48));
+            cachedScaleX = 96 / w;
+            cachedScaleY = 96 / h;
         }
 
         function getPoint(event) {
@@ -612,10 +625,12 @@ document.addEventListener("DOMContentLoaded", () => {
             };
         }
 
-        function erase(point, fromPoint) {
+        function erase(points, fromPoint) {
             const radius = cachedRadius;
+            if (!points.length) return;
 
-            // Visible high-resolution scratch surface.
+            // Visible high-resolution scratch surface — ONE path, ONE
+            // stroke() call no matter how many touch samples we have.
             ctx.save();
             ctx.globalCompositeOperation = "destination-out";
             ctx.lineCap = "round";
@@ -624,18 +639,17 @@ document.addEventListener("DOMContentLoaded", () => {
             ctx.beginPath();
             if (fromPoint) {
                 ctx.moveTo(fromPoint.x, fromPoint.y);
-                ctx.lineTo(point.x, point.y);
             } else {
-                ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+                ctx.moveTo(points[0].x, points[0].y);
             }
+            for (const p of points) ctx.lineTo(p.x, p.y);
             ctx.stroke();
             ctx.restore();
 
-            // Mirror the same stroke onto the tiny progress map.
-            const rw = Math.max(1, scratchCard.clientWidth);
-            const rh = Math.max(1, scratchCard.clientHeight);
-            const sx = 96 / rw;
-            const sy = 96 / rh;
+            // Mirror the same path onto the tiny progress map, also as a
+            // single stroke() call.
+            const sx = cachedScaleX;
+            const sy = cachedScaleY;
             progressCtx.save();
             progressCtx.globalCompositeOperation = "destination-out";
             progressCtx.lineCap = "round";
@@ -644,10 +658,10 @@ document.addEventListener("DOMContentLoaded", () => {
             progressCtx.beginPath();
             if (fromPoint) {
                 progressCtx.moveTo(fromPoint.x * sx, fromPoint.y * sy);
-                progressCtx.lineTo(point.x * sx, point.y * sy);
             } else {
-                progressCtx.arc(point.x * sx, point.y * sy, radius * Math.max(sx, sy), 0, Math.PI * 2);
+                progressCtx.moveTo(points[0].x * sx, points[0].y * sy);
             }
+            for (const p of points) progressCtx.lineTo(p.x * sx, p.y * sy);
             progressCtx.stroke();
             progressCtx.restore();
         }
@@ -719,10 +733,8 @@ document.addEventListener("DOMContentLoaded", () => {
         function flushPendingStrokes() {
             rafPending = false;
             if (!pendingPoints.length) return;
-            for (const point of pendingPoints) {
-                erase(point, lastPoint);
-                lastPoint = point;
-            }
+            erase(pendingPoints, lastPoint);
+            lastPoint = pendingPoints[pendingPoints.length - 1];
             pendingPoints.length = 0;
         }
 
@@ -750,7 +762,8 @@ document.addEventListener("DOMContentLoaded", () => {
             refreshStrokeMetrics();
             lastPoint = getPoint(event);
             hideHint();
-            erase(lastPoint);
+            document.body.classList.add("is-scratching");
+            erase([lastPoint], null);
         });
 
         scratchCanvas.addEventListener("pointermove", (event) => {
@@ -763,6 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
             drawing = false;
             flushPendingStrokes();
             lastPoint = null;
+            document.body.classList.remove("is-scratching");
             revealIfNeeded();
         }
 
