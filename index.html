@@ -23,6 +23,23 @@ href="assets/favicon/favicon.png">
 
 <body class="opening-sequence opening-locked-page">
 
+<!-- Shared, perfectly smooth heart shape for the scratch-to-reveal card.
+     Using an SVG clipPath (objectBoundingBox units) instead of a CSS
+     polygon() means the outline is drawn with true curves, so it scales
+     cleanly with the card and never looks faceted/"squary". -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <clipPath id="scratchHeartClip" clipPathUnits="objectBoundingBox">
+            <path d="M 0.5 0.94 C 0.4 0.83, 0.03 0.6, 0.03 0.32
+                     C 0.03 0.12, 0.18 0.01, 0.335 0.01
+                     C 0.43 0.01, 0.485 0.06, 0.5 0.135
+                     C 0.515 0.06, 0.57 0.01, 0.665 0.01
+                     C 0.82 0.01, 0.97 0.12, 0.97 0.32
+                     C 0.97 0.6, 0.6 0.83, 0.5 0.94 Z" />
+        </clipPath>
+    </defs>
+</svg>
+
 <!-- ===========================
 OPENING SCREEN
 =========================== -->
