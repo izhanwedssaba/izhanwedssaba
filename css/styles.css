@@ -264,17 +264,52 @@ HERO
 
 .ampersand{
 
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:16px;
+
     font-family:'Cinzel',serif;
 
-    font-size:24px;
+    font-size:16px;
 
-    letter-spacing:5px;
+    font-weight:600;
+
+    letter-spacing:6px;
 
     text-transform:uppercase;
 
-    color:var(--gold);
+    color:var(--gold-dark);
 
-    margin:12px 0;
+    margin:16px 0;
+
+}
+
+.ampersand::before,
+.ampersand::after{
+
+    content:"";
+
+    width:46px;
+
+    height:1px;
+
+    background:var(--gold);
+
+}
+
+.ampersand::before{
+
+    background:linear-gradient(90deg, transparent, var(--gold));
+
+}
+
+.ampersand::after{
+
+    background:linear-gradient(90deg, var(--gold), transparent);
 
 }
 
@@ -650,9 +685,18 @@ RESPONSIVE
 
 .ampersand{
 
-    font-size:20px;
+    font-size:13px;
 
-    letter-spacing:3px;
+    letter-spacing:4px;
+
+    gap:10px;
+
+}
+
+.ampersand::before,
+.ampersand::after{
+
+    width:28px;
 
 }
 
@@ -911,10 +955,16 @@ RESPONSIVE
     }
 
     .ampersand {
-        font-size: 20px;
-        letter-spacing: 3px;
+        font-size: 13px;
+        letter-spacing: 4px;
         text-transform: uppercase;
-        margin: 16px 0;
+        gap: 10px;
+        margin: 18px 0;
+    }
+
+    .ampersand::before,
+    .ampersand::after {
+        width: 28px;
     }
 
     .date {
@@ -3666,18 +3716,11 @@ body.transition-handoff #opening-screen.cinematic-fade
     transform-origin: center center !important;
 }
 
-/* WebKit/SVG-safe heart fallback for mobile browsers. */
-@supports not (clip-path: path("M 0 0")) {
-    #scratchCanvas,
-    .scratch-canvas {
-        clip-path: polygon(
-            50% 100%, 43% 91%, 34% 82%, 22% 71%, 10% 58%,
-            3% 44%, 4% 27%, 13% 13%, 27% 8%, 40% 13%,
-            50% 25%, 60% 13%, 73% 8%, 87% 13%, 96% 27%,
-            97% 44%, 90% 58%, 78% 71%, 66% 82%, 57% 91%
-        ) !important;
-    }
-}
+/* WebKit/SVG-safe heart fallback: modern iOS/Android Safari & Chrome
+   all support SVG clipPath references, so the shared #scratchHeartClip
+   defined in the page is used everywhere -- no separate fallback shape
+   needed (and keeping one here would reintroduce the per-frame cost we
+   removed from the canvas above). */
 
 /* Reveal content follows the same heart silhouette. */
 #scratchCard .scratch-date-content,
@@ -3694,12 +3737,7 @@ body.transition-handoff #opening-screen.cinematic-fade
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
-    clip-path: polygon(
-        50% 100%, 43% 91%, 34% 82%, 22% 71%, 10% 58%,
-        3% 44%, 4% 27%, 13% 13%, 27% 8%, 40% 13%,
-        50% 25%, 60% 13%, 73% 8%, 87% 13%, 96% 27%,
-        97% 44%, 90% 58%, 78% 71%, 66% 82%, 57% 91%
-    ) !important;
+    clip-path: url(#scratchHeartClip) !important;
 }
 
 /* Romantic background behind the heart, visible as scratching progresses. */
@@ -3710,12 +3748,7 @@ body.transition-handoff #opening-screen.cinematic-fade
     position: absolute !important;
     inset: 0 !important;
     z-index: 0 !important;
-    clip-path: polygon(
-        50% 100%, 43% 91%, 34% 82%, 22% 71%, 10% 58%,
-        3% 44%, 4% 27%, 13% 13%, 27% 8%, 40% 13%,
-        50% 25%, 60% 13%, 73% 8%, 87% 13%, 96% 27%,
-        97% 44%, 90% 58%, 78% 71%, 66% 82%, 57% 91%
-    ) !important;
+    clip-path: url(#scratchHeartClip) !important;
     background:
         radial-gradient(circle at 50% 36%, rgba(255,255,255,.88), transparent 36%),
         radial-gradient(circle at 30% 70%, rgba(247,205,211,.38), transparent 28%),
@@ -3775,14 +3808,7 @@ body.transition-handoff #opening-screen.cinematic-fade
     overflow: hidden !important;
     border: 1px solid rgba(221, 165, 174, .55) !important;
     border-radius: 0 !important;
-    clip-path: polygon(
-        50% 100%,
-        44% 93%, 36% 85%, 26% 76%, 14% 65%, 6% 52%,
-        3% 40%, 5% 25%, 13% 13%, 25% 7%, 37% 10%,
-        45% 16%, 50% 25%,
-        55% 16%, 63% 10%, 75% 7%, 87% 13%, 95% 25%,
-        97% 40%, 94% 52%, 86% 65%, 74% 76%, 64% 85%, 56% 93%
-    ) !important;
+    clip-path: url(#scratchHeartClip) !important;
     background:
         radial-gradient(circle at 50% 38%, rgba(255,255,255,.98), rgba(255,244,238,.92) 38%, rgba(247,225,223,.95) 100%) !important;
     box-shadow: 0 20px 48px rgba(164, 91, 107, .22) !important;
