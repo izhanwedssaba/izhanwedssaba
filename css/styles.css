@@ -6305,3 +6305,34 @@ body {
         font-size: clamp(20px, 5.8vw, 28px);
     }
 }
+
+/* =========================================================
+   PERFORMANCE: free up the main thread while actively scratching
+   ---------------------------------------------------------
+   The page has several always-on, infinite ambient background
+   animations (the whole-page background-position drift, the
+   blurred/blended body::before/::after glow layers, and the
+   4 blurred .bg-orb elements + .cinematic-bg sweeps). None of
+   that is expensive to look at, but continuously repainting/
+   compositing all of it is real work every single frame -- work
+   that competes with the scratch canvas for the same 16ms frame
+   budget and was the remaining cause of scratch lag on mobile.
+   We simply pause those animations for the moment a finger is
+   actually down on the scratch card (JS toggles body.is-scratching
+   on pointerdown/pointerup), then resume them immediately after.
+   Nothing about the site's normal appearance changes.
+   ========================================================= */
+body.is-scratching,
+body.is-scratching::before,
+body.is-scratching::after {
+    animation-play-state: paused !important;
+}
+
+body.is-scratching .cinematic-bg::before,
+body.is-scratching .cinematic-bg::after,
+body.is-scratching .bg-orb-1,
+body.is-scratching .bg-orb-2,
+body.is-scratching .bg-orb-3,
+body.is-scratching .bg-orb-4 {
+    animation-play-state: paused !important;
+}
