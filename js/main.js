@@ -591,8 +591,21 @@ document.addEventListener("DOMContentLoaded", () => {
             scratchCanvas.style.pointerEvents = "auto";
         }
 
+        // Cache layout reads (getBoundingClientRect / clientWidth force a
+        // synchronous reflow every time they're called). Reading them on
+        // every single pointermove -- which can fire 60-120+ times a
+        // second on mobile -- is what caused the scratch lag. We now read
+        // them once per stroke (pointerdown) and once on resize instead.
+        let cachedRect = null;
+        let cachedRadius = 24;
+
+        function refreshStrokeMetrics() {
+            cachedRect = scratchCanvas.getBoundingClientRect();
+            cachedRadius = Math.max(24, Math.min(scratchCard.clientWidth * .07, 48));
+        }
+
         function getPoint(event) {
-            const rect = scratchCanvas.getBoundingClientRect();
+            const rect = cachedRect || scratchCanvas.getBoundingClientRect();
             return {
                 x: event.clientX - rect.left,
                 y: event.clientY - rect.top
@@ -600,7 +613,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function erase(point, fromPoint) {
-            const radius = Math.max(24, Math.min(scratchCard.clientWidth * .07, 48));
+            const radius = cachedRadius;
 
             // Visible high-resolution scratch surface.
             ctx.save();
@@ -694,10 +707,47 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
+        // Batch pointermove handling to one paint per animation frame.
+        // Touch devices can fire many pointermove events between two
+        // frames; drawing on every one of them (each doing canvas strokes
+        // on both the visible and progress canvases) was the other half
+        // of the mobile lag. We now just record the latest point(s) and
+        // let a single rAF tick do the actual drawing.
+        let rafPending = false;
+        let pendingPoints = [];
+
+        function flushPendingStrokes() {
+            rafPending = false;
+            if (!pendingPoints.length) return;
+            for (const point of pendingPoints) {
+                erase(point, lastPoint);
+                lastPoint = point;
+            }
+            pendingPoints.length = 0;
+        }
+
+        function queueStroke(event) {
+            // getCoalescedEvents gives the true, smooth set of touch
+            // samples the OS captured between frames (when supported),
+            // so strokes stay smooth even though we only paint once
+            // per frame.
+            const events = (typeof event.getCoalescedEvents === "function"
+                && event.getCoalescedEvents().length)
+                ? event.getCoalescedEvents()
+                : [event];
+            for (const e of events) pendingPoints.push(getPoint(e));
+
+            if (!rafPending) {
+                rafPending = true;
+                requestAnimationFrame(flushPendingStrokes);
+            }
+        }
+
         scratchCanvas.addEventListener("pointerdown", (event) => {
             if (revealed) return;
             drawing = true;
             scratchCanvas.setPointerCapture(event.pointerId);
+            refreshStrokeMetrics();
             lastPoint = getPoint(event);
             hideHint();
             erase(lastPoint);
@@ -705,14 +755,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         scratchCanvas.addEventListener("pointermove", (event) => {
             if (!drawing || revealed) return;
-            const point = getPoint(event);
-            erase(point, lastPoint);
-            lastPoint = point;
+            queueStroke(event);
         });
 
         function stopDrawing() {
             if (!drawing) return;
             drawing = false;
+            flushPendingStrokes();
             lastPoint = null;
             revealIfNeeded();
         }
@@ -726,12 +775,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if ("ResizeObserver" in window) {
             resizeObserver = new ResizeObserver(() => {
-                if (!revealed) paintScratchCoating();
+                if (!revealed) {
+                    paintScratchCoating();
+                    cachedRect = null; // force a fresh read on the next stroke
+                }
             });
             resizeObserver.observe(scratchCard);
         } else {
             window.addEventListener("resize", () => {
-                if (!revealed) paintScratchCoating();
+                if (!revealed) {
+                    paintScratchCoating();
+                    cachedRect = null;
+                }
             });
         }
     }
