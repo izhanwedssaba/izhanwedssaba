@@ -109,19 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Existing custom event support.
     canvas.addEventListener("scratchcomplete", complete);
 
-    // Check after every completed finger/mouse stroke.
-    ["pointerup", "touchend", "mouseup"].forEach(type => {
-        canvas.addEventListener(type, () => {
-            window.setTimeout(checkProgress, 60);
-        }, { passive: true });
-    });
-
-    // Also check periodically while the user is actively scratching.
-    ["pointermove", "touchmove", "mousemove"].forEach(type => {
-        canvas.addEventListener(type, () => {
-            window.setTimeout(checkProgress, 0);
-        }, { passive: true });
-    });
+    // The main scratch renderer owns progress/reveal detection.
+    // No extra canvas scans are attached to pointer/touch movement or release.
 
     // Class observer fallback.
     new MutationObserver(() => {
@@ -536,6 +525,14 @@ document.addEventListener("DOMContentLoaded", () => {
         let revealed = false;
         let resizeObserver;
 
+        // Tiny offscreen progress map. The visible scratch canvas can remain
+        // high-resolution, while reveal detection only reads 96x96 pixels.
+        // This avoids allocating/scanning the entire mobile canvas after every stroke.
+        const progressCanvas = document.createElement("canvas");
+        progressCanvas.width = 96;
+        progressCanvas.height = 96;
+        const progressCtx = progressCanvas.getContext("2d", { willReadFrequently: true });
+
         function paintScratchCoating() {
             const rect = scratchCard.getBoundingClientRect();
             if (!rect.width || !rect.height) return;
@@ -584,6 +581,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             lastPoint = null;
+
+            // Reset the tiny progress map whenever the scratch surface is painted.
+            progressCtx.globalCompositeOperation = "source-over";
+            progressCtx.fillStyle = "#000";
+            progressCtx.fillRect(0, 0, 96, 96);
+
             scratchCanvas.style.opacity = "1";
             scratchCanvas.style.pointerEvents = "auto";
         }
@@ -598,12 +601,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function erase(point, fromPoint) {
             const radius = Math.max(24, Math.min(scratchCard.clientWidth * .07, 48));
+
+            // Visible high-resolution scratch surface.
             ctx.save();
             ctx.globalCompositeOperation = "destination-out";
             ctx.lineCap = "round";
             ctx.lineJoin = "round";
             ctx.lineWidth = radius * 2;
-
             ctx.beginPath();
             if (fromPoint) {
                 ctx.moveTo(fromPoint.x, fromPoint.y);
@@ -613,6 +617,26 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             ctx.stroke();
             ctx.restore();
+
+            // Mirror the same stroke onto the tiny progress map.
+            const rw = Math.max(1, scratchCard.clientWidth);
+            const rh = Math.max(1, scratchCard.clientHeight);
+            const sx = 96 / rw;
+            const sy = 96 / rh;
+            progressCtx.save();
+            progressCtx.globalCompositeOperation = "destination-out";
+            progressCtx.lineCap = "round";
+            progressCtx.lineJoin = "round";
+            progressCtx.lineWidth = radius * 2 * Math.max(sx, sy);
+            progressCtx.beginPath();
+            if (fromPoint) {
+                progressCtx.moveTo(fromPoint.x * sx, fromPoint.y * sy);
+                progressCtx.lineTo(point.x * sx, point.y * sy);
+            } else {
+                progressCtx.arc(point.x * sx, point.y * sy, radius * Math.max(sx, sy), 0, Math.PI * 2);
+            }
+            progressCtx.stroke();
+            progressCtx.restore();
         }
 
         function hideHint() {
@@ -625,10 +649,11 @@ document.addEventListener("DOMContentLoaded", () => {
         function revealIfNeeded() {
             if (revealed) return;
 
-            const image = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height).data;
-            const w = scratchCanvas.width;
-            const h = scratchCanvas.height;
-            const step = Math.max(8, Math.floor(Math.min(w, h) / 42));
+            // Read only the tiny progress map, not the full visible canvas.
+            const image = progressCtx.getImageData(0, 0, 96, 96).data;
+            const w = 96;
+            const h = 96;
+            const step = 2;
             let transparent = 0;
             let samples = 0;
 
@@ -653,6 +678,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 scratchCanvas.style.opacity = "0";
                 scratchCanvas.style.pointerEvents = "none";
                 if (scratchHint) scratchHint.style.display = "none";
+
+                // Preserve the existing completion state without running another
+                // full-canvas progress scan.
+                scratchCanvas.classList.add("scratch-complete", "revealed");
+                const dateContent =
+                    document.querySelector(".scratch-date-content") ||
+                    document.querySelector(".scratch-reveal-content");
+                if (dateContent) dateContent.classList.add("revealed");
 
                 // Reliable sparkle celebration.
                 if (typeof window.launchWeddingCelebration === "function") {
