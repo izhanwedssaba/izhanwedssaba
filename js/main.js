@@ -344,13 +344,12 @@ function beginSmoothInvitationTransition() {
         });
     });
 
-    // Remove the opening layer only after both fade animations finish.
-    window.setTimeout(() => {
-        if (opening) {
-            opening.style.setProperty("display", "none", "important");
-            opening.style.setProperty("pointer-events", "none", "important");
-        }
-    }, 820);
+    // IMPORTANT: the opening scene is only torn down (display:none, scroll
+    // unlock) once the cross-fade has had time to fully finish. Doing this
+    // any earlier is what used to cause the hard "teleport" cut straight to
+    // page 2, because html.invitation-open forces #opening-screen to
+    // display:none, and display:none cannot be transitioned/animated.
+    window.setTimeout(finalizeInvitationHandoff, 900);
 }
 
 
@@ -394,19 +393,22 @@ document.addEventListener("DOMContentLoaded", () => {
 }, { once: true });
 
 /* ==========================================================
-   SAFE SCROLL UNLOCK
-   Called only after the envelope animation has completed.
+   FINAL HANDOFF CLEANUP
+   Called only once the cross-fade animation has visually finished,
+   so nothing ever pops/teleports — the opening scene is already
+   fully faded out by the time it's removed from layout.
    ========================================================== */
-function unlockInvitationScrollAfterEnvelope() {
+function finalizeInvitationHandoff() {
     const root = document.documentElement;
     const body = document.body;
     const website = document.getElementById("website");
+    const opening = document.getElementById("opening-screen");
 
     root.classList.add("invitation-open");
     body.classList.remove("opening-locked-page");
     body.classList.add("invitation-reveal");
 
-    // Release the first-page mobile scroll lock now, not when the envelope is tapped.
+    // Release the first-page mobile scroll lock now that the crossfade is done.
     body.style.removeProperty("position");
     body.style.removeProperty("inset");
     body.style.removeProperty("height");
@@ -428,6 +430,14 @@ function unlockInvitationScrollAfterEnvelope() {
         website.style.setProperty("max-height", "none", "important");
         website.style.setProperty("overflow", "visible", "important");
     }
+
+    // Only now is it safe to fully remove the opening scene from layout.
+    if (opening) {
+        opening.style.setProperty("display", "none", "important");
+        opening.style.setProperty("pointer-events", "none", "important");
+    }
+
+    window.scrollTo({ top: 0, behavior: "auto" });
 }
 
 
@@ -467,25 +477,20 @@ document.addEventListener("DOMContentLoaded", () => {
             if (invitationOpening) return;
             invitationOpening = true;
 
-            // Stop floating and begin the physical envelope opening.
+            // Stage 1: seal releases, flap opens, the letter rises out of
+            // the envelope. (~1.5s, timed to the CSS animations below.)
             enterBtn.classList.remove("envelope-exit");
             enterBtn.classList.add("opening");
             enterBtn.setAttribute("aria-disabled", "true");
 
-            // Keep the fully opened envelope visible during the handoff.
-            // Page 2 will fade in underneath before the opening scene disappears.
-
-            // Only after the envelope animation is complete, reveal page 2.
+            // Stage 2: once the flap is fully open and the letter has
+            // risen, let the whole envelope drift upward and away while
+            // the invitation crossfades in underneath it — a single
+            // continuous motion instead of a cut.
             window.setTimeout(() => {
-                unlockInvitationScrollAfterEnvelope();
+                enterBtn.classList.add("envelope-exit");
                 beginSmoothInvitationTransition();
-            }, 2550);
-
-            // Remove the opening overlay after its fade, then ensure page 2 is active.
-            window.setTimeout(() => {
-                unlockInvitationScrollAfterEnvelope();
-                window.scrollTo({ top: 0, behavior: "auto" });
-            }, 3250);
+            }, 1500);
         };
 
         const triggerOpen = (event) => {
