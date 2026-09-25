@@ -266,7 +266,11 @@ HERO
 
     font-family:'Cinzel',serif;
 
-    font-size:38px;
+    font-size:24px;
+
+    letter-spacing:5px;
+
+    text-transform:uppercase;
 
     color:var(--gold);
 
@@ -646,7 +650,9 @@ RESPONSIVE
 
 .ampersand{
 
-    font-size:28px;
+    font-size:20px;
+
+    letter-spacing:3px;
 
 }
 
@@ -898,15 +904,17 @@ RESPONSIVE
     }
 
     .couple-name {
-        font-size: 48px;
+        font-size: 34px;
         line-height: 1.2;
         margin: 18px 0;
         word-break: normal;
     }
 
     .ampersand {
-        font-size: 38px;
-        margin: 22px 0;
+        font-size: 20px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        margin: 16px 0;
     }
 
     .date {
@@ -3636,7 +3644,16 @@ body.transition-handoff #opening-screen.cinematic-fade
     clip-path: none !important;
 }
 
-/* The scratch canvas itself defines the visible heart surface. */
+/* The scratch canvas itself defines the visible heart surface.
+   NOTE: clip-path + box-shadow were deliberately removed from this element.
+   #scratchCanvas is redrawn on every scratch stroke; keeping an expensive
+   path-based clip-path (plus a box-shadow) directly on a constantly
+   repainting canvas forces the browser to recompute the mask/shadow layer
+   on every frame, which is what caused the scratch-to-reveal lag on
+   mobile. The heart silhouette is already fully provided by the parent
+   #scratchCard, which clips its own overflow to the same heart shape
+   (see the "FINAL HEART SCRATCH" rules below), so visually nothing
+   changes -- only the perf cost goes away. */
 #scratchCanvas,
 .scratch-canvas {
     position: absolute !important;
@@ -3645,13 +3662,8 @@ body.transition-handoff #opening-screen.cinematic-fade
     width: 100% !important;
     height: 100% !important;
     border-radius: 0 !important;
-    overflow: hidden !important;
-    clip-path: path("M 50 92 C 42 82, 4 62, 4 30 C 4 10, 20 2, 34 2 C 42 2, 48 6, 50 12 C 52 6, 58 2, 66 2 C 80 2, 96 10, 96 30 C 96 62, 58 82, 50 92 Z") !important;
     transform: scale(1.06) !important;
     transform-origin: center center !important;
-    box-shadow:
-        0 18px 42px rgba(170,93,110,.22),
-        0 0 28px rgba(242,193,202,.34) !important;
 }
 
 /* WebKit/SVG-safe heart fallback for mobile browsers. */
@@ -3790,7 +3802,10 @@ body.transition-handoff #opening-screen.cinematic-fade
     z-index: 3 !important;
     width: 100% !important;
     height: 100% !important;
-    clip-path: inherit !important;
+    /* No clip-path here on purpose -- see the note above #scratchCanvas.
+       #scratchCard already clips to the heart shape via overflow:hidden
+       + its own clip-path, so the canvas is visually clipped for free
+       without paying the per-stroke mask-recompute cost. */
     border-radius: 0 !important;
     touch-action: none !important;
 }
