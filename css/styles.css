@@ -341,6 +341,48 @@ COUNTDOWN
 
     margin:26px auto 0;
 
+    transition: opacity .6s ease, transform .6s ease, filter .6s ease;
+
+}
+
+/* The moment the wedding day arrives, the ticking numbers dissolve
+   away instead of being cut instantly with display:none. */
+.countdown.countdown-complete{
+    opacity: 0;
+    transform: translateY(-14px) scale(.94);
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+/* "Alhamdulillah" message rises in softly once the countdown has faded. */
+#countdown-message{
+    opacity: 0;
+    transform: translateY(22px) scale(.97);
+    transition: opacity 1s cubic-bezier(.22,.75,.25,1), transform 1s cubic-bezier(.22,.75,.25,1);
+}
+
+#countdown-message.revealed{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+#countdown-message.revealed h2{
+    animation: countdownMessageGlow 2.6s ease-in-out .4s infinite;
+}
+
+@keyframes countdownMessageGlow{
+    0%, 100% { text-shadow: 0 0 0 rgba(181,139,72,0); }
+    50%      { text-shadow: 0 0 18px rgba(181,139,72,.45); }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .countdown,
+    #countdown-message,
+    #countdown-message.revealed h2{
+        transition: none !important;
+        animation: none !important;
+        filter: none !important;
+    }
 }
 
 .count-item{
