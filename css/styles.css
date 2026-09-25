@@ -3698,7 +3698,7 @@ body.transition-handoff #opening-screen.cinematic-fade
 
 #scratchCard.scratch-card {
     position: relative !important;
-    width: min(92vw, 430px) !important;
+    width: min(92vw, 430px, 100%) !important;
     aspect-ratio: 1 / .92 !important;
     min-height: 0 !important;
     height: auto !important;
