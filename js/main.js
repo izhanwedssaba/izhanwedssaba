@@ -116,12 +116,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { passive: true });
     });
 
-    // Also check periodically while the user is actively scratching.
-    ["pointermove", "touchmove", "mousemove"].forEach(type => {
-        canvas.addEventListener(type, () => {
-            window.setTimeout(checkProgress, 0);
-        }, { passive: true });
-    });
+    // Do NOT run getImageData() on every pointermove.
+    // That caused mobile scratching to lag because each finger movement
+    // queued another full-canvas pixel scan. Check at most once per frame.
+    let progressCheckQueued = false;
+
+    const queueProgressCheck = () => {
+        if (progressCheckQueued || celebrated) return;
+        progressCheckQueued = true;
+
+        requestAnimationFrame(() => {
+            progressCheckQueued = false;
+            checkProgress();
+        });
+    };
+
+    canvas.addEventListener("pointermove", queueProgressCheck, { passive: true });
 
     // Class observer fallback.
     new MutationObserver(() => {
