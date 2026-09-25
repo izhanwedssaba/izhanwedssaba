@@ -341,6 +341,11 @@ function beginSmoothInvitationTransition() {
             if (opening) {
                 opening.classList.add("transitioning", "cinematic-fade");
             }
+
+            // Now that the hero is actually becoming visible, play its
+            // entrance instead of having already played it silently
+            // behind the envelope at page load.
+            playHeroEntrance();
         });
     });
 
@@ -884,6 +889,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         secondsEl.textContent = String(seconds).padStart(2, "0");
 
+        // Small living "tick" on the seconds tile so the countdown feels
+        // alive rather than a static number that jumps once a minute.
+        const secondsTile = secondsEl.closest(".count-item");
+        if (secondsTile) {
+            secondsTile.classList.remove("tick");
+            void secondsTile.offsetWidth; // restart the CSS animation
+            secondsTile.classList.add("tick");
+        }
+
     }
 
     updateCountdown();
@@ -952,32 +966,30 @@ if (calendarBtn) {
 
 /* ======================================================
    HERO STAGGER ANIMATION
+   Runs the moment the invitation actually becomes visible
+   (see beginSmoothInvitationTransition -> playHeroEntrance),
+   not at page load while it's still hidden behind the envelope.
 ====================================================== */
 
-window.addEventListener("load", () => {
+function playHeroEntrance() {
+    const heroContent = document.querySelector(".hero-reveal");
+    if (heroContent) heroContent.classList.add("active");
 
-    const heroItems=document.querySelectorAll(
-".hero-top,.couple-name,.ampersand,.date,.countdown"
-);
+    const heroItems = document.querySelectorAll(
+        ".hero-top,.couple-name,.ampersand,.date,.countdown"
+    );
 
-heroItems.forEach((item,index)=>{
+    heroItems.forEach((item, index) => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(25px)";
 
-    item.style.opacity="0";
-    item.style.transform="translateY(25px)";
-
-    setTimeout(()=>{
-
-        item.style.transition="all .9s ease";
-
-        item.style.opacity="1";
-
-        item.style.transform="translateY(0)";
-
-    },400+(index*220));
-
-});
-
-});
+        setTimeout(() => {
+            item.style.transition = "all .9s ease";
+            item.style.opacity = "1";
+            item.style.transform = "translateY(0)";
+        }, 250 + (index * 200));
+    });
+}
 
 /* ======================================================
    SMOOTH BUTTON HOVER
