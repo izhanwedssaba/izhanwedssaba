@@ -827,6 +827,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const secondsEl = document.getElementById("seconds");
 
     const message = document.getElementById("countdown-message");
+    let weddingDayCelebrated = false;
 
     function updateCountdown() {
 
@@ -836,20 +837,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (distance <= 0) {
 
-            document.querySelector(".countdown").style.display = "none";
+            if (!weddingDayCelebrated) {
+                weddingDayCelebrated = true;
 
-            message.innerHTML = `
+                const countdownEl = document.querySelector(".countdown");
 
-            <h2 style="color:#0F5132;margin-top:25px;">
-            ✨ Alhamdulillah!
-            </h2>
+                // Fade the ticking numbers out instead of cutting them
+                // with display:none, then reveal the message once that
+                // fade has actually had time to finish.
+                if (countdownEl) {
+                    countdownEl.classList.add("countdown-complete");
+                    window.setTimeout(() => {
+                        countdownEl.style.display = "none";
+                    }, 650);
+                }
 
-            <p style="margin-top:15px;font-size:18px;line-height:1.8;">
-            Today marks the beginning of our beautiful journey together.<br>
-            Please keep us in your duas. 🤍
-            </p>
+                message.innerHTML = `
 
-            `;
+                <h2 style="color:#0F5132;margin-top:25px;">
+                ✨ Alhamdulillah!
+                </h2>
+
+                <p style="margin-top:15px;font-size:18px;line-height:1.8;">
+                Today marks the beginning of our beautiful journey together.<br>
+                Please keep us in your duas. 🤍
+                </p>
+
+                `;
+
+                // Wait a beat so the message rises in just as the numbers
+                // finish fading away, rather than both happening at once.
+                window.setTimeout(() => {
+                    message.classList.add("revealed");
+                }, 350);
+            }
 
             return;
 
